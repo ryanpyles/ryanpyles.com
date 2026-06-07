@@ -61,13 +61,13 @@
 }
 
 .author span {
-  color: rgba(245, 245, 245, 0.7);
+  color: color-mix(in srgb, var(--color-white) 70%, transparent);
 }
 
 .description {
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
-  color: rgba(245, 245, 245, 0.6);
+  color: color-mix(in srgb, var(--color-white) 60%, transparent);
   flex: 1;
 }
 
@@ -82,7 +82,7 @@
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border: 1px solid rgba(245, 245, 245, 0.25);
+  border: 1px solid color-mix(in srgb, var(--color-white) 25%, transparent);
   color: var(--color-white);
   transition:
     border-color var(--duration-fast) var(--ease-out),

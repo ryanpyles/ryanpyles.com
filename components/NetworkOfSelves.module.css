@@ -1,0 +1,133 @@
+.root {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-8) var(--space-4);
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.intro {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
+  color: color-mix(in srgb, var(--color-white) 62%, transparent);
+  max-width: 480px;
+}
+
+.canvasWrap {
+  width: 100%;
+  height: 64vh;
+  min-height: 360px;
+}
+
+.canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.fallback {
+  display: none;
+}
+
+/* ---------- NotebookPanel children ---------- */
+
+.notebookBlock {
+  margin-top: var(--space-5);
+}
+
+.notebookLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  margin-bottom: var(--space-2);
+}
+
+.notebookList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notebookList li {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  font-style: italic;
+  color: var(--ink);
+  padding-left: var(--space-3);
+  border-left: 2px solid color-mix(in srgb, var(--brass) 50%, transparent);
+}
+
+/* ---------- Mobile fallback ---------- */
+
+@media (max-width: 768px) {
+  .root {
+    padding: var(--space-12) var(--space-6);
+  }
+
+  .canvasWrap {
+    display: none;
+  }
+
+  .fallback {
+    display: block;
+    margin-top: var(--space-6);
+  }
+}
+
+.fallbackList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.fallbackEntry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.fallbackEntry dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
+
+.fallbackEntry dd {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
+  color: color-mix(in srgb, var(--color-white) 65%, transparent);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .root {
+    padding: var(--space-10) var(--space-4);
+  }
+}

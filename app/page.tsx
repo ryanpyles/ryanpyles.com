@@ -4,34 +4,43 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
-import BookCard from "@/components/BookCard";
 import ProjectCard from "@/components/ProjectCard";
+import CurrentWorkCard from "@/components/CurrentWorkCard";
+import WritingArtifactCard from "@/components/WritingArtifactCard";
+import FieldNoteCard from "@/components/FieldNoteCard";
+import Reveal from "@/components/Reveal";
 import { ryanBooks } from "@/content/books";
+import { currentWork } from "@/content/currentWork";
+import { fieldNotes } from "@/content/fieldNotes";
 import { buildPersonJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
 import type { Project } from "@/components/ProjectCard";
 
-const BlobNav = dynamic(() => import("@/components/BlobNav"), {
-  ssr: false,
-  loading: () => null,
-});
-const BlobNavFallback = dynamic(
-  () => import("@/components/BlobNav").then((m) => ({ default: m.BlobNavFallback })),
-  { ssr: false }
-);
 const LanguageSwitcher = dynamic(() => import("@/components/LanguageSwitcher"), {
   ssr: false,
 });
+const LivingManuscript = dynamic(() => import("@/components/LivingManuscript"), {
+  ssr: false,
+  loading: () => null,
+});
+const LanguageOrrery = dynamic(() => import("@/components/LanguageOrrery"), {
+  ssr: false,
+  loading: () => null,
+});
+const NetworkOfSelves = dynamic(() => import("@/components/NetworkOfSelves"), {
+  ssr: false,
+  loading: () => null,
+});
 
 export const metadata: Metadata = {
-  title: "Ryan J. Pyles — Author & Web Developer",
+  title: "Ryan Pyles — Author, Software Engineer, Linguist",
   description:
-    "Ryan J. Pyles is an experimental fiction author and web developer based in Chicago. Writing, systems, and design that hold up under scrutiny.",
+    "Ryan Pyles writes experimental fiction, builds web systems, studies languages, and collects strange structures. A personal archive of work in progress.",
   keywords: [
-    "Ryan J. Pyles author",
+    "Ryan Pyles author",
     "experimental fiction",
-    "web developer Chicago",
-    "brand design",
+    "software engineer Chicago",
+    "linguist",
     "literary fiction",
   ],
 };
@@ -46,7 +55,7 @@ const featuredProjects: Project[] = [
     year: "2025",
   },
   {
-    slug: "language-engine",
+    slug: "language-typography-engine",
     title: "Multi-Language Typography Engine",
     description:
       "RTL support, CJK font stacks, and localized typography across eleven languages with localStorage persistence and browser detection.",
@@ -75,28 +84,40 @@ export default function HomePage() {
 
       {/* Hero */}
       <section className={styles.hero}>
-        <div className={styles.heroInner}>
-          <div className={styles.heroText}>
-            <h1 className={styles.heroTitle}>Ryan J. Pyles</h1>
-            <p className={styles.heroSub}>Writing. Systems. Design.</p>
-            <p className={styles.heroCopy}>
-              I build things that hold up under scrutiny.
-            </p>
-            <div className={styles.heroCtas}>
-              <Link href="/contact" className={styles.ctaPrimary}>
-                Work with me
-              </Link>
-              <Link href="/books" className={styles.ctaSecondary}>
-                View books
-              </Link>
-            </div>
-          </div>
+        <LivingManuscript />
 
-          <div className={styles.heroBlobWrap}>
-            <BlobNav domain="ryan" />
-            <div className={styles.heroBlobFallback}>
-              <BlobNavFallback domain="ryan" />
-            </div>
+        <div className={styles.heroInner}>
+          <h1 className={styles.heroTitle}>Ryan Pyles</h1>
+          <p className={styles.heroSub}>Author. Software Engineer. Linguist.</p>
+          <p className={styles.heroCopy}>
+            I write experimental fiction, build web systems, study languages,
+            and collect strange structures.
+          </p>
+
+          <div className={styles.currently}>
+            <span className={styles.currentlyLabel}>Currently:</span>
+            <ul className={styles.currentlyList}>
+              <li>
+                <Link href="#current-work" className={styles.currentlyLink}>
+                  → Babel Threshold
+                </Link>
+              </li>
+              <li>
+                <Link href="#current-work" className={styles.currentlyLink}>
+                  → Liminal 6:17
+                </Link>
+              </li>
+              <li>
+                <Link href="#current-work" className={styles.currentlyLink}>
+                  → FORMÆTRIX
+                </Link>
+              </li>
+              <li>
+                <Link href="#current-work" className={styles.currentlyLink}>
+                  → Language Research
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -105,32 +126,79 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Books */}
-      <Section id="books">
-        <header className={styles.sectionHeader}>
-          <h2>Books</h2>
-          <Link href="/books" className={styles.sectionLink}>
-            All titles →
-          </Link>
-        </header>
-        <div className={styles.bookList}>
-          {ryanBooks.map((book) => (
-            <BookCard key={book.slug} book={book} />
+      <LanguageOrrery />
+
+      {/* Current Work */}
+      <Section id="current-work">
+        <Reveal>
+          <header className={styles.sectionHeader}>
+            <h2>Current Work</h2>
+          </header>
+        </Reveal>
+        <div className={styles.currentWorkList}>
+          {currentWork.map((item, i) => (
+            <Reveal key={item.slug} delay={i * 60}>
+              <CurrentWorkCard item={item} />
+            </Reveal>
           ))}
         </div>
       </Section>
 
-      {/* Projects */}
+      <NetworkOfSelves />
+
+      {/* Writing */}
+      <Section id="writing">
+        <Reveal>
+          <header className={styles.sectionHeader}>
+            <h2>Writing</h2>
+            <Link href="/books" className={styles.sectionLink}>
+              All titles →
+            </Link>
+          </header>
+        </Reveal>
+        <div className={styles.writingList}>
+          {ryanBooks.map((book, i) => (
+            <Reveal key={book.slug} delay={i * 70}>
+              <WritingArtifactCard book={book} />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Field Notes */}
+      <Section id="field-notes">
+        <Reveal>
+          <header className={styles.sectionHeader}>
+            <h2>Field Notes</h2>
+            <Link href="/field-notes" className={styles.sectionLink}>
+              Archive →
+            </Link>
+          </header>
+        </Reveal>
+        <div className={styles.fieldNoteGrid}>
+          {fieldNotes.map((note, i) => (
+            <Reveal key={note.slug} delay={i * 80}>
+              <FieldNoteCard note={note} />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Selected Projects */}
       <Section id="projects">
-        <header className={styles.sectionHeader}>
-          <h2>Selected Work</h2>
-          <Link href="/projects" className={styles.sectionLink}>
-            All projects →
-          </Link>
-        </header>
+        <Reveal>
+          <header className={[styles.sectionHeader, styles.sectionHeaderQuiet].join(" ")}>
+            <h2>Selected Projects</h2>
+            <Link href="/projects" className={styles.sectionLink}>
+              All projects →
+            </Link>
+          </header>
+        </Reveal>
         <div className={styles.projectGrid}>
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+          {featuredProjects.map((project, i) => (
+            <Reveal key={project.slug} delay={i * 60}>
+              <ProjectCard project={project} />
+            </Reveal>
           ))}
         </div>
       </Section>

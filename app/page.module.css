@@ -1,26 +1,23 @@
 .hero {
-  min-height: calc(100dvh - var(--nav-height));
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: var(--space-20) var(--space-8);
   position: relative;
+  overflow: hidden;
   max-width: var(--max-width);
   margin: 0 auto;
   width: 100%;
 }
 
 .heroInner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-16);
-  align-items: center;
-}
-
-.heroText {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  max-width: 640px;
+  position: relative;
+  z-index: 1;
 }
 
 .heroTitle {
@@ -35,72 +32,60 @@
 .heroSub {
   font-family: var(--font-sans);
   font-size: var(--text-lg);
-  color: rgba(245, 245, 245, 0.55);
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
   letter-spacing: 0.02em;
 }
 
 .heroCopy {
   font-family: var(--font-serif);
   font-size: var(--text-xl);
-  color: rgba(245, 245, 245, 0.75);
+  color: color-mix(in srgb, var(--color-white) 75%, transparent);
   font-style: italic;
   margin-top: var(--space-2);
   line-height: var(--leading-snug);
 }
 
-.heroCtas {
+.currently {
   display: flex;
-  gap: var(--space-4);
-  margin-top: var(--space-6);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
 }
 
-.ctaPrimary {
+.currentlyLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.currentlyList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.currentlyLink {
   display: inline-block;
-  padding: var(--space-3) var(--space-8);
-  background-color: var(--color-white);
-  color: var(--color-black);
   font-family: var(--font-sans);
   font-size: var(--text-sm);
-  letter-spacing: 0.06em;
-  transition: background-color var(--duration-fast) var(--ease-out),
-              color var(--duration-fast) var(--ease-out);
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--color-white) 70%, transparent);
+  transition: color var(--duration-fast) var(--ease-out),
+              padding-left var(--duration-fast) var(--ease-out);
 }
 
-.ctaPrimary:hover {
-  background-color: var(--color-accent);
-  color: var(--color-white);
-}
-
-.ctaSecondary {
-  display: inline-block;
-  padding: var(--space-3) var(--space-8);
-  border: 1px solid rgba(245, 245, 245, 0.25);
-  color: var(--color-white);
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  letter-spacing: 0.06em;
-  transition: border-color var(--duration-fast) var(--ease-out);
-}
-
-.ctaSecondary:hover {
-  border-color: var(--color-white);
-}
-
-.heroBlobWrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.heroBlobFallback {
-  display: none;
+.currentlyLink:hover {
+  color: var(--color-accent);
+  padding-left: var(--space-2);
 }
 
 .langWrap {
   position: absolute;
   bottom: var(--space-6);
   right: var(--space-8);
+  z-index: 1;
 }
 
 .sectionHeader {
@@ -110,6 +95,19 @@
   margin-bottom: var(--space-10);
   padding-bottom: var(--space-4);
   border-bottom: 1px solid var(--color-border);
+}
+
+.sectionHeaderQuiet {
+  border-bottom-color: color-mix(in srgb, var(--color-white) 8%, transparent);
+}
+
+.sectionHeaderQuiet h2 {
+  font-family: var(--font-mono);
+  font-size: var(--text-md);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
 
 .sectionLink {
@@ -124,9 +122,20 @@
   color: var(--color-white);
 }
 
-.bookList {
+.currentWorkList {
   display: flex;
   flex-direction: column;
+}
+
+.writingList {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldNoteGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
 }
 
 .projectGrid {
@@ -142,16 +151,8 @@
 }
 
 @media (max-width: 768px) {
-  .heroInner {
+  .fieldNoteGrid {
     grid-template-columns: 1fr;
-  }
-
-  .heroBlobWrap {
-    display: none;
-  }
-
-  .heroBlobFallback {
-    display: block;
   }
 
   .projectGrid {

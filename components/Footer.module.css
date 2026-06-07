@@ -30,13 +30,36 @@
   color: var(--color-muted);
 }
 
+.location {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.roles {
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+}
+
+.obsession {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  font-style: italic;
+  line-height: var(--leading-snug);
+  max-width: 480px;
+  color: color-mix(in srgb, var(--color-white) 70%, transparent);
+}
+
 .formaetrixLink {
   display: inline-block;
   margin-top: var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.1em;
-  color: rgba(245, 245, 245, 0.4);
+  color: color-mix(in srgb, var(--color-white) 40%, transparent);
   transition: color var(--duration-fast) var(--ease-out);
 }
 
@@ -61,7 +84,7 @@
 .credit {
   margin-top: var(--space-2);
   font-size: var(--text-xs);
-  color: rgba(245, 245, 245, 0.3);
+  color: color-mix(in srgb, var(--color-white) 30%, transparent);
 }
 
 .creditLink {
@@ -69,12 +92,12 @@
 }
 
 .creditLink:hover {
-  color: rgba(245, 245, 245, 0.7);
+  color: color-mix(in srgb, var(--color-white) 70%, transparent);
 }
 
 .copy {
   font-size: var(--text-xs);
-  color: rgba(245, 245, 245, 0.25);
+  color: color-mix(in srgb, var(--color-white) 25%, transparent);
   letter-spacing: 0.04em;
 }
 

@@ -11,7 +11,7 @@
 }
 
 .nav.scrolled {
-  background-color: rgba(10, 10, 10, 0.92);
+  background-color: color-mix(in srgb, var(--color-black) 92%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom-color: var(--color-border);
@@ -57,7 +57,7 @@
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   letter-spacing: 0.04em;
-  color: rgba(245, 245, 245, 0.6);
+  color: color-mix(in srgb, var(--color-white) 60%, transparent);
   transition: color var(--duration-fast) var(--ease-out);
   position: relative;
 }
@@ -127,7 +127,7 @@
     top: var(--nav-height);
     left: 0;
     right: 0;
-    background-color: rgba(10, 10, 10, 0.97);
+    background-color: color-mix(in srgb, var(--color-black) 97%, transparent);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     flex-direction: column;

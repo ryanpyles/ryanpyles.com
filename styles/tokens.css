@@ -8,6 +8,14 @@
   --color-border: rgba(245, 245, 245, 0.12);
   --color-surface: rgba(245, 245, 245, 0.04);
 
+  /* Manuscript palette — used by the ryan domain (see [data-domain="ryan"] below) */
+  --paper: #f5f1ea;
+  --ink: #1a1a1a;
+  --charcoal: #303030;
+  --dust: #b7b0a5;
+  --oxide: #a14b2b;
+  --brass: #c69c5d;
+
   /* Typography */
   --font-serif: "Adobe Garamond Pro", Georgia, "Times New Roman", serif;
   --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;

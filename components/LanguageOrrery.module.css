@@ -1,0 +1,210 @@
+/* Must match the SKY constant (#0c0e16) in LanguageOrrery.tsx */
+.root {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #0c0e16;
+}
+
+.canvasWrap {
+  position: absolute;
+  inset: 0;
+}
+
+.canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.caption {
+  position: absolute;
+  left: var(--space-8);
+  bottom: var(--space-8);
+  z-index: 1;
+  max-width: 380px;
+  pointer-events: none;
+}
+
+.captionEyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: var(--space-2);
+}
+
+.captionBody {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  font-style: italic;
+  line-height: var(--leading-snug);
+  color: color-mix(in srgb, var(--paper) 75%, transparent);
+}
+
+.captionHint {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--paper) 58%, transparent);
+}
+
+.captionHintName {
+  color: var(--brass);
+}
+
+.fallback {
+  display: none;
+}
+
+/* ---------- Hover tooltip (drei <Html> overlay) ---------- */
+
+.hoverCard {
+  pointer-events: none;
+  text-align: center;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background-color: rgba(12, 14, 22, 0.84);
+  border: 1px solid rgba(245, 241, 234, 0.18);
+  padding: 6px 10px;
+}
+
+.hoverLevel {
+  color: var(--brass);
+  margin: 0 0 3px;
+}
+
+.hoverFocus {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hoverFocus li {
+  opacity: 0.7;
+}
+
+.hoverFocus li:not(:last-child)::after {
+  content: " · ";
+  margin: 0 4px;
+  opacity: 0.45;
+}
+
+/* ---------- NotebookPanel children ---------- */
+
+.notebookBlock {
+  margin-top: var(--space-5);
+}
+
+.notebookLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  margin-bottom: var(--space-2);
+}
+
+.notebookList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: none;
+  padding: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-md);
+  color: var(--ink);
+}
+
+.notebookChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notebookChips li {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--oxide);
+  border: 1px solid color-mix(in srgb, var(--oxide) 35%, transparent);
+  padding: var(--space-1) var(--space-2);
+}
+
+/* ---------- Mobile fallback ---------- */
+
+@media (max-width: 768px) {
+  .root {
+    height: auto;
+    overflow: visible;
+    padding: var(--space-12) var(--space-6);
+  }
+
+  .canvasWrap,
+  .caption {
+    display: none;
+  }
+
+  .fallback {
+    display: block;
+  }
+}
+
+/* ---------- Fallback content styles ---------- */
+
+.fallbackEyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: var(--space-6);
+}
+
+.fallbackList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.fallbackEntry {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid rgba(245, 241, 234, 0.1);
+}
+
+.fallbackEntry dt {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--paper);
+}
+
+.fallbackEntry dd {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: rgba(245, 241, 234, 0.58);
+  margin: 0;
+}

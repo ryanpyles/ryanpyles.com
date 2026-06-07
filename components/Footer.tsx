@@ -29,8 +29,13 @@ export default function Footer({ domain }: FooterProps) {
           </div>
         ) : (
           <div className={styles.ryanContent}>
-            <p className={styles.name}>Ryan J. Pyles</p>
-            <p className={styles.sub}>Writing. Systems. Design.</p>
+            <p className={styles.name}>Ryan Pyles</p>
+            <p className={styles.location}>Chicago</p>
+            <p className={styles.roles}>Author · Engineer · Linguist</p>
+            <p className={styles.obsession}>
+              Current obsession: How narrative behaves when treated as
+              infrastructure.
+            </p>
             <Link href="/?domain=formaetrix" className={styles.formaetrixLink}>
               FORMÆTRIX →
             </Link>

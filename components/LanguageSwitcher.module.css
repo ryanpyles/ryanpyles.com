@@ -9,7 +9,7 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
-  color: rgba(245, 245, 245, 0.45);
+  color: color-mix(in srgb, var(--color-white) 45%, transparent);
   padding: var(--space-2) var(--space-3);
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
@@ -35,12 +35,12 @@
   position: absolute;
   right: 0;
   top: calc(100% + var(--space-2));
-  background-color: #111111;
+  background-color: var(--color-black);
   border: 1px solid var(--color-border);
   min-width: 180px;
   z-index: 200;
   padding: var(--space-2) 0;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 12px 32px rgba(26, 26, 26, 0.16);
   max-height: 320px;
   overflow-y: auto;
 }
@@ -62,7 +62,7 @@
 
 .option button:hover,
 .option.selected button {
-  background-color: rgba(245, 245, 245, 0.06);
+  background-color: color-mix(in srgb, var(--color-white) 6%, transparent);
 }
 
 .native {

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import styles from "./ProjectCard.module.css";
 
 export interface Project {
@@ -30,17 +31,17 @@ function CardBody({ project }: { project: Project }) {
             </li>
           ))}
         </ul>
-        {project.href && (
-          <span className={styles.arrow} aria-hidden>
-            →
-          </span>
-        )}
+        <span className={styles.arrow} aria-hidden>
+          →
+        </span>
       </footer>
     </>
   );
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  const internalHref = `/projects/${project.slug}`;
+
   return (
     <article className={styles.card}>
       {project.href ? (
@@ -53,9 +54,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <CardBody project={project} />
         </a>
       ) : (
-        <div className={styles.inner}>
+        <Link href={internalHref} className={styles.inner}>
           <CardBody project={project} />
-        </div>
+        </Link>
       )}
     </article>
   );

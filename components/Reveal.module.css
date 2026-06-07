@@ -1,0 +1,26 @@
+.root {
+  width: 100%;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 560ms var(--ease-out) var(--reveal-delay, 0ms),
+    transform 560ms var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hidden {
+    opacity: 0;
+    transform: none;
+  }
+  .visible {
+    transition: opacity 200ms linear var(--reveal-delay, 0ms);
+  }
+}

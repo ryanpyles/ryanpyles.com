@@ -42,7 +42,7 @@ h4 { font-size: var(--text-lg); }
 
 p {
   line-height: var(--leading-relaxed);
-  color: rgba(245, 245, 245, 0.85);
+  color: color-mix(in srgb, var(--color-white) 85%, transparent);
 }
 
 a {
@@ -80,6 +80,21 @@ button {
   --duration-slow: 640ms;
 }
 
+/* Ryan domain modifier — manuscript palette. The literal token names below
+   (black/white) invert in meaning here: --color-black becomes the paper
+   background, --color-white becomes the ink foreground. Every shared
+   component already reads color through these names, so this single block
+   re-skins the entire ryan domain without touching formaetrix. */
+[data-domain="ryan"] {
+  --color-black: var(--paper);
+  --color-white: var(--ink);
+  --color-mid: var(--charcoal);
+  --color-muted: var(--dust);
+  --color-accent: var(--oxide);
+  --color-border: rgba(26, 26, 26, 0.14);
+  --color-surface: rgba(26, 26, 26, 0.035);
+}
+
 /* Selection */
 ::selection {
   background-color: var(--color-accent);
@@ -96,12 +111,12 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(245, 245, 245, 0.2);
+  background: color-mix(in srgb, var(--color-white) 20%, transparent);
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(245, 245, 245, 0.35);
+  background: color-mix(in srgb, var(--color-white) 35%, transparent);
 }
 
 /* Focus reset for mouse users */

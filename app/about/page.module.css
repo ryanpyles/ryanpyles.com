@@ -14,14 +14,14 @@
   font-family: var(--font-serif);
   font-size: var(--text-md);
   line-height: var(--leading-relaxed);
-  color: rgba(245, 245, 245, 0.8);
+  color: color-mix(in srgb, var(--color-white) 80%, transparent);
 }
 
 .subheading {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.2em;
-  color: rgba(245, 245, 245, 0.35);
+  color: color-mix(in srgb, var(--color-white) 35%, transparent);
   margin-top: var(--space-6);
   margin-bottom: calc(-1 * var(--space-2));
 }

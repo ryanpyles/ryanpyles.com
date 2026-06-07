@@ -71,14 +71,14 @@
 }
 
 .author span {
-  color: rgba(245, 245, 245, 0.75);
+  color: color-mix(in srgb, var(--color-white) 75%, transparent);
 }
 
 .date {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.1em;
-  color: rgba(245, 245, 245, 0.3);
+  color: color-mix(in srgb, var(--color-white) 30%, transparent);
 }
 
 .description {
@@ -91,7 +91,7 @@
   font-family: var(--font-serif);
   font-size: var(--text-md);
   line-height: var(--leading-relaxed);
-  color: rgba(245, 245, 245, 0.8);
+  color: color-mix(in srgb, var(--color-white) 80%, transparent);
 }
 
 .actions {
@@ -120,7 +120,7 @@
 .ctaSecondary {
   display: inline-block;
   padding: var(--space-3) var(--space-8);
-  border: 1px solid rgba(245, 245, 245, 0.2);
+  border: 1px solid color-mix(in srgb, var(--color-white) 20%, transparent);
   color: var(--color-white);
   font-family: var(--font-sans);
   font-size: var(--text-sm);
@@ -136,7 +136,7 @@
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.06em;
-  color: rgba(245, 245, 245, 0.25);
+  color: color-mix(in srgb, var(--color-white) 25%, transparent);
 }
 
 .blurbDetails {
@@ -181,7 +181,7 @@ details[open] .blurbSummary::before {
 .blurbContent p {
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
-  color: rgba(245, 245, 245, 0.65);
+  color: color-mix(in srgb, var(--color-white) 65%, transparent);
 }
 
 .blurbContent em {

@@ -1,19 +1,29 @@
 .header {
   margin-bottom: var(--space-12);
+  max-width: 640px;
 }
 
 .intro {
   margin-top: var(--space-4);
   font-family: var(--font-serif);
   font-size: var(--text-lg);
-  color: color-mix(in srgb, var(--color-white) 55%, transparent);
   font-style: italic;
+  line-height: var(--leading-snug);
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+}
+
+.notice {
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-1);
+  gap: var(--space-6);
 }
 
 @media (max-width: 768px) {

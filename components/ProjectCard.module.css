@@ -4,7 +4,7 @@
 }
 
 .card:hover {
-  border-color: rgba(245, 245, 245, 0.25);
+  border-color: color-mix(in srgb, var(--color-white) 25%, transparent);
 }
 
 .inner {
@@ -41,7 +41,7 @@
 .description {
   font-size: var(--text-sm);
   line-height: var(--leading-relaxed);
-  color: rgba(245, 245, 245, 0.6);
+  color: color-mix(in srgb, var(--color-white) 60%, transparent);
   flex: 1;
 }
 
@@ -69,7 +69,7 @@
 
 .arrow {
   font-size: var(--text-base);
-  color: rgba(245, 245, 245, 0.3);
+  color: color-mix(in srgb, var(--color-white) 30%, transparent);
   transition: color var(--duration-fast) var(--ease-out),
               transform var(--duration-fast) var(--ease-out);
   display: inline-block;

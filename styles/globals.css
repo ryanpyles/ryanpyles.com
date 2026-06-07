@@ -73,13 +73,6 @@ button {
   font-family: inherit;
 }
 
-/* Formaetrix domain modifier */
-[data-domain="formaetrix"] {
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --duration-base: 380ms;
-  --duration-slow: 640ms;
-}
-
 /* Ryan domain modifier — manuscript palette. The literal token names below
    (black/white) invert in meaning here: --color-black becomes the paper
    background, --color-white becomes the ink foreground. Every shared

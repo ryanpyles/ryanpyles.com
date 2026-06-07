@@ -24,7 +24,7 @@ export const currentWork: CurrentWorkItem[] = [
     title: "FORMÆTRIX",
     status: "Active",
     type: "Studio",
-    href: "/?domain=formaetrix",
+    href: "https://www.formaetrix.com",
   },
   {
     slug: "language-research",

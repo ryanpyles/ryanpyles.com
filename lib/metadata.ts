@@ -1,36 +1,23 @@
 import type { Metadata } from "next";
 import type { Book } from "@/content/books/types";
 
-const siteBase = {
-  ryan: {
-    name: "Ryan J. Pyles",
-    url: "https://ryanpyles.com",
-    description:
-      "Ryan J. Pyles — author of experimental fiction, web developer, and brand designer based in Chicago.",
-    twitterHandle: "@ryanpyles",
-  },
-  formaetrix: {
-    name: "FORMÆTRIX",
-    url: "https://formaetrix.com",
-    description:
-      "FORMÆTRIX is an imprint publishing language-bound realities. Home of Elian Voigt.",
-    twitterHandle: "@formaetrix",
-  },
+const site = {
+  name: "Ryan J. Pyles",
+  url: "https://ryanpyles.com",
+  description:
+    "Ryan J. Pyles — author of experimental fiction, software engineer, and linguist based in Chicago.",
+  twitterHandle: "@ryanpyles",
 };
 
-export function buildPageMetadata(
-  domain: "ryan" | "formaetrix",
-  overrides: {
-    title: string;
-    description: string;
-    path?: string;
-    ogImage?: string;
-  }
-): Metadata {
-  const site = siteBase[domain];
+export function buildPageMetadata(overrides: {
+  title: string;
+  description: string;
+  path?: string;
+  ogImage?: string;
+}): Metadata {
   const fullTitle = `${overrides.title} | ${site.name}`;
   const url = `${site.url}${overrides.path ?? ""}`;
-  const ogImage = overrides.ogImage ?? `/og/${domain}-default.jpg`;
+  const ogImage = overrides.ogImage ?? `/og/ryan-default.jpg`;
 
   return {
     title: fullTitle,
@@ -62,8 +49,6 @@ export function buildPageMetadata(
 }
 
 export function buildBookMetadata(book: Book): Metadata {
-  const domain = book.theme;
-  const site = siteBase[domain];
   const fullTitle = `${book.title} by ${book.author} | ${site.name}`;
   const url = `${site.url}/books/${book.slug}`;
 
@@ -117,8 +102,8 @@ export function buildBookJsonLd(book: Book): string {
     image: book.coverImage,
     ...(book.isbn ? { isbn: book.isbn } : {}),
     publisher: {
-      "@type": "Organization",
-      name: book.theme === "ryan" ? "Ryan J. Pyles" : "FORMÆTRIX",
+      "@type": "Person",
+      name: "Ryan J. Pyles",
     },
     inLanguage: "en",
     genre: book.keywords[0] ?? "Literary Fiction",
@@ -132,30 +117,15 @@ export function buildPersonJsonLd(): string {
     "@type": "Person",
     name: "Ryan J. Pyles",
     url: "https://ryanpyles.com",
-    sameAs: [],
-    jobTitle: "Author & Web Developer",
+    sameAs: ["https://www.formaetrix.com"],
+    jobTitle: "Author, Software Engineer & Linguist",
     description:
-      "Ryan J. Pyles is an experimental fiction author and web developer based in Chicago, Illinois.",
+      "Ryan J. Pyles is an experimental fiction author, software engineer, and linguist based in Chicago, Illinois.",
     knowsAbout: [
       "Experimental Fiction",
-      "Web Development",
-      "Brand Design",
+      "Software Engineering",
+      "Linguistics",
       "Systems Thinking",
     ],
-  });
-}
-
-export function buildOrganizationJsonLd(): string {
-  return JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "FORMÆTRIX",
-    url: "https://formaetrix.com",
-    description:
-      "FORMÆTRIX is an imprint dedicated to publishing language-bound realities and experimental literary fiction.",
-    founder: {
-      "@type": "Person",
-      name: "Ryan J. Pyles",
-    },
   });
 }

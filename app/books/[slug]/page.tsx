@@ -28,10 +28,9 @@ export default function BookPage({ params }: Params) {
   if (!book) notFound();
 
   const jsonLd = buildBookJsonLd(book);
-  const domain = book.theme;
 
   return (
-    <SiteLayout domain={domain}>
+    <SiteLayout>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd }}
@@ -44,7 +43,7 @@ export default function BookPage({ params }: Params) {
           </Link>
         </div>
 
-        <article className={[styles.article, styles[domain]].join(" ")}>
+        <article className={[styles.article, styles["ryan"]].join(" ")}>
           <div className={styles.coverCol}>
             <div className={styles.coverWrap}>
               <Image

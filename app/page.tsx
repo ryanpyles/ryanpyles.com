@@ -76,7 +76,7 @@ export default function HomePage() {
   const jsonLd = buildPersonJsonLd();
 
   return (
-    <SiteLayout domain="ryan">
+    <SiteLayout>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd }}

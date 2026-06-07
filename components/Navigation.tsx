@@ -3,38 +3,21 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { Domain } from "@/lib/domain";
 import { useLanguage } from "@/lib/LanguageContext";
 import styles from "./Navigation.module.css";
 
-interface NavigationProps {
-  domain: Domain;
-}
-
-const ryanLinks = [
+const navLinks = [
   { key: "books" as const, href: "/books" },
   { key: "projects" as const, href: "/projects" },
   { key: "about" as const, href: "/about" },
   { key: "contact" as const, href: "/contact" },
 ];
 
-const formaetrixLinks = [
-  { key: "works" as const, href: "/formaetrix/works" },
-  { key: "imprint" as const, href: "/formaetrix/imprint" },
-  { key: "system" as const, href: "/formaetrix/system" },
-  { key: "contact" as const, href: "/formaetrix/contact" },
-];
-
-export default function Navigation({ domain }: NavigationProps) {
+export default function Navigation() {
   const pathname = usePathname();
   const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const isFormaetrix = domain === "formaetrix";
-  const links = isFormaetrix ? formaetrixLinks : ryanLinks;
-  const homeHref = isFormaetrix ? "/formaetrix" : "/";
-  const logoText = isFormaetrix ? "FORMÆTRIX" : "Ryan J. Pyles";
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -51,17 +34,17 @@ export default function Navigation({ domain }: NavigationProps) {
       className={[
         styles.nav,
         scrolled ? styles.scrolled : "",
-        isFormaetrix ? styles.formaetrix : styles.ryan,
+        styles.ryan,
       ].join(" ")}
       aria-label="Primary navigation"
     >
       <div className={styles.inner}>
-        <Link href={homeHref} className={styles.logo} aria-label="Home">
-          {logoText}
+        <Link href="/" className={styles.logo} aria-label="Home">
+          Ryan J. Pyles
         </Link>
 
         <ul className={[styles.links, menuOpen ? styles.open : ""].join(" ")} role="list">
-          {links.map(({ key, href }) => {
+          {navLinks.map(({ key, href }) => {
             const label = t.nav[key] ?? key;
             const active = pathname === href || pathname.startsWith(href + "/");
             return (

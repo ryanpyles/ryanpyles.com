@@ -5,7 +5,7 @@ import Section from "@/components/Section";
 import { buildPageMetadata } from "@/lib/metadata";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = buildPageMetadata("ryan", {
+export const metadata: Metadata = buildPageMetadata({
   title: "Contact",
   description:
     "Contact Ryan J. Pyles for web development, brand design, or speaking inquiries.",
@@ -14,7 +14,7 @@ export const metadata: Metadata = buildPageMetadata("ryan", {
 
 export default function ContactPage() {
   return (
-    <SiteLayout domain="ryan">
+    <SiteLayout>
       <Section narrow>
         <header className={styles.header}>
           <h1>Contact</h1>

@@ -72,7 +72,7 @@ const projects: Project[] = [
 
 export default function ProjectsPage() {
   return (
-    <SiteLayout domain="ryan">
+    <SiteLayout>
       <Section>
         <header className={styles.header}>
           <h1>Projects</h1>

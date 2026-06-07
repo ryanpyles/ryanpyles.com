@@ -80,11 +80,11 @@ export const languages: LanguageProfile[] = [
     id: "mandarin",
     name: "Mandarin",
     ring: 2,
-    level: "Beginner",
-    focus: ["Research", "Conversation"],
+    level: "Conversational",
+    focus: ["Research", "Conversation", "Literature"],
     started: "2006",
     notes:
-      "Started alongside German and Portuguese around 2006 — a year of perhaps poor judgment about cognitive bandwidth. Mandarin demanded something the others didn't: a complete reset of what I thought a writing system was for. I came curious about how a tonal, non-alphabetic system encodes ambiguity that English buries in syntax instead. I'm still reading character components the way a detective reads a crime scene — slowly, and often wrong.",
+      "Started alongside German and Portuguese around 2006 — a year of perhaps poor judgment about cognitive bandwidth, or perhaps exactly the right amount of ambition. Conversational, with reading at a higher register across both scripts: 繁體字 and 简体字. The two character sets are the same language making two different arguments about what continuity means — traditional characters preserve the visual etymology of a word, simplified characters trust the reader to bring the meaning themselves. I find both arguments persuasive.",
   },
   {
     id: "japanese",

@@ -29,10 +29,6 @@ const LanguageOrrery = dynamic(() => import("@/components/LanguageOrrery"), {
   ssr: false,
   loading: () => null,
 });
-const NetworkOfSelves = dynamic(() => import("@/components/NetworkOfSelves"), {
-  ssr: false,
-  loading: () => null,
-});
 
 export const metadata: Metadata = {
   title: "Ryan Pyles — Author, Software Engineer, Linguist",
@@ -104,9 +100,9 @@ export default function HomePage() {
 
           <p className={styles.heroAttribution}>Ryan Pyles — Chicago</p>
 
-          <Link href="#archive" className={styles.heroScroll}>
+          <a href="#archive" className={styles.heroScroll}>
             Enter Archive ↓
-          </Link>
+          </a>
         </div>
 
         <div className={styles.langWrap}>
@@ -140,17 +136,14 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Network of Selves */}
-      <NetworkOfSelves />
-
       {/* The Voigt Project — § 04 */}
       <VoigtProject />
 
-      {/* Books — § 05 */}
-      <BooksArchive />
-
-      {/* Continuity Atlas — § 06 */}
+      {/* Continuity Atlas — § 05 */}
       <ContinuityAtlasFeatured />
+
+      {/* Books — § 06 */}
+      <BooksArchive />
 
       {/* Systems & Experiments — § 07 */}
       <Section id="systems">

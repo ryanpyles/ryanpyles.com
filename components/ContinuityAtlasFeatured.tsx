@@ -17,7 +17,10 @@ export default function ContinuityAtlasFeatured() {
     <section className={styles.section} id="continuity-atlas">
       <div className={styles.inner}>
         <Reveal>
-          <div className={styles.tag}>Narrative Intelligence System</div>
+          <div className={styles.header}>
+            <span className={styles.kicker}>§ 05</span>
+            <div className={styles.tag}>Narrative Intelligence System</div>
+          </div>
         </Reveal>
 
         <div className={styles.layout}>

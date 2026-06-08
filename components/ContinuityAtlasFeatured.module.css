@@ -10,6 +10,23 @@
   padding: 0 var(--space-8);
 }
 
+/* ---- Header ---- */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-10);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  flex-shrink: 0;
+}
+
 /* ---- Tag ---- */
 .tag {
   display: inline-block;
@@ -20,7 +37,6 @@
   color: var(--color-accent);
   border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
   padding: 3px 8px;
-  margin-bottom: var(--space-10);
 }
 
 /* ---- Two-column layout ---- */

@@ -79,7 +79,7 @@ export default function BooksArchive() {
       <div className={styles.inner}>
         <Reveal>
           <header className={styles.header}>
-            <span className={styles.kicker}>§ 05</span>
+            <span className={styles.kicker}>§ 06</span>
             <div className={styles.headingRow}>
               <h2 className={styles.heading}>Books</h2>
               <span className={styles.subLabel}>Fiction, essays, fragments, and ongoing investigations.</span>

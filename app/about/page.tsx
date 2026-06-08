@@ -60,6 +60,13 @@ export default function AboutPage() {
             The relationship between Ryan and FORMÆTRIX is not explained here.
             It is felt in the work.
           </p>
+
+          <p className={styles.footnote}>
+            <span className={styles.footnoteMarker}>*</span>
+            Ryan Pyles is the real person. Elian Voigt is the authorial identity
+            — a distinct literary voice, not a pseudonym in any simple sense.
+            The distinction matters less than the work it produces.
+          </p>
         </div>
 
         <div className={styles.contact}>

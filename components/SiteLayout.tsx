@@ -10,8 +10,13 @@ interface SiteLayoutProps {
 export default function SiteLayout({ children }: SiteLayoutProps) {
   return (
     <div className={styles.root} data-domain="ryan">
+      <a href="#main-content" className={styles.skipLink}>
+        Skip to content
+      </a>
       <Navigation />
-      <main className={styles.main}>{children}</main>
+      <main id="main-content" tabIndex={-1} className={styles.main}>
+        {children}
+      </main>
       <Footer />
     </div>
   );

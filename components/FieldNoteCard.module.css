@@ -84,3 +84,14 @@
   letter-spacing: 0.06em;
   color: var(--color-muted);
 }
+
+.relatedLink {
+  color: color-mix(in srgb, var(--color-accent) 75%, var(--color-muted));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.relatedLink:hover {
+  color: var(--color-accent);
+}

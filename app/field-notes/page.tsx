@@ -2,7 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
-import FieldNoteCard from "@/components/FieldNoteCard";
+import FieldNotesGrid from "@/components/FieldNotesGrid";
 import { fieldNotes } from "@/content/fieldNotes";
 import styles from "./page.module.css";
 
@@ -36,11 +36,7 @@ export default function FieldNotesPage() {
           </p>
         </header>
 
-        <div className={styles.grid}>
-          {fieldNotes.map((note) => (
-            <FieldNoteCard key={note.slug} note={note} />
-          ))}
-        </div>
+        <FieldNotesGrid notes={fieldNotes} />
       </Section>
     </SiteLayout>
   );

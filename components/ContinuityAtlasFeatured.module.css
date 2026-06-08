@@ -202,6 +202,16 @@
   color: color-mix(in srgb, var(--color-white) 55%, transparent);
 }
 
+.contextLink {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.contextLink:hover {
+  opacity: 0.75;
+}
+
 @media (max-width: 1024px) {
   .layout {
     grid-template-columns: 1fr 240px;

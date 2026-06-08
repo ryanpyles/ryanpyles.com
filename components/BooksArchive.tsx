@@ -12,6 +12,7 @@ interface ArchiveBook {
   artifacts: string[];
   status: "Published" | "In Development" | "Ongoing";
   slug?: string;
+  crossRef?: { label: string; href: string };
 }
 
 const books: ArchiveBook[] = [
@@ -61,6 +62,7 @@ const books: ArchiveBook[] = [
     tagline: "Three people die at the same moment. Nobody realizes it happened.",
     artifacts: ["Research", "Annotations", "Maps", "Fragments"],
     status: "Published",
+    crossRef: { label: "See Continuity Atlas →", href: "/projects/continuity-atlas" },
   },
   {
     id: "babel-threshold",
@@ -121,6 +123,11 @@ export default function BooksArchive() {
                         </React.Fragment>
                       ))}
                     </div>
+                    {book.crossRef && (
+                      <Link href={book.crossRef.href} className={styles.crossRef}>
+                        {book.crossRef.label}
+                      </Link>
+                    )}
                   </div>
                 </div>
               </article>

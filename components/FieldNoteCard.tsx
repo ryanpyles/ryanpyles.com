@@ -1,8 +1,19 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import styles from "./FieldNoteCard.module.css";
 import type { FieldNote } from "@/content/fieldNotes/types";
+
+// Known cross-link targets — extend as content grows
+const RELATED_HREFS: Record<string, string> = {
+  "Language Research": "/about#languages",
+  "Babel Threshold": "/books/babel-threshold",
+  "Liminal 6:17": "/books/liminal-617",
+  "Continuity Atlas": "/projects/continuity-atlas",
+  "FORMÆTRIX": "https://www.formaetrix.com",
+  "Quiet Metrics": "/projects/quiet-metrics",
+};
 
 interface FieldNoteCardProps {
   note: FieldNote;
@@ -56,7 +67,29 @@ export default function FieldNoteCard({ note }: FieldNoteCardProps) {
           <p>{note.body}</p>
           {note.relatedWork && note.relatedWork.length > 0 && (
             <p className={styles.related}>
-              Related: {note.relatedWork.join(" · ")}
+              Related:{" "}
+              {note.relatedWork.map((item, i) => {
+                const href = RELATED_HREFS[item];
+                const isExternal = href?.startsWith("http");
+                return (
+                  <React.Fragment key={item}>
+                    {i > 0 && <span aria-hidden="true"> · </span>}
+                    {href ? (
+                      <Link
+                        href={href}
+                        className={styles.relatedLink}
+                        {...(isExternal
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                      >
+                        {item}
+                      </Link>
+                    ) : (
+                      <span>{item}</span>
+                    )}
+                  </React.Fragment>
+                );
+              })}
             </p>
           )}
         </div>

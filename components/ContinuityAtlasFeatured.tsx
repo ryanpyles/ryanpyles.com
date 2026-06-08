@@ -65,7 +65,11 @@ export default function ContinuityAtlasFeatured() {
               </ul>
               <div className={styles.context}>
                 <p className={styles.contextNote}>
-                  Built on the <em>Liminal 6:17</em> manuscript.
+                  Built on the{" "}
+                  <Link href="/books/liminal-617" className={styles.contextLink}>
+                    <em>Liminal 6:17</em>
+                  </Link>{" "}
+                  manuscript.
                 </p>
               </div>
             </aside>

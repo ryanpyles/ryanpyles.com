@@ -185,6 +185,22 @@
   color: var(--color-border);
 }
 
+.crossRef {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-accent) 60%, var(--color-muted));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.crossRef:hover {
+  color: var(--color-accent);
+}
+
 /* ---- Footer ---- */
 .footer {
   display: flex;

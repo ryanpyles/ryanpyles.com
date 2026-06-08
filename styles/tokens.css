@@ -9,15 +9,19 @@
   --color-surface: rgba(245, 245, 245, 0.04);
 
   /* Manuscript palette — used by the ryan domain (see [data-domain="ryan"] below) */
-  --paper: #f5f1ea;
-  --ink: #1a1a1a;
-  --charcoal: #303030;
+  --paper: #F8F6F3;
+  --ink: #111111;
+  --charcoal: #2A2A2A;
   --dust: #b7b0a5;
+  --gray: #8A8A8A;
   --oxide: #a14b2b;
+  --orange: #FA7A35;
   --brass: #c69c5d;
 
   /* Typography */
-  --font-serif: "Adobe Garamond Pro", Georgia, "Times New Roman", serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-garamond: "EB Garamond", "Adobe Garamond Pro", Georgia, serif;
+  --font-serif: "Cormorant Garamond", "Adobe Garamond Pro", Georgia, serif;
   --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "IBM Plex Mono", "Courier New", monospace;
   --font-body: var(--font-sans);

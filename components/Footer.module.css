@@ -53,9 +53,15 @@
   color: color-mix(in srgb, var(--color-white) 70%, transparent);
 }
 
+.footerLinks {
+  display: flex;
+  gap: var(--space-6);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
 .formaetrixLink {
   display: inline-block;
-  margin-top: var(--space-2);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.1em;
@@ -64,7 +70,7 @@
 }
 
 .formaetrixLink:hover {
-  color: var(--color-white);
+  color: var(--color-accent);
 }
 
 /* Formaetrix footer */

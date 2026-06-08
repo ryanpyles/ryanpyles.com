@@ -6,10 +6,12 @@ import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import ProjectCard from "@/components/ProjectCard";
 import CurrentWorkCard from "@/components/CurrentWorkCard";
-import WritingArtifactCard from "@/components/WritingArtifactCard";
 import FieldNoteCard from "@/components/FieldNoteCard";
+import ScholarNotebook from "@/components/ScholarNotebook";
+import VoigtProject from "@/components/VoigtProject";
+import BooksArchive from "@/components/BooksArchive";
+import ContinuityAtlasFeatured from "@/components/ContinuityAtlasFeatured";
 import Reveal from "@/components/Reveal";
-import { ryanBooks } from "@/content/books";
 import { currentWork } from "@/content/currentWork";
 import { fieldNotes } from "@/content/fieldNotes";
 import { buildPersonJsonLd } from "@/lib/metadata";
@@ -87,38 +89,24 @@ export default function HomePage() {
         <LivingManuscript />
 
         <div className={styles.heroInner}>
-          <h1 className={styles.heroTitle}>Ryan Pyles</h1>
-          <p className={styles.heroSub}>Author. Software Engineer. Linguist.</p>
-          <p className={styles.heroCopy}>
-            I write experimental fiction, build web systems, study languages,
-            and collect strange structures.
-          </p>
-
-          <div className={styles.currently}>
-            <span className={styles.currentlyLabel}>Currently:</span>
-            <ul className={styles.currentlyList}>
-              <li>
-                <Link href="#current-work" className={styles.currentlyLink}>
-                  → Babel Threshold
-                </Link>
-              </li>
-              <li>
-                <Link href="#current-work" className={styles.currentlyLink}>
-                  → Liminal 6:17
-                </Link>
-              </li>
-              <li>
-                <Link href="#current-work" className={styles.currentlyLink}>
-                  → FORMÆTRIX
-                </Link>
-              </li>
-              <li>
-                <Link href="#current-work" className={styles.currentlyLink}>
-                  → Language Research
-                </Link>
-              </li>
-            </ul>
+          <div className={styles.heroAnnotations} aria-hidden="true">
+            <span className={styles.heroAnnotation}>64°08′ N, 21°56′ W</span>
+            <span className={styles.heroAnnotation}>fn. 14 — see Voigt, 2019</span>
+            <span className={styles.heroAnnotation}>syntax</span>
+            <span className={styles.heroAnnotation}>halló</span>
+            <span className={styles.heroAnnotation}>你好</span>
           </div>
+
+          <h1 className={styles.heroStatement}>
+            The distance between a manuscript, a language, and a software system
+            is smaller than it first appears.
+          </h1>
+
+          <p className={styles.heroAttribution}>Ryan Pyles — Chicago</p>
+
+          <Link href="#archive" className={styles.heroScroll}>
+            Enter Archive ↓
+          </Link>
         </div>
 
         <div className={styles.langWrap}>
@@ -126,13 +114,21 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Scholar's Notebook — § 01 */}
+      <ScholarNotebook />
+
+      {/* Language Orrery — § 02 */}
       <LanguageOrrery />
 
-      {/* Current Work */}
-      <Section id="current-work">
+      {/* Research Log — § 03 */}
+      <Section id="research-log">
         <Reveal>
           <header className={styles.sectionHeader}>
-            <h2>Current Work</h2>
+            <div>
+              <span className={styles.sectionKicker}>§ 03</span>
+              <h2>Research Log</h2>
+            </div>
+            <span className={styles.sectionNote}>Active inquiries</span>
           </header>
         </Reveal>
         <div className={styles.currentWorkList}>
@@ -144,51 +140,26 @@ export default function HomePage() {
         </div>
       </Section>
 
+      {/* Network of Selves */}
       <NetworkOfSelves />
 
-      {/* Writing */}
-      <Section id="writing">
-        <Reveal>
-          <header className={styles.sectionHeader}>
-            <h2>Writing</h2>
-            <Link href="/books" className={styles.sectionLink}>
-              All titles →
-            </Link>
-          </header>
-        </Reveal>
-        <div className={styles.writingList}>
-          {ryanBooks.map((book, i) => (
-            <Reveal key={book.slug} delay={i * 70}>
-              <WritingArtifactCard book={book} />
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      {/* The Voigt Project — § 04 */}
+      <VoigtProject />
 
-      {/* Field Notes */}
-      <Section id="field-notes">
-        <Reveal>
-          <header className={styles.sectionHeader}>
-            <h2>Field Notes</h2>
-            <Link href="/field-notes" className={styles.sectionLink}>
-              Archive →
-            </Link>
-          </header>
-        </Reveal>
-        <div className={styles.fieldNoteGrid}>
-          {fieldNotes.map((note, i) => (
-            <Reveal key={note.slug} delay={i * 80}>
-              <FieldNoteCard note={note} />
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      {/* Books — § 05 */}
+      <BooksArchive />
 
-      {/* Selected Projects */}
-      <Section id="projects">
+      {/* Continuity Atlas — § 06 */}
+      <ContinuityAtlasFeatured />
+
+      {/* Systems & Experiments — § 07 */}
+      <Section id="systems">
         <Reveal>
           <header className={[styles.sectionHeader, styles.sectionHeaderQuiet].join(" ")}>
-            <h2>Selected Projects</h2>
+            <div>
+              <span className={styles.sectionKicker}>§ 07</span>
+              <h2>Systems &amp; Experiments</h2>
+            </div>
             <Link href="/projects" className={styles.sectionLink}>
               All projects →
             </Link>
@@ -198,6 +169,28 @@ export default function HomePage() {
           {featuredProjects.map((project, i) => (
             <Reveal key={project.slug} delay={i * 60}>
               <ProjectCard project={project} />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Field Notes — § 08 */}
+      <Section id="field-notes">
+        <Reveal>
+          <header className={styles.sectionHeader}>
+            <div>
+              <span className={styles.sectionKicker}>§ 08</span>
+              <h2>Field Notes</h2>
+            </div>
+            <Link href="/field-notes" className={styles.sectionLink}>
+              Archive →
+            </Link>
+          </header>
+        </Reveal>
+        <div className={styles.fieldNoteGrid}>
+          {fieldNotes.map((note, i) => (
+            <Reveal key={note.slug} delay={i * 80}>
+              <FieldNoteCard note={note} />
             </Reveal>
           ))}
         </div>

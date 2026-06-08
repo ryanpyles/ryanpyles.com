@@ -3,19 +3,19 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useLanguage } from "@/lib/LanguageContext";
 import styles from "./Navigation.module.css";
 
 const navLinks = [
-  { key: "books" as const, href: "/books" },
-  { key: "projects" as const, href: "/projects" },
-  { key: "about" as const, href: "/about" },
-  { key: "contact" as const, href: "/contact" },
+  { href: "/archive", label: "Archive" },
+  { href: "/books", label: "Books" },
+  { href: "/field-notes", label: "Field Notes" },
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navigation() {
   const pathname = usePathname();
-  const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -44,11 +44,10 @@ export default function Navigation() {
         </Link>
 
         <ul className={[styles.links, menuOpen ? styles.open : ""].join(" ")} role="list">
-          {navLinks.map(({ key, href }) => {
-            const label = t.nav[key] ?? key;
+          {navLinks.map(({ href, label }) => {
             const active = pathname === href || pathname.startsWith(href + "/");
             return (
-              <li key={key}>
+              <li key={href}>
                 <Link
                   href={href}
                   className={[styles.link, active ? styles.active : ""].join(" ")}

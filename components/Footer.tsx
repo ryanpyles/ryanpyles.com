@@ -15,14 +15,24 @@ export default function Footer() {
             Current obsession: How narrative behaves when treated as
             infrastructure.
           </p>
-          <a
-            href="https://www.formaetrix.com"
-            className={styles.formaetrixLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            FORMÆTRIX →
-          </a>
+          <div className={styles.footerLinks}>
+            <a
+              href="https://www.formaetrix.com"
+              className={styles.formaetrixLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              FORMÆTRIX →
+            </a>
+            <a
+              href="https://www.formaetrix.com/imprint"
+              className={styles.formaetrixLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Elian Voigt →
+            </a>
+          </div>
         </div>
         <p className={styles.copy}>
           © {year}. All rights reserved.

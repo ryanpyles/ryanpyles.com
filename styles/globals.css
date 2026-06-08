@@ -73,19 +73,22 @@ button {
   font-family: inherit;
 }
 
-/* Ryan domain modifier — manuscript palette. The literal token names below
-   (black/white) invert in meaning here: --color-black becomes the paper
-   background, --color-white becomes the ink foreground. Every shared
-   component already reads color through these names, so this single block
-   re-skins the entire ryan domain without touching formaetrix. */
+/* Ryan domain modifier — living archive, manuscript palette.
+   The literal token names (black/white) invert in meaning: --color-black
+   becomes the paper background, --color-white becomes the ink foreground.
+   Every shared component reads color through these names, so this single
+   block re-skins the entire ryan domain. */
 [data-domain="ryan"] {
   --color-black: var(--paper);
   --color-white: var(--ink);
   --color-mid: var(--charcoal);
-  --color-muted: var(--dust);
-  --color-accent: var(--oxide);
-  --color-border: rgba(26, 26, 26, 0.14);
-  --color-surface: rgba(26, 26, 26, 0.035);
+  --color-muted: var(--gray);
+  --color-accent: var(--orange);
+  --color-border: rgba(17, 17, 17, 0.10);
+  --color-surface: rgba(17, 17, 17, 0.04);
+  /* Typography — switch to editorial serif stack */
+  --font-serif: var(--font-display);
+  --font-body: var(--font-garamond);
 }
 
 /* Selection */

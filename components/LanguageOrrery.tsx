@@ -244,6 +244,8 @@ export default function LanguageOrrery() {
   const [selected, setSelected] = useState<LanguageProfile | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<THREE.Vector3 | null>(null);
   const reducedMotion = usePrefersReducedMotion();
+  // Reduced-motion users default to list view; others can toggle at will.
+  const [listMode, setListMode] = useState(false);
 
   const handleSelect = useCallback((language: LanguageProfile, position: THREE.Vector3) => {
     setSelected(language);
@@ -256,6 +258,11 @@ export default function LanguageOrrery() {
     setSelectedPosition(null);
   }, []);
 
+  // Respect reduced-motion preference once the hook resolves (client only).
+  useEffect(() => {
+    if (reducedMotion) setListMode(true);
+  }, [reducedMotion]);
+
   useEffect(() => {
     return () => {
       document.body.style.cursor = "auto";
@@ -264,7 +271,7 @@ export default function LanguageOrrery() {
 
   return (
     <section className={styles.root} aria-label="Language Orrery — the languages I study, charted as orbits">
-      <div className={styles.canvasWrap} aria-hidden="true">
+      <div className={styles.canvasWrap} aria-hidden="true" data-hidden={listMode || undefined}>
         <Canvas
           className={styles.canvas}
           camera={{ position: [REST_CAMERA.x, REST_CAMERA.y, REST_CAMERA.z], fov: 46 }}
@@ -290,14 +297,23 @@ export default function LanguageOrrery() {
           center, curiosity further out. Hover a node for its bearings; click one to
           open its notebook.
         </p>
-        {hovered && (
+        {hovered && !listMode && (
           <p className={styles.captionHint}>
             <span className={styles.captionHintName}>{hovered.name}</span> — {hovered.level}
           </p>
         )}
+        <button
+          type="button"
+          className={styles.viewToggle}
+          onClick={() => setListMode((m) => !m)}
+          aria-pressed={listMode}
+          title={listMode ? "Switch to orrery view" : "Switch to list view"}
+        >
+          {listMode ? "⊙ Orrery view" : "≡ List view"}
+        </button>
       </div>
 
-      <div className={styles.fallback}>
+      <div className={styles.fallback} data-visible={listMode || undefined}>
         <p className={styles.fallbackEyebrow}>Languages, by orbit</p>
         <dl className={styles.fallbackList}>
           {languages.map((language) => (

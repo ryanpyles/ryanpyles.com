@@ -60,8 +60,44 @@
   color: var(--brass);
 }
 
+/* Toggle button */
+.viewToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 234, 0.42);
+  background: none;
+  border: 1px solid rgba(245, 241, 234, 0.12);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.viewToggle:hover,
+.viewToggle:focus-visible {
+  color: rgba(245, 241, 234, 0.78);
+  border-color: rgba(245, 241, 234, 0.28);
+  outline: none;
+}
+
+/* Fallback list — hidden by default, shown when data-visible or on mobile */
 .fallback {
   display: none;
+}
+
+.fallback[data-visible] {
+  display: block;
+}
+
+/* Canvas — hidden in list-mode */
+.canvasWrap[data-hidden] {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* ---------- Hover tooltip (drei <Html> overlay) ---------- */
@@ -150,7 +186,7 @@
   padding: var(--space-1) var(--space-2);
 }
 
-/* ---------- Mobile fallback ---------- */
+/* ---------- Mobile: always force list view ---------- */
 
 @media (max-width: 768px) {
   .root {
@@ -159,13 +195,18 @@
     padding: var(--space-12) var(--space-6);
   }
 
-  .canvasWrap,
-  .caption {
-    display: none;
+  /* Hide the canvas entirely on mobile — JS toggle doesn't apply */
+  .canvasWrap {
+    display: none !important;
   }
 
   .fallback {
-    display: block;
+    display: block !important;
+  }
+
+  /* Hide the toggle on mobile — they're already in list view */
+  .viewToggle {
+    display: none;
   }
 }
 

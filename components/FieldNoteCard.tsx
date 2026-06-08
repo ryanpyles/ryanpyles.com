@@ -25,6 +25,7 @@ function formatDate(date: string): string {
 export default function FieldNoteCard({ note }: FieldNoteCardProps) {
   const [expanded, setExpanded] = useState(false);
   const canExpand = Boolean(note.body);
+  const bodyId = `field-note-body-${note.slug}`;
 
   return (
     <article className={styles.card}>
@@ -43,13 +44,15 @@ export default function FieldNoteCard({ note }: FieldNoteCardProps) {
           className={styles.toggle}
           onClick={() => setExpanded((value) => !value)}
           aria-expanded={expanded}
+          aria-controls={bodyId}
         >
-          {expanded ? "− Collapse" : "+ Read more"}
+          <span aria-hidden="true">{expanded ? "−" : "+"}</span>
+          <span>{expanded ? "Collapse" : "Read more"}</span>
         </button>
       )}
 
       {expanded && note.body && (
-        <div className={styles.body}>
+        <div id={bodyId} className={styles.body} role="region" aria-label={`Full text: ${note.title}`}>
           <p>{note.body}</p>
           {note.relatedWork && note.relatedWork.length > 0 && (
             <p className={styles.related}>

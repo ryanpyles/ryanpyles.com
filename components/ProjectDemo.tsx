@@ -113,6 +113,33 @@ function LanguageDemo() {
   );
 }
 
+/* ---------- Continuity Atlas Demo ---------- */
+const ContinuityAtlas = dynamic(() => import("@/components/ContinuityAtlas"), {
+  ssr: false,
+  loading: () => (
+    <div style={{ height: 720, display: "grid", placeItems: "center", background: "#14120F", borderRadius: 3, border: "1px solid rgba(245,240,232,.10)" }}>
+      <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: ".16em", textTransform: "uppercase" as const, color: "#9A948C" }}>
+        Loading prototype…
+      </span>
+    </div>
+  ),
+});
+
+function ContinuityAtlasDemo() {
+  return (
+    <div style={{
+      height: 720,
+      overflowY: "auto",
+      border: "1px solid rgba(245,240,232,.12)",
+      borderRadius: 3,
+      position: "relative",
+      background: "#14120F",
+    }}>
+      <ContinuityAtlas />
+    </div>
+  );
+}
+
 /* ---------- Blob Nav Demo ---------- */
 const BlobNav = dynamic(() => import("@/components/BlobNav"), { ssr: false });
 
@@ -383,6 +410,7 @@ export default function ProjectDemo({ type, caption }: { type: DemoType; caption
       {type === "seo" && <SeoDemo />}
       {type === "tokens" && <TokensDemo />}
       {type === "schema" && <SchemaDemo />}
+      {type === "continuity-atlas" && <ContinuityAtlasDemo />}
       <p className={styles.caption}>{caption}</p>
     </div>
   );

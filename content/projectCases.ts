@@ -4,7 +4,8 @@ export type DemoType =
   | "blob-nav"
   | "seo"
   | "tokens"
-  | "schema";
+  | "schema"
+  | "continuity-atlas";
 
 export interface CaseStudy {
   slug: string;
@@ -235,6 +236,41 @@ export const projectCases: CaseStudy[] = [
       "generateStaticParams driven entirely by content arrays",
       "Zero untyped content — TypeScript enforces schema compliance",
       "Content layer framework-agnostic (pure TypeScript, no React imports)",
+    ],
+  },
+  {
+    slug: "continuity-atlas",
+    title: "Continuity Atlas",
+    year: "2025",
+    stack: ["React", "Framer Motion", "Product Design", "Narrative Design"],
+    tagline:
+      "Story memory that behaves like a living manuscript — a visual interface for novelists who need to inspect what the AI thinks is true before it generates, rewrites, or expands anything.",
+    problem:
+      "Most AI writing tools understand story context as stored facts: characters, synopsis, genre, outline, style. A source of truth that can't move will eventually contradict the book it's supposed to protect. The series novelist's real anxiety about AI collaboration is sharper than generation quality — it's visible memory. Will the AI remember what matters, or confidently sand the weirdness off the book? In real manuscripts, truth is contextual. What a character knows, what the reader knows, and what only the author knows are three different layers — and they drift apart on purpose. A frozen Story Bible collapses those layers and resolves mysteries the author was deliberately holding open.",
+    approach: {
+      summary:
+        "Rather than invent a fake app for 'aspiring writers,' the prototype uses an actual manuscript — Liminal 6:17, a multi-POV literary speculative novel — as its test case. Every card in the demo is grounded in the real text. Three working assumptions came from treating a real book as the probe.",
+      decisions: [
+        "Truth has a status: every fact carries who knows it (reader, character, or author-only) and whether it's been paid off, contradicted, or is still dormant. Author-only facts are locked behind a violet marginalia treatment and hidden from AI output by default.",
+        "The unit of memory is the state, not the character: Jack at Chapter I (avoidant, lucid) and Jack at Chapter VII (fractured, bodily panic) need different voice rules and different continuity guardrails. One card can't hold both. Fracture states render as warning-red rotated diamonds on the chapter timeline.",
+        "Inspect before generate: the writer sees a Context Receipt — what will be preserved, what's forbidden, what's hidden from output — before any rewrite fires. The receipt is editable. That ordering is the product's whole argument made physical.",
+        "Voice is behavioral, not adjectival: 'dark, literary' is useless to an AI. Fragment frequency, sensory density, dialogue evasion, time-marker repetition — measured behaviors the system can be held to. Generic competence is the failure mode, not the goal.",
+      ],
+    },
+    demo: {
+      type: "continuity-atlas",
+      caption:
+        "The full interactive prototype, built on real Liminal 6:17 manuscript data. Navigate between Story Memory, Character Drift, Voice Fingerprint, and the Rewrite flow.",
+    },
+    technical:
+      "A single-file React prototype driven by local manuscript JSON — no backend; AI generation is mocked so the design thinking stays the subject. The manuscript data was extracted from the actual Liminal 6:17 .docx: 24 chapters parsed, character and motif frequencies counted, real passages pulled for the rewrite flow. The data model makes 'truth has a status' executable: each character holds invariants (surface goal, hidden desire, fear, lie, voice markers) plus an ordered array of states, each carrying knows / doesNotKnow / readerKnows / authorOnly / activeMotifs / continuityWarnings. Motion is slow and deliberate — digital index cards, marginalia, burn-mark timeline nodes — built to feel like a manuscript desk at midnight rather than a product dashboard.",
+    outcome:
+      "AI writing tools become more useful when writers can inspect and shape the context behind generation. Continuity Atlas explores a visual interface for story memory — one that treats characters, voice, motifs, and narrative secrets as evolving states rather than static notes. It sits at the intersection of product design, narrative design, writing craft, prompt engineering, and front-end implementation. The most interesting frontier for AI-assisted fiction isn't better sentences — it's a collaborator with visible, editable, trustworthy memory.",
+    metrics: [
+      "3 POV characters (Jack, Oren, Damon) with chapter-by-chapter state timelines",
+      "8 story memory entries — motifs, secrets, contradictions, promises — with author-only gating",
+      "8-metric voice fingerprint extracted from real manuscript data",
+      "Full rewrite flow: Context Receipt → constrained generation → voice-match diff → memory patch prompt",
     ],
   },
 ];

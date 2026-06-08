@@ -68,6 +68,14 @@ const projects: Project[] = [
     tags: ["TypeScript", "Content Architecture", "Static Generation"],
     year: "2025",
   },
+  {
+    slug: "continuity-atlas",
+    title: "Continuity Atlas",
+    description:
+      "A visual story-memory system for novelists working with AI. Characters tracked as evolving states, voice as behavioral metrics, and an author-only layer that keeps narrative secrets hidden from generation.",
+    tags: ["React", "Product Design", "Narrative Design", "Framer Motion"],
+    year: "2025",
+  },
 ];
 
 export default function ProjectsPage() {

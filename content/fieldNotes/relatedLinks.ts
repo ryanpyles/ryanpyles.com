@@ -4,11 +4,17 @@
  */
 export const RELATED_HREFS: Record<string, string> = {
   "Language Research": "/about#languages",
-  "Babel Threshold": "/books/babel-threshold",
-  "Liminal 6:17": "/books/liminal-617",
   "Continuity Atlas": "/projects/continuity-atlas",
   "FORMÆTRIX": "https://www.formaetrix.com",
-  "Quiet Metrics": "/books/quiet-metrics",
-  "Gideon's Inferno": "/books/gideons-inferno",
+  // Books — published
+  "Feast of the Broadcast Saints": "/books/feast-of-the-broadcast-saints",
+  "What Survives Is Proof": "/books/what-survives-is-proof",
+  "Declensions of Dark Water": "/books/declensions-of-dark-water",
   "Terms of Unbeing": "/books/terms-of-unbeing",
+  "Summer of the Glass Bees": "/books/summer-of-the-glass-bees",
+  "The Quiet Metric": "/books/quiet-metric",
+  // Books — forthcoming
+  "Liminal 6:17": "/books/liminal-617",
+  "Babel Threshold": "/books/babel-threshold",
+  "Guestbook of the North Wind": "/books/guestbook-of-the-north-wind",
 };

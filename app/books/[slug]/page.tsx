@@ -63,13 +63,15 @@ export default function BookPage({ params }: Params) {
               <p className={styles.author}>
                 by <span>{book.author}</span>
               </p>
-              {book.publishDate && (
+              {book.status === "forthcoming" ? (
+                <p className={styles.date}>Forthcoming</p>
+              ) : book.publishDate ? (
                 <p className={styles.date}>
                   <time dateTime={book.publishDate}>
                     {new Date(book.publishDate).getFullYear()}
                   </time>
                 </p>
-              )}
+              ) : null}
             </header>
 
             <div className={styles.description}>
@@ -105,7 +107,7 @@ export default function BookPage({ params }: Params) {
               <p className={styles.isbn}>ISBN: {book.isbn}</p>
             )}
 
-            {book.amazon.blurbHTML && (
+            {book.amazon?.blurbHTML && (
               <details className={styles.blurbDetails}>
                 <summary className={styles.blurbSummary}>Publisher description</summary>
                 <div

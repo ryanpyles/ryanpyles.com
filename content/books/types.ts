@@ -1,10 +1,11 @@
 export type BookTheme = "ryan" | "formaetrix";
+export type BookStatus = "published" | "forthcoming";
 
 export interface AmazonData {
-  subtitle: string;
-  backendKeywords: string;
-  categories: string[];
-  blurbHTML: string;
+  subtitle?: string;
+  backendKeywords?: string;
+  categories?: string[];
+  blurbHTML?: string;
 }
 
 export interface Book {
@@ -18,8 +19,9 @@ export interface Book {
   isbn?: string;
   /** Direct retailer URL (Amazon product page, Bookshop.org, etc.). Omit if not yet listed. */
   purchaseUrl?: string;
-  publishDate: string;
+  publishDate?: string;
+  status?: BookStatus;
   coverImage: string;
   theme: BookTheme;
-  amazon: AmazonData;
+  amazon?: AmazonData;
 }

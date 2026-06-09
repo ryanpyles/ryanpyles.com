@@ -1,10 +1,29 @@
 import type { Book } from "./types";
 
-import gideons from "./ryan/gideons-inferno";
+// Published — in catalogue order (I–VI)
+import feast from "./ryan/feast-of-the-broadcast-saints";
+import whatSurvives from "./ryan/what-survives-is-proof";
+import declensions from "./ryan/declensions-of-dark-water";
 import terms from "./ryan/terms-of-unbeing";
-import quietMetrics from "./ryan/quiet-metrics";
+import glassBees from "./ryan/summer-of-the-glass-bees";
+import quietMetric from "./ryan/quiet-metrics";
 
-export const ryanBooks: Book[] = [gideons, terms, quietMetrics];
+// Forthcoming
+import liminal from "./ryan/liminal-617";
+import babel from "./ryan/babel-threshold";
+import guestbook from "./ryan/guestbook-of-the-north-wind";
+
+export const ryanBooks: Book[] = [
+  feast,
+  whatSurvives,
+  declensions,
+  terms,
+  glassBees,
+  quietMetric,
+  liminal,
+  babel,
+  guestbook,
+];
 
 export const allBooks: Book[] = [...ryanBooks];
 

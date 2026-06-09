@@ -7,16 +7,16 @@ import { ryanBooks } from "@/content/books";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Books",
+  title: "Books — Elian Voigt / FORMÆTRIX",
   description:
-    "Novels by Ryan J. Pyles — experimental and literary fiction including Gideon's Inferno, Terms of Unbeing, and The Quiet Metrics.",
+    "Novels by Elian Voigt, published by FORMÆTRIX — including Feast of the Broadcast Saints, What Survives Is Proof, Declensions of Dark Water, Terms of Unbeing, Summer of the Glass Bees, and The Quiet Metric.",
   keywords: [
-    "Ryan J. Pyles books",
-    "experimental fiction novels",
-    "literary fiction",
-    "Gideon's Inferno",
+    "Elian Voigt books",
+    "FORMÆTRIX novels",
+    "experimental literary fiction",
+    "Feast of the Broadcast Saints",
+    "Declensions of Dark Water",
     "Terms of Unbeing",
-    "The Quiet Metrics",
   ],
 };
 

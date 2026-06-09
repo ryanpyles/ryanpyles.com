@@ -130,9 +130,10 @@
   color: var(--color-muted);
 }
 
-.status[data-status="in-development"] {
-  color: var(--color-accent);
-  border-color: color-mix(in srgb, var(--color-accent) 35%, transparent);
+.status[data-status="forthcoming"] {
+  color: color-mix(in srgb, var(--color-white) 45%, transparent);
+  border-color: color-mix(in srgb, var(--color-white) 15%, transparent);
+  font-style: italic;
 }
 
 .tagline {

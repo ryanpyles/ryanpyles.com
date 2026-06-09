@@ -1,0 +1,32 @@
+.header {
+  margin-bottom: var(--space-12);
+  max-width: 640px;
+}
+
+.kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+
+.heading {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--color-white);
+  margin-bottom: var(--space-5);
+}
+
+.intro {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-style: italic;
+  line-height: var(--leading-relaxed);
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+}

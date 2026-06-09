@@ -132,6 +132,24 @@
   border-color: var(--color-white);
 }
 
+.ctaInquire {
+  display: inline-block;
+  padding: var(--space-3) var(--space-8);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  transition: border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+
+.ctaInquire:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  opacity: 0.8;
+}
+
 .isbn {
   font-family: var(--font-mono);
   font-size: var(--text-xs);

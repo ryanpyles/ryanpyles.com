@@ -51,9 +51,14 @@
   color: color-mix(in srgb, var(--color-white) 65%, transparent);
 }
 
-.toggle {
-  align-self: flex-start;
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
   margin-top: var(--space-5);
+}
+
+.toggle {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.08em;
@@ -63,6 +68,19 @@
 
 .toggle:hover {
   opacity: 0.7;
+}
+
+.permalink {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--color-white) 30%, transparent);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.permalink:hover {
+  color: var(--color-white);
 }
 
 .body {

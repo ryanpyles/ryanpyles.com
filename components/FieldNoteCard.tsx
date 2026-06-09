@@ -4,16 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import styles from "./FieldNoteCard.module.css";
 import type { FieldNote } from "@/content/fieldNotes/types";
-
-// Known cross-link targets — extend as content grows
-const RELATED_HREFS: Record<string, string> = {
-  "Language Research": "/about#languages",
-  "Babel Threshold": "/books/babel-threshold",
-  "Liminal 6:17": "/books/liminal-617",
-  "Continuity Atlas": "/projects/continuity-atlas",
-  "FORMÆTRIX": "https://www.formaetrix.com",
-  "Quiet Metrics": "/projects/quiet-metrics",
-};
+import { RELATED_HREFS } from "@/content/fieldNotes/relatedLinks";
 
 interface FieldNoteCardProps {
   note: FieldNote;
@@ -49,18 +40,23 @@ export default function FieldNoteCard({ note }: FieldNoteCardProps) {
       <h3 className={styles.title}>{note.title}</h3>
       <p className={styles.excerpt}>{note.excerpt}</p>
 
-      {canExpand && (
-        <button
-          type="button"
-          className={styles.toggle}
-          onClick={() => setExpanded((value) => !value)}
-          aria-expanded={expanded}
-          aria-controls={bodyId}
-        >
-          <span aria-hidden="true">{expanded ? "−" : "+"}</span>
-          <span>{expanded ? "Collapse" : "Read more"}</span>
-        </button>
-      )}
+      <div className={styles.actions}>
+        {canExpand && (
+          <button
+            type="button"
+            className={styles.toggle}
+            onClick={() => setExpanded((value) => !value)}
+            aria-expanded={expanded}
+            aria-controls={bodyId}
+          >
+            <span aria-hidden="true">{expanded ? "−" : "+"}</span>
+            <span>{expanded ? "Collapse" : "Read more"}</span>
+          </button>
+        )}
+        <Link href={`/field-notes/${note.slug}`} className={styles.permalink}>
+          Full entry →
+        </Link>
+      </div>
 
       {expanded && note.body && (
         <div id={bodyId} className={styles.body} role="region" aria-label={`Full text: ${note.title}`}>

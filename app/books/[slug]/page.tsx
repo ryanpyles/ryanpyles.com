@@ -79,14 +79,23 @@ export default function BookPage({ params }: Params) {
             </div>
 
             <div className={styles.actions}>
-              <a
-                href={`https://www.amazon.com/s?k=${encodeURIComponent(book.title + " " + book.author)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.ctaPrimary}
-              >
-                Buy on Amazon
-              </a>
+              {book.purchaseUrl ? (
+                <a
+                  href={book.purchaseUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.ctaPrimary}
+                >
+                  Buy now →
+                </a>
+              ) : (
+                <a
+                  href="/contact"
+                  className={styles.ctaInquire}
+                >
+                  Inquire about this title →
+                </a>
+              )}
               <Link href="/books" className={styles.ctaSecondary}>
                 Browse all titles
               </Link>

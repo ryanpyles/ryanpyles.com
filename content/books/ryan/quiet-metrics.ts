@@ -20,7 +20,6 @@ Pyles constructs a novel that is simultaneously a meditation on systems thinking
     "quiet literary fiction",
     "contemporary fiction",
   ],
-  isbn: "978-0-000000-02-4",
   publishDate: "2025-02-10",
   coverImage: "/images/books/quiet-metrics.jpg",
   theme: "ryan",

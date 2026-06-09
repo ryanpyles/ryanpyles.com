@@ -20,7 +20,6 @@ Pyles writes with the restraint of someone who knows exactly how much damage a s
     "speculative fiction book",
     "debut literary novel",
   ],
-  isbn: "978-0-000000-00-0",
   publishDate: "2024-03-15",
   coverImage: "/images/books/gideons-inferno.jpg",
   theme: "ryan",

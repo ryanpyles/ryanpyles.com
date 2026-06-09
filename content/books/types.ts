@@ -14,7 +14,10 @@ export interface Book {
   description: string;
   fullDescription: string;
   keywords: string[];
+  /** Real ISBN-13 only — omit if not yet assigned. Never use placeholder values. */
   isbn?: string;
+  /** Direct retailer URL (Amazon product page, Bookshop.org, etc.). Omit if not yet listed. */
+  purchaseUrl?: string;
   publishDate: string;
   coverImage: string;
   theme: BookTheme;

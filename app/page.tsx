@@ -21,13 +21,58 @@ import type { Project } from "@/components/ProjectCard";
 const LanguageSwitcher = dynamic(() => import("@/components/LanguageSwitcher"), {
   ssr: false,
 });
+
+// LivingManuscript: hero background — hero text renders immediately; canvas loads silently
 const LivingManuscript = dynamic(() => import("@/components/LivingManuscript"), {
   ssr: false,
   loading: () => null,
 });
+
+// LanguageOrrery: 100 vh section — show an archival placeholder while WebGL initialises
+function OrreryLoader() {
+  return (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "1rem",
+        background: "var(--color-black)",
+        color: "var(--color-muted)",
+      }}
+      aria-hidden="true"
+    >
+      <span
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "10px",
+          letterSpacing: "0.22em",
+          textTransform: "uppercase",
+          opacity: 0.45,
+        }}
+      >
+        § 02 — Language Orrery
+      </span>
+      <span
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: "9px",
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+          opacity: 0.28,
+        }}
+      >
+        Initialising chart…
+      </span>
+    </div>
+  );
+}
+
 const LanguageOrrery = dynamic(() => import("@/components/LanguageOrrery"), {
   ssr: false,
-  loading: () => null,
+  loading: OrreryLoader,
 });
 
 export const metadata: Metadata = {

@@ -91,6 +91,22 @@ button {
   --font-body: var(--font-garamond);
 }
 
+/* FORMÆTRIX domain modifier — restores the dark default palette.
+   Needed when a formaetrix-styled element (e.g. a demo preview) is
+   rendered inside a ryan-domain context and inherits its inverted tokens.
+   Re-declares root values explicitly so they win over the ryan ancestor. */
+[data-domain="formaetrix"] {
+  --color-black: #0a0a0a;
+  --color-white: #f5f5f5;
+  --color-accent: #f26a21;
+  --color-mid: #1a1a1a;
+  --color-muted: #888888;
+  --color-border: rgba(245, 245, 245, 0.12);
+  --color-surface: rgba(245, 245, 245, 0.04);
+  --font-serif: "Cormorant Garamond", "Adobe Garamond Pro", Georgia, serif;
+  --font-body: var(--font-sans);
+}
+
 /* Selection */
 ::selection {
   background-color: var(--color-accent);

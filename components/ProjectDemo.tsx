@@ -28,6 +28,7 @@ function DomainToggleDemo() {
 
       <div
         className={[styles.domainPreview, active === "ryan" ? styles.domainPreviewRyan : styles.domainPreviewFormaetrix].join(" ")}
+        data-domain={active === "formaetrix" ? "formaetrix" : undefined}
       >
         <div className={styles.domainNav}>
           <span className={styles.domainLogo}>{active === "ryan" ? "Ryan J. Pyles" : "FORMÆTRIX"}</span>

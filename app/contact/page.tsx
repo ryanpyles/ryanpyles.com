@@ -25,16 +25,9 @@ export default function ContactPage() {
 
         <div className={styles.options}>
           <div className={styles.option}>
-            <h2 className={styles.optionLabel}>General</h2>
-            <a href="mailto:ryan@ryanpyles.com" className={styles.optionLink}>
-              ryan@ryanpyles.com
-            </a>
-          </div>
-
-          <div className={styles.option}>
-            <h2 className={styles.optionLabel}>Press & Rights</h2>
-            <a href="mailto:press@ryanpyles.com" className={styles.optionLink}>
-              press@ryanpyles.com
+            <h2 className={styles.optionLabel}>All Inquiries</h2>
+            <a href="mailto:me@ryanpyles.com" className={styles.optionLink}>
+              me@ryanpyles.com
             </a>
           </div>
 

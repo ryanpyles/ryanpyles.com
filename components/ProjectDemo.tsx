@@ -1,6 +1,7 @@
 "use client";
 
 import React, { Suspense, useState } from "react";
+import { Ae } from "./Ae";
 import dynamic from "next/dynamic";
 import type { DemoType } from "@/content/projectCases";
 import styles from "./ProjectDemo.module.css";
@@ -31,7 +32,7 @@ function DomainToggleDemo() {
         data-domain={active === "formaetrix" ? "formaetrix" : undefined}
       >
         <div className={styles.domainNav}>
-          <span className={styles.domainLogo}>{active === "ryan" ? "Ryan J. Pyles" : "FORMÆTRIX"}</span>
+          <span className={styles.domainLogo}>{active === "ryan" ? "Ryan J. Pyles" : <>FORM<Ae />TRIX</>}</span>
           <div className={styles.domainNavLinks}>
             {active === "ryan" ? (
               <>
@@ -46,7 +47,7 @@ function DomainToggleDemo() {
         </div>
         <div className={styles.domainBody}>
           <p className={styles.domainEyebrow}>{active === "ryan" ? "Author · Engineer · Linguist" : "A System for Language-Bound Realities"}</p>
-          <h2 className={styles.domainHeading}>{active === "ryan" ? "Ryan Pyles" : "FORMÆTRIX"}</h2>
+          <h2 className={styles.domainHeading}>{active === "ryan" ? "Ryan Pyles" : <>FORM<Ae />TRIX</>}</h2>
           <p className={styles.domainSub}>{active === "ryan" ? "I write experimental fiction, build web systems, study languages." : "An imprint for fiction that resists easy categorization."}</p>
           <div className={styles.domainPalette}>
             {active === "ryan" ? (

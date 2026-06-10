@@ -107,6 +107,12 @@ button {
   --font-body: var(--font-sans);
 }
 
+/* Æ ligature — always accent-coloured, context-aware via CSS variable */
+.ae {
+  color: var(--color-accent);
+  font-style: normal;
+}
+
 /* Selection */
 ::selection {
   background-color: var(--color-accent);

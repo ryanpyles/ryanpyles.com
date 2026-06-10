@@ -1,5 +1,6 @@
 import React from "react";
 import Reveal from "./Reveal";
+import { Ae, withAe } from "./Ae";
 import styles from "./VoigtProject.module.css";
 
 const dimensions = [
@@ -78,7 +79,7 @@ export default function VoigtProject() {
                 <span className={styles.dimensionNumber}>0{i + 1}</span>
                 <div className={styles.dimensionContent}>
                   <h3 className={styles.dimensionLabel}>{d.label}</h3>
-                  <p className={styles.dimensionNote}>{d.note}</p>
+                  <p className={styles.dimensionNote}>{withAe(d.note)}</p>
                 </div>
               </div>
             </Reveal>
@@ -93,7 +94,7 @@ export default function VoigtProject() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              FORMÆTRIX →
+              FORM<Ae />TRIX →
             </a>
             <a
               href="https://www.formaetrix.com/imprint"

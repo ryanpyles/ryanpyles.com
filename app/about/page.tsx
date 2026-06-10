@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import { buildPageMetadata } from "@/lib/metadata";
+import { Ae } from "@/components/Ae";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -47,17 +48,17 @@ export default function AboutPage() {
             He is based in Chicago.
           </p>
 
-          <h2 className={styles.subheading}>FORMÆTRIX</h2>
+          <h2 className={styles.subheading}>FORM<Ae />TRIX</h2>
 
           <p>
-            FORMÆTRIX is an imprint Ryan founded for work that operates at the
+            FORM<Ae />TRIX is an imprint Ryan founded for work that operates at the
             edge of what publishing categories can hold. It is the home of
             novelist Elian Voigt, whose books refuse the distinction between
             literary and genre fiction.
           </p>
 
           <p>
-            The relationship between Ryan and FORMÆTRIX is not explained here.
+            The relationship between Ryan and FORM<Ae />TRIX is not explained here.
             It is felt in the work.
           </p>
 

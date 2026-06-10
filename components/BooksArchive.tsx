@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Reveal from "./Reveal";
+import { Ae } from "./Ae";
 import styles from "./BooksArchive.module.css";
 
 interface ArchiveBook {
@@ -118,7 +119,7 @@ export default function BooksArchive() {
             <span className={styles.kicker}>§ 06</span>
             <div className={styles.headingRow}>
               <h2 className={styles.heading}>Books</h2>
-              <span className={styles.subLabel}>Fiction published under the FORMÆTRIX imprint.</span>
+              <span className={styles.subLabel}>Fiction published under the FORM<Ae />TRIX imprint.</span>
             </div>
           </header>
         </Reveal>

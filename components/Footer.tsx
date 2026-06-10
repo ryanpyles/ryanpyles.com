@@ -1,4 +1,5 @@
 import React from "react";
+import { Ae } from "./Ae";
 import styles from "./Footer.module.css";
 
 const year = new Date().getFullYear();
@@ -22,7 +23,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              FORMÆTRIX →
+              FORM<Ae />TRIX →
             </a>
             <a
               href="https://www.formaetrix.com/imprint"

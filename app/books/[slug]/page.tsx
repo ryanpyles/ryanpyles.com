@@ -46,14 +46,20 @@ export default function BookPage({ params }: Params) {
         <article className={[styles.article, styles["ryan"]].join(" ")}>
           <div className={styles.coverCol}>
             <div className={styles.coverWrap}>
-              <Image
-                src={book.coverImage}
-                alt={`${book.title} — cover`}
-                fill
-                sizes="(max-width: 640px) 80vw, 360px"
-                className={styles.cover}
-                priority
-              />
+              {book.coverImage ? (
+                <Image
+                  src={book.coverImage}
+                  alt={`${book.title} — cover`}
+                  fill
+                  sizes="(max-width: 640px) 80vw, 360px"
+                  className={styles.cover}
+                  priority
+                />
+              ) : (
+                <div className={styles.coverPlaceholder} aria-hidden>
+                  <span className={styles.coverPlaceholderLabel}>Cover forthcoming</span>
+                </div>
+              )}
             </div>
           </div>
 

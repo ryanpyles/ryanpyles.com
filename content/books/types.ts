@@ -21,7 +21,8 @@ export interface Book {
   purchaseUrl?: string;
   publishDate?: string;
   status?: BookStatus;
-  coverImage: string;
+  /** Path to cover image in /public — omit for forthcoming titles without a cover yet. */
+  coverImage?: string;
   theme: BookTheme;
   amazon?: AmazonData;
 }

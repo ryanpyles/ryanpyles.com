@@ -51,6 +51,7 @@ export function buildPageMetadata(overrides: {
 export function buildBookMetadata(book: Book): Metadata {
   const fullTitle = `${book.title} by ${book.author} | ${site.name}`;
   const url = `${site.url}/books/${book.slug}`;
+  const ogImage = book.coverImage ?? `/og/ryan-default.jpg`;
 
   return {
     title: fullTitle,
@@ -67,7 +68,7 @@ export function buildBookMetadata(book: Book): Metadata {
       type: "book",
       images: [
         {
-          url: book.coverImage,
+          url: ogImage,
           width: 800,
           height: 1200,
           alt: `${book.title} cover`,
@@ -79,7 +80,7 @@ export function buildBookMetadata(book: Book): Metadata {
       title: fullTitle,
       description: book.description,
       site: site.twitterHandle,
-      images: [book.coverImage],
+      images: [ogImage],
     },
     robots: {
       index: true,

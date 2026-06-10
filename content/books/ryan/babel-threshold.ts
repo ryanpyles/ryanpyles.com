@@ -20,7 +20,6 @@ Literary fiction of language, memory, and grief. Forthcoming from FORMÆTRIX.`,
     "FORMÆTRIX forthcoming",
   ],
   status: "forthcoming",
-  coverImage: "/images/books/babel-threshold.jpg",
   theme: "ryan",
 };
 

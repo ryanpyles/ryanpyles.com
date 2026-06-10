@@ -20,7 +20,6 @@ Icelandic literary-gothic. Forthcoming from FORMÆTRIX.`,
     "FORMÆTRIX forthcoming",
   ],
   status: "forthcoming",
-  coverImage: "/images/books/guestbook-of-the-north-wind.jpg",
   theme: "ryan",
 };
 

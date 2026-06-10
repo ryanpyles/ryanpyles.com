@@ -19,14 +19,20 @@ export default function BookCard({
     <article className={[styles.card, styles[book.theme]].join(" ")}>
       <Link href={`/books/${book.slug}`} className={styles.coverLink} tabIndex={-1} aria-hidden>
         <div className={styles.coverWrap}>
-          <Image
-            src={book.coverImage}
-            alt={`${book.title} — cover`}
-            fill
-            sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 280px"
-            className={styles.cover}
-            priority={false}
-          />
+          {book.coverImage ? (
+            <Image
+              src={book.coverImage}
+              alt={`${book.title} — cover`}
+              fill
+              sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 280px"
+              className={styles.cover}
+              priority={false}
+            />
+          ) : (
+            <div className={styles.coverPlaceholder} aria-hidden>
+              <span className={styles.coverPlaceholderLabel}>Forthcoming</span>
+            </div>
+          )}
         </div>
       </Link>
 

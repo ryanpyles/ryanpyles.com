@@ -5,18 +5,26 @@ const book: Book = {
   title: "Declensions of Dark Water",
   author: "Elian Voigt",
   description:
-    "Dr. Rowan Hale, a Cambridge linguist, arrives in an Icelandic village to document its last fluent speaker. He finds a grammar in which syntax shapes reality — silences are active, declensions hold weight — and slowly converts from observer to custodian.",
-  fullDescription: `Dr. Rowan Hale, a Cambridge linguist, arrives in an Icelandic village to document its last fluent speaker, Edda Brynjardóttir.
+    "When linguist Rowan Hale arrives in the isolated Icelandic village of Brynjavík to document a disappearing dialect, he discovers a language governed by rules of avoidance, silence, and grammatical restraint — where grammatical errors coincide with physical consequences.",
+  fullDescription: `A village that survives by refusing to name the sea.
 
-He finds a grammar in which syntax shapes reality — silences are active, declensions hold weight — and slowly converts from observer to custodian. The language is not dying; it is waiting. Hale's fieldwork becomes something else entirely: an initiation into a structure of meaning that does not permit neutrality.
+When linguist Rowan Hale arrives in the isolated Icelandic village of Brynjavík to document a disappearing dialect, he discovers a language governed by rules of avoidance, silence, and grammatical restraint. Words are weighed. Sentences are left unfinished. Certain nouns are never spoken aloud.
 
-Folk horror of language and the sea. Set in the Brynjavík milieu also explored in *Guestbook of the North Wind*.`,
+As Rowan records funeral rites, coastal repairs, and everyday speech, he begins to notice a pattern: grammatical errors coincide with physical consequences. Storms arrive after misdeclensions. Buildings fail where sentences fracture. The sea listens—not to meaning, but to form.
+
+*Declensions of Dark Water* is a literary folk horror novel about language as infrastructure, grief as syntax, and the dangerous power of naming what should remain unaddressed. Blending atmospheric dread with linguistic precision, it explores what happens when grammar stops describing the world and begins to enforce it.
+
+For readers of quiet horror, coastal folklore, and psychologically unsettling fiction.
+
+Set in the Brynjavík milieu also explored in *Guestbook of the North Wind*.`,
   keywords: [
     "Elian Voigt",
     "Declensions of Dark Water",
     "folk horror novel",
     "linguistics fiction",
     "Iceland literary fiction",
+    "quiet horror",
+    "coastal folklore",
     "FORMÆTRIX",
   ],
   isbn: "979-8-245377-35-3",
@@ -26,7 +34,11 @@ Folk horror of language and the sea. Set in the Brynjavík milieu also explored 
   coverImage: "/images/books/declensions-of-dark-water.jpg",
   theme: "ryan",
   amazon: {
-    blurbHTML: `<p>A Cambridge linguist arrives in an Icelandic village to document its last fluent speaker. He finds a grammar in which syntax shapes reality — and slowly converts from observer to custodian.</p>`,
+    blurbHTML: `<p>A village that survives by refusing to name the sea.</p>
+<p>When linguist Rowan Hale arrives in the isolated Icelandic village of Brynjavík to document a disappearing dialect, he discovers a language governed by rules of avoidance, silence, and grammatical restraint. Words are weighed. Sentences are left unfinished. Certain nouns are never spoken aloud.</p>
+<p>As Rowan records funeral rites, coastal repairs, and everyday speech, he begins to notice a pattern: grammatical errors coincide with physical consequences. Storms arrive after misdeclensions. Buildings fail where sentences fracture. The sea listens—not to meaning, but to form.</p>
+<p><em>Declensions of Dark Water</em> is a literary folk horror novel about language as infrastructure, grief as syntax, and the dangerous power of naming what should remain unaddressed. Blending atmospheric dread with linguistic precision, it explores what happens when grammar stops describing the world and begins to enforce it.</p>
+<p>For readers of quiet horror, coastal folklore, and psychologically unsettling fiction.</p>`,
   },
 };
 

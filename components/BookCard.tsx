@@ -49,9 +49,15 @@ export default function BookCard({
         <p className={styles.description}>{book.description}</p>
 
         <div className={styles.actions}>
-          <Link href={`/books/${book.slug}`} className={styles.cta}>
-            {buyLabel}
-          </Link>
+          {book.status === "forthcoming" ? (
+            <Link href={`/books/${book.slug}`} className={styles.ctaForthcoming}>
+              Forthcoming
+            </Link>
+          ) : (
+            <Link href={`/books/${book.slug}`} className={styles.cta}>
+              {buyLabel}
+            </Link>
+          )}
         </div>
       </div>
     </article>

@@ -96,6 +96,15 @@
   color: var(--color-black);
 }
 
+.ctaForthcoming {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
 /* Formaetrix variant */
 .formaetrix .title {
   font-family: var(--font-mono);

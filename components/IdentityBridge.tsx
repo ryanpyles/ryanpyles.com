@@ -34,35 +34,6 @@ export default function IdentityBridge() {
         </Reveal>
 
         <Reveal delay={80}>
-          <div className={styles.triad} aria-label="The three identities">
-            <div className={styles.role}>
-              <span className={styles.roleName}>Ryan Pyles</span>
-              <span className={styles.roleDesc}>Engineer · Linguist</span>
-              <span className={styles.roleVerb}>builds systems</span>
-            </div>
-            <span className={styles.divider} aria-hidden="true">—</span>
-            <div className={styles.role}>
-              <span className={styles.roleName}>Elian Voigt</span>
-              <span className={styles.roleDesc}>Author</span>
-              <span className={styles.roleVerb}>dismantles them</span>
-            </div>
-            <span className={styles.divider} aria-hidden="true">—</span>
-            <div className={styles.role}>
-              <a
-                href="https://www.formaetrix.com"
-                className={styles.roleLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className={styles.roleName}>FORM<Ae />TRIX</span>
-                <span className={styles.roleDesc}>Studio · Imprint</span>
-                <span className={styles.roleVerb}>publishes the work</span>
-              </a>
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={140}>
           <a href="#voigt" className={styles.deepLink}>
             The Voigt Project — on building a literary identity →
           </a>

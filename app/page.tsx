@@ -119,9 +119,10 @@ export default function HomePage() {
 
           <p className={styles.heroAttribution}>Ryan Pyles — Chicago</p>
 
-          <p className={styles.heroPromise}>
-            Nine novels. Twelve languages. Software built for narrative
-            intelligence. One investigation.
+          <p className={styles.heroSummary}>
+            Author of literary fiction, software engineer, and linguist. Nine novels
+            published as Elian Voigt. Systems built for narrative intelligence.
+            Twelve languages under active study.
           </p>
 
           <div className={styles.heroCtas}>
@@ -142,14 +143,14 @@ export default function HomePage() {
       {/* ── Identity Bridge ────────────────────────────────────── */}
       <IdentityBridge />
 
-      {/* ── Featured Work: Continuity Atlas ───────────────────── */}
-      <ContinuityAtlasFeatured />
+      {/* ── Start Here (guided entry — early, before content) ──── */}
+      <StartHere />
 
       {/* ── Fiction / Books (3 featured + forthcoming) ─────────── */}
       <HomepageFiction />
 
-      {/* ── Start Here (guided entry) ──────────────────────────── */}
-      <StartHere />
+      {/* ── Featured Work: Continuity Atlas ───────────────────── */}
+      <ContinuityAtlasFeatured />
 
       {/* ── Language Orrery (reward section) ──────────────────── */}
       <div id="orrery" aria-hidden="true" />

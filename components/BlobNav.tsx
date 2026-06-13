@@ -7,6 +7,7 @@ import React, {
   Suspense,
 } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { Environment } from "@react-three/drei";
 import { useRouter } from "next/navigation";
 import * as THREE from "three";
 import type { Domain } from "@/lib/domain";
@@ -89,9 +90,12 @@ function BlobMesh({ domain, hasHover, mouseRef }: BlobMeshProps) {
   return (
     <mesh ref={meshRef} geometry={baseGeom}>
       <meshStandardMaterial
-        color={isFormaetrix ? "#111111" : "#0a0a0a"}
-        roughness={isFormaetrix ? 0.9 : 0.75}
-        metalness={isFormaetrix ? 0.15 : 0.05}
+        color={isFormaetrix ? "#1e1e35" : "#2a2018"}
+        roughness={isFormaetrix ? 0.08 : 0.25}
+        metalness={isFormaetrix ? 0.85 : 0.55}
+        emissive={isFormaetrix ? "#0e0e30" : "#1a1008"}
+        emissiveIntensity={1.2}
+        envMapIntensity={2.0}
       />
     </mesh>
   );
@@ -119,16 +123,22 @@ function Scene({ domain, nodes, mouseRef, onSelect, onHoverLabel }: SceneProps) 
 
   return (
     <>
-      <ambientLight intensity={isFormaetrix ? 0.3 : 0.5} />
+      <Environment preset={isFormaetrix ? "studio" : "apartment"} />
+      <ambientLight intensity={isFormaetrix ? 0.1 : 0.35} />
       <directionalLight
         position={[5, 8, 5]}
-        intensity={isFormaetrix ? 0.7 : 1.0}
-        color={isFormaetrix ? "#d0d0ff" : "#ffffff"}
+        intensity={isFormaetrix ? 3.0 : 2.0}
+        color={isFormaetrix ? "#c8c8ff" : "#ffffff"}
       />
       <pointLight
         position={[-4, -3, -4]}
-        intensity={isFormaetrix ? 0.2 : 0.3}
-        color={isFormaetrix ? "#ff8050" : "#f0f0f0"}
+        intensity={isFormaetrix ? 1.2 : 0.6}
+        color={isFormaetrix ? "#ff6030" : "#f0a060"}
+      />
+      <pointLight
+        position={[-2, 1, -4]}
+        intensity={isFormaetrix ? 1.5 : 0.4}
+        color={isFormaetrix ? "#2040ff" : "#ffffff"}
       />
       <BlobMesh domain={domain} hasHover={hoveredIndex !== null} mouseRef={mouseRef} />
       {nodes.map((node, i) => {
@@ -144,7 +154,7 @@ function Scene({ domain, nodes, mouseRef, onSelect, onHoverLabel }: SceneProps) 
           >
             <sphereGeometry args={[0.09, 12, 12]} />
             <meshStandardMaterial
-              color={isHovered ? "#f26a21" : isFormaetrix ? "#333" : "#555"}
+              color={isHovered ? "#f26a21" : isFormaetrix ? "#888" : "#aaa"}
               emissive={isHovered ? "#f26a21" : "#000000"}
               emissiveIntensity={isHovered ? 0.6 : 0}
               roughness={0.4}

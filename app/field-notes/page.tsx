@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function FieldNotesPage() {
   return (
-    <SiteLayout>
+    <SiteLayout background="field-notes">
       <Section>
         <header className={styles.header}>
           <h1>Field Notes</h1>

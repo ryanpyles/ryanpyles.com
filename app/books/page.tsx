@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function BooksPage() {
   return (
-    <SiteLayout>
+    <SiteLayout background="fiction">
       <Section>
         <header className={styles.header}>
           <h1>Fiction</h1>

@@ -98,7 +98,7 @@ const projects: Project[] = [
 
 export default function ProjectsPage() {
   return (
-    <SiteLayout>
+    <SiteLayout background="systems">
       <Section>
         <header className={styles.header}>
           <h1>Systems</h1>

@@ -4,15 +4,19 @@ import Footer from "./Footer";
 import ArchiveProgress from "./ArchiveProgress";
 import PageEnter from "./PageEnter";
 import SplashScreen from "./SplashScreen";
+import PageBackground, { type BgVariant } from "./PageBackground";
 import styles from "./SiteLayout.module.css";
 
 interface SiteLayoutProps {
   children: React.ReactNode;
+  background?: BgVariant;
 }
 
-export default function SiteLayout({ children }: SiteLayoutProps) {
+export default function SiteLayout({ children, background }: SiteLayoutProps) {
   return (
     <div className={styles.root} data-domain="ryan">
+      {background && <PageBackground variant={background} />}
+
       {/* First-load splash — once per session, slides upward to reveal page */}
       <SplashScreen />
 

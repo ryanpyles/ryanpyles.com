@@ -46,6 +46,16 @@
   color: color-mix(in srgb, var(--color-white) 45%, transparent);
 }
 
+.universeNote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-md);
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--color-white) 45%, transparent);
+  margin-bottom: var(--space-10);
+  max-width: 680px;
+}
+
 /* ---- Catalog listing ---- */
 .catalog {
   display: flex;

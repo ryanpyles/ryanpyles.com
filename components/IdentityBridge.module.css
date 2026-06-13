@@ -1,0 +1,130 @@
+.section {
+  padding: var(--space-16) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.prose {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--color-white) 75%, transparent);
+  max-width: 700px;
+}
+
+.link {
+  color: var(--color-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--color-white) 30%, transparent);
+  transition: color var(--duration-fast) var(--ease-out),
+              text-decoration-color var(--duration-fast) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+.triad {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.divider {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  color: var(--color-border);
+  align-self: center;
+  line-height: 1;
+}
+
+.role {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 140px;
+}
+
+.roleLink {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  text-decoration: none;
+}
+
+.roleLink:hover .roleName {
+  color: var(--color-accent);
+}
+
+.roleName {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  font-weight: 400;
+  color: var(--color-white);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.roleDesc {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.roleVerb {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: color-mix(in srgb, var(--color-white) 45%, transparent);
+}
+
+.deepLink {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  transition: color var(--duration-fast) var(--ease-out),
+              letter-spacing var(--duration-fast) var(--ease-out);
+}
+
+.deepLink:hover {
+  color: var(--color-accent);
+  letter-spacing: 0.13em;
+}
+
+@media (max-width: 768px) {
+  .inner {
+    padding: 0 var(--space-6);
+  }
+
+  .triad {
+    gap: var(--space-6);
+  }
+
+  .divider {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .inner {
+    padding: 0 var(--space-4);
+  }
+
+  .triad {
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+}

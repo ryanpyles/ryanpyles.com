@@ -293,7 +293,7 @@ export default function LanguageOrrery() {
       <div className={styles.caption}>
         <p className={styles.captionEyebrow}>The Language Orrery</p>
         <p className={styles.captionBody}>
-          Eleven languages, charted in orbit by how I hold them — fluency near the
+          Twelve languages, charted in orbit by how I hold them — fluency near the
           center, curiosity further out. Hover a node for its bearings; click one to
           open its notebook.
         </p>
@@ -317,7 +317,14 @@ export default function LanguageOrrery() {
         <p className={styles.fallbackEyebrow}>Languages, by orbit</p>
         <dl className={styles.fallbackList}>
           {languages.map((language) => (
-            <div key={language.id} className={styles.fallbackEntry}>
+            <div
+              key={language.id}
+              className={styles.fallbackEntry}
+              role="button"
+              tabIndex={0}
+              onClick={() => handleSelect(language, new THREE.Vector3(0, 0, 0))}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleSelect(language, new THREE.Vector3(0, 0, 0)); }}
+            >
               <dt>{language.name}</dt>
               <dd>
                 {language.level} · {language.focus.join(", ")} · since {language.started}

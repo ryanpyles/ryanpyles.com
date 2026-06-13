@@ -124,6 +124,13 @@ export default function BooksArchive() {
           </header>
         </Reveal>
 
+        <Reveal delay={80}>
+          <p className={styles.universeNote}>
+            All titles occupy a shared formal universe — linked not by plot, but by recurring structural tensions.
+            Systems that become belief. Languages that reshape their speakers. Grief treated as investigation.
+          </p>
+        </Reveal>
+
         <div className={styles.catalog}>
           {books.map((book, i) => (
             <Reveal key={book.id} delay={i * 50}>

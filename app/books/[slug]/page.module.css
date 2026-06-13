@@ -132,6 +132,14 @@
   border-color: var(--color-white);
 }
 
+.forthcomingNote {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
 .ctaInquire {
   display: inline-block;
   padding: var(--space-3) var(--space-8);

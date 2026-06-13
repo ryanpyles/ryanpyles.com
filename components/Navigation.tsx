@@ -6,12 +6,11 @@ import { usePathname } from "next/navigation";
 import styles from "./Navigation.module.css";
 
 const navLinks = [
-  { href: "/archive", label: "Archive" },
-  { href: "/books", label: "Books" },
-  { href: "/field-notes", label: "Field Notes" },
-  { href: "/projects", label: "Projects" },
+  { href: "/books", label: "Fiction" },
+  { href: "/archive", label: "Research" },
+  { href: "/projects", label: "Systems" },
+  { href: "/field-notes", label: "Notes" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navigation() {

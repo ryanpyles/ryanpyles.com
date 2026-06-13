@@ -53,6 +53,15 @@
   color: color-mix(in srgb, var(--color-white) 70%, transparent);
 }
 
+.fragment {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--color-white) 22%, transparent);
+  font-style: italic;
+  margin-top: var(--space-1);
+}
+
 .footerLinks {
   display: flex;
   gap: var(--space-6);

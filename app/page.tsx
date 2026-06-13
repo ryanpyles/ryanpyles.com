@@ -4,19 +4,18 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
-import ProjectCard from "@/components/ProjectCard";
 import CurrentWorkCard from "@/components/CurrentWorkCard";
 import FieldNoteCard from "@/components/FieldNoteCard";
-import ScholarNotebook from "@/components/ScholarNotebook";
+import IdentityBridge from "@/components/IdentityBridge";
+import HomepageFiction from "@/components/HomepageFiction";
+import StartHere from "@/components/StartHere";
 import VoigtProject from "@/components/VoigtProject";
-import BooksArchive from "@/components/BooksArchive";
 import ContinuityAtlasFeatured from "@/components/ContinuityAtlasFeatured";
 import Reveal from "@/components/Reveal";
 import { currentWork } from "@/content/currentWork";
 import { fieldNotes } from "@/content/fieldNotes";
 import { buildPersonJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
-import type { Project } from "@/components/ProjectCard";
 
 const LanguageSwitcher = dynamic(() => import("@/components/LanguageSwitcher"), {
   ssr: false,
@@ -53,7 +52,7 @@ function OrreryLoader() {
           opacity: 0.45,
         }}
       >
-        § 02 — Language Orrery
+        Language Orrery
       </span>
       <span
         style={{
@@ -88,35 +87,10 @@ export const metadata: Metadata = {
   ],
 };
 
-const featuredProjects: Project[] = [
-  {
-    slug: "dual-domain-system",
-    title: "Dual-Domain Identity System",
-    description:
-      "A single Next.js codebase serving two distinct brand identities — ryanpyles.com and formaetrix.com — via domain-based rendering and shared design tokens.",
-    tags: ["Next.js", "TypeScript", "CSS Modules"],
-    year: "2025",
-  },
-  {
-    slug: "language-typography-engine",
-    title: "Multi-Language Typography Engine",
-    description:
-      "RTL support, CJK font stacks, and localized typography across eleven languages with localStorage persistence and browser detection.",
-    tags: ["React", "i18n", "Typography"],
-    year: "2025",
-  },
-  {
-    slug: "blob-navigation",
-    title: "3D Identity Navigation",
-    description:
-      "WebGL blob interface using Three.js and React Three Fiber. Cursor-reactive organic deformation with region-mapped navigation.",
-    tags: ["Three.js", "R3F", "WebGL"],
-    year: "2025",
-  },
-];
-
 export default function HomePage() {
   const jsonLd = buildPersonJsonLd();
+  // Show only the 2 most recent field notes on the homepage
+  const homepageNotes = fieldNotes.slice(0, 2);
 
   return (
     <SiteLayout>
@@ -125,7 +99,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: jsonLd }}
       />
 
-      {/* Hero */}
+      {/* ── Hero ───────────────────────────────────────────────── */}
       <section className={styles.hero}>
         <LivingManuscript />
 
@@ -145,9 +119,19 @@ export default function HomePage() {
 
           <p className={styles.heroAttribution}>Ryan Pyles — Chicago</p>
 
-          <a href="#archive" className={styles.heroScroll}>
-            Enter Archive ↓
-          </a>
+          <p className={styles.heroPromise}>
+            Nine novels. Twelve languages. Software built for narrative
+            intelligence. One investigation.
+          </p>
+
+          <div className={styles.heroCtas}>
+            <a href="/books" className={styles.heroCta}>
+              Read the Fiction →
+            </a>
+            <a href="/projects" className={styles.heroCtaSecondary}>
+              Explore the Systems
+            </a>
+          </div>
         </div>
 
         <div className={styles.langWrap}>
@@ -155,21 +139,58 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Scholar's Notebook — § 01 */}
-      <ScholarNotebook />
+      {/* ── Identity Bridge ────────────────────────────────────── */}
+      <IdentityBridge />
 
-      {/* Language Orrery — § 02 */}
+      {/* ── Featured Work: Continuity Atlas ───────────────────── */}
+      <ContinuityAtlasFeatured />
+
+      {/* ── Fiction / Books (3 featured + forthcoming) ─────────── */}
+      <HomepageFiction />
+
+      {/* ── Start Here (guided entry) ──────────────────────────── */}
+      <StartHere />
+
+      {/* ── Language Orrery (reward section) ──────────────────── */}
+      <div id="orrery" aria-hidden="true" />
       <LanguageOrrery />
 
-      {/* Research Log — § 03 */}
-      <Section id="research-log">
+      {/* ── Field Notes (2 entries) ────────────────────────────── */}
+      <Section id="field-notes">
         <Reveal>
           <header className={styles.sectionHeader}>
             <div>
-              <span className={styles.sectionKicker}>§ 03</span>
-              <h2>Research Log</h2>
+              <span className={styles.sectionKicker}>Notes</span>
+              <h2>Field Notes</h2>
+              <p className={styles.sectionIntro}>
+                Thinking before it becomes work. Observations, structural
+                curiosities, and fragments that may eventually appear somewhere
+                else — or may not.
+              </p>
             </div>
-            <span className={styles.sectionNote}>Active inquiries</span>
+            <Link href="/field-notes" className={styles.sectionLink}>
+              Notes archive →
+            </Link>
+          </header>
+        </Reveal>
+        <div className={styles.fieldNoteGrid}>
+          {homepageNotes.map((note, i) => (
+            <Reveal key={note.slug} delay={i * 80}>
+              <FieldNoteCard note={note} />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* ── In Progress (condensed Research Log) ──────────────── */}
+      <Section id="in-progress">
+        <Reveal>
+          <header className={[styles.sectionHeader, styles.sectionHeaderQuiet].join(" ")}>
+            <div>
+              <span className={styles.sectionKicker}>Research</span>
+              <h2>In Progress</h2>
+              <p className={styles.sectionIntro}>What is currently unfinished.</p>
+            </div>
           </header>
         </Reveal>
         <div className={styles.currentWorkList}>
@@ -181,58 +202,8 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* The Voigt Project — § 04 */}
+      {/* ── The Voigt Project (deep-dive, positioned last) ─────── */}
       <VoigtProject />
-
-      {/* Continuity Atlas — § 05 */}
-      <ContinuityAtlasFeatured />
-
-      {/* Books — § 06 */}
-      <BooksArchive />
-
-      {/* Systems & Experiments — § 07 */}
-      <Section id="systems">
-        <Reveal>
-          <header className={[styles.sectionHeader, styles.sectionHeaderQuiet].join(" ")}>
-            <div>
-              <span className={styles.sectionKicker}>§ 07</span>
-              <h2>Systems &amp; Experiments</h2>
-            </div>
-            <Link href="/projects" className={styles.sectionLink}>
-              All projects →
-            </Link>
-          </header>
-        </Reveal>
-        <div className={styles.projectGrid}>
-          {featuredProjects.map((project, i) => (
-            <Reveal key={project.slug} delay={i * 60}>
-              <ProjectCard project={project} />
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      {/* Field Notes — § 08 */}
-      <Section id="field-notes">
-        <Reveal>
-          <header className={styles.sectionHeader}>
-            <div>
-              <span className={styles.sectionKicker}>§ 08</span>
-              <h2>Field Notes</h2>
-            </div>
-            <Link href="/field-notes" className={styles.sectionLink}>
-              Archive →
-            </Link>
-          </header>
-        </Reveal>
-        <div className={styles.fieldNoteGrid}>
-          {fieldNotes.map((note, i) => (
-            <Reveal key={note.slug} delay={i * 80}>
-              <FieldNoteCard note={note} />
-            </Reveal>
-          ))}
-        </div>
-      </Section>
     </SiteLayout>
   );
 }

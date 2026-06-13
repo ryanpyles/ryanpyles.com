@@ -87,7 +87,11 @@ export default function BookPage({ params }: Params) {
             </div>
 
             <div className={styles.actions}>
-              {book.purchaseUrl ? (
+              {book.status === "forthcoming" ? (
+                <p className={styles.forthcomingNote}>
+                  In development — not yet available
+                </p>
+              ) : book.purchaseUrl ? (
                 <a
                   href={book.purchaseUrl}
                   target="_blank"

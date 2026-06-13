@@ -13,8 +13,11 @@ export default function Footer() {
           <p className={styles.location}>Chicago</p>
           <p className={styles.roles}>Author · Engineer · Linguist</p>
           <p className={styles.obsession}>
-            Current obsession: How narrative behaves when treated as
-            infrastructure.
+            The work is one investigation into how language, narrative, and
+            formal systems reshape the people who use them.
+          </p>
+          <p className={styles.fragment} aria-label="From the Scholar's Notebook">
+            fn. 014 — A grammar is a map pretending to be a machine.
           </p>
           <div className={styles.footerLinks}>
             <a
@@ -32,6 +35,9 @@ export default function Footer() {
               rel="noopener noreferrer"
             >
               Elian Voigt →
+            </a>
+            <a href="/contact" className={styles.formaetrixLink}>
+              Contact →
             </a>
           </div>
         </div>

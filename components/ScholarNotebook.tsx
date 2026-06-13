@@ -15,7 +15,8 @@ export default function ScholarNotebook() {
             <span className={styles.kicker}>§ 01</span>
             <h2 className={styles.heading}>Scholar&rsquo;s Notebook</h2>
             <p className={styles.sub}>
-              Fragments, observations, structural curiosities, and unfinished thoughts.
+              Thinking in progress. Fragments, observations, and structural curiosities —
+              residue that feeds the fiction and the systems work.
             </p>
           </header>
         </Reveal>

@@ -129,4 +129,25 @@ export const languages: LanguageProfile[] = [
     notes:
       "The most recent, and the most structurally unusual of any I've studied. A small population maintaining centuries of continuity with its own medieval literature, still coining new words by recombining old roots rather than borrowing. Gluggaveður — window-weather, the kind you watch rather than go out into — came from here and has lived in my notebook ever since. The four-case declension system is an exercise in patience I haven't yet completed.",
   },
+  {
+    id: "arabic",
+    name: "Arabic",
+    ring: 2,
+    level: "Conversational",
+    focus: ["Conversation", "Travel", "Research"],
+    started: "2004",
+    notes:
+      "Started in 2004 with the summer in Cairo — total immersion in Egyptian Arabic, which is its own argument about the gap between the language people speak and the language it's permissible to write down. Modern Standard Arabic is the version taught in classrooms and used in formal texts; Egyptian Arabic is what the city actually sounds like. I learned to navigate both, which gave me an early education in diglossia — the way a language community can maintain two register systems in parallel without treating the tension as a problem to be solved. Arabic script reads right to left, but that description undersells it: the script is an abjad, which means the vowels are mostly implied, and fluent reading is an act of active interpretation rather than passive decoding. That summer recalibrated what I thought reading was.",
+  },
+  {
+    id: "hebrew",
+    name: "Hebrew",
+    ring: 3,
+    level: "Reading Knowledge",
+    focus: ["Literature", "Research"],
+    started: "2005",
+    books: ["Agnon — ספר המעשים", "Amichai — שירים"],
+    notes:
+      "Started in 2005 for religious reasons, which means I came to it through liturgy before I came to it through conversation — an unusual order that left certain registers very strong and others underdeveloped. Liturgical Hebrew has a fixed, highly formal grammar; Biblical Hebrew is older and stranger; Modern Hebrew is both a descendant of those and a deliberate construction, revived as a spoken language in the nineteenth and twentieth centuries through an act of collective will that remains remarkable as a linguistic project. Like Arabic, the script is an abjad — consonants carry the structure, vowels are present in some texts and absent in others. When you can read unpointed Hebrew, you're pattern-matching across roots rather than reading letter by letter. The three-letter root system meant that learning vocabulary was less like memorizing words and more like learning a grammar of meaning.",
+  },
 ];

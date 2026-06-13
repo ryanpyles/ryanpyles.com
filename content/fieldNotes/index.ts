@@ -20,6 +20,7 @@ export const fieldNotes: FieldNote[] = [
     excerpt:
       "Somewhere between the macro expansion and the rendered glyph, a document stops being yours. LuaLaTeX just makes the nerve endings visible — every \\def a synapse firing in the dark, long before anything reaches the page.",
     body: "What I keep noticing is the lag between intention and appearance — you write a command, and it travels through three or four layers of expansion before it ever touches the page. Most of the time you don't see any of it. You only notice the system exists when something misfires: a spacing rule collides with a font feature, and suddenly you're reading a stack trace instead of a paragraph. That's the moment it stops looking like typesetting and starts looking like a body.",
+    relatedWork: ["Babel Threshold", "FORMÆTRIX"],
     status: "fragment",
   },
   {
@@ -41,7 +42,7 @@ export const fieldNotes: FieldNote[] = [
     excerpt:
       "Restraint reads as intention only when there's something underneath straining against it. Take away the pressure and what's left isn't minimal — it's just empty. The blank page has to have weather behind it.",
     body: "The Quiet Metrics taught me this the hard way: every sentence I cut had to leave a pressure behind it, or the cut just read as absence. Restraint isn't the removal of material — it's the visible evidence that material existed and was declined. A blank wall isn't minimal. A wall with one nail and a faint rectangle where a painting used to hang — that's minimal. That's restraint. The ghost is the point.",
-    relatedWork: ["FORMÆTRIX"],
+    relatedWork: ["The Quiet Metric", "FORMÆTRIX"],
     status: "published",
   },
 ];

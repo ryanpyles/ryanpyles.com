@@ -5,18 +5,27 @@ const book: Book = {
   title: "Terms of Unbeing",
   author: "Elian Voigt",
   description:
-    "A narrative of the residences where every comfort carries a clause — for the ones who read the fine print and the ones who didn't.",
-  fullDescription: `A narrative of the residences where every comfort carries a clause.
+    "Gideon Cross signs a lease he doesn't remember reading. At Faust Luxury Residences, identity is negotiable, memory is billable, and every clause hides another beneath it.",
+  fullDescription: `Gideon Cross signs a lease he doesn't remember reading.
 
-Faust Luxury Residences offers everything: perfect light, perfect temperature, perfect quiet. The agreement runs to forty-seven pages. Some residents read it. Most don't. The novel follows both — the ones who understood what they signed, and the ones who discover it clause by clause, too late.
+The apartment is impossibly cheap. The building manager already knows his name. The tenants speak in rehearsed fragments, as though following terms he hasn't agreed to yet.
 
-A novel of luxury, obligation, and the fine print of modern desire.`,
+At Faust Luxury Residences, identity is negotiable, memory is billable, and every clause hides another beneath it.
+
+What begins as a housing arrangement becomes a procedural descent through tribunals, loyalty audits, contractual revisions, and a system designed to convert human existence into managed occupancy.
+
+But something inside the building resists erasure.
+
+Her name is Arya.
+
+*Terms of Unbeing* is a literary horror novel about debt, identity, bureaucracy, and the terrifying possibility that consent can survive long after the self does.`,
   keywords: [
     "Elian Voigt",
     "Terms of Unbeing",
     "Faust Luxury Residences",
-    "literary fiction",
-    "experimental fiction",
+    "literary horror",
+    "bureaucratic horror",
+    "identity fiction",
     "FORMÆTRIX",
   ],
   isbn: "979-8-196275-18-0",
@@ -26,7 +35,13 @@ A novel of luxury, obligation, and the fine print of modern desire.`,
   coverImage: "/images/books/terms-of-unbeing.jpg",
   theme: "ryan",
   amazon: {
-    blurbHTML: `<p>Faust Luxury Residences: every comfort carries a clause. A novel for the ones who read the fine print and the ones who didn't.</p>`,
+    blurbHTML: `<p>Gideon Cross signs a lease he doesn't remember reading.</p>
+<p>The apartment is impossibly cheap. The building manager already knows his name. The tenants speak in rehearsed fragments, as though following terms he hasn't agreed to yet.</p>
+<p>At Faust Luxury Residences, identity is negotiable, memory is billable, and every clause hides another beneath it.</p>
+<p>What begins as a housing arrangement becomes a procedural descent through tribunals, loyalty audits, contractual revisions, and a system designed to convert human existence into managed occupancy.</p>
+<p>But something inside the building resists erasure.</p>
+<p>Her name is Arya.</p>
+<p><em>Terms of Unbeing</em> is a literary horror novel about debt, identity, bureaucracy, and the terrifying possibility that consent can survive long after the self does.</p>`,
   },
 };
 

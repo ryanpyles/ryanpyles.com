@@ -5,18 +5,29 @@ const book: Book = {
   title: "What Survives Is Proof",
   author: "Elian Voigt",
   description:
-    "A doctor reconstructs her late husband's hidden life as a whistleblower, treating grief as an investigation conducted through physical evidence. What remains — documents, objects, contradictions — becomes the only testimony left to read.",
-  fullDescription: `A doctor reconstructs her late husband's hidden life as a whistleblower, treating grief as an investigation conducted through physical evidence.
+    "Nora Hale's husband is gone before the sun reaches the windows. What Evan leaves behind is not grief in any ordinary sense — it's a trail, subtle and deliberate, that refuses to release her.",
+  fullDescription: `Nora Hale wakes before dawn to the sound of nothing.
 
-What remains — documents, objects, contradictions — becomes the only testimony left to read. The novel moves through evidence the way a body moves through loss: methodically, incompletely, with occasional catastrophic revision.
+Her husband—brilliant, methodical, impossible to misread—is lying beside her, still warm, already gone. By the time the sun reaches the windows, he has been reduced to paperwork, signatures, a time of death spoken aloud as if it were sufficient.
 
-Literary fiction that takes seriously the idea that what we leave behind says more than what we intended.`,
+It isn't.
+
+What Evan leaves behind is not grief in any ordinary sense. It's a trail—subtle, deliberate, almost polite in how it hides itself. Receipts that don't align. A list written for a future he won't see. Initials carved into stone where no one should have been waiting. And a pattern that, once noticed, refuses to release her.
+
+The deeper Nora moves into his absence, the more structure she finds inside it. A system of denials buried inside a medical foundation. Patients reduced to numbers, then erased. A second ledger—handwritten—where someone insisted on restoring names to what had been taken from them.
+
+Evan was building something before he died. Not a case. Not a confession. A relay.
+
+And Nora is now part of it.
+
+*What Survives Is Proof* is a quiet, methodical unraveling of marriage, memory, and the architecture of truth—where evidence doesn't announce itself, and the most dangerous thing isn't what's hidden, but what's been carefully left behind.`,
   keywords: [
     "Elian Voigt",
     "What Survives Is Proof",
     "literary fiction",
     "grief novel",
     "whistleblower fiction",
+    "medical thriller literary",
     "FORMÆTRIX",
   ],
   isbn: "979-8-254884-79-8",
@@ -26,7 +37,14 @@ Literary fiction that takes seriously the idea that what we leave behind says mo
   coverImage: "/images/books/what-survives-is-proof.jpg",
   theme: "ryan",
   amazon: {
-    blurbHTML: `<p>A doctor reconstructs her late husband's hidden life as a whistleblower, treating grief as an investigation conducted through physical evidence. What remains — documents, objects, contradictions — becomes the only testimony left to read.</p>`,
+    blurbHTML: `<p>Nora Hale wakes before dawn to the sound of nothing.</p>
+<p>Her husband—brilliant, methodical, impossible to misread—is lying beside her, still warm, already gone. By the time the sun reaches the windows, he has been reduced to paperwork, signatures, a time of death spoken aloud as if it were sufficient.</p>
+<p>It isn't.</p>
+<p>What Evan leaves behind is not grief in any ordinary sense. It's a trail—subtle, deliberate, almost polite in how it hides itself. Receipts that don't align. A list written for a future he won't see. Initials carved into stone where no one should have been waiting. And a pattern that, once noticed, refuses to release her.</p>
+<p>The deeper Nora moves into his absence, the more structure she finds inside it. A system of denials buried inside a medical foundation. Patients reduced to numbers, then erased. A second ledger—handwritten—where someone insisted on restoring names to what had been taken from them.</p>
+<p>Evan was building something before he died. Not a case. Not a confession. A relay.</p>
+<p>And Nora is now part of it.</p>
+<p><em>What Survives Is Proof</em> is a quiet, methodical unraveling of marriage, memory, and the architecture of truth—where evidence doesn't announce itself, and the most dangerous thing isn't what's hidden, but what's been carefully left behind.</p>`,
   },
 };
 

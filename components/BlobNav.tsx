@@ -105,7 +105,7 @@ interface SceneProps {
   domain: Domain;
   nodes: NavNode[];
   mouseRef: React.MutableRefObject<{ x: number; y: number }>;
-  onSelect: (href: string) => void;
+  onSelect: (href: string, label: string) => void;
   onHoverLabel: (label: string | null) => void;
 }
 
@@ -150,7 +150,7 @@ function Scene({ domain, nodes, mouseRef, onSelect, onHoverLabel }: SceneProps) 
             position={pos}
             onPointerEnter={() => handleHover(i)}
             onPointerLeave={() => handleHover(null)}
-            onClick={() => onSelect(node.href)}
+            onClick={() => onSelect(node.href, node.label)}
           >
             <sphereGeometry args={[0.09, 12, 12]} />
             <meshStandardMaterial
@@ -169,9 +169,10 @@ function Scene({ domain, nodes, mouseRef, onSelect, onHoverLabel }: SceneProps) 
 
 interface BlobNavProps {
   domain: Domain;
+  onNodeClick?: (node: { label: string; href: string }) => void;
 }
 
-export default function BlobNav({ domain }: BlobNavProps) {
+export default function BlobNav({ domain, onNodeClick }: BlobNavProps) {
   const router = useRouter();
   const mouseRef = useRef({ x: 0, y: 0 });
   const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
@@ -189,8 +190,14 @@ export default function BlobNav({ domain }: BlobNavProps) {
   }, []);
 
   const handleSelect = useCallback(
-    (href: string) => router.push(href),
-    [router]
+    (href: string, label: string) => {
+      if (onNodeClick) {
+        onNodeClick({ href, label });
+      } else {
+        router.push(href);
+      }
+    },
+    [router, onNodeClick]
   );
 
   return (

@@ -146,12 +146,35 @@ function ContinuityAtlasDemo() {
 const BlobNav = dynamic(() => import("@/components/BlobNav"), { ssr: false });
 
 function BlobNavDemo() {
+  const [activeNode, setActiveNode] = useState<{ label: string; href: string } | null>(null);
+
   return (
     <div className={styles.blobDemo}>
       <Suspense fallback={<div className={styles.blobFallback}>Loading…</div>}>
-        <BlobNav domain="formaetrix" />
+        <BlobNav domain="formaetrix" onNodeClick={setActiveNode} />
       </Suspense>
       <p className={styles.blobHint}>Move your cursor over the form</p>
+
+      {activeNode && (
+        <div
+          className={styles.blobModal}
+          onClick={() => setActiveNode(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Navigation: ${activeNode.label}`}
+        >
+          <div className={styles.blobModalCard} onClick={(e) => e.stopPropagation()}>
+            <p className={styles.blobModalLabel}>{activeNode.label}</p>
+            <p className={styles.blobModalHref}>{activeNode.href}</p>
+            <button
+              className={styles.blobModalDismiss}
+              onClick={() => setActiveNode(null)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

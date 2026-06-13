@@ -1,10 +1,10 @@
-/* ArchiveProgress — manuscript-rule arrival bar
+/* ArchiveProgress — manuscript-rule navigation bar
  *
- * clip-path: inset(0 50% 0 50%)  →  fully clipped (0-width, centred)
- * clip-path: inset(0 0 0 0)      →  fully revealed
- *
- * The two-direction expansion (centre → edges) reads as a typographer
- * scribing a rule across the page rather than a generic progress bar.
+ * pending:  bar slides in from the left, stopping at ~60%
+ *           (signals "navigation in flight")
+ * arriving: bar expands symmetrically from centre → edges
+ *           (signals "page arrived")
+ * fading:   bar dissolves
  */
 
 .rule {
@@ -16,22 +16,25 @@
   z-index: 10000;
   pointer-events: none;
   background: var(--color-accent, #a14b2b);
-  /* Ink-bleed glow — soft halo that makes the line read as wet ink */
   box-shadow:
     0 0 6px 1px color-mix(in srgb, var(--color-accent, #a14b2b) 55%, transparent),
-    0 1px 8px 0   color-mix(in srgb, var(--color-accent, #a14b2b) 25%, transparent);
+    0 1px 8px 0  color-mix(in srgb, var(--color-accent, #a14b2b) 25%, transparent);
   will-change: clip-path, opacity;
 }
 
-/* Ruling: bar expands symmetrically from the centre outward */
-.rule[data-state="ruling"] {
-  animation: rule-expand 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+/* pending: slides in from left, halts at ~60% */
+.rule[data-state="pending"] {
+  animation: rule-pending 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Fading: fully drawn, then dissolves */
-.rule[data-state="fading"] {
-  clip-path: inset(0 0 0 0);
-  animation: rule-fade 0.4s ease forwards;
+@keyframes rule-pending {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 40% 0 0); }
+}
+
+/* arriving: after pending → instantly fill; after idle → centre-expand */
+.rule[data-state="arriving"] {
+  animation: rule-expand 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes rule-expand {
@@ -39,17 +42,30 @@
   to   { clip-path: inset(0 0 0 0); }
 }
 
+/* fading: fully drawn, then dissolves */
+.rule[data-state="fading"] {
+  clip-path: inset(0 0 0 0);
+  animation: rule-fade 0.4s ease forwards;
+}
+
 @keyframes rule-fade {
   from { opacity: 1; }
   to   { opacity: 0; }
 }
 
-/* Honour reduced motion — still show a brief flash but no geometry animation */
+/* Reduced motion — keep bar but skip geometry animations */
 @media (prefers-reduced-motion: reduce) {
-  .rule[data-state="ruling"] {
+  .rule[data-state="pending"] {
+    animation: none;
+    clip-path: inset(0 0 0 0);
+    opacity: 0.5;
+  }
+
+  .rule[data-state="arriving"] {
     animation: none;
     clip-path: inset(0 0 0 0);
   }
+
   .rule[data-state="fading"] {
     animation: rule-fade 0.2s ease forwards;
   }

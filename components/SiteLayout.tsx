@@ -3,6 +3,7 @@ import Navigation from "./Navigation";
 import Footer from "./Footer";
 import ArchiveProgress from "./ArchiveProgress";
 import PageEnter from "./PageEnter";
+import SplashScreen from "./SplashScreen";
 import styles from "./SiteLayout.module.css";
 
 interface SiteLayoutProps {
@@ -12,7 +13,10 @@ interface SiteLayoutProps {
 export default function SiteLayout({ children }: SiteLayoutProps) {
   return (
     <div className={styles.root} data-domain="ryan">
-      {/* Route-arrival indicator — manuscript rule expanding centre→edges */}
+      {/* First-load splash — once per session, slides upward to reveal page */}
+      <SplashScreen />
+
+      {/* Route indicator — pending (link click) + arriving (page load) */}
       <ArchiveProgress />
 
       <a href="#main-content" className={styles.skipLink}>

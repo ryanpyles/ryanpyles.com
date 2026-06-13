@@ -74,12 +74,12 @@ function DomainToggleDemo() {
 
 /* ---------- Language Demo ---------- */
 const LANGUAGES = [
-  { code: "en", label: "English", dir: "ltr" as const, sample: "The gap between intention and syntax is where all the interesting work happens.", font: "serif" },
-  { code: "ar", label: "العربية", dir: "rtl" as const, sample: "الفجوة بين النية والتركيب هي المكان الذي يحدث فيه كل العمل المثير للاهتمام.", font: "sans" },
-  { code: "ja", label: "日本語", dir: "ltr" as const, sample: "意図と構文の間の隔たりこそが、すべての興味深い作業が行われる場所です。", font: "cjk" },
-  { code: "he", label: "עברית", dir: "rtl" as const, sample: "הפער בין הכוונה לתחביר הוא המקום שבו מתרחשת כל העבודה המעניינת.", font: "sans" },
-  { code: "ru", label: "Русский", dir: "ltr" as const, sample: "Разрыв между намерением и синтаксисом — место, где происходит вся интересная работа.", font: "serif" },
-  { code: "fr", label: "Français", dir: "ltr" as const, sample: "L'écart entre l'intention et la syntaxe est là où se passe tout le travail intéressant.", font: "serif" },
+  { code: "en", label: "English", dir: "ltr" as const, sample: "The gap between intention and syntax is where all the interesting work happens.", font: "serif", vertical: false },
+  { code: "ar", label: "العربية", dir: "rtl" as const, sample: "الفجوة بين النية والتركيب هي المكان الذي يحدث فيه كل العمل المثير للاهتمام.", font: "sans", vertical: false },
+  { code: "ja", label: "日本語", dir: "ltr" as const, sample: "意図と構文の間の隔たりこそが、すべての興味深い作業が行われる場所です。", font: "cjk", vertical: true },
+  { code: "he", label: "עברית", dir: "rtl" as const, sample: "הפער בין הכוונה לתחביר הוא המקום שבו מתרחשת כל העבודה המעניינת.", font: "sans", vertical: false },
+  { code: "ru", label: "Русский", dir: "ltr" as const, sample: "Разрыв между намерением и синтаксисом — место, где происходит вся интересная работа.", font: "serif", vertical: false },
+  { code: "fr", label: "Français", dir: "ltr" as const, sample: "L'écart entre l'intention et la syntaxe est là où se passe tout le travail intéressant.", font: "serif", vertical: false },
 ];
 
 function LanguageDemo() {
@@ -100,13 +100,13 @@ function LanguageDemo() {
         ))}
       </div>
       <div
-        className={[styles.langSample, styles[`langFont_${lang.font}`]].join(" ")}
+        className={[styles.langSample, styles[`langFont_${lang.font}`], lang.vertical ? styles.langSample_vertical : ""].join(" ")}
         dir={lang.dir}
         lang={lang.code}
       >
-        <p className={styles.langText}>{lang.sample}</p>
+        <p className={[styles.langText, lang.vertical ? styles.langText_vertical : ""].join(" ")}>{lang.sample}</p>
         <div className={styles.langMeta}>
-          <span>{lang.dir === "rtl" ? "RTL" : "LTR"}</span>
+          <span>{lang.vertical ? "VERTICAL-RL" : lang.dir === "rtl" ? "RTL" : "LTR"}</span>
           <span>{lang.font === "cjk" ? "CJK font stack" : lang.font === "sans" ? "System sans" : "Serif"}</span>
           <span>{lang.label}</span>
         </div>

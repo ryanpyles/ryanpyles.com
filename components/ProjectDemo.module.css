@@ -177,6 +177,17 @@
   line-height: 1.9;
 }
 
+.langSample_vertical {
+  min-height: 220px;
+  align-items: flex-start;
+}
+
+.langText_vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  height: 9em;
+}
+
 .langMeta {
   display: flex;
   gap: var(--space-4);

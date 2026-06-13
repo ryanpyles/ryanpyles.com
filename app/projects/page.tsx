@@ -76,6 +76,24 @@ const projects: Project[] = [
     tags: ["React", "Product Design", "Narrative Design", "Framer Motion"],
     year: "2025",
   },
+  {
+    slug: "color-workshop",
+    title: "3D Color Workshop",
+    description:
+      "Interactive 3D color space explorer and palette builder. Color wheel picking, harmony modes (Mono, Comp, Triadic, Tetrad, and more), mood-based generation, film and brand reference palettes, and export to CSS variables, Tailwind, SCSS, or JSON.",
+    tags: ["React", "Three.js", "Color Theory", "Design Tools"],
+    href: "https://color-workshop.vercel.app/",
+    year: "2025",
+  },
+  {
+    slug: "global-data-visual",
+    title: "Global Data Visualizer",
+    description:
+      "Interactive dashboard for exploring and comparing global datasets. Responsive charts and data views built for navigating large-scale international statistics at a glance.",
+    tags: ["React", "Data Visualization", "D3.js", "Dashboard"],
+    href: "https://global-data-visual.vercel.app/",
+    year: "2025",
+  },
 ];
 
 export default function ProjectsPage() {

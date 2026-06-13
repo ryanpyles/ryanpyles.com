@@ -2,7 +2,7 @@ import type { Book } from "../types";
 
 const book: Book = {
   slug: "summer-of-the-glass-bees",
-  title: "The Summer of the Glass Bees",
+  title: "Summer of the Glass Bees",
   author: "Elian Voigt",
   description:
     "Every summer in Millfield, the glass bees return — leaving no sting, only relief. Grief softens. Anger thins. As the bees multiply, archivist Eliza Ward discovers that memory can be archived without being kept.",
@@ -20,12 +20,12 @@ It feels better.
 
 When Eliza tries to preserve what remains—an old ledger, a missing child's name, a record that resists correction—she discovers that memory can be archived without being kept. The data survives. The texture does not.
 
-Beautiful, restrained, and quietly devastating, *The Summer of the Glass Bees* is a literary horror novella about grief, efficiency, and what we surrender when we choose clarity over friction.
+Beautiful, restrained, and quietly devastating, *Summer of the Glass Bees* is a literary horror novella about grief, efficiency, and what we surrender when we choose clarity over friction.
 
 For readers of atmospheric fiction and slow-burn dread, this is a story about a town that becomes perfect—and the cost of letting it.`,
   keywords: [
     "Elian Voigt",
-    "The Summer of the Glass Bees",
+    "Summer of the Glass Bees",
     "literary horror novella",
     "atmospheric fiction",
     "slow-burn dread",
@@ -46,7 +46,7 @@ For readers of atmospheric fiction and slow-burn dread, this is a story about a 
 <p>As the bees multiply, Millfield begins to change. Headstones are standardized. Intake forms are simplified. Old photographs lose their shadows. The town's history is digitized, streamlined, clarified. The shelves empty. The air grows light.</p>
 <p>It feels better.</p>
 <p>When Eliza tries to preserve what remains—an old ledger, a missing child's name, a record that resists correction—she discovers that memory can be archived without being kept. The data survives. The texture does not.</p>
-<p>Beautiful, restrained, and quietly devastating, <em>The Summer of the Glass Bees</em> is a literary horror novella about grief, efficiency, and what we surrender when we choose clarity over friction.</p>
+<p>Beautiful, restrained, and quietly devastating, <em>Summer of the Glass Bees</em> is a literary horror novella about grief, efficiency, and what we surrender when we choose clarity over friction.</p>
 <p>For readers of atmospheric fiction and slow-burn dread, this is a story about a town that becomes perfect—and the cost of letting it.</p>`,
   },
 };

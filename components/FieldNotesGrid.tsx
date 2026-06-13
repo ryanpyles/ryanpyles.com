@@ -25,9 +25,11 @@ export default function FieldNotesGrid({ notes }: FieldNotesGridProps) {
     [notes, active]
   );
 
+  const showFilters = notes.length >= 10;
+
   return (
     <div className={styles.root}>
-      <nav className={styles.filters} aria-label="Filter field notes by category">
+      {showFilters && <nav className={styles.filters} aria-label="Filter field notes by category">
         {categories.map((cat) => (
           <button
             key={cat}
@@ -45,7 +47,7 @@ export default function FieldNotesGrid({ notes }: FieldNotesGridProps) {
             ? `${notes.length} entries`
             : `${visible.length} of ${notes.length}`}
         </span>
-      </nav>
+      </nav>}
 
       <div className={styles.grid} role="list">
         {visible.map((note) => (

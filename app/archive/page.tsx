@@ -6,7 +6,7 @@ import ScholarArchiveGrid from "@/components/ScholarArchiveGrid";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Archive — Ryan Pyles",
+  title: "Research",
   description:
     "A scholar's notebook: fragments, observations, structural curiosities, and unfinished thoughts on language, narrative, software, and architecture.",
   keywords: [
@@ -23,7 +23,7 @@ export default function ArchivePage() {
     <SiteLayout>
       <Section>
         <header className={styles.header}>
-          <span className={styles.kicker}>Archive</span>
+          <span className={styles.kicker}>Research</span>
           <h1 className={styles.heading}>Scholar&rsquo;s Notebook</h1>
           <p className={styles.intro}>
             Fragments, observations, structural curiosities, and unfinished thoughts —

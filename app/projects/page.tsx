@@ -101,7 +101,7 @@ export default function ProjectsPage() {
     <SiteLayout>
       <Section>
         <header className={styles.header}>
-          <h1>Projects</h1>
+          <h1>Systems</h1>
           <p className={styles.intro}>
             Systems built to last. Work that resists entropy.
           </p>

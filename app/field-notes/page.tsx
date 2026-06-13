@@ -31,8 +31,7 @@ export default function FieldNotesPage() {
             the chance to settle into something more polished.
           </p>
           <p className={styles.notice}>
-            The full archive is still being assembled. These are the entries
-            currently out of the drawer.
+            Essays and fragments, released as they&rsquo;re ready.
           </p>
         </header>
 

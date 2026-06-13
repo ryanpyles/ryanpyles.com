@@ -10,12 +10,6 @@ interface FieldNoteCardProps {
   note: FieldNote;
 }
 
-const STATUS_LABEL: Record<FieldNote["status"], string> = {
-  draft: "Draft",
-  published: "Published",
-  fragment: "Fragment",
-};
-
 function formatDate(date: string): string {
   return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
     year: "numeric",
@@ -34,14 +28,15 @@ export default function FieldNoteCard({ note }: FieldNoteCardProps) {
       <header className={styles.header}>
         <span className={styles.date}>{formatDate(note.date)}</span>
         <span className={styles.category}>{note.category}</span>
-        <span className={styles.status}>{STATUS_LABEL[note.status]}</span>
       </header>
 
-      <h3 className={styles.title}>{note.title}</h3>
+      <h3 className={styles.title}>
+        <Link href={`/field-notes/${note.slug}`} className={styles.titleLink}>{note.title}</Link>
+      </h3>
       <p className={styles.excerpt}>{note.excerpt}</p>
 
-      <div className={styles.actions}>
-        {canExpand && (
+      {canExpand && (
+        <div className={styles.actions}>
           <button
             type="button"
             className={styles.toggle}
@@ -52,11 +47,8 @@ export default function FieldNoteCard({ note }: FieldNoteCardProps) {
             <span aria-hidden="true">{expanded ? "−" : "+"}</span>
             <span>{expanded ? "Collapse" : "Read more"}</span>
           </button>
-        )}
-        <Link href={`/field-notes/${note.slug}`} className={styles.permalink}>
-          Full entry →
-        </Link>
-      </div>
+        </div>
+      )}
 
       {expanded && note.body && (
         <div id={bodyId} className={styles.body} role="region" aria-label={`Full text: ${note.title}`}>

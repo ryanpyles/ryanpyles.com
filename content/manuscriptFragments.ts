@@ -43,7 +43,7 @@ export const manuscriptFragments: ManuscriptFragment[] = [
   },
   {
     id: "snippet-font",
-    label: "\\setmainfont{EB Garamond}",
+    label: "body: 11pt Garamond, tracked −15",
     kind: "snippet",
     detail:
       "The first line of every document I typeset, and the last thing I ever stop adjusting. Somewhere there's a folder of forty drafts of the same paragraph, differing only in which font it was rendered in to convince me it was finished.",

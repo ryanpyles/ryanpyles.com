@@ -105,6 +105,25 @@
   color: var(--color-muted);
 }
 
+.ctaNotify {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  transition: letter-spacing var(--duration-fast) var(--ease-out);
+}
+
+.ctaNotify:hover {
+  letter-spacing: 0.14em;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
 /* Formaetrix variant */
 .formaetrix .title {
   font-family: var(--font-mono);

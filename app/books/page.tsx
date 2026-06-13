@@ -25,7 +25,7 @@ export default function BooksPage() {
     <SiteLayout>
       <Section>
         <header className={styles.header}>
-          <h1>Books</h1>
+          <h1>Fiction</h1>
           <p className={styles.intro}>
             Novels that resist easy resolution. Fiction built from constraint.
           </p>

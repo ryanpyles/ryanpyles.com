@@ -20,7 +20,7 @@ export function buildPageMetadata(overrides: {
   const ogImage = overrides.ogImage ?? `/og/ryan-default.jpg`;
 
   return {
-    title: fullTitle,
+    title: { absolute: fullTitle },
     description: overrides.description,
     metadataBase: new URL(site.url),
     alternates: { canonical: url },

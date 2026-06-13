@@ -12,7 +12,7 @@ interface BookCardProps {
 
 export default function BookCard({
   book,
-  buyLabel = "Buy now",
+  buyLabel = "View book",
   byLabel = "by",
 }: BookCardProps) {
   return (
@@ -50,9 +50,17 @@ export default function BookCard({
 
         <div className={styles.actions}>
           {book.status === "forthcoming" ? (
-            <Link href={`/books/${book.slug}`} className={styles.ctaForthcoming}>
-              Forthcoming
-            </Link>
+            <>
+              <Link href={`/books/${book.slug}`} className={styles.ctaForthcoming}>
+                Forthcoming
+              </Link>
+              <a
+                href={`mailto:ryan@ryanpyles.com?subject=Notify me: ${book.title}`}
+                className={styles.ctaNotify}
+              >
+                Get notified →
+              </a>
+            </>
           ) : (
             <Link href={`/books/${book.slug}`} className={styles.cta}>
               {buyLabel}

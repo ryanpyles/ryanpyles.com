@@ -27,8 +27,7 @@ export default function ArchivePage() {
           <h1 className={styles.heading}>Scholar&rsquo;s Notebook</h1>
           <p className={styles.intro}>
             Fragments, observations, structural curiosities, and unfinished thoughts —
-            on language, narrative, software, and architecture. Written when the idea
-            arrives, not when it&rsquo;s ready.
+            on language, narrative, software, and architecture.
           </p>
         </header>
 

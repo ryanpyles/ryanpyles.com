@@ -49,7 +49,10 @@ export default function ScholarArchiveGrid() {
   );
 
   const openNote = useCallback((note: ScholarNote) => setSelected(note), []);
-  const closeModal = useCallback(() => setSelected(null), []);
+  const closeModal = useCallback(() => {
+    document.body.style.overflow = "";
+    setSelected(null);
+  }, []);
 
   const openRef = useCallback((id: string) => {
     const note = scholarNotes.find((n) => n.id === id);
@@ -66,6 +69,11 @@ export default function ScholarArchiveGrid() {
       document.body.style.overflow = "";
     };
   }, [selected, closeModal]);
+
+  // Failsafe: always restore scroll when the component unmounts (e.g. navigating away)
+  useEffect(() => {
+    return () => { document.body.style.overflow = ""; };
+  }, []);
 
   return (
     <>

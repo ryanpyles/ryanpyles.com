@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function ArchivePage() {
   return (
-    <SiteLayout background="research">
+    <SiteLayout>
       <Section>
         <header className={styles.header}>
           <span className={styles.kicker}>Research</span>

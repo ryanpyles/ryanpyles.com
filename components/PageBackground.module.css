@@ -4,55 +4,45 @@
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
-}
 
-.root svg {
-  width: 100%;
-  height: 100%;
-}
+  /* var(--color-black) = var(--paper) = #F8F6F3 in the ryan domain */
+  background-color: var(--color-black);
 
-/* Draw-on animation for stroked paths */
-.draw {
-  stroke-dasharray: 3000;
-  stroke-dashoffset: 3000;
-  animation: drawPath 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
+  background-image:
+    /* 1. paper grain — fractalNoise tile, 250px × 250px at 2.8% */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23g)' opacity='0.028'/%3E%3C/svg%3E"),
 
-.draw2 { animation-delay: 0.4s; }
-.draw3 { animation-delay: 0.8s; }
-.draw4 { animation-delay: 1.2s; }
-.draw5 { animation-delay: 1.6s; }
-.draw6 { animation-delay: 2.0s; }
-.draw7 { animation-delay: 2.4s; }
-.draw8 { animation-delay: 2.8s; }
+    /* 2. marginal annotation — 72 × 120px repeating tile */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='120'%3E%3Ctext x='4' y='17' font-family='monospace' font-size='6.5' fill='%23706050' opacity='0.16'%3E01%3C/text%3E%3Cline x1='22' y1='15' x2='32' y2='15' stroke='%23706050' stroke-width='0.5' opacity='0.18'/%3E%3C/svg%3E"),
 
-@keyframes drawPath {
-  to { stroke-dashoffset: 0; }
-}
+    /* 3. baseline grid at 24px leading */
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 23px,
+      rgba(100, 85, 65, 0.04) 23px,
+      rgba(100, 85, 65, 0.04) 24px
+    ),
 
-.fadeIn {
-  opacity: 0;
-  animation: bgFadeIn 1.2s ease forwards;
-}
+    /* 4. column module at 72px */
+    repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 71px,
+      rgba(100, 85, 65, 0.025) 71px,
+      rgba(100, 85, 65, 0.025) 72px
+    ),
 
-.fadeIn2 { animation-delay: 1.0s; }
-.fadeIn3 { animation-delay: 1.8s; }
-.fadeIn4 { animation-delay: 2.6s; }
+    /* 5. five-line accent rule at 120px */
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 119px,
+      rgba(100, 85, 65, 0.06) 119px,
+      rgba(100, 85, 65, 0.06) 120px
+    );
 
-@keyframes bgFadeIn {
-  to { opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .draw,
-  .draw2, .draw3, .draw4,
-  .draw5, .draw6, .draw7, .draw8 {
-    animation: none;
-    stroke-dashoffset: 0;
-  }
-  .fadeIn,
-  .fadeIn2, .fadeIn3, .fadeIn4 {
-    animation: none;
-    opacity: 1;
-  }
+  background-attachment: fixed;
+  background-size: 250px 250px, 72px 120px, auto, auto, auto;
+  background-repeat: repeat, repeat, repeat, repeat, repeat;
 }

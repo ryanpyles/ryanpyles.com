@@ -30,7 +30,7 @@ export default function BookPage({ params }: Params) {
   const jsonLd = buildBookJsonLd(book);
 
   return (
-    <SiteLayout background="book">
+    <SiteLayout>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd }}

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function LanguageTypographyEnginePage() {
   return (
-    <SiteLayout background="project">
+    <SiteLayout>
       <LangTypographyCaseStudy />
     </SiteLayout>
   );

@@ -14,7 +14,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function ContactPage() {
   return (
-    <SiteLayout background="contact">
+    <SiteLayout>
       <Section narrow>
         <header className={styles.header}>
           <h1>Contact</h1>

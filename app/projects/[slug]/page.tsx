@@ -35,7 +35,7 @@ export default function CaseStudyPage({ params }: Props) {
   if (!cs) notFound();
 
   return (
-    <SiteLayout background="project">
+    <SiteLayout>
       <article className={styles.root}>
         {/* Back */}
         <div className={styles.back}>

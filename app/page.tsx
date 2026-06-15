@@ -183,6 +183,9 @@ export default function HomePage() {
         </div>
       </Section>
 
+      {/* ── The Voigt Project ─────────────────────────────────── */}
+      <VoigtProject />
+
       {/* ── In Progress (condensed Research Log) ──────────────── */}
       <Section id="in-progress">
         <Reveal>
@@ -202,9 +205,6 @@ export default function HomePage() {
           ))}
         </div>
       </Section>
-
-      {/* ── The Voigt Project (deep-dive, positioned last) ─────── */}
-      <VoigtProject />
     </SiteLayout>
   );
 }

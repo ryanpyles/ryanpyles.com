@@ -47,6 +47,11 @@ export default function VoigtProject() {
   useEffect(() => {
     const el = viewportRef.current;
     if (!el) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setRevealed(true);
+      return;
+    }
     const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setRevealed(true); },
       { threshold: 0.12 }
@@ -103,56 +108,58 @@ export default function VoigtProject() {
         </div>
       </div>
 
-      {/* ── Below-fold prose content ───────────────────────────────── */}
+      {/* ── Below-fold prose — scrolls over the sticky image ──────── */}
       <div className={styles.inner}>
+        <div className={styles.innerWrap}>
 
-        <Reveal>
-          <p className={styles.description}>
-            One writes software. The other writes novels about what happens when systems
-            become indistinguishable from belief. This section documents the deliberate
-            construction of a literary identity — not biography, but design.
-          </p>
-        </Reveal>
+          <Reveal>
+            <p className={styles.description}>
+              One writes software. The other writes novels about what happens when systems
+              become indistinguishable from belief. This section documents the deliberate
+              construction of a literary identity — not biography, but design.
+            </p>
+          </Reveal>
 
-        <Reveal delay={60}>
-          <VoigtDuel />
-        </Reveal>
+          <Reveal delay={60}>
+            <VoigtDuel />
+          </Reveal>
 
-        <div className={styles.dimensions}>
-          {dimensions.map((d, i) => (
-            <Reveal key={d.id} delay={i * 50}>
-              <div className={styles.dimension}>
-                <span className={styles.dimensionNumber}>0{i + 1}</span>
-                <div className={styles.dimensionContent}>
-                  <h3 className={styles.dimensionLabel}>{d.label}</h3>
-                  <p className={styles.dimensionNote}>{withAe(d.note)}</p>
+          <div className={styles.dimensions}>
+            {dimensions.map((d, i) => (
+              <Reveal key={d.id} delay={i * 50}>
+                <div className={styles.dimension}>
+                  <span className={styles.dimensionNumber}>0{i + 1}</span>
+                  <div className={styles.dimensionContent}>
+                    <h3 className={styles.dimensionLabel}>{d.label}</h3>
+                    <p className={styles.dimensionNote}>{withAe(d.note)}</p>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal delay={380}>
-          <div className={styles.links}>
-            <a
-              href="https://www.formaetrix.com"
-              className={styles.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              FORM<Ae />TRIX →
-            </a>
-            <a
-              href="https://www.formaetrix.com/imprint"
-              className={styles.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Elian Voigt →
-            </a>
+              </Reveal>
+            ))}
           </div>
-        </Reveal>
 
+          <Reveal delay={380}>
+            <div className={styles.links}>
+              <a
+                href="https://www.formaetrix.com"
+                className={styles.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                FORM<Ae />TRIX →
+              </a>
+              <a
+                href="https://www.formaetrix.com/imprint"
+                className={styles.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Elian Voigt →
+              </a>
+            </div>
+          </Reveal>
+
+        </div>
       </div>
     </section>
   );

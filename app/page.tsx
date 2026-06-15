@@ -104,7 +104,7 @@ export default function HomePage() {
         <LivingManuscript />
 
         <div className={styles.heroInner}>
-          <div className={styles.heroAnnotations} aria-hidden="true">
+          <div className={`${styles.heroAnnotations} ${styles.heroEnter} ${styles.heroEnter1}`} aria-hidden="true">
             <span className={styles.heroAnnotation}>64°08′ N, 21°56′ W</span>
             <span className={styles.heroAnnotation}>fn. 14 — see Voigt, 2019</span>
             <span className={styles.heroAnnotation}>syntax</span>
@@ -112,20 +112,20 @@ export default function HomePage() {
             <span className={styles.heroAnnotation}>你好</span>
           </div>
 
-          <h1 className={styles.heroStatement}>
+          <h1 className={`${styles.heroStatement} ${styles.heroEnter} ${styles.heroEnter2}`}>
             The distance between a manuscript, a language, and a software system
             is smaller than it first appears.
           </h1>
 
-          <p className={styles.heroAttribution}>Ryan Pyles — Chicago</p>
+          <p className={`${styles.heroAttribution} ${styles.heroEnter} ${styles.heroEnter3}`}>Ryan Pyles — Chicago</p>
 
-          <p className={styles.heroSummary}>
+          <p className={`${styles.heroSummary} ${styles.heroEnter} ${styles.heroEnter4}`}>
             Author of literary fiction, software engineer, and linguist. Nine novels
             published as Elian Voigt. Systems built for narrative intelligence.
             Twelve languages under active study.
           </p>
 
-          <div className={styles.heroCtas}>
+          <div className={`${styles.heroCtas} ${styles.heroEnter} ${styles.heroEnter5}`}>
             <a href="/books" className={styles.heroCta}>
               Read the Fiction →
             </a>
@@ -158,25 +158,27 @@ export default function HomePage() {
 
       {/* ── Field Notes (2 entries) ────────────────────────────── */}
       <Section id="field-notes">
-        <Reveal>
-          <header className={styles.sectionHeader}>
-            <div>
-              <span className={styles.sectionKicker}>Notes</span>
-              <h2>Field Notes</h2>
+        <header className={styles.sectionHeader}>
+          <div>
+            <Reveal><span className={styles.sectionKicker}>Notes</span></Reveal>
+            <Reveal delay={80} slow><h2>Field Notes</h2></Reveal>
+            <Reveal delay={200}>
               <p className={styles.sectionIntro}>
                 Thinking before it becomes work. Observations, structural
                 curiosities, and fragments that may eventually appear somewhere
                 else — or may not.
               </p>
-            </div>
+            </Reveal>
+          </div>
+          <Reveal delay={120}>
             <Link href="/field-notes" className={styles.sectionLink}>
               Notes archive →
             </Link>
-          </header>
-        </Reveal>
+          </Reveal>
+        </header>
         <div className={styles.fieldNoteGrid}>
           {homepageNotes.map((note, i) => (
-            <Reveal key={note.slug} delay={i * 80}>
+            <Reveal key={note.slug} delay={160 + i * 140}>
               <FieldNoteCard note={note} />
             </Reveal>
           ))}
@@ -188,18 +190,16 @@ export default function HomePage() {
 
       {/* ── In Progress (condensed Research Log) ──────────────── */}
       <Section id="in-progress">
-        <Reveal>
-          <header className={[styles.sectionHeader, styles.sectionHeaderQuiet].join(" ")}>
-            <div>
-              <span className={styles.sectionKicker}>Research</span>
-              <h2>In Progress</h2>
-              <p className={styles.sectionIntro}>What is currently unfinished.</p>
-            </div>
-          </header>
-        </Reveal>
+        <header className={[styles.sectionHeader, styles.sectionHeaderQuiet].join(" ")}>
+          <div>
+            <Reveal><span className={styles.sectionKicker}>Research</span></Reveal>
+            <Reveal delay={80} slow><h2>In Progress</h2></Reveal>
+            <Reveal delay={200}><p className={styles.sectionIntro}>What is currently unfinished.</p></Reveal>
+          </div>
+        </header>
         <div className={styles.currentWorkList}>
           {currentWork.map((item, i) => (
-            <Reveal key={item.slug} delay={i * 60}>
+            <Reveal key={item.slug} delay={i * 100}>
               <CurrentWorkCard item={item} />
             </Reveal>
           ))}

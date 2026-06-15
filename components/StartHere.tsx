@@ -34,7 +34,7 @@ export default function StartHere() {
   return (
     <section className={styles.section} id="start-here" aria-label="Where to begin">
       <div className={styles.inner}>
-        <Reveal>
+        <Reveal slow>
           <p className={styles.intro}>
             New here? The work spans fiction, language research, and narrative
             software. Begin with whichever axis pulls first.
@@ -43,7 +43,7 @@ export default function StartHere() {
 
         <div className={styles.paths}>
           {paths.map((path, i) => (
-            <Reveal key={path.id} delay={i * 80}>
+            <Reveal key={path.id} delay={120 + i * 160}>
               <article className={styles.path}>
                 <h3 className={styles.pathLabel}>{path.label}</h3>
                 <p className={styles.pathDesc}>{path.desc}</p>

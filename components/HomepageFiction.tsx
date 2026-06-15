@@ -41,25 +41,25 @@ export default function HomepageFiction() {
   return (
     <section className={styles.section} id="books">
       <div className={styles.inner}>
-        <Reveal>
-          <header className={styles.header}>
-            <span className={styles.kicker}>Fiction</span>
-            <h2 className={styles.heading}>Books</h2>
+        <header className={styles.header}>
+          <Reveal><span className={styles.kicker}>Fiction</span></Reveal>
+          <Reveal delay={80} slow><h2 className={styles.heading}>Books</h2></Reveal>
+          <Reveal delay={200}>
             <p className={styles.intro}>
               Nine novels under the Elian Voigt name. Literary fiction in a shared
               formal universe — not connected by plot, but by recurring structural
               tensions. Systems that become belief. Languages that reshape their
               speakers. Grief treated as investigation.
             </p>
-          </header>
-        </Reveal>
+          </Reveal>
+        </header>
 
         {/* Published */}
         <div className={styles.published}>
-          <span className={styles.subLabel}>In print</span>
+          <Reveal><span className={styles.subLabel}>In print</span></Reveal>
           <div className={styles.grid}>
             {featuredBooks.map((book, i) => (
-              <Reveal key={book.slug} delay={i * 70}>
+              <Reveal key={book.slug} delay={80 + i * 130}>
                 <article className={styles.card}>
                   <Link href={`/books/${book.slug}`} className={styles.cardLink}>
                     <h3 className={styles.title}>{book.title}</h3>
@@ -73,7 +73,7 @@ export default function HomepageFiction() {
         </div>
 
         {/* Forthcoming */}
-        <Reveal delay={250}>
+        <Reveal delay={120}>
           <div className={styles.forthcoming}>
             <span className={styles.subLabel}>
               In development

@@ -16,17 +16,15 @@ export default function ContinuityAtlasFeatured() {
   return (
     <section className={styles.section} id="continuity-atlas">
       <div className={styles.inner}>
-        <Reveal>
-          <div className={styles.header}>
-            <span className={styles.kicker}>§ 05</span>
-            <div className={styles.tag}>Narrative Intelligence System</div>
-          </div>
-        </Reveal>
+        <div className={styles.header}>
+          <Reveal><span className={styles.kicker}>§ 05</span></Reveal>
+          <Reveal delay={80}><div className={styles.tag}>Narrative Intelligence System</div></Reveal>
+        </div>
 
         <div className={styles.layout}>
-          <Reveal delay={60}>
-            <div className={styles.main}>
-              <h2 className={styles.heading}>Continuity Atlas</h2>
+          <div className={styles.main}>
+            <Reveal delay={80} slow><h2 className={styles.heading}>Continuity Atlas</h2></Reveal>
+            <Reveal delay={200}>
               <p className={styles.description}>
                 A visual story-memory architecture for authors working with AI.
                 Characters are modeled as evolving states rather than static biographies.
@@ -34,11 +32,15 @@ export default function ContinuityAtlasFeatured() {
                 Designed for novels, game narratives, television writers&rsquo; rooms,
                 and any story larger than human working memory.
               </p>
+            </Reveal>
+            <Reveal delay={300}>
               <div className={styles.meta}>
                 <span className={styles.year}>2025</span>
                 <span className={styles.divider} aria-hidden="true">/</span>
                 <span className={styles.stack}>React · Framer Motion · Narrative Design</span>
               </div>
+            </Reveal>
+            <Reveal delay={400}>
               <div className={styles.cta}>
                 <Link href="/projects/continuity-atlas" className={styles.ctaLink}>
                   View case study →
@@ -47,10 +49,10 @@ export default function ContinuityAtlasFeatured() {
                   Open prototype →
                 </Link>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
 
-          <Reveal delay={120}>
+          <Reveal delay={200}>
             <aside className={styles.sidebar}>
               <p className={styles.sidebarLabel}>System modules</p>
               <ul className={styles.features}>
@@ -75,6 +77,7 @@ export default function ContinuityAtlasFeatured() {
             </aside>
           </Reveal>
         </div>
+
       </div>
     </section>
   );

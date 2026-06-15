@@ -3,13 +3,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Reveal.module.css";
 
+type RevealDirection = "up" | "left" | "right";
+
 interface RevealProps {
   children: React.ReactNode;
   delay?: number;
   className?: string;
+  direction?: RevealDirection;
+  slow?: boolean;
 }
 
-export default function Reveal({ children, delay = 0, className }: RevealProps) {
+export default function Reveal({
+  children,
+  delay = 0,
+  className,
+  direction = "up",
+  slow = false,
+}: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -24,17 +34,30 @@ export default function Reveal({ children, delay = 0, className }: RevealProps) 
           observer.disconnect();
         }
       },
-      { threshold: 0.06, rootMargin: "-8px 0px" }
+      { threshold: 0.04, rootMargin: "-4px 0px" }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
+  const dirClass =
+    direction === "left"
+      ? styles.left
+      : direction === "right"
+      ? styles.right
+      : styles.up;
+
   return (
     <div
       ref={ref}
-      className={[styles.root, visible ? styles.visible : styles.hidden, className]
+      className={[
+        styles.root,
+        visible ? styles.visible : styles.hidden,
+        dirClass,
+        slow ? styles.slow : "",
+        className,
+      ]
         .filter(Boolean)
         .join(" ")}
       style={delay ? ({ "--reveal-delay": `${delay}ms` } as React.CSSProperties) : undefined}

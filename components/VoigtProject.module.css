@@ -46,6 +46,20 @@
   color: color-mix(in srgb, var(--color-white) 45%, transparent);
 }
 
+/* ---- Portrait ---- */
+.portrait {
+  margin-bottom: var(--space-12);
+  display: flex;
+  justify-content: center;
+}
+
+.portraitImg {
+  width: min(420px, 100%);
+  height: auto;
+  display: block;
+  filter: sepia(12%) contrast(1.02);
+}
+
 /* ---- Identity split ---- */
 .split {
   display: flex;

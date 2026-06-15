@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Reveal from "./Reveal";
 import { Ae, withAe } from "./Ae";
 import styles from "./VoigtProject.module.css";
@@ -51,6 +52,19 @@ export default function VoigtProject() {
         </Reveal>
 
         <Reveal delay={80}>
+          <div className={styles.portrait}>
+            <Image
+              src="/images/ryan-pyles-elian-voigt.png"
+              alt="Ryan Pyles and Elian Voigt — a split portrait: the engineer and the author"
+              width={500}
+              height={700}
+              className={styles.portraitImg}
+              priority
+            />
+          </div>
+        </Reveal>
+
+        <Reveal delay={100}>
           <div className={styles.split}>
             <div className={styles.splitCol}>
               <p className={styles.splitRole}>Ryan Pyles</p>

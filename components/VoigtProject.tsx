@@ -7,6 +7,8 @@ import { Ae, withAe } from "./Ae";
 import VoigtDuel from "./VoigtDuel";
 import styles from "./VoigtProject.module.css";
 
+const STICKY_VIEWPORTS = 5; // 500vh track → 400vh of scroll room for scenes
+
 const dimensions = [
   {
     id: "naming",
@@ -40,87 +42,159 @@ const dimensions = [
   },
 ];
 
+const easeInOut = (t: number) =>
+  t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
+const mapRange = (v: number, a: number, b: number) =>
+  easeInOut(clamp01((v - a) / (b - a)));
+
 export default function VoigtProject() {
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const [revealed, setRevealed] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [progress, setProgress] = useState(0);
+  const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
-    const el = viewportRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      setRevealed(true);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setProgress(1);
       return;
     }
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setRevealed(true); },
-      { threshold: 0.12 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+
+    const onScroll = () => {
+      if (rafRef.current !== undefined) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = undefined;
+        const el = sectionRef.current;
+        if (!el) return;
+        const top = el.getBoundingClientRect().top;
+        const scrollRoom = window.innerHeight * (STICKY_VIEWPORTS - 1);
+        setProgress(clamp01(-top / scrollRoom));
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafRef.current !== undefined) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
+  // ── Scene values ─────────────────────────────────────────────────────────
+  const bgOpacity = mapRange(progress, 0, 0.10);
+  const bgScale   = 1 + 0.06 * (1 - mapRange(progress, 0, 0.16));
+
+  const labelOpacity = mapRange(progress, 0.09, 0.22);
+  const labelY       = (1 - mapRange(progress, 0.09, 0.22)) * -24;
+
+  const splitScale = mapRange(progress, 0.20, 0.36);
+
+  const panelsFadeOut = mapRange(progress, 0.62, 0.72);
+  const leftOpacity   = mapRange(progress, 0.30, 0.44) * (1 - panelsFadeOut);
+  const leftY         = (1 - mapRange(progress, 0.30, 0.44)) * 40;
+  const rightOpacity  = mapRange(progress, 0.42, 0.56) * (1 - panelsFadeOut);
+  const rightY        = (1 - mapRange(progress, 0.42, 0.56)) * 40;
+
+  const manifestoOpacity =
+    mapRange(progress, 0.66, 0.78) * (1 - mapRange(progress, 0.86, 0.94));
+
+  const ctaOpacity = mapRange(progress, 0.90, 1.0);
+
   return (
-    <section className={styles.section} id="voigt">
+    <section className={styles.section} id="voigt" ref={sectionRef}>
 
-      {/* ── Full-viewport image panel ──────────────────────────────── */}
-      <div className={styles.viewport} ref={viewportRef}>
+      {/* ── Sticky scroll track — 500vh gives the viewport its scroll room ── */}
+      <div className={styles.stickyTrack}>
+        <div className={styles.viewport}>
 
-        {/* Background image — fades + scales in on scroll */}
-        <div
-          className={`${styles.bg} ${revealed ? styles.bgIn : ""}`}
-          style={{ position: "absolute" }}
-        >
-          <Image
-            src="/images/ryan-pyles-elian-voigt.png"
-            alt="Ryan Pyles · Elian Voigt — engineer and author"
-            fill
-            sizes="100vw"
-            className={styles.bgImg}
-            priority
+          {/* Portrait background */}
+          <div
+            className={styles.bg}
+            style={{
+              position: "absolute",
+              opacity: bgOpacity,
+              transform: `scale(${bgScale})`,
+            }}
+          >
+            <Image
+              src="/images/ryan-pyles-elian-voigt.png"
+              alt="Ryan Pyles · Elian Voigt — engineer and author"
+              fill
+              sizes="100vw"
+              className={styles.bgImg}
+              priority
+            />
+          </div>
+
+          {/* Scene 1: Section label */}
+          <div
+            className={styles.stamp}
+            style={{ opacity: labelOpacity, transform: `translateY(${labelY}px)` }}
+          >
+            <span className={styles.kickerOverlay}>§ 04</span>
+            <h2 className={styles.headingOverlay}>The Voigt Project</h2>
+          </div>
+
+          {/* Scene 2: Split line */}
+          <div
+            className={styles.splitLine}
+            style={{ transform: `scaleY(${splitScale})` }}
+            aria-hidden="true"
           />
-        </div>
 
-        {/* Section label — top left */}
-        <div className={`${styles.stamp} ${revealed ? styles.stampIn : ""}`}>
-          <span className={styles.kickerOverlay}>§ 04</span>
-          <h2 className={styles.headingOverlay}>The Voigt Project</h2>
-        </div>
-
-        {/* Center divider line matching image split */}
-        <div className={`${styles.splitLine} ${revealed ? styles.splitLineIn : ""}`} aria-hidden="true" />
-
-        {/* Identity panels anchored to bottom */}
-        <div className={`${styles.panels} ${revealed ? styles.panelsIn : ""}`}>
-
-          <div className={`${styles.panel} ${styles.panelLeft}`}>
+          {/* Scene 3: Left identity */}
+          <div
+            className={`${styles.panel} ${styles.panelLeft}`}
+            style={{ opacity: leftOpacity, transform: `translateY(${leftY}px)` }}
+          >
             <span className={styles.panelLabel}>Ryan Pyles</span>
-            <p className={styles.panelVerb}>builds<br />systems.</p>
+            <p className={styles.panelVerb}>
+              builds<br />systems.
+            </p>
             <p className={styles.panelSub}>Engineer · Architect · Chicago</p>
           </div>
 
-          <div className={`${styles.panel} ${styles.panelRight}`}>
+          {/* Scene 4: Right identity */}
+          <div
+            className={`${styles.panel} ${styles.panelRight}`}
+            style={{ opacity: rightOpacity, transform: `translateY(${rightY}px)` }}
+          >
             <span className={styles.panelLabel}>Elian Voigt</span>
-            <p className={styles.panelVerb}>dismantles<br />them.</p>
+            <p className={styles.panelVerb}>
+              dismantles<br />them.
+            </p>
             <p className={styles.panelSub}>Literary Fiction · Nine Novels</p>
+          </div>
+
+          {/* Scene 5: Manifesto overlay */}
+          <div
+            className={styles.manifesto}
+            style={{ opacity: manifestoOpacity }}
+            aria-hidden="true"
+          >
+            <p className={styles.manifestoText}>
+              One writes software. The other writes novels about what happens
+              when systems become indistinguishable from belief.
+            </p>
+            <p className={styles.manifestoSub}>
+              The deliberate construction of a literary identity — not biography,
+              but design.
+            </p>
+          </div>
+
+          {/* Scene 6: Enter the duel hint */}
+          <div className={styles.scrollHint} style={{ opacity: ctaOpacity }}>
+            <span className={styles.scrollHintArrow} aria-hidden="true">↓</span>
+            <span className={styles.scrollHintLabel}>Enter the duel</span>
           </div>
 
         </div>
       </div>
 
-      {/* ── Below-fold prose — scrolls over the sticky image ──────── */}
+      {/* ── Below-fold content — scrolls in after sticky releases ─────────── */}
       <div className={styles.inner}>
         <div className={styles.innerWrap}>
 
           <Reveal>
-            <p className={styles.description}>
-              One writes software. The other writes novels about what happens when systems
-              become indistinguishable from belief. This section documents the deliberate
-              construction of a literary identity — not biography, but design.
-            </p>
-          </Reveal>
-
-          <Reveal delay={60}>
             <VoigtDuel />
           </Reveal>
 
@@ -161,6 +235,7 @@ export default function VoigtProject() {
 
         </div>
       </div>
+
     </section>
   );
 }

@@ -3,31 +3,26 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-/* ── Sticky image panel — stays put while content scrolls over it ─────────── */
+/* ── Sticky scroll track — 500vh gives the viewport 400vh of scroll room ─── */
+.stickyTrack {
+  position: relative;
+  height: 500vh;
+}
+
+/* ── Sticky viewport — stays at top while track scrolls past ─────────────── */
 .viewport {
   position: sticky;
   top: 0;
   height: 100vh;
   overflow: hidden;
-  z-index: 0;
   background: #0c0a08;
 }
 
-/* Background image */
+/* ── Portrait background — opacity + scale driven by scroll progress ─────── */
 .bg {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transform: scale(1.06);
-  transition:
-    opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 1.6s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
-}
-
-.bgIn {
-  opacity: 1;
-  transform: scale(1);
 }
 
 .bgImg {
@@ -35,20 +30,13 @@
   object-position: center 8%;
 }
 
-/* ── Section stamp — top left ────────────────────────────────────────────── */
+/* ── Scene 1: Section stamp ──────────────────────────────────────────────── */
 .stamp {
   position: absolute;
   top: var(--space-8);
   left: var(--space-8);
   z-index: 2;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.7s ease 0.8s, transform 0.7s ease 0.8s;
-}
-
-.stampIn {
-  opacity: 1;
-  transform: translateY(0);
+  will-change: opacity, transform;
 }
 
 .kickerOverlay {
@@ -69,7 +57,7 @@
   color: rgba(255, 255, 255, 0.72);
 }
 
-/* ── Center divider — mirrors the image's literal split line ─────────────── */
+/* ── Scene 2: Center split line ──────────────────────────────────────────── */
 .splitLine {
   position: absolute;
   top: 0;
@@ -84,40 +72,22 @@
     transparent 100%
   );
   z-index: 2;
-  transform: scaleY(0);
   transform-origin: top center;
-  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
+  will-change: transform;
 }
 
-.splitLineIn {
-  transform: scaleY(1);
-}
-
-/* ── Identity panels ─────────────────────────────────────────────────────── */
-.panels {
+/* ── Scenes 3 & 4: Identity panels ──────────────────────────────────────── */
+.panel {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  z-index: 2;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.9s ease 1s, transform 0.9s ease 1s;
-}
-
-.panelsIn {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.panel {
+  width: 50%;
   padding: var(--space-14) var(--space-8) var(--space-10);
+  z-index: 2;
+  will-change: opacity, transform;
 }
 
-/* Ryan's half — dark-to-transparent gradient (code/dark background in image) */
 .panelLeft {
+  left: 0;
   background: linear-gradient(
     to top,
     rgba(6, 5, 3, 0.88) 0%,
@@ -127,8 +97,8 @@
   text-align: left;
 }
 
-/* Elian's half — cream-to-transparent gradient (manuscript/light in image) */
 .panelRight {
+  right: 0;
   background: linear-gradient(
     to top,
     rgba(235, 228, 215, 0.82) 0%,
@@ -173,12 +143,83 @@
 .panelLeft .panelSub  { color: rgba(255, 255, 255, 0.28); }
 .panelRight .panelSub { color: rgba(18, 14, 8, 0.35); }
 
-/* ── Below-fold prose content — scrolls over the sticky image ────────────── */
+/* ── Scene 5: Manifesto overlay ──────────────────────────────────────────── */
+.manifesto {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16);
+  z-index: 3;
+  background: rgba(8, 6, 4, 0.72);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.manifestoText {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2.8vw, 40px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.88);
+  text-align: center;
+  max-width: 680px;
+  line-height: 1.55;
+  margin: 0 0 var(--space-6);
+}
+
+.manifestoSub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ── Scene 6: Scroll hint ────────────────────────────────────────────────── */
+.scrollHint {
+  position: absolute;
+  bottom: var(--space-10);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  z-index: 4;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.scrollHintArrow {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.45);
+  animation: bob 1.8s ease-in-out infinite;
+  display: block;
+}
+
+.scrollHintLabel {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
+}
+
+/* ── Below-fold prose — scrolls in after sticky releases ─────────────────── */
 .inner {
   position: relative;
   z-index: 1;
   background: var(--color-black);
-  max-width: 100%;
   padding: var(--space-16) 0 var(--space-24);
 }
 
@@ -189,14 +230,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
-}
-
-.description {
-  font-family: var(--font-body);
-  font-size: var(--text-xl);
-  line-height: 1.65;
-  color: color-mix(in srgb, var(--color-white) 72%, transparent);
-  max-width: 720px;
 }
 
 /* ── Case study dimensions ───────────────────────────────────────────────── */
@@ -277,27 +310,23 @@
 }
 
 @media (max-width: 768px) {
+  .stickyTrack { height: 400vh; }
+
   .panelVerb { font-size: clamp(28px, 7vw, 44px); }
 
-  .panel {
-    padding: var(--space-10) var(--space-5) var(--space-8);
-  }
+  .panel { padding: var(--space-10) var(--space-5) var(--space-8); }
 
-  .inner {
-    padding: var(--space-12) 0 var(--space-16);
-  }
+  .inner { padding: var(--space-12) 0 var(--space-16); }
 
-  .innerWrap {
-    padding: 0 var(--space-6);
-  }
+  .innerWrap { padding: 0 var(--space-6); }
 
   .dimensions { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  .panels { grid-template-columns: 1fr; }
+  .panel { width: 100%; }
 
-  .panelRight { text-align: left; }
+  .panelRight { display: none; }
 
   .panelLeft {
     background: linear-gradient(
@@ -308,22 +337,10 @@
     );
   }
 
-  .panelRight {
-    background: linear-gradient(
-      to top,
-      rgba(235, 228, 215, 0.88) 0%,
-      rgba(235, 228, 215, 0.6) 60%,
-      transparent 100%
-    );
-  }
-
   .inner { padding: var(--space-10) 0 var(--space-12); }
   .innerWrap { padding: 0 var(--space-4); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg, .stamp, .splitLine, .panels {
-    transition: opacity 0.3s ease;
-    transform: none !important;
-  }
+  .scrollHintArrow { animation: none; }
 }

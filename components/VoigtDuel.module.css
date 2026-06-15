@@ -1,0 +1,198 @@
+.root {
+  background: #111010;
+  border: 1px solid #252320;
+  margin-bottom: var(--space-12);
+  overflow: hidden;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-8);
+  border-bottom: 1px solid #1e1c1a;
+}
+
+.headerLabel {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  color: #3a3835;
+  text-transform: uppercase;
+}
+
+.concept {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #c69c5d;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.counter {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: #2e2c2a;
+}
+
+/* ── Two columns ─────────────────────────────────────────────────────────── */
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 32px 1fr;
+  min-height: 180px;
+  align-items: start;
+}
+
+.col {
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.voice {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  color: #3a3835;
+  text-transform: uppercase;
+  display: block;
+}
+
+.ryan {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: #b8b0a0;
+  margin: 0;
+}
+
+.elian {
+  font-family: var(--font-serif);
+  font-size: 14.5px;
+  font-style: italic;
+  line-height: 1.7;
+  color: #ccc4b8;
+  margin: 0;
+}
+
+/* ── Blinking cursors ────────────────────────────────────────────────────── */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  vertical-align: text-bottom;
+  margin-left: 1px;
+  animation: blink 0.7s step-end infinite;
+}
+
+.cursorRyan  { background: #8a7d6a; }
+.cursorElian { background: #a09080; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.ghost {
+  color: #282523;
+  font-family: var(--font-mono);
+  font-style: normal;
+  letter-spacing: 0.3em;
+  font-size: 11px;
+}
+
+/* ── Vertical divider ────────────────────────────────────────────────────── */
+.divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-8) 0;
+  gap: var(--space-3);
+}
+
+.dividerLine {
+  flex: 1;
+  width: 1px;
+  background: #1e1c1a;
+}
+
+.dividerMark {
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.14em;
+  color: #2e2c2a;
+  text-transform: uppercase;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.footer {
+  padding: var(--space-5) var(--space-8);
+  border-top: 1px solid #1a1917;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  all: unset;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #4a4540;
+  cursor: pointer;
+  transition: color 0.18s;
+}
+
+.btn:hover {
+  color: #c69c5d;
+}
+
+.btn:focus-visible {
+  outline: 1px solid #c69c5d;
+  outline-offset: 3px;
+}
+
+.transmitting {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #2e2c2a;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .columns {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .divider {
+    flex-direction: row;
+    padding: 0 var(--space-8);
+    height: 24px;
+  }
+
+  .dividerLine {
+    flex: 1;
+    width: auto;
+    height: 1px;
+  }
+
+  .col {
+    padding: var(--space-6) var(--space-8);
+  }
+
+  .col:last-child {
+    border-top: none;
+  }
+}

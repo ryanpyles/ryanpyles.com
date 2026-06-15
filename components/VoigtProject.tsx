@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Reveal from "./Reveal";
 import { Ae, withAe } from "./Ae";
+import VoigtDuel from "./VoigtDuel";
 import styles from "./VoigtProject.module.css";
 
 const dimensions = [
@@ -65,6 +66,10 @@ export default function VoigtProject() {
         </Reveal>
 
         <Reveal delay={100}>
+          <VoigtDuel />
+        </Reveal>
+
+        <Reveal delay={120}>
           <div className={styles.split}>
             <div className={styles.splitCol}>
               <p className={styles.splitRole}>Ryan Pyles</p>

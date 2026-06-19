@@ -24,7 +24,7 @@ const projects: Project[] = [
     slug: "dual-domain-system",
     title: "Dual-Domain Identity System",
     description:
-      "A single Next.js codebase serving two distinct brand identities via domain-based rendering. Middleware routing, shared design tokens, and independent theme differentiation.",
+      "Two publishing brands needed distinct visual identities without two codebases to maintain. One Next.js repository now serves both — domain detected at the edge, CSS tokens inverted per domain, zero shared components duplicated.",
     tags: ["Next.js", "TypeScript", "CSS Modules", "Middleware"],
     year: "2025",
   },
@@ -32,7 +32,7 @@ const projects: Project[] = [
     slug: "language-typography-engine",
     title: "Multi-Language Typography Engine",
     description:
-      "RTL support, CJK font stack switching, and localized UI strings across eleven languages. Browser detection, localStorage persistence, and dynamic `dir` attribute management.",
+      "A site studying eleven languages needed to look like it was designed for each one, not just translated. RTL layout, CJK font stacks, and localized UI strings switch simultaneously from a single context dispatch — no layout shift, no flash of wrong direction.",
     tags: ["React Context", "i18n", "Typography", "RTL"],
     year: "2025",
   },
@@ -40,7 +40,7 @@ const projects: Project[] = [
     slug: "blob-navigation",
     title: "3D Identity Navigation",
     description:
-      "WebGL organic blob interface using Three.js and React Three Fiber. Cursor-reactive deformation, region-mapped navigation nodes, and domain-differentiated lighting rigs.",
+      "Navigation as a spatial object rather than a list. A WebGL organic blob deforms in real time under cursor pressure, with region-mapped navigation nodes and domain-differentiated lighting — making the interface itself feel like it belongs to the brand.",
     tags: ["Three.js", "R3F", "WebGL", "GLSL"],
     year: "2025",
   },
@@ -48,7 +48,7 @@ const projects: Project[] = [
     slug: "book-seo-system",
     title: "Book SEO Architecture",
     description:
-      "Statically generated book pages with per-title metadata, Open Graph tags, Twitter Cards, and JSON-LD structured data (Book, Person, Organization schemas).",
+      "Nine books needed discoverable, accurate pages without per-title manual SEO work. The book data model is the SEO model — one typed interface generates static pages, Open Graph tags, Twitter Cards, and JSON-LD Book schemas automatically.",
     tags: ["Next.js", "SEO", "JSON-LD", "Static Generation"],
     year: "2025",
   },
@@ -56,7 +56,7 @@ const projects: Project[] = [
     slug: "editorial-design-system",
     title: "Editorial Design System",
     description:
-      "Token-based design system for literary publishing: CSS custom properties, vertical rhythm, semantic color roles, and responsive type scales — no UI framework.",
+      "A publishing platform needs typographic precision across contexts a general-purpose UI framework won't provide. Custom CSS token system with vertical rhythm, semantic color roles, and responsive type scales — built specifically for long-form literary content.",
     tags: ["CSS", "Design Tokens", "Typography", "Responsive"],
     year: "2025",
   },
@@ -64,7 +64,7 @@ const projects: Project[] = [
     slug: "content-architecture",
     title: "Data-Driven Content Architecture",
     description:
-      "TypeScript content layer for books and projects. Typed schemas, index files, and utility functions that feed static generation, SEO pipelines, and UI components.",
+      "Content that lives in component files doesn't scale and can't be queried. Typed TypeScript schemas for books, projects, and field notes feed static generation, SEO pipelines, and UI simultaneously — one source of truth, zero duplication.",
     tags: ["TypeScript", "Content Architecture", "Static Generation"],
     year: "2025",
   },
@@ -72,7 +72,7 @@ const projects: Project[] = [
     slug: "continuity-atlas",
     title: "Continuity Atlas",
     description:
-      "A visual story-memory system for novelists working with AI. Characters tracked as evolving states, voice as behavioral metrics, and an author-only layer that keeps narrative secrets hidden from generation.",
+      "Novelists working with AI have no tool for tracking what the model knows versus what the author knows. Continuity Atlas separates those layers — characters as evolving states, voice as behavioral metrics, narrative secrets hidden from generation.",
     tags: ["React", "Product Design", "Narrative Design", "Framer Motion"],
     year: "2025",
   },
@@ -80,7 +80,7 @@ const projects: Project[] = [
     slug: "color-workshop",
     title: "3D Color Workshop",
     description:
-      "Interactive 3D color space explorer and palette builder. Color wheel picking, harmony modes (Mono, Comp, Triadic, Tetrad, and more), mood-based generation, film and brand reference palettes, and export to CSS variables, Tailwind, SCSS, or JSON.",
+      "Color theory tools that live in 2D can't show how colors relate in perceptual space. An interactive 3D color explorer with harmony modes, mood-based generation, film and brand palettes, and export to CSS, Tailwind, SCSS, or JSON.",
     tags: ["React", "Three.js", "Color Theory", "Design Tools"],
     href: "https://color-workshop.vercel.app/",
     year: "2025",
@@ -89,7 +89,7 @@ const projects: Project[] = [
     slug: "global-data-visual",
     title: "Global Data Visualizer",
     description:
-      "Interactive dashboard for exploring and comparing global datasets. Responsive charts and data views built for navigating large-scale international statistics at a glance.",
+      "Large international datasets are structurally comparable but rarely presented that way. An interactive dashboard for exploring and contrasting global statistics — responsive charts designed for navigation, not just display.",
     tags: ["React", "Data Visualization", "D3.js", "Dashboard"],
     href: "https://global-data-visual.vercel.app/",
     year: "2025",

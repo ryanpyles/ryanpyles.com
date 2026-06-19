@@ -31,3 +31,29 @@
     grid-template-columns: 1fr;
   }
 }
+
+.updates {
+  margin-top: var(--space-16);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.updatesText {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--color-white) 30%, transparent);
+  max-width: 560px;
+}
+
+.updatesLink {
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.updatesLink:hover {
+  color: color-mix(in srgb, var(--color-white) 80%, transparent);
+}

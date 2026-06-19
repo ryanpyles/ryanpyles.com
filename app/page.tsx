@@ -120,9 +120,9 @@ export default function HomePage() {
           <p className={`${styles.heroAttribution} ${styles.heroEnter} ${styles.heroEnter3}`}>Ryan Pyles — Chicago</p>
 
           <p className={`${styles.heroSummary} ${styles.heroEnter} ${styles.heroEnter4}`}>
-            Author of literary fiction, software engineer, and linguist. Nine novels
-            published as Elian Voigt. Systems built for narrative intelligence.
-            Twelve languages under active study.
+            Ryan J. Pyles writes fiction as Elian Voigt, builds web systems for
+            identity and publishing, and studies language as structure. This site
+            gathers the books, projects, field notes, and tools behind that work.
           </p>
 
           <div className={`${styles.heroCtas} ${styles.heroEnter} ${styles.heroEnter5}`}>

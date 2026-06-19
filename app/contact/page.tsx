@@ -26,8 +26,8 @@ export default function ContactPage() {
         <div className={styles.options}>
           <div className={styles.option}>
             <h2 className={styles.optionLabel}>All Inquiries</h2>
-            <a href="mailto:me@ryanpyles.com" className={styles.optionLink}>
-              me@ryanpyles.com
+            <a href="mailto:ryan@ryanpyles.com" className={styles.optionLink}>
+              ryan@ryanpyles.com
             </a>
           </div>
 
@@ -38,11 +38,31 @@ export default function ContactPage() {
               engagements. Response time is typically two business days.
             </p>
           </div>
+
+          <div className={styles.option}>
+            <h2 className={styles.optionLabel}>Good fit</h2>
+            <ul className={styles.fitList}>
+              <li>Brand identity systems and editorial design</li>
+              <li>Publishing and author platforms — Next.js, structured content, SEO</li>
+              <li>Web applications with language, typography, or data at the center</li>
+              <li>Speaking: experimental fiction, constraint-based writing, language and systems</li>
+            </ul>
+          </div>
+
+          <div className={styles.option}>
+            <h2 className={styles.optionLabel}>Not a fit</h2>
+            <ul className={styles.fitList}>
+              <li>Maintenance contracts or ongoing retainer support</li>
+              <li>Projects requiring a large team or agency infrastructure</li>
+              <li>Rush timelines without prior relationship</li>
+            </ul>
+          </div>
         </div>
 
         <p className={styles.note}>
           I do not respond to cold pitches, unsolicited manuscripts, or
-          automated outreach.
+          automated outreach. For press and media inquiries, see the{" "}
+          <a href="/press" className={styles.noteLink}>press page</a>.
         </p>
       </Section>
     </SiteLayout>

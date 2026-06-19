@@ -143,6 +143,9 @@ export default function HomePage() {
       {/* ── Identity Bridge ────────────────────────────────────── */}
       <IdentityBridge />
 
+      {/* ── The Voigt Project ─────────────────────────────────── */}
+      <VoigtProject />
+
       {/* ── Start Here (guided entry — early, before content) ──── */}
       <StartHere />
 
@@ -184,9 +187,6 @@ export default function HomePage() {
           ))}
         </div>
       </Section>
-
-      {/* ── The Voigt Project ─────────────────────────────────── */}
-      <VoigtProject />
 
       {/* ── In Progress (condensed Research Log) ──────────────── */}
       <Section id="in-progress">

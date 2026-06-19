@@ -17,76 +17,159 @@
   background: #0c0a08;
 }
 
-/* ── Two portraits united ────────────────────────────────────────────────── */
-.portraits {
+/* ── Diptych container ───────────────────────────────────────────────────── */
+.diptych {
   position: absolute;
   inset: 0;
-  display: flex;
-  will-change: opacity, transform;
-  transform-origin: top center;
+  will-change: opacity;
 }
 
-.portrait {
-  position: relative;
-  flex: 1;
-  overflow: hidden;
-}
-
-.portraitImg {
-  object-fit: cover;
-  object-position: center 30%;
-}
-
-/* ── Split line ──────────────────────────────────────────────────────────── */
-.splitLine {
+/* ── Portrait halves ─────────────────────────────────────────────────────── */
+.half {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 50%;
+  width: 50%;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.halfLeft  { left: 0; }
+.halfRight { right: 0; }
+
+.portraitImg {
+  object-fit: cover;
+}
+
+/* ── Text legibility gradients ───────────────────────────────────────────── */
+.gradientLeft {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(8, 6, 4, 0.60) 0%,
+    rgba(8, 6, 4, 0.20) 55%,
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.gradientRight {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to left,
+    rgba(225, 215, 200, 0.55) 0%,
+    rgba(225, 215, 200, 0.18) 55%,
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Center gap (absolutely positioned overlay) ──────────────────────────── */
+.centerGap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: #0c0a08;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  overflow: hidden;
+  z-index: 4;
+}
+
+/* Vertical seam line inside gap */
+.seamLine {
+  position: absolute;
+  inset: 0;
   width: 1px;
+  left: 50%;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(255, 255, 255, 0.22) 15%,
-    rgba(255, 255, 255, 0.22) 85%,
+    rgba(255, 255, 255, 0.10) 20%,
+    rgba(255, 255, 255, 0.10) 80%,
     transparent 100%
   );
-  z-index: 2;
-  transform-origin: top center;
+  pointer-events: none;
+}
+
+/* ── Section header in gap ───────────────────────────────────────────────── */
+.gapContent {
+  text-align: center;
+  padding: 0 var(--space-2);
   will-change: opacity, transform;
 }
 
-/* ── Identity panels (phases 3–4) ────────────────────────────────────────── */
-.identityPanel {
+.gapMono {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.24);
+  margin-bottom: var(--space-3);
+  white-space: nowrap;
+}
+
+.gapTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(13px, 1.8vw, 24px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.25;
+  text-align: center;
+}
+
+/* ── Dimension label in gap ──────────────────────────────────────────────── */
+.dimCenter {
   position: absolute;
-  bottom: 0;
-  width: 50%;
-  padding: var(--space-14) var(--space-8) var(--space-10);
-  z-index: 3;
-  will-change: opacity, transform;
+  bottom: var(--space-14);
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  transition: opacity 300ms ease;
+  will-change: opacity;
+  padding: 0 var(--space-2);
 }
 
-.identityLeft {
-  left: 0;
-  background: linear-gradient(
-    to top,
-    rgba(6, 5, 3, 0.92) 0%,
-    rgba(6, 5, 3, 0.55) 50%,
-    transparent 100%
-  );
-  text-align: left;
+.dimCenterNum {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: rgba(198, 156, 93, 0.85);
 }
 
+.dimCenterLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+
+/* ── Identity panels (phase 3) ───────────────────────────────────────────── */
+.identityLeft,
 .identityRight {
-  right: 0;
-  background: linear-gradient(
-    to top,
-    rgba(235, 228, 215, 0.88) 0%,
-    rgba(235, 228, 215, 0.48) 50%,
-    transparent 100%
-  );
-  text-align: right;
+  position: absolute;
+  bottom: var(--space-10);
+  z-index: 3;
+  will-change: opacity;
+  transition: opacity 300ms ease;
 }
+
+.identityLeft  { left: var(--space-8); }
+.identityRight { right: var(--space-8); text-align: right; }
 
 .identityMono {
   display: block;
@@ -97,25 +180,24 @@
   margin-bottom: var(--space-2);
 }
 
-.identityLeft .identityMono  { color: rgba(255, 255, 255, 0.40); }
-.identityRight .identityMono { color: rgba(18, 14, 8, 0.44); }
+.identityLeft .identityMono  { color: rgba(255, 255, 255, 0.36); }
+.identityRight .identityMono { color: rgba(18, 14, 8, 0.42); }
 
 .identityVerb {
   font-family: var(--font-sans);
-  font-size: clamp(38px, 5.5vw, 72px);
+  font-size: clamp(34px, 5.5vw, 70px);
   font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1.0;
   margin: 0 0 var(--space-3);
 }
 
-/* Typography demo: Elian's verb uses the serif */
 .identityVerbSerif {
   font-family: var(--font-serif);
   font-style: italic;
 }
 
-.identityLeft .identityVerb  { color: rgba(255, 255, 255, 0.92); }
+.identityLeft  .identityVerb { color: rgba(255, 255, 255, 0.90); }
 .identityRight .identityVerb { color: rgba(18, 14, 8, 0.88); }
 
 .identityNote {
@@ -125,132 +207,57 @@
   text-transform: uppercase;
 }
 
-.identityLeft .identityNote  { color: rgba(255, 255, 255, 0.28); }
-.identityRight .identityNote { color: rgba(18, 14, 8, 0.32); }
+.identityLeft  .identityNote { color: rgba(255, 255, 255, 0.24); }
+.identityRight .identityNote { color: rgba(18, 14, 8, 0.28); }
 
-/* ── Case study overlay (phases 5+) ─────────────────────────────────────── */
-.caseStudy {
+/* ── Per-dimension content (phase 4+) ────────────────────────────────────── */
+.dimHalf {
   position: absolute;
-  inset: 0;
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: var(--space-16) var(--space-10);
-  background: rgba(8, 6, 4, 0.82);
+  bottom: var(--space-10);
+  left: var(--space-8);
+  z-index: 3;
+  max-width: min(300px, 42%);
+  transition: opacity 350ms ease;
   will-change: opacity;
 }
 
-.caseHeader {
-  margin-bottom: var(--space-10);
+.dimHalfRight {
+  left: auto;
+  right: var(--space-8);
+  text-align: right;
 }
 
-.caseMono {
+.dimHalfHeading {
   display: block;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.30);
+  font-family: var(--font-sans);
+  font-size: clamp(22px, 3.8vw, 52px);
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
   margin-bottom: var(--space-3);
 }
 
-.caseHeading {
+.dimHalf:not(.dimHalfRight) .dimHalfHeading {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.dimHalfRight .dimHalfHeading {
+  color: rgba(18, 14, 8, 0.88);
+}
+
+.dimHalfNote {
   font-family: var(--font-serif);
-  font-size: clamp(22px, 3vw, 42px);
-  font-weight: 300;
-  font-style: italic;
-  color: rgba(255, 255, 255, 0.82);
-  letter-spacing: -0.01em;
-}
-
-/* ── Dimension list ──────────────────────────────────────────────────────── */
-.dimList {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  max-width: 640px;
-}
-
-.dim {
-  position: relative;
-  display: grid;
-  grid-template-columns: 36px 1fr;
-  gap: var(--space-4);
-  padding: var(--space-4) 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  transition: border-color 200ms ease;
-  overflow: hidden;
-}
-
-.dimActive {
-  border-top-color: rgba(255, 255, 255, 0.18);
-}
-
-.dimPast {
-  opacity: 0.38;
-}
-
-.dimNum {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.25);
-  padding-top: 3px;
-  transition: color 200ms ease;
-}
-
-.dimActive .dimNum {
-  color: rgba(198, 156, 93, 0.9);
-}
-
-.dimBody {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.dimLabel {
-  font-family: var(--font-sans);
   font-size: var(--text-sm);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.5);
-  transition: color 200ms ease;
-}
-
-.dimActive .dimLabel {
-  color: rgba(255, 255, 255, 0.92);
-}
-
-.dimNote {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  line-height: 1.55;
   font-style: italic;
-  color: rgba(255, 255, 255, 0);
-  max-height: 0;
-  overflow: hidden;
-  transition:
-    color 300ms ease 100ms,
-    max-height 350ms ease 50ms;
-  margin: 0;
+  line-height: 1.65;
 }
 
-.dimActive .dimNote {
-  color: rgba(255, 255, 255, 0.52);
-  max-height: 80px;
-  margin-top: var(--space-2);
+.dimHalf:not(.dimHalfRight) .dimHalfNote {
+  color: rgba(255, 255, 255, 0.42);
 }
 
-/* Active progress bar */
-.dimBar {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 2px;
-  height: 100%;
-  background: rgba(198, 156, 93, 0.6);
+.dimHalfRight .dimHalfNote {
+  color: rgba(18, 14, 8, 0.52);
 }
 
 /* ── CTA ─────────────────────────────────────────────────────────────────── */
@@ -261,21 +268,15 @@
   transform: translateX(-50%);
   display: flex;
   gap: var(--space-8);
-  z-index: 5;
+  z-index: 6;
   will-change: opacity;
-  pointer-events: none;
-}
-
-.cta[style*="opacity: 1"],
-.cta[style*="opacity:1"] {
-  pointer-events: auto;
 }
 
 .ctaLink {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.42);
   transition: color 200ms ease;
 }
 
@@ -284,27 +285,34 @@
 }
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .stickyTrack { height: 800vh; }
+@media (max-width: 900px) {
+  .stickyTrack { height: 900vh; }
 
-  .caseStudy { padding: var(--space-10) var(--space-6); }
+  .gapTitle { font-size: clamp(12px, 1.6vw, 20px); }
 
-  .dimList { max-width: 100%; }
+  .dimHalf { left: var(--space-4); max-width: 44%; }
+  .dimHalfRight { right: var(--space-4); }
 
-  .dim { grid-template-columns: 28px 1fr; }
+  .identityLeft  { left: var(--space-4); }
+  .identityRight { right: var(--space-4); }
 }
 
-@media (max-width: 480px) {
-  .stickyTrack { height: 700vh; }
+@media (max-width: 600px) {
+  .stickyTrack { height: 800vh; }
 
-  .portrait:last-child { display: none; }
-  .portrait:first-child { flex: 1; }
+  /* On narrow screens, collapse to single identity (Ryan only) */
+  .halfRight,
+  .identityRight,
+  .dimHalfRight { display: none; }
 
-  .identityRight { display: none; }
-  .identityLeft { width: 100%; }
+  .halfLeft  { width: 100%; }
+  .centerGap { display: none; }
+
+  .dimHalf { max-width: 80%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dimNote { transition: none; }
-  .dimBar { display: none; }
+  .dimHalf,
+  .dimCenter,
+  .gapContent { transition: none; }
 }

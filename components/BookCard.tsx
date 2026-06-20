@@ -55,7 +55,7 @@ export default function BookCard({
                 Forthcoming
               </Link>
               <a
-                href={`mailto:ryan@ryanpyles.com?subject=Notify me: ${book.title}`}
+                href={`mailto:me@ryanpyles.com?subject=Notify me: ${book.title}`}
                 className={styles.ctaNotify}
               >
                 Get notified →

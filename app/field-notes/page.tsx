@@ -42,8 +42,8 @@ export default function FieldNotesPage() {
             Notes go out when they&rsquo;re ready — no schedule, no filler.
             If you&rsquo;d like to hear when something new appears, send a
             note to{" "}
-            <a href="mailto:ryan@ryanpyles.com?subject=Field Notes updates" className={styles.updatesLink}>
-              ryan@ryanpyles.com
+            <a href="mailto:me@ryanpyles.com?subject=Field Notes updates" className={styles.updatesLink}>
+              me@ryanpyles.com
             </a>{" "}
             with the subject &ldquo;Field Notes updates&rdquo; and I&rsquo;ll
             add you to the list.

@@ -106,8 +106,8 @@ export default function PressPage() {
 
           <section className={styles.contact}>
             <h2 className={styles.sectionLabel}>Press Contact</h2>
-            <a href="mailto:ryan@ryanpyles.com?subject=Press inquiry" className={styles.email}>
-              ryan@ryanpyles.com
+            <a href="mailto:me@ryanpyles.com?subject=Press inquiry" className={styles.email}>
+              me@ryanpyles.com
             </a>
             <p className={styles.contactNote}>
               Include &ldquo;Press&rdquo; in the subject line. Response time is

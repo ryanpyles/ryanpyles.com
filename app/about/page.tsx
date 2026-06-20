@@ -74,8 +74,8 @@ export default function AboutPage() {
 
         <div className={styles.contact}>
           <p>For inquiries:</p>
-          <a href="mailto:ryan@ryanpyles.com" className={styles.email}>
-            ryan@ryanpyles.com
+          <a href="mailto:me@ryanpyles.com" className={styles.email}>
+            me@ryanpyles.com
           </a>
           <Link href="/press" className={styles.pressLink}>
             Press &amp; media kit →

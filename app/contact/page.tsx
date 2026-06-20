@@ -26,8 +26,8 @@ export default function ContactPage() {
         <div className={styles.options}>
           <div className={styles.option}>
             <h2 className={styles.optionLabel}>All Inquiries</h2>
-            <a href="mailto:ryan@ryanpyles.com" className={styles.optionLink}>
-              ryan@ryanpyles.com
+            <a href="mailto:me@ryanpyles.com" className={styles.optionLink}>
+              me@ryanpyles.com
             </a>
           </div>
 

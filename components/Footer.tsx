@@ -36,6 +36,9 @@ export default function Footer() {
             >
               Elian Voigt →
             </a>
+            <a href="/press" className={styles.formaetrixLink}>
+              Press →
+            </a>
             <a href="/contact" className={styles.formaetrixLink}>
               Contact →
             </a>

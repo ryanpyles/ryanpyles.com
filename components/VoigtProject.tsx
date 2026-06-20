@@ -2,73 +2,63 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { Ae, withAe } from "./Ae";
+import { Ae } from "./Ae";
 import styles from "./VoigtProject.module.css";
 
-// 10 viewports: 1000vh track, 900vh scroll room
-// Scene map (progress 0→1):
-//  0.00–0.08  portraits fade in united
-//  0.08–0.18  split line grows
-//  0.18–0.28  Ryan label + descriptor
-//  0.28–0.38  Elian label + descriptor
-//  0.38–0.46  transition: portraits shrink to header strip
-//  0.46–0.54  dim 01 Naming
-//  0.54–0.61  dim 02 Typography
-//  0.61–0.67  dim 03 Publishing Strategy
-//  0.67–0.73  dim 04 Book Design
-//  0.73–0.79  dim 05 Worldbuilding
-//  0.79–0.86  dim 06 Authorial Voice
-//  0.86–1.00  exit / CTA
+// Scene map — 10 sticky viewports (1000vh):
+//  0.00–0.10  full diptych fades in (united)
+//  0.10–0.35  halves slide apart; center gap opens
+//  0.35–0.46  identity labels appear in each half
+//  0.42–0.50  identity labels fade; case study header appears in gap
+//  0.50–0.59  dim 01 — Naming
+//  0.59–0.68  dim 02 — Voice
+//  0.68–0.77  dim 03 — Typography
+//  0.77–0.86  dim 04 — Constraint
+//  0.86–0.96  dim 05 — The risk
+//  0.96–1.00  CTA
 const STICKY_VIEWPORTS = 10;
+const MAX_GAP_VW = 20; // each half shifts 10vw; total gap = 20vw
 
 const dimensions = [
   {
     id: "naming",
     num: "01",
     label: "Naming",
-    note: "The construction of Elian Voigt as a literary identity distinct from the engineer who built it.",
-    start: 0.46,
-    end: 0.54,
+    ryan:  { heading: "Ryan J. Pyles",   note: "A proper name. A real person. Engineer, Chicago." },
+    elian: { heading: "Elian Voigt",     note: "A constructed identity. A literary voice. No fixed address." },
+    start: 0.50, end: 0.59,
+  },
+  {
+    id: "voice",
+    num: "02",
+    label: "Voice",
+    ryan:  { heading: "Declarative",     note: "Problem → approach → outcome. Precision over warmth." },
+    elian: { heading: "Oblique",         note: "Structure first. Meaning emergent. The text never explains itself." },
+    start: 0.59, end: 0.68,
   },
   {
     id: "typography",
-    num: "02",
-    label: "Typography",
-    note: "Custom type systems for FORMÆTRIX — reading environments designed to slow the eye down.",
-    start: 0.54,
-    end: 0.61,
-  },
-  {
-    id: "publishing",
     num: "03",
-    label: "Publishing Strategy",
-    note: "FORMÆTRIX as infrastructure, not imprint. Catalog logic over catalog sales.",
-    start: 0.61,
-    end: 0.67,
+    label: "Typography",
+    ryan:  { heading: "IBM Plex Mono",   note: "Systems-first. A typeface that belongs to infrastructure." },
+    elian: { heading: "EB Garamond",     note: "Designed to slow the eye. Warmth through historical weight." },
+    start: 0.68, end: 0.77,
   },
   {
-    id: "book-design",
+    id: "constraint",
     num: "04",
-    label: "Book Design",
-    note: "Object first. Each book is designed before it is written. Cover as constraint.",
-    start: 0.67,
-    end: 0.73,
+    label: "Constraint",
+    ryan:  { heading: "Minimum viable",  note: "Only what the structure requires. Every abstraction earns its place." },
+    elian: { heading: "Generator",       note: "Not a limit. The source of strangeness — what remains when everything else is removed." },
+    start: 0.77, end: 0.86,
   },
   {
-    id: "worldbuilding",
+    id: "risk",
     num: "05",
-    label: "Worldbuilding",
-    note: "A shared universe across titles — not by plot, but by recurring structural problems.",
-    start: 0.73,
-    end: 0.79,
-  },
-  {
-    id: "authorial-voice",
-    num: "06",
-    label: "Authorial Voice",
-    note: "What Voigt sounds like versus what Pyles writes. Convergence as a risk, not a goal.",
-    start: 0.79,
-    end: 0.86,
+    label: "The risk",
+    ryan:  { heading: "Convergence",     note: "When the engineer starts to sound like the author, the distinction collapses." },
+    elian: { heading: "Convergence",     note: "When the author starts to sound like the engineer, the strangeness disappears." },
+    start: 0.86, end: 0.96,
   },
 ];
 
@@ -99,145 +89,184 @@ export default function VoigtProject() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // ── Portraits (united phase) ─────────────────────────────────────────────
-  const portraitsIn    = mapRange(progress, 0.00, 0.08);
-  const portraitsShift = mapRange(progress, 0.38, 0.46); // shrink into header strip
-  const portraitScale  = 1 - 0.35 * portraitsShift;      // 1 → 0.65
-  const portraitY      = -18 * portraitsShift;            // nudge up
+  // ── Phase 1: Diptych fade-in ──────────────────────────────────────────────
+  const diptychIn = mapRange(progress, 0.00, 0.10);
 
-  // ── Split line ───────────────────────────────────────────────────────────
-  const splitIn  = mapRange(progress, 0.08, 0.18);
-  const splitOut = mapRange(progress, 0.38, 0.44);
-  const splitOpacity = splitIn * (1 - splitOut);
+  // ── Phase 2: Halves slide apart ───────────────────────────────────────────
+  const splitProgress = mapRange(progress, 0.10, 0.35);
+  const halfShiftVw   = splitProgress * (MAX_GAP_VW / 2); // 0 → 10vw per side
+  const gapVw         = halfShiftVw * 2;                  // 0 → 20vw total
 
-  // ── Ryan identity ────────────────────────────────────────────────────────
-  const ryanIn  = mapRange(progress, 0.18, 0.28);
-  const ryanOut = mapRange(progress, 0.38, 0.44);
-  const ryanOpacity = ryanIn * (1 - ryanOut);
-  const ryanY = (1 - ryanIn) * 32;
+  // ── Phase 3: Identity labels ──────────────────────────────────────────────
+  const identityIn  = mapRange(progress, 0.35, 0.44);
+  const identityOut = mapRange(progress, 0.43, 0.49);
+  const identityOpacity = identityIn * (1 - identityOut);
 
-  // ── Elian identity ───────────────────────────────────────────────────────
-  const elianIn  = mapRange(progress, 0.28, 0.38);
-  const elianOut = mapRange(progress, 0.38, 0.44);
-  const elianOpacity = elianIn * (1 - elianOut);
-  const elianY = (1 - elianIn) * 32;
+  // ── Phase 4: Case study header + portrait dimming ─────────────────────────
+  const caseHeaderIn = mapRange(progress, 0.44, 0.52);
+  const portraitDim  = mapRange(progress, 0.40, 0.52); // 0 → 1 (dims portrait brightness)
 
-  // ── Case study header (appears as portraits shrink) ──────────────────────
-  const headerIn = mapRange(progress, 0.42, 0.50);
-
-  // ── Active dimension ─────────────────────────────────────────────────────
+  // ── Active dimension ──────────────────────────────────────────────────────
   const activeDimIndex = dimensions.findIndex(
     (d) => progress >= d.start && progress < d.end
   );
-  // CTA at the end
-  const ctaIn = mapRange(progress, 0.88, 1.0);
+
+  // ── CTA ───────────────────────────────────────────────────────────────────
+  const ctaIn = mapRange(progress, 0.93, 1.0);
+
+  const ryanBrightness  = 1 - 0.50 * portraitDim;  // 1 → 0.50
+  const elianBrightness = (1 - 0.40 * portraitDim) * 0.92; // slightly dimmer base
 
   return (
     <section className={styles.section} id="voigt" ref={sectionRef}>
-
       <div className={styles.stickyTrack}>
         <div className={styles.viewport}>
 
-          {/* ── Phase 1–2: Two portraits united side by side ───────────── */}
-          <div
-            className={styles.portraits}
-            style={{
-              opacity: portraitsIn,
-              transform: `scale(${portraitScale}) translateY(${portraitY}px)`,
-            }}
-          >
-            <div className={styles.portrait}>
+          {/* ── Diptych ──────────────────────────────────────────────────── */}
+          <div className={styles.diptych} style={{ opacity: diptychIn }}>
+
+            {/* Left half — Ryan */}
+            <div
+              className={`${styles.half} ${styles.halfLeft}`}
+              style={{ transform: `translateX(-${halfShiftVw}vw)` }}
+            >
               <Image
                 src="/images/ryan-pyles.png"
                 alt="Ryan Pyles — engineer, architect"
                 fill
                 sizes="50vw"
                 className={styles.portraitImg}
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "left 30%",
+                  filter: `brightness(${ryanBrightness})`,
+                  transition: "filter 600ms ease",
+                }}
                 priority
                 unoptimized
               />
+              <div className={styles.gradientLeft} style={{ opacity: caseHeaderIn }} />
+
+              {/* Identity label */}
+              <div className={styles.identityLeft} style={{ opacity: identityOpacity }}>
+                <span className={styles.identityMono}>Ryan Pyles</span>
+                <p className={styles.identityVerb}>builds<br />systems.</p>
+                <p className={styles.identityNote}>Engineer · Architect · Chicago</p>
+              </div>
+
+              {/* Per-dimension content */}
+              {dimensions.map((d, i) => (
+                <div
+                  key={d.id}
+                  className={styles.dimHalf}
+                  style={{ opacity: i === activeDimIndex ? 1 : 0 }}
+                  aria-hidden={i !== activeDimIndex}
+                >
+                  <span className={styles.dimHalfHeading}>{d.ryan.heading}</span>
+                  <p className={styles.dimHalfNote}>{d.ryan.note}</p>
+                </div>
+              ))}
             </div>
-            <div className={styles.portrait}>
+
+            {/* Center gap — holds section label + dimension number/label */}
+            <div
+              className={styles.centerGap}
+              style={{
+                left:  `calc(50% - ${halfShiftVw}vw)`,
+                width: `${gapVw}vw`,
+              }}
+            >
+              <div
+                className={styles.gapContent}
+                style={{
+                  opacity: caseHeaderIn,
+                  transform: `translateY(${(1 - caseHeaderIn) * 18}px)`,
+                }}
+              >
+                <span className={styles.gapMono}>§ 04 · The Voigt Project</span>
+                <h2 className={styles.gapTitle}>A Case Study<br />in Identity</h2>
+              </div>
+
+              {dimensions.map((d, i) => (
+                <div
+                  key={d.id}
+                  className={styles.dimCenter}
+                  style={{ opacity: i === activeDimIndex ? 1 : 0 }}
+                  aria-hidden={i !== activeDimIndex}
+                >
+                  <span className={styles.dimCenterNum}>{d.num}</span>
+                  <span className={styles.dimCenterLabel}>{d.label}</span>
+                </div>
+              ))}
+
+              <div className={styles.seamLine} />
+            </div>
+
+            {/* Right half — Elian */}
+            <div
+              className={`${styles.half} ${styles.halfRight}`}
+              style={{ transform: `translateX(${halfShiftVw}vw)` }}
+            >
               <Image
                 src="/images/elian-voigt.png"
                 alt="Elian Voigt — author"
                 fill
                 sizes="50vw"
                 className={styles.portraitImg}
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "right 30%",
+                  filter: `brightness(${elianBrightness})`,
+                  transition: "filter 600ms ease",
+                }}
                 priority
                 unoptimized
               />
+              <div className={styles.gradientRight} style={{ opacity: caseHeaderIn }} />
+
+              {/* Identity label */}
+              <div className={styles.identityRight} style={{ opacity: identityOpacity }}>
+                <span className={styles.identityMono}>Elian Voigt</span>
+                <p className={`${styles.identityVerb} ${styles.identityVerbSerif}`}>
+                  dismantles<br />them.
+                </p>
+                <p className={styles.identityNote}>Literary Fiction · Nine Novels</p>
+              </div>
+
+              {/* Per-dimension content */}
+              {dimensions.map((d, i) => (
+                <div
+                  key={d.id}
+                  className={`${styles.dimHalf} ${styles.dimHalfRight}`}
+                  style={{ opacity: i === activeDimIndex ? 1 : 0 }}
+                  aria-hidden={i !== activeDimIndex}
+                >
+                  <span className={styles.dimHalfHeading}>{d.elian.heading}</span>
+                  <p className={styles.dimHalfNote}>{d.elian.note}</p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* ── Phase 2: Split line ──────────────────────────────────────── */}
+          {/* ── CTA ────────────────────────────────────────────────────────── */}
           <div
-            className={styles.splitLine}
-            style={{ opacity: splitOpacity, transform: `scaleY(${splitIn})` }}
-            aria-hidden="true"
-          />
-
-          {/* ── Phase 3: Ryan panel ──────────────────────────────────────── */}
-          <div
-            className={`${styles.identityPanel} ${styles.identityLeft}`}
-            style={{ opacity: ryanOpacity, transform: `translateY(${ryanY}px)` }}
+            className={styles.cta}
+            style={{ opacity: ctaIn, pointerEvents: ctaIn > 0.5 ? "auto" : "none" }}
           >
-            <span className={styles.identityMono}>Ryan Pyles</span>
-            <p className={styles.identityVerb}>builds<br />systems.</p>
-            <p className={styles.identityNote}>Engineer · Architect · Chicago</p>
-          </div>
-
-          {/* ── Phase 4: Elian panel ─────────────────────────────────────── */}
-          <div
-            className={`${styles.identityPanel} ${styles.identityRight}`}
-            style={{ opacity: elianOpacity, transform: `translateY(${elianY}px)` }}
-          >
-            <span className={styles.identityMono}>Elian Voigt</span>
-            <p className={`${styles.identityVerb} ${styles.identityVerbSerif}`}>
-              dismantles<br />them.
-            </p>
-            <p className={styles.identityNote}>Literary Fiction · Nine Novels</p>
-          </div>
-
-          {/* ── Phase 5+: Case study overlay ─────────────────────────────── */}
-          <div
-            className={styles.caseStudy}
-            style={{ opacity: headerIn, pointerEvents: headerIn > 0.5 ? "auto" : "none" }}
-          >
-            {/* Section label */}
-            <div className={styles.caseHeader}>
-              <span className={styles.caseMono}>§ 04 · The Voigt Project</span>
-              <h2 className={styles.caseHeading}>A Case Study in Identity</h2>
-            </div>
-
-            {/* Dimension list */}
-            <div className={styles.dimList}>
-              {dimensions.map((d, i) => {
-                const isActive = i === activeDimIndex;
-                const isPast = progress >= d.end;
-                return (
-                  <div
-                    key={d.id}
-                    className={`${styles.dim} ${isActive ? styles.dimActive : ""} ${isPast ? styles.dimPast : ""}`}
-                  >
-                    <span className={styles.dimNum}>{d.num}</span>
-                    <div className={styles.dimBody}>
-                      <span className={styles.dimLabel}>{d.label}</span>
-                      <p className={styles.dimNote}>{withAe(d.note)}</p>
-                    </div>
-                    {isActive && <div className={styles.dimBar} />}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* ── CTA ──────────────────────────────────────────────────────── */}
-          <div className={styles.cta} style={{ opacity: ctaIn }}>
-            <a href="https://www.formaetrix.com" target="_blank" rel="noopener noreferrer" className={styles.ctaLink}>
+            <a
+              href="https://www.formaetrix.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaLink}
+            >
               FORM<Ae />TRIX →
             </a>
-            <a href="https://www.formaetrix.com/imprint" target="_blank" rel="noopener noreferrer" className={styles.ctaLink}>
+            <a
+              href="https://www.formaetrix.com/imprint"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.ctaLink}
+            >
               Elian Voigt →
             </a>
           </div>

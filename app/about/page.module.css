@@ -65,3 +65,17 @@
 .email:hover {
   opacity: 0.6;
 }
+
+.pressLink {
+  display: inline-block;
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--color-white) 40%, transparent);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.pressLink:hover {
+  color: color-mix(in srgb, var(--color-white) 70%, transparent);
+}

@@ -50,6 +50,31 @@
   line-height: var(--leading-relaxed);
 }
 
+.fitList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.fitList li {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  color: color-mix(in srgb, var(--color-white) 65%, transparent);
+  line-height: var(--leading-relaxed);
+  padding-left: var(--space-4);
+  position: relative;
+}
+
+.fitList li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: color-mix(in srgb, var(--color-white) 25%, transparent);
+}
+
 .note {
   margin-top: var(--space-16);
   padding-top: var(--space-6);
@@ -58,4 +83,15 @@
   font-size: var(--text-xs);
   letter-spacing: 0.04em;
   color: color-mix(in srgb, var(--color-white) 20%, transparent);
+}
+
+.noteLink {
+  color: color-mix(in srgb, var(--color-white) 45%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.noteLink:hover {
+  color: color-mix(in srgb, var(--color-white) 70%, transparent);
 }

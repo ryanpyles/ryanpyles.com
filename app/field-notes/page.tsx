@@ -36,6 +36,19 @@ export default function FieldNotesPage() {
         </header>
 
         <FieldNotesGrid notes={fieldNotes} />
+
+        <div className={styles.updates}>
+          <p className={styles.updatesText}>
+            Notes go out when they&rsquo;re ready — no schedule, no filler.
+            If you&rsquo;d like to hear when something new appears, send a
+            note to{" "}
+            <a href="mailto:ryan@ryanpyles.com?subject=Field Notes updates" className={styles.updatesLink}>
+              ryan@ryanpyles.com
+            </a>{" "}
+            with the subject &ldquo;Field Notes updates&rdquo; and I&rsquo;ll
+            add you to the list.
+          </p>
+        </div>
       </Section>
     </SiteLayout>
   );

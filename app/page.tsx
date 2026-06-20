@@ -108,10 +108,10 @@ export default function HomePage() {
         <div className={styles.heroInner}>
           <div className={`${styles.heroAnnotations} ${styles.heroEnter} ${styles.heroEnter1}`} aria-hidden="true">
             <span className={styles.heroAnnotation}>64°08′ N, 21°56′ W</span>
-            <span className={styles.heroAnnotation}>fn. 14 — see Voigt, 2019</span>
-            <span className={styles.heroAnnotation}>syntax</span>
-            <span className={styles.heroAnnotation}>halló</span>
-            <span className={styles.heroAnnotation}>你好</span>
+            <span className={styles.heroAnnotation}>fn. 14 — see Voigt, 2024</span>
+            <span className={styles.heroAnnotation}>declension</span>
+            <span className={styles.heroAnnotation}>halló · halloo · salut</span>
+            <span className={styles.heroAnnotation}>§ 04 · identity</span>
           </div>
 
           <h1 className={`${styles.heroStatement} ${styles.heroEnter} ${styles.heroEnter2}`}>
@@ -180,8 +180,8 @@ export default function HomePage() {
             <Reveal delay={200}>
               <p className={styles.sectionIntro}>
                 Thinking before it becomes work. Observations, structural
-                curiosities, and fragments that may eventually appear somewhere
-                else — or may not.
+                curiosities, and language fragments — written close to the
+                moment, released as they arrive.
               </p>
             </Reveal>
           </div>
@@ -206,7 +206,7 @@ export default function HomePage() {
           <div>
             <Reveal><span className={styles.sectionKicker}>Research</span></Reveal>
             <Reveal delay={80} slow><h2>In Progress</h2></Reveal>
-            <Reveal delay={200}><p className={styles.sectionIntro}>What is currently unfinished.</p></Reveal>
+            <Reveal delay={200}><p className={styles.sectionIntro}>What the work looks like before it closes.</p></Reveal>
           </div>
         </header>
         <div className={styles.currentWorkList}>

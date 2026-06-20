@@ -11,7 +11,7 @@ export default function Footer() {
         <div className={styles.ryanContent}>
           <p className={styles.name}>Ryan Pyles</p>
           <p className={styles.location}>Chicago</p>
-          <p className={styles.roles}>Author · Engineer · Linguist</p>
+          <p className={styles.roles}>The maker. The studio. The literary identity.</p>
           <p className={styles.obsession}>
             The work is one investigation into how language, narrative, and
             formal systems reshape the people who use them.
@@ -21,20 +21,20 @@ export default function Footer() {
           </p>
           <div className={styles.footerLinks}>
             <a
+              href="https://www.elianvoigt.com"
+              className={styles.formaetrixLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Elian Voigt →
+            </a>
+            <a
               href="https://www.formaetrix.com"
               className={styles.formaetrixLink}
               target="_blank"
               rel="noopener noreferrer"
             >
               FORM<Ae />TRIX →
-            </a>
-            <a
-              href="https://www.formaetrix.com/imprint"
-              className={styles.formaetrixLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Elian Voigt →
             </a>
             <a href="/press" className={styles.formaetrixLink}>
               Press →

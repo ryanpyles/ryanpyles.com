@@ -125,7 +125,7 @@ export default function VoigtProject() {
           {/* ── Diptych ──────────────────────────────────────────────────── */}
           <div className={styles.diptych} style={{ opacity: diptychIn }}>
 
-            {/* Left half — Ryan */}
+            {/* Left half — image + gradient only (no text children) */}
             <div
               className={`${styles.half} ${styles.halfLeft}`}
               style={{ transform: `translateX(-${halfShiftVw}vw)` }}
@@ -146,26 +146,6 @@ export default function VoigtProject() {
                 unoptimized
               />
               <div className={styles.gradientLeft} style={{ opacity: caseHeaderIn }} />
-
-              {/* Identity label */}
-              <div className={styles.identityLeft} style={{ opacity: identityOpacity }}>
-                <span className={styles.identityMono}>Ryan Pyles</span>
-                <p className={styles.identityVerb}>builds<br />systems.</p>
-                <p className={styles.identityNote}>Engineer · Architect · Chicago</p>
-              </div>
-
-              {/* Per-dimension content */}
-              {dimensions.map((d, i) => (
-                <div
-                  key={d.id}
-                  className={styles.dimHalf}
-                  style={{ opacity: i === activeDimIndex ? 1 : 0 }}
-                  aria-hidden={i !== activeDimIndex}
-                >
-                  <span className={styles.dimHalfHeading}>{d.ryan.heading}</span>
-                  <p className={styles.dimHalfNote}>{d.ryan.note}</p>
-                </div>
-              ))}
             </div>
 
             {/* Center gap — holds section label + dimension number/label */}
@@ -202,7 +182,7 @@ export default function VoigtProject() {
               <div className={styles.seamLine} />
             </div>
 
-            {/* Right half — Elian */}
+            {/* Right half — image + gradient only (no text children) */}
             <div
               className={`${styles.half} ${styles.halfRight}`}
               style={{ transform: `translateX(${halfShiftVw}vw)` }}
@@ -223,29 +203,53 @@ export default function VoigtProject() {
                 unoptimized
               />
               <div className={styles.gradientRight} style={{ opacity: caseHeaderIn }} />
-
-              {/* Identity label */}
-              <div className={styles.identityRight} style={{ opacity: identityOpacity }}>
-                <span className={styles.identityMono}>Elian Voigt</span>
-                <p className={`${styles.identityVerb} ${styles.identityVerbSerif}`}>
-                  dismantles<br />them.
-                </p>
-                <p className={styles.identityNote}>Literary Fiction · Nine Novels</p>
-              </div>
-
-              {/* Per-dimension content */}
-              {dimensions.map((d, i) => (
-                <div
-                  key={d.id}
-                  className={`${styles.dimHalf} ${styles.dimHalfRight}`}
-                  style={{ opacity: i === activeDimIndex ? 1 : 0 }}
-                  aria-hidden={i !== activeDimIndex}
-                >
-                  <span className={styles.dimHalfHeading}>{d.elian.heading}</span>
-                  <p className={styles.dimHalfNote}>{d.elian.note}</p>
-                </div>
-              ))}
             </div>
+
+            {/* ── Text overlays — direct children of .diptych so they          */}
+            {/*    position relative to the full viewport, not the shifted halves */}
+
+            {/* Identity label — left */}
+            <div className={styles.identityLeft} style={{ opacity: identityOpacity }}>
+              <span className={styles.identityMono}>Ryan Pyles</span>
+              <p className={styles.identityVerb}>builds<br />systems.</p>
+              <p className={styles.identityNote}>Engineer · Architect · Chicago</p>
+            </div>
+
+            {/* Identity label — right */}
+            <div className={styles.identityRight} style={{ opacity: identityOpacity }}>
+              <span className={styles.identityMono}>Elian Voigt</span>
+              <p className={`${styles.identityVerb} ${styles.identityVerbSerif}`}>
+                dismantles<br />them.
+              </p>
+              <p className={styles.identityNote}>Literary Fiction · Nine Novels</p>
+            </div>
+
+            {/* Per-dimension content — left (Ryan) */}
+            {dimensions.map((d, i) => (
+              <div
+                key={d.id}
+                className={styles.dimHalf}
+                style={{ opacity: i === activeDimIndex ? 1 : 0 }}
+                aria-hidden={i !== activeDimIndex}
+              >
+                <span className={styles.dimHalfHeading}>{d.ryan.heading}</span>
+                <p className={styles.dimHalfNote}>{d.ryan.note}</p>
+              </div>
+            ))}
+
+            {/* Per-dimension content — right (Elian) */}
+            {dimensions.map((d, i) => (
+              <div
+                key={d.id}
+                className={`${styles.dimHalf} ${styles.dimHalfRight}`}
+                style={{ opacity: i === activeDimIndex ? 1 : 0 }}
+                aria-hidden={i !== activeDimIndex}
+              >
+                <span className={styles.dimHalfHeading}>{d.elian.heading}</span>
+                <p className={styles.dimHalfNote}>{d.elian.note}</p>
+              </div>
+            ))}
+
           </div>
 
           {/* ── CTA ────────────────────────────────────────────────────────── */}

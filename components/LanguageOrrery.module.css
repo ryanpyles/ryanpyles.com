@@ -210,6 +210,28 @@
   }
 }
 
+/* ---------- Landscape mobile (wide but short — phone rotated) ---------- */
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .root {
+    height: auto;
+    overflow: visible;
+    padding: var(--space-10) var(--space-6);
+  }
+
+  .canvasWrap {
+    display: none !important;
+  }
+
+  .fallback {
+    display: block !important;
+  }
+
+  .viewToggle {
+    display: none;
+  }
+}
+
 /* ---------- Fallback content styles ---------- */
 
 .fallbackEyebrow {

@@ -75,15 +75,17 @@ const LanguageOrrery = dynamic(() => import("@/components/LanguageOrrery"), {
 });
 
 export const metadata: Metadata = {
-  title: "Ryan Pyles — Author, Software Engineer, Linguist",
+  title: "Ryan Pyles — Author, Engineer, Linguist",
   description:
-    "Ryan Pyles writes experimental fiction, builds web systems, studies languages, and collects strange structures. A personal archive of work in progress.",
+    "Ryan Pyles writes experimental fiction as Elian Voigt, runs FORMÆTRIX as a design and systems studio, and studies twelve languages. The personal archive behind all three.",
   keywords: [
-    "Ryan Pyles author",
+    "Ryan Pyles",
+    "Elian Voigt",
+    "FORMÆTRIX",
     "experimental fiction",
     "software engineer Chicago",
-    "linguist",
     "literary fiction",
+    "linguist",
   ],
 };
 
@@ -106,10 +108,10 @@ export default function HomePage() {
         <div className={styles.heroInner}>
           <div className={`${styles.heroAnnotations} ${styles.heroEnter} ${styles.heroEnter1}`} aria-hidden="true">
             <span className={styles.heroAnnotation}>64°08′ N, 21°56′ W</span>
-            <span className={styles.heroAnnotation}>fn. 14 — see Voigt, 2019</span>
-            <span className={styles.heroAnnotation}>syntax</span>
-            <span className={styles.heroAnnotation}>halló</span>
-            <span className={styles.heroAnnotation}>你好</span>
+            <span className={styles.heroAnnotation}>fn. 14 — see Voigt, 2024</span>
+            <span className={styles.heroAnnotation}>declension</span>
+            <span className={styles.heroAnnotation}>halló · halloo · salut</span>
+            <span className={styles.heroAnnotation}>§ 04 · identity</span>
           </div>
 
           <h1 className={`${styles.heroStatement} ${styles.heroEnter} ${styles.heroEnter2}`}>
@@ -120,17 +122,27 @@ export default function HomePage() {
           <p className={`${styles.heroAttribution} ${styles.heroEnter} ${styles.heroEnter3}`}>Ryan Pyles — Chicago</p>
 
           <p className={`${styles.heroSummary} ${styles.heroEnter} ${styles.heroEnter4}`}>
-            Ryan J. Pyles writes fiction as Elian Voigt, builds web systems for
-            identity and publishing, and studies language as structure. This site
-            gathers the books, projects, field notes, and tools behind that work.
+            Ryan J. Pyles writes experimental fiction as Elian Voigt, runs
+            FORMÆTRIX as a design and systems studio, and studies twelve
+            languages. This site is the personal archive behind all three.
           </p>
 
           <div className={`${styles.heroCtas} ${styles.heroEnter} ${styles.heroEnter5}`}>
-            <a href="/books" className={styles.heroCta}>
+            <a
+              href="https://www.elianvoigt.com"
+              className={styles.heroCta}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Read the Fiction →
             </a>
-            <a href="/projects" className={styles.heroCtaSecondary}>
-              Explore the Systems
+            <a
+              href="https://www.formaetrix.com"
+              className={styles.heroCtaSecondary}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Hire the Studio
             </a>
           </div>
         </div>
@@ -140,14 +152,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Identity Bridge ────────────────────────────────────── */}
+      {/* ── Ecosystem (who Ryan is, what each identity does) ──── */}
       <IdentityBridge />
 
-      {/* ── The Voigt Project ─────────────────────────────────── */}
-      <VoigtProject />
-
-      {/* ── Start Here (guided entry — early, before content) ──── */}
+      {/* ── Three pathways (fiction / studio / explore) ────────── */}
       <StartHere />
+
+      {/* ── The Voigt Project (deep scroll narrative) ─────────── */}
+      <VoigtProject />
 
       {/* ── Fiction / Books (3 featured + forthcoming) ─────────── */}
       <HomepageFiction />
@@ -168,8 +180,8 @@ export default function HomePage() {
             <Reveal delay={200}>
               <p className={styles.sectionIntro}>
                 Thinking before it becomes work. Observations, structural
-                curiosities, and fragments that may eventually appear somewhere
-                else — or may not.
+                curiosities, and language fragments — written close to the
+                moment, released as they arrive.
               </p>
             </Reveal>
           </div>
@@ -194,7 +206,7 @@ export default function HomePage() {
           <div>
             <Reveal><span className={styles.sectionKicker}>Research</span></Reveal>
             <Reveal delay={80} slow><h2>In Progress</h2></Reveal>
-            <Reveal delay={200}><p className={styles.sectionIntro}>What is currently unfinished.</p></Reveal>
+            <Reveal delay={200}><p className={styles.sectionIntro}>What the work looks like before it closes.</p></Reveal>
           </div>
         </header>
         <div className={styles.currentWorkList}>

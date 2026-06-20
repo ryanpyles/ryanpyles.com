@@ -10,9 +10,36 @@ import styles from "./page.module.css";
 export const metadata: Metadata = buildPageMetadata({
   title: "About",
   description:
-    "Ryan J. Pyles — experimental fiction author and web developer based in Chicago. Writing systems, building with constraint, designing for clarity.",
+    "Ryan J. Pyles — experimental fiction author, software engineer, and linguist based in Chicago. The personal archive behind FORMÆTRIX and Elian Voigt.",
   path: "/about",
 });
+
+const workAreas = [
+  {
+    label: "Field Notes",
+    desc: "Short entries on language, writing, software, and design — written close to the moment, before they settle into something more considered.",
+    href: "/field-notes",
+    annotation: "fn. ——",
+  },
+  {
+    label: "Language Archive",
+    desc: "A Scholar's Notebook. Structural observations on twelve languages under active study, charted by orbit and proficiency.",
+    href: "/archive",
+    annotation: "§ archive",
+  },
+  {
+    label: "Systems & Projects",
+    desc: "Software built because the fiction and the publishing required it. Identity systems, narrative engines, editorial architecture.",
+    href: "/projects",
+    annotation: "∑ systems",
+  },
+  {
+    label: "Fiction Catalogue",
+    desc: "The complete catalogue of novels published under the Elian Voigt name, with notes on form, structure, and context.",
+    href: "/books",
+    annotation: "≡ fiction",
+  },
+] as const;
 
 export default function AboutPage() {
   return (
@@ -46,6 +73,12 @@ export default function AboutPage() {
           </p>
 
           <p>
+            He studies twelve languages and is interested in the way grammar
+            constrains and enables thought — and in how those constraints travel
+            between natural language and code.
+          </p>
+
+          <p>
             He is based in Chicago.
           </p>
 
@@ -70,6 +103,18 @@ export default function AboutPage() {
             — a distinct literary voice, not a pseudonym in any simple sense.
             The distinction matters less than the work it produces.
           </p>
+
+          <h2 className={styles.subheading}>The Work</h2>
+        </div>
+
+        <div className={styles.workMap}>
+          {workAreas.map((area) => (
+            <Link key={area.href} href={area.href} className={styles.workEntry}>
+              <span className={styles.workAnnotation} aria-hidden="true">{area.annotation}</span>
+              <span className={styles.workLabel}>{area.label}</span>
+              <span className={styles.workDesc}>{area.desc}</span>
+            </Link>
+          ))}
         </div>
 
         <div className={styles.contact}>

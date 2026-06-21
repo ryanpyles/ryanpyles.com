@@ -12,6 +12,15 @@
   gap: var(--space-12);
 }
 
+/* ── Orientation intro ──────────────────────────────────────────────────── */
+.intro {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 32%, transparent);
+}
+
 /* ── Opening statement ──────────────────────────────────────────────────── */
 .statement {
   font-family: var(--font-serif);

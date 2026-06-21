@@ -88,6 +88,27 @@
   color: var(--color-white);
 }
 
+.linkWithSub {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.linkSub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 28%, transparent);
+  line-height: 1;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.link:hover .linkSub,
+.link.active .linkSub {
+  color: color-mix(in srgb, var(--color-white) 45%, transparent);
+}
+
 .formaetrix .link {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -143,6 +164,10 @@
   .link {
     font-size: var(--text-lg);
     letter-spacing: 0;
+  }
+
+  .linkSub {
+    display: none;
   }
 
   .formaetrix .link {

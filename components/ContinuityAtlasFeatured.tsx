@@ -42,10 +42,10 @@ export default function ContinuityAtlasFeatured() {
             </Reveal>
             <Reveal delay={400}>
               <div className={styles.cta}>
-                <Link href="/projects/continuity-atlas" className={styles.ctaLink}>
+                <Link href="/projects/continuity-atlas" className={styles.ctaLink} aria-label="View the Continuity Atlas case study">
                   View case study →
                 </Link>
-                <Link href="/projects/continuity-atlas#prototype" className={styles.ctaSecondary}>
+                <Link href="/projects/continuity-atlas#prototype" className={styles.ctaSecondary} aria-label="Open the Continuity Atlas prototype">
                   Open prototype →
                 </Link>
               </div>

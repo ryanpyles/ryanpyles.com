@@ -97,7 +97,7 @@ export default function HomepageFiction() {
 
         <Reveal delay={300}>
           <div className={styles.footer}>
-            <Link href="/books" className={styles.allLink}>
+            <Link href="/books" className={styles.allLink} aria-label="View the complete fiction catalogue">
               Complete catalogue →
             </Link>
           </div>

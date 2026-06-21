@@ -1,8 +1,11 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import { Ae } from "./Ae";
 import styles from "./IdentityBridge.module.css";
+
+const IdentityOrbit = dynamic(() => import("./IdentityOrbit"), { ssr: false });
 
 const entities = [
   {
@@ -41,35 +44,41 @@ export default function IdentityBridge() {
   return (
     <section className={styles.section} id="ecosystem" aria-label="The ecosystem">
       <div className={styles.inner}>
-        <Reveal slow>
-          <p className={styles.intro}>
-            Three bodies of work. One origin point. Begin with whichever axis pulls first.
-          </p>
-        </Reveal>
-
-        <Reveal slow>
-          <p className={styles.statement}>
-            Ryan Pyles is the maker.{" "}
-            <a
-              href="https://www.formaetrix.com"
-              className={styles.statementLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              FORM<Ae />TRIX
-            </a>{" "}
-            is the studio.{" "}
-            <a
-              href="https://www.elianvoigt.com"
-              className={styles.statementLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Elian Voigt
-            </a>{" "}
-            is the literary identity.
-          </p>
-        </Reveal>
+        <div className={styles.top}>
+          <div className={styles.topText}>
+            <Reveal slow>
+              <p className={styles.intro}>
+                Three bodies of work. One origin point. Begin with whichever axis pulls first.
+              </p>
+            </Reveal>
+            <Reveal slow>
+              <p className={styles.statement}>
+                Ryan Pyles is the maker.{" "}
+                <a
+                  href="https://www.formaetrix.com"
+                  className={styles.statementLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  FORM<Ae />TRIX
+                </a>{" "}
+                is the studio.{" "}
+                <a
+                  href="https://www.elianvoigt.com"
+                  className={styles.statementLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Elian Voigt
+                </a>{" "}
+                is the literary identity.
+              </p>
+            </Reveal>
+          </div>
+          <div className={styles.topOrbit}>
+            <IdentityOrbit />
+          </div>
+        </div>
 
         <div className={styles.triad}>
           {entities.map((entity, i) => (

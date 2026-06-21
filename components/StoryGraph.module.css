@@ -1,0 +1,6 @@
+.root {
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: 200px;
+  margin-bottom: var(--space-6);
+}

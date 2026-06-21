@@ -1,7 +1,10 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import styles from "./ContinuityAtlasFeatured.module.css";
+
+const StoryGraph = dynamic(() => import("./StoryGraph"), { ssr: false });
 
 const features = [
   "Story Memory",
@@ -54,6 +57,7 @@ export default function ContinuityAtlasFeatured() {
 
           <Reveal delay={200}>
             <aside className={styles.sidebar}>
+              <StoryGraph />
               <p className={styles.sidebarLabel}>System modules</p>
               <ul className={styles.features}>
                 {features.map((f, i) => (

@@ -17,47 +17,77 @@ import styles from "./VoigtProject.module.css";
 //  0.86–0.96  dim 05 — The risk
 //  0.96–1.00  CTA
 const STICKY_VIEWPORTS = 10;
-const MAX_GAP_VW = 20; // each half shifts 10vw; total gap = 20vw
+const MAX_GAP_VW = 20;
 
 const dimensions = [
   {
     id: "naming",
     num: "01",
     label: "Naming",
-    ryan:  { heading: "Ryan J. Pyles",   note: "A proper name. A real person. Engineer, Chicago." },
-    elian: { heading: "Elian Voigt",     note: "A constructed identity. A literary voice. No fixed address." },
+    ryan: {
+      heading: "Ryan J. Pyles",
+      code: `const identity = {\n  name: "ryan.pyles",\n  role: "maker",\n  city: "chicago",\n  status: "active",\n};`,
+    },
+    elian: {
+      heading: "Elian Voigt",
+      note: "A constructed identity. A literary voice. No fixed address.",
+    },
     start: 0.50, end: 0.59,
   },
   {
     id: "voice",
     num: "02",
     label: "Voice",
-    ryan:  { heading: "Declarative",     note: "Problem → approach → outcome. Precision over warmth." },
-    elian: { heading: "Oblique",         note: "Structure first. Meaning emergent. The text never explains itself." },
+    ryan: {
+      heading: "Declarative",
+      code: `fn approach(\n  problem: Problem\n) -> Outcome {\n  problem\n    .decompose()\n    .map(resolve)\n    .collect()\n}`,
+    },
+    elian: {
+      heading: "Oblique",
+      note: "Structure first. Meaning emergent. The text never explains itself.",
+    },
     start: 0.59, end: 0.68,
   },
   {
     id: "typography",
     num: "03",
     label: "Typography",
-    ryan:  { heading: "IBM Plex Mono",   note: "Systems-first. A typeface that belongs to infrastructure." },
-    elian: { heading: "EB Garamond",     note: "Designed to slow the eye. Warmth through historical weight." },
+    ryan: {
+      heading: "IBM Plex Mono",
+      code: `/* systems infrastructure */\nfont-family: "IBM Plex Mono";\nfont-weight: 400;\nletter-spacing: 0.08em;\nrendering: gridded;`,
+    },
+    elian: {
+      heading: "EB Garamond",
+      note: "Designed to slow the eye. Warmth through historical weight.",
+    },
     start: 0.68, end: 0.77,
   },
   {
     id: "constraint",
     num: "04",
     label: "Constraint",
-    ryan:  { heading: "Minimum viable",  note: "Only what the structure requires. Every abstraction earns its place." },
-    elian: { heading: "Generator",       note: "Not a limit. The source of strangeness — what remains when everything else is removed." },
+    ryan: {
+      heading: "Minimum viable",
+      code: `// only what the structure requires\nfunction build(input) {\n  return input\n    .strip(redundant)\n    .verify()\n    .ship();\n}`,
+    },
+    elian: {
+      heading: "Generator",
+      note: "Not a limit. The source of strangeness — what remains when everything else is removed.",
+    },
     start: 0.77, end: 0.86,
   },
   {
     id: "risk",
     num: "05",
     label: "The risk",
-    ryan:  { heading: "Convergence",     note: "When the engineer starts to sound like the author, the distinction collapses." },
-    elian: { heading: "Convergence",     note: "When the author starts to sound like the engineer, the strangeness disappears." },
+    ryan: {
+      heading: "Convergence",
+      code: `if (engineer === author) {\n  // the distinction\n  // collapses here\n  boundary.dissolve();\n}`,
+    },
+    elian: {
+      heading: "Convergence",
+      note: "When the author sounds like the engineer, the strangeness disappears.",
+    },
     start: 0.86, end: 0.96,
   },
 ];
@@ -71,6 +101,12 @@ const mapRange = (v: number, a: number, b: number) =>
 export default function VoigtProject() {
   const sectionRef = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(0);
+  const [terminalText, setTerminalText] = useState("");
+  const [elianText, setElianText]       = useState("");
+  const termTimerRef  = useRef<ReturnType<typeof setInterval> | null>(null);
+  const elianTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const elianDelayRef = useRef<ReturnType<typeof setTimeout>  | null>(null);
+  const prevDimRef    = useRef(-2);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -94,8 +130,8 @@ export default function VoigtProject() {
 
   // ── Phase 2: Halves slide apart ───────────────────────────────────────────
   const splitProgress = mapRange(progress, 0.10, 0.35);
-  const halfShiftVw   = splitProgress * (MAX_GAP_VW / 2); // 0 → 10vw per side
-  const gapVw         = halfShiftVw * 2;                  // 0 → 20vw total
+  const halfShiftVw   = splitProgress * (MAX_GAP_VW / 2);
+  const gapVw         = halfShiftVw * 2;
 
   // ── Phase 3: Identity labels ──────────────────────────────────────────────
   const identityIn  = mapRange(progress, 0.35, 0.44);
@@ -104,7 +140,7 @@ export default function VoigtProject() {
 
   // ── Phase 4: Case study header + portrait dimming ─────────────────────────
   const caseHeaderIn = mapRange(progress, 0.44, 0.52);
-  const portraitDim  = mapRange(progress, 0.40, 0.52); // 0 → 1 (dims portrait brightness)
+  const portraitDim  = mapRange(progress, 0.40, 0.52);
 
   // ── Active dimension ──────────────────────────────────────────────────────
   const activeDimIndex = dimensions.findIndex(
@@ -114,8 +150,56 @@ export default function VoigtProject() {
   // ── CTA ───────────────────────────────────────────────────────────────────
   const ctaIn = mapRange(progress, 0.93, 1.0);
 
-  const ryanBrightness  = 1 - 0.50 * portraitDim;  // 1 → 0.50
-  const elianBrightness = (1 - 0.40 * portraitDim) * 0.92; // slightly dimmer base
+  const ryanBrightness  = 1 - 0.50 * portraitDim;
+  const elianBrightness = (1 - 0.40 * portraitDim) * 0.92;
+
+  // ── Typewriter animations ─────────────────────────────────────────────────
+  useEffect(() => {
+    if (activeDimIndex === prevDimRef.current) return;
+    prevDimRef.current = activeDimIndex;
+
+    if (termTimerRef.current)  clearInterval(termTimerRef.current);
+    if (elianTimerRef.current) clearInterval(elianTimerRef.current);
+    if (elianDelayRef.current) clearTimeout(elianDelayRef.current);
+
+    if (activeDimIndex < 0) {
+      setTerminalText("");
+      setElianText("");
+      return;
+    }
+
+    const dim  = dimensions[activeDimIndex];
+    const code = dim.ryan.code;
+    const note = dim.elian.note;
+
+    setTerminalText("");
+    setElianText("");
+
+    let ci = 0;
+    termTimerRef.current = setInterval(() => {
+      ci++;
+      setTerminalText(code.slice(0, ci));
+      if (ci >= code.length) clearInterval(termTimerRef.current!);
+    }, 18);
+
+    elianDelayRef.current = setTimeout(() => {
+      let ei = 0;
+      elianTimerRef.current = setInterval(() => {
+        ei++;
+        setElianText(note.slice(0, ei));
+        if (ei >= note.length) clearInterval(elianTimerRef.current!);
+      }, 32);
+    }, 350);
+
+    return () => {
+      if (termTimerRef.current)  clearInterval(termTimerRef.current);
+      if (elianTimerRef.current) clearInterval(elianTimerRef.current);
+      if (elianDelayRef.current) clearTimeout(elianDelayRef.current);
+    };
+  }, [activeDimIndex]);
+
+  const activeDim  = activeDimIndex >= 0 ? dimensions[activeDimIndex] : null;
+  const dimOpacity = activeDimIndex >= 0 ? 1 : 0;
 
   return (
     <section className={styles.section} id="voigt" ref={sectionRef}>
@@ -125,7 +209,7 @@ export default function VoigtProject() {
           {/* ── Diptych ──────────────────────────────────────────────────── */}
           <div className={styles.diptych} style={{ opacity: diptychIn }}>
 
-            {/* Left half — image + gradient only (no text children) */}
+            {/* Left half — image + gradient only */}
             <div
               className={`${styles.half} ${styles.halfLeft}`}
               style={{ transform: `translateX(-${halfShiftVw}vw)` }}
@@ -148,7 +232,7 @@ export default function VoigtProject() {
               <div className={styles.gradientLeft} style={{ opacity: caseHeaderIn }} />
             </div>
 
-            {/* Center gap — holds section label + dimension number/label */}
+            {/* Center gap */}
             <div
               className={styles.centerGap}
               style={{
@@ -182,7 +266,7 @@ export default function VoigtProject() {
               <div className={styles.seamLine} />
             </div>
 
-            {/* Right half — image + gradient only (no text children) */}
+            {/* Right half — image + gradient only */}
             <div
               className={`${styles.half} ${styles.halfRight}`}
               style={{ transform: `translateX(${halfShiftVw}vw)` }}
@@ -224,31 +308,45 @@ export default function VoigtProject() {
               <p className={styles.identityNote}>Literary Fiction · Nine Novels</p>
             </div>
 
-            {/* Per-dimension content — left (Ryan) */}
-            {dimensions.map((d, i) => (
-              <div
-                key={d.id}
-                className={styles.dimHalf}
-                style={{ opacity: i === activeDimIndex ? 1 : 0 }}
-                aria-hidden={i !== activeDimIndex}
-              >
-                <span className={styles.dimHalfHeading}>{d.ryan.heading}</span>
-                <p className={styles.dimHalfNote}>{d.ryan.note}</p>
-              </div>
-            ))}
+            {/* Terminal — Ryan's side */}
+            <div
+              className={styles.dimHalf}
+              style={{ opacity: dimOpacity }}
+              aria-hidden={!activeDim}
+            >
+              {activeDim && (
+                <>
+                  <span className={styles.dimHalfLabel}>{activeDim.ryan.heading}</span>
+                  <div className={styles.terminalWindow}>
+                    <div className={styles.terminalBar}>
+                      <span className={styles.terminalDot} />
+                      <span className={styles.terminalDot} />
+                      <span className={styles.terminalDot} />
+                    </div>
+                    <div className={styles.terminalBody}>
+                      <pre className={styles.terminalCode}>
+                        {terminalText}
+                        <span className={styles.terminalCursor} aria-hidden="true" />
+                      </pre>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
 
-            {/* Per-dimension content — right (Elian) */}
-            {dimensions.map((d, i) => (
-              <div
-                key={d.id}
-                className={`${styles.dimHalf} ${styles.dimHalfRight}`}
-                style={{ opacity: i === activeDimIndex ? 1 : 0 }}
-                aria-hidden={i !== activeDimIndex}
-              >
-                <span className={styles.dimHalfHeading}>{d.elian.heading}</span>
-                <p className={styles.dimHalfNote}>{d.elian.note}</p>
-              </div>
-            ))}
+            {/* Handwritten EB Garamond — Elian's side */}
+            <div
+              className={`${styles.dimHalf} ${styles.dimHalfRight}`}
+              style={{ opacity: dimOpacity }}
+              aria-hidden={!activeDim}
+            >
+              {activeDim && (
+                <>
+                  <span className={styles.dimHalfHeading}>{activeDim.elian.heading}</span>
+                  <p className={styles.dimHalfNote}>{elianText}</p>
+                </>
+              )}
+            </div>
 
           </div>
 
@@ -262,14 +360,16 @@ export default function VoigtProject() {
               target="_blank"
               rel="noopener noreferrer"
               className={styles.ctaLink}
+              aria-label="Visit FORMÆTRIX — the studio site"
             >
               FORM<Ae />TRIX →
             </a>
             <a
-              href="https://www.formaetrix.com/imprint"
+              href="https://www.elianvoigt.com"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.ctaLink}
+              aria-label="Visit Elian Voigt — the fiction site"
             >
               Elian Voigt →
             </a>

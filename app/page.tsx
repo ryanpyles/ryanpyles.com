@@ -8,7 +8,6 @@ import CurrentWorkCard from "@/components/CurrentWorkCard";
 import FieldNoteCard from "@/components/FieldNoteCard";
 import IdentityBridge from "@/components/IdentityBridge";
 import HomepageFiction from "@/components/HomepageFiction";
-import StartHere from "@/components/StartHere";
 import VoigtProject from "@/components/VoigtProject";
 import ContinuityAtlasFeatured from "@/components/ContinuityAtlasFeatured";
 import Reveal from "@/components/Reveal";
@@ -133,6 +132,7 @@ export default function HomePage() {
               className={styles.heroCta}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Read the fiction — ElianVoigt.com"
             >
               Read the Fiction →
             </a>
@@ -141,8 +141,12 @@ export default function HomePage() {
               className={styles.heroCtaSecondary}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Hire the studio — Formaetrix.com"
             >
               Hire the Studio
+            </a>
+            <a href="#ecosystem" className={styles.heroCtaTertiary}>
+              Explore the archive ↓
             </a>
           </div>
         </div>
@@ -155,23 +159,20 @@ export default function HomePage() {
       {/* ── Ecosystem (who Ryan is, what each identity does) ──── */}
       <IdentityBridge />
 
-      {/* ── Three pathways (fiction / studio / explore) ────────── */}
-      <StartHere />
-
-      {/* ── The Voigt Project (deep scroll narrative) ─────────── */}
-      <VoigtProject />
+      {/* ── Featured Work: Continuity Atlas ───────────────────── */}
+      <ContinuityAtlasFeatured />
 
       {/* ── Fiction / Books (3 featured + forthcoming) ─────────── */}
       <HomepageFiction />
 
-      {/* ── Featured Work: Continuity Atlas ───────────────────── */}
-      <ContinuityAtlasFeatured />
+      {/* ── The Voigt Project (deep scroll narrative) ─────────── */}
+      <VoigtProject />
 
       {/* ── Language Orrery (reward section) ──────────────────── */}
       <div id="orrery" aria-hidden="true" />
       <LanguageOrrery />
 
-      {/* ── Field Notes (2 entries) ────────────────────────────── */}
+      {/* ── Living Archive: Field Notes + In Progress ──────────── */}
       <Section id="field-notes">
         <header className={styles.sectionHeader}>
           <div>
@@ -179,9 +180,9 @@ export default function HomePage() {
             <Reveal delay={80} slow><h2>Field Notes</h2></Reveal>
             <Reveal delay={200}>
               <p className={styles.sectionIntro}>
-                Thinking before it becomes work. Observations, structural
-                curiosities, and language fragments — written close to the
-                moment, released as they arrive.
+                Short fragments written close to the moment — observations,
+                structural curiosities, and language notes before they settle
+                into something more considered.
               </p>
             </Reveal>
           </div>
@@ -206,8 +207,13 @@ export default function HomePage() {
           <div>
             <Reveal><span className={styles.sectionKicker}>Research</span></Reveal>
             <Reveal delay={80} slow><h2>In Progress</h2></Reveal>
-            <Reveal delay={200}><p className={styles.sectionIntro}>What the work looks like before it closes.</p></Reveal>
+            <Reveal delay={200}><p className={styles.sectionIntro}>Longer-form work before it closes — language studies, narrative systems, ongoing manuscripts.</p></Reveal>
           </div>
+          <Reveal delay={120}>
+            <Link href="/archive" className={styles.sectionLink}>
+              Research archive →
+            </Link>
+          </Reveal>
         </header>
         <div className={styles.currentWorkList}>
           {currentWork.map((item, i) => (
@@ -217,6 +223,36 @@ export default function HomePage() {
           ))}
         </div>
       </Section>
+
+      {/* ── Contact CTA ────────────────────────────────────────── */}
+      <section className={styles.contactCta} aria-label="Get in touch">
+        <div className={styles.contactCtaInner}>
+          <Reveal>
+            <p className={styles.contactCtaHeading}>Work with Ryan</p>
+          </Reveal>
+          <Reveal delay={120}>
+            <p className={styles.contactCtaBody}>
+              FORMÆTRIX takes selected engagements for publishers, authors, and
+              organizations where language and form are load-bearing.
+            </p>
+          </Reveal>
+          <Reveal delay={240}>
+            <div className={styles.contactCtaLinks}>
+              <a href="mailto:me@ryanpyles.com" className={styles.contactCtaEmail}>
+                me@ryanpyles.com
+              </a>
+              <a
+                href="https://www.formaetrix.com"
+                className={styles.contactCtaStudio}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                FORMÆTRIX →
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
     </SiteLayout>
   );
 }

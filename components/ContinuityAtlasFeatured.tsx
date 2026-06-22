@@ -1,7 +1,10 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import styles from "./ContinuityAtlasFeatured.module.css";
+
+const StoryGraph = dynamic(() => import("./StoryGraph"), { ssr: false });
 
 const features = [
   "Story Memory",
@@ -42,10 +45,10 @@ export default function ContinuityAtlasFeatured() {
             </Reveal>
             <Reveal delay={400}>
               <div className={styles.cta}>
-                <Link href="/projects/continuity-atlas" className={styles.ctaLink}>
+                <Link href="/projects/continuity-atlas" className={styles.ctaLink} aria-label="View the Continuity Atlas case study">
                   View case study →
                 </Link>
-                <Link href="/projects/continuity-atlas#prototype" className={styles.ctaSecondary}>
+                <Link href="/projects/continuity-atlas#prototype" className={styles.ctaSecondary} aria-label="Open the Continuity Atlas prototype">
                   Open prototype →
                 </Link>
               </div>
@@ -54,6 +57,7 @@ export default function ContinuityAtlasFeatured() {
 
           <Reveal delay={200}>
             <aside className={styles.sidebar}>
+              <StoryGraph />
               <p className={styles.sidebarLabel}>System modules</p>
               <ul className={styles.features}>
                 {features.map((f, i) => (

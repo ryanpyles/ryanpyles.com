@@ -47,8 +47,8 @@
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(8, 6, 4, 0.60) 0%,
-    rgba(8, 6, 4, 0.20) 55%,
+    rgba(8, 6, 4, 0.72) 0%,
+    rgba(8, 6, 4, 0.30) 55%,
     transparent 100%
   );
   z-index: 1;
@@ -60,8 +60,8 @@
   inset: 0;
   background: linear-gradient(
     to left,
-    rgba(225, 215, 200, 0.55) 0%,
-    rgba(225, 215, 200, 0.18) 55%,
+    rgba(225, 215, 200, 0.70) 0%,
+    rgba(225, 215, 200, 0.28) 55%,
     transparent 100%
   );
   z-index: 1;
@@ -210,15 +210,19 @@
 .identityLeft  .identityNote { color: rgba(255, 255, 255, 0.24); }
 .identityRight .identityNote { color: rgba(18, 14, 8, 0.28); }
 
-/* ── Per-dimension content (phase 4+) ────────────────────────────────────── */
+/* ── Per-dimension panels (phase 4+) ─────────────────────────────────────── */
 .dimHalf {
   position: absolute;
-  bottom: var(--space-10);
+  top: 50%;
+  transform: translateY(-50%);
   left: var(--space-8);
   z-index: 3;
-  max-width: min(300px, 42%);
+  max-width: min(360px, 38%);
   transition: opacity 350ms ease;
   will-change: opacity;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
 .dimHalfRight {
@@ -227,37 +231,92 @@
   text-align: right;
 }
 
+/* Small mono identifier above the terminal */
+.dimHalfLabel {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* EB Garamond heading — Elian's side */
 .dimHalfHeading {
   display: block;
-  font-family: var(--font-sans);
-  font-size: clamp(22px, 3.8vw, 52px);
-  font-weight: 300;
-  letter-spacing: -0.025em;
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4.2vw, 58px);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.02em;
   line-height: 1.05;
-  margin-bottom: var(--space-3);
+  color: rgba(18, 14, 8, 0.92);
 }
 
-.dimHalf:not(.dimHalfRight) .dimHalfHeading {
-  color: rgba(255, 255, 255, 0.88);
-}
-
-.dimHalfRight .dimHalfHeading {
-  color: rgba(18, 14, 8, 0.88);
-}
-
+/* EB Garamond note text — Elian's side */
 .dimHalfNote {
   font-family: var(--font-serif);
-  font-size: var(--text-sm);
+  font-size: clamp(15px, 1.5vw, 19px);
   font-style: italic;
-  line-height: 1.65;
+  line-height: 1.75;
+  color: rgba(18, 14, 8, 0.82);
+  min-height: 4em;
 }
 
-.dimHalf:not(.dimHalfRight) .dimHalfNote {
-  color: rgba(255, 255, 255, 0.42);
+/* ── Terminal widget — Ryan's side ───────────────────────────────────────── */
+.terminalWindow {
+  background: rgba(6, 5, 3, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+  backdrop-filter: blur(4px);
 }
 
-.dimHalfRight .dimHalfNote {
-  color: rgba(18, 14, 8, 0.52);
+.terminalBar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminalDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.terminalBody {
+  padding: var(--space-4) var(--space-4) var(--space-5);
+}
+
+.terminalCode {
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 1.2vw, 14px);
+  line-height: 1.85;
+  color: rgba(198, 156, 93, 0.92);
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 0;
+  min-height: 9em;
+}
+
+.terminalCursor {
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  background: rgba(198, 156, 93, 0.80);
+  vertical-align: text-bottom;
+  margin-left: 1px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
 
 /* ── CTA ─────────────────────────────────────────────────────────────────── */
@@ -290,11 +349,13 @@
 
   .gapTitle { font-size: clamp(12px, 1.6vw, 20px); }
 
-  .dimHalf { left: var(--space-4); max-width: 44%; }
+  .dimHalf { left: var(--space-4); max-width: 42%; }
   .dimHalfRight { right: var(--space-4); }
 
   .identityLeft  { left: var(--space-4); }
   .identityRight { right: var(--space-4); }
+
+  .terminalCode { font-size: 11px; }
 }
 
 @media (max-width: 600px) {
@@ -322,12 +383,10 @@
 
   .dimHalfHeading {
     font-size: clamp(18px, 3vw, 36px);
-    margin-bottom: var(--space-2);
   }
 
   .identityLeft,
-  .identityRight,
-  .dimHalf {
+  .identityRight {
     bottom: var(--space-4);
   }
 
@@ -340,4 +399,6 @@
   .dimHalf,
   .dimCenter,
   .gapContent { transition: none; }
+
+  .terminalCursor { animation: none; }
 }

@@ -13,6 +13,7 @@ const entities = [
     role: "The Maker",
     name: "Ryan Pyles",
     desc: "Author, engineer, linguist, and designer based in Chicago. The common origin point behind FORMÆTRIX and Elian Voigt. The work across all three disciplines begins from a single question: what is the minimum necessary to make something hold?",
+    shortDesc: "Author, engineer, linguist, designer. Chicago.",
     cta: "Biography",
     ariaLabel: "Read Ryan's biography",
     href: "/about",
@@ -23,6 +24,7 @@ const entities = [
     role: "The Studio",
     name: "FORMÆTRIX",
     desc: "Design and systems work for publishers, authors, and organizations where form and language are inseparable from function. Publishing infrastructure, identity systems, editorial web architecture. Selected engagements.",
+    shortDesc: "Design systems, publishing infrastructure, editorial web architecture.",
     cta: "Formaetrix.com",
     ariaLabel: "Visit Formaetrix.com — the studio site",
     href: "https://www.formaetrix.com",
@@ -33,6 +35,7 @@ const entities = [
     role: "The Literary Identity",
     name: "Elian Voigt",
     desc: "Six published novels in a shared formal universe, with three more forthcoming. Experimental and speculative fiction that proposes a structure — a grammar, a legal brief, an archive of measurement — then inhabits it until it produces something the structure alone could not predict.",
+    shortDesc: "Experimental fiction. Formal systems, language, grief, strange machines.",
     cta: "ElianVoigt.com",
     ariaLabel: "Visit ElianVoigt.com — the fiction site",
     href: "https://www.elianvoigt.com",
@@ -87,6 +90,7 @@ export default function IdentityBridge() {
                 <span className={styles.entityRole}>{entity.role}</span>
                 <h3 className={styles.entityName}>{entity.name}</h3>
                 <p className={styles.entityDesc}>{entity.desc}</p>
+                <p className={styles.entityDescShort}>{entity.shortDesc}</p>
                 {entity.external ? (
                   <a
                     href={entity.href}

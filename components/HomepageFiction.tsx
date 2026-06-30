@@ -63,9 +63,10 @@ export default function HomepageFiction() {
               <Reveal key={book.slug} delay={80 + i * 130}>
                 <article className={styles.card}>
                   <Link href={`/books/${book.slug}`} className={styles.cardLink}>
+                    <span className={styles.genre}>{book.genre}</span>
                     <h3 className={styles.title}>{book.title}</h3>
                     <p className={styles.tagline}>{book.tagline}</p>
-                    <span className={styles.genre}>{book.genre}</span>
+                    <span className={styles.cardCta} aria-hidden="true">View book →</span>
                   </Link>
                 </article>
               </Reveal>
@@ -79,20 +80,15 @@ export default function HomepageFiction() {
             <span className={styles.subLabel}>
               In development
             </span>
-            <p className={styles.forthcomingList}>
-              {forthcomingTitles.map((b, i) => (
-                <React.Fragment key={b.slug}>
-                  <Link href={`/books/${b.slug}`} className={styles.forthcomingLink}>
-                    <em>{b.title}</em>
+            <ul className={styles.forthcomingChips}>
+              {forthcomingTitles.map((b) => (
+                <li key={b.slug}>
+                  <Link href={`/books/${b.slug}`} className={styles.forthcomingChip}>
+                    {b.title}
                   </Link>
-                  {i < forthcomingTitles.length - 1 && (
-                    <span className={styles.forthcomingSep} aria-hidden="true">
-                      {" · "}
-                    </span>
-                  )}
-                </React.Fragment>
+                </li>
               ))}
-            </p>
+            </ul>
           </div>
         </Reveal>
 

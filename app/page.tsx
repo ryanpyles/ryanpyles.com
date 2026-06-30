@@ -221,14 +221,7 @@ export default function HomePage() {
       {/* ── Fiction / Books (3 featured + forthcoming) ─────────── */}
       <HomepageFiction />
 
-      {/* ── The Voigt Project (deep scroll narrative) ─────────── */}
-      <VoigtProject />
-
-      {/* ── Language Orrery (reward section) ──────────────────── */}
-      <div id="orrery" aria-hidden="true" />
-      <LanguageOrrery />
-
-      {/* ── Living Archive: Field Notes + In Progress ──────────── */}
+      {/* ── Living Archive: Field Notes ───────────────────────── */}
       <Section id="field-notes">
         <header className={styles.sectionHeader}>
           <div>
@@ -256,6 +249,13 @@ export default function HomePage() {
           ))}
         </div>
       </Section>
+
+      {/* ── The Voigt Project (deep scroll narrative) ─────────── */}
+      <VoigtProject />
+
+      {/* ── Language Orrery (reward section) ──────────────────── */}
+      <div id="orrery" aria-hidden="true" />
+      <LanguageOrrery />
 
       {/* ── In Progress (condensed Research Log) ──────────────── */}
       <Section id="in-progress">

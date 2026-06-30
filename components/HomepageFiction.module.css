@@ -122,7 +122,20 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-muted);
+}
+
+.cardCta {
   margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.cardLink:hover .cardCta {
+  color: var(--color-accent);
 }
 
 /* ── Forthcoming ── */
@@ -131,25 +144,34 @@
   border-top: 1px solid var(--color-border);
 }
 
-.forthcomingList {
+.forthcomingChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.forthcomingChip {
+  display: inline-block;
   font-family: var(--font-serif);
+  font-style: italic;
   font-size: var(--text-md);
-  color: color-mix(in srgb, var(--color-white) 45%, transparent);
-  line-height: 1.6;
+  line-height: 1.3;
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-2) var(--space-4);
+  transition: color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              background-color var(--duration-fast) var(--ease-out);
 }
 
-.forthcomingLink {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-out);
-}
-
-.forthcomingLink:hover {
+.forthcomingChip:hover {
   color: var(--color-white);
-}
-
-.forthcomingSep {
-  color: var(--color-border);
+  border-color: color-mix(in srgb, var(--color-white) 28%, transparent);
+  background: var(--color-surface);
 }
 
 /* ── Footer ── */

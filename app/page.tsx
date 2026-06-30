@@ -113,6 +113,17 @@ export default function HomePage() {
             <span className={styles.heroAnnotation}>§ 04 · identity</span>
           </div>
 
+          {/* Mobile-only orientation — name, role, one sharp line */}
+          <div className={`${styles.heroMobileIntro} ${styles.heroEnter} ${styles.heroEnter2}`}>
+            <span className={styles.heroMobileName}>Ryan J. Pyles</span>
+            <span className={styles.heroMobileRoles}>Author · Engineer · Linguist</span>
+            <span className={styles.heroMobilePlace}>Chicago</span>
+            <p className={styles.heroMobileLine}>
+              I write experimental fiction as Elian Voigt and build narrative
+              systems through FORMÆTRIX.
+            </p>
+          </div>
+
           <h1 className={`${styles.heroStatement} ${styles.heroEnter} ${styles.heroEnter2}`}>
             The distance between a manuscript, a language, and a software system
             is smaller than it first appears.
@@ -126,6 +137,7 @@ export default function HomePage() {
             languages. This site is the personal archive behind all three.
           </p>
 
+          {/* Desktop / tablet CTAs */}
           <div className={`${styles.heroCtas} ${styles.heroEnter} ${styles.heroEnter5}`}>
             <a
               href="https://www.elianvoigt.com"
@@ -149,6 +161,29 @@ export default function HomePage() {
               Explore the archive ↓
             </a>
           </div>
+
+          {/* Mobile-only CTAs — two sharp actions, archive demoted */}
+          <div className={`${styles.heroCtasMobile} ${styles.heroEnter} ${styles.heroEnter5}`}>
+            <a
+              href="https://www.elianvoigt.com"
+              className={styles.heroCta}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Read the fiction — ElianVoigt.com"
+            >
+              Read the fiction →
+            </a>
+            <Link
+              href="/contact"
+              className={styles.heroCtaWork}
+              aria-label="Work with Ryan — contact"
+            >
+              Work with me →
+            </Link>
+            <a href="#ecosystem" className={styles.heroCtaTertiary}>
+              Explore the archive ↓
+            </a>
+          </div>
         </div>
 
         <div className={styles.langWrap}>
@@ -158,6 +193,27 @@ export default function HomePage() {
 
       {/* ── Ecosystem (who Ryan is, what each identity does) ──── */}
       <IdentityBridge />
+
+      {/* ── Mobile-only mid-page CTA — surface "work with me" early ──── */}
+      <section className={styles.mobileMidCta} aria-label="Work with Ryan">
+        <p className={styles.mobileMidCtaBody}>
+          Selected engagements through FORMÆTRIX: author sites, publishing
+          systems, editorial interfaces, and narrative tools.
+        </p>
+        <div className={styles.mobileMidCtaLinks}>
+          <Link href="/contact" className={styles.heroCtaWork}>
+            Work with me →
+          </Link>
+          <a
+            href="https://www.formaetrix.com"
+            className={styles.heroCtaTertiary}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View FORMÆTRIX →
+          </a>
+        </div>
+      </section>
 
       {/* ── Featured Work: Continuity Atlas ───────────────────── */}
       <ContinuityAtlasFeatured />

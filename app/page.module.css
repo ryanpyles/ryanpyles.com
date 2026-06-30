@@ -134,6 +134,76 @@
   color: color-mix(in srgb, var(--color-white) 55%, transparent);
 }
 
+/* ── Mobile-only hero (shown ≤600px) ─────────────────────────────────────── */
+.heroMobileIntro {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.heroMobileName {
+  font-family: var(--font-serif);
+  font-size: clamp(34px, 11vw, 46px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.05;
+  color: var(--color-white);
+}
+
+.heroMobileRoles {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+  margin-top: var(--space-2);
+}
+
+.heroMobilePlace {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.heroMobileLine {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 5vw, 22px);
+  font-style: italic;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-white) 72%, transparent);
+  margin-top: var(--space-4);
+}
+
+.heroCtasMobile {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+/* Secondary mobile action — "Work with me" as an outlined button */
+.heroCtaWork {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  border: 1px solid color-mix(in srgb, var(--color-white) 30%, transparent);
+  padding: var(--space-4) var(--space-6);
+  transition: border-color var(--duration-fast) var(--ease-out),
+              background-color var(--duration-fast) var(--ease-out);
+}
+
+.heroCtaWork:hover {
+  border-color: var(--color-white);
+  background: color-mix(in srgb, var(--color-white) 6%, transparent);
+}
+
 .langWrap {
   position: absolute;
   bottom: var(--space-6);
@@ -286,6 +356,26 @@
   margin-top: var(--space-2);
 }
 
+/* ── Mobile-only mid-page CTA (after identity cards) ─────────────────────── */
+.mobileMidCta {
+  display: none;
+}
+
+.mobileMidCtaBody {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(16px, 4.6vw, 19px);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-white) 60%, transparent);
+}
+
+.mobileMidCtaLinks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
 /* ── Contact CTA band ─────────────────────────────────────────────────────── */
 .contactCta {
   border-top: 1px solid var(--color-border);
@@ -390,11 +480,20 @@
 }
 
 @media (max-width: 600px) {
-  /* Stack the hero CTAs so each is a comfortable tap target */
+  /* Swap the editorial hero for the simplified mobile orientation */
+  .heroStatement,
+  .heroAttribution,
+  .heroSummary,
   .heroCtas {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-4);
+    display: none;
+  }
+
+  .heroMobileIntro {
+    display: flex;
+  }
+
+  .heroCtasMobile {
+    display: flex;
   }
 
   .heroCta {
@@ -403,8 +502,8 @@
     padding: var(--space-4) var(--space-6);
   }
 
-  .heroCtaSecondary,
   .heroCtaTertiary {
+    text-align: center;
     padding: var(--space-2) 0;
   }
 
@@ -412,6 +511,13 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-4);
+  }
+
+  .mobileMidCta {
+    display: block;
+    padding: var(--space-12) var(--space-4);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
   }
 }
 

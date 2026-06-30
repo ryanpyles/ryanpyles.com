@@ -7,7 +7,7 @@ const paths = [
   {
     id: "fiction",
     label: "Read the Fiction",
-    desc: "Nine novels published under the name Elian Voigt. Literary fiction that treats formal systems — belief, language, grief, measurement — as structural engines, not metaphors. Begin with Feast of the Broadcast Saints.",
+    desc: "Six novels published under the name Elian Voigt, with three more forthcoming. Literary fiction that treats formal systems — belief, language, grief, measurement — as structural engines, not metaphors. Begin with Feast of the Broadcast Saints.",
     cta: "ElianVoigt.com",
     href: "https://www.elianvoigt.com",
     external: true,

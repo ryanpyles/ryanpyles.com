@@ -32,7 +32,7 @@ const entities = [
     id: "elian",
     role: "The Literary Identity",
     name: "Elian Voigt",
-    desc: "Nine novels in a shared formal universe. Experimental and speculative fiction that proposes a structure — a grammar, a legal brief, an archive of measurement — then inhabits it until it produces something the structure alone could not predict.",
+    desc: "Six published novels in a shared formal universe, with three more forthcoming. Experimental and speculative fiction that proposes a structure — a grammar, a legal brief, an archive of measurement — then inhabits it until it produces something the structure alone could not predict.",
     cta: "ElianVoigt.com",
     ariaLabel: "Visit ElianVoigt.com — the fiction site",
     href: "https://www.elianvoigt.com",

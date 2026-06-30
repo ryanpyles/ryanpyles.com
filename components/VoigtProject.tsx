@@ -305,7 +305,7 @@ export default function VoigtProject() {
               <p className={`${styles.identityVerb} ${styles.identityVerbSerif}`}>
                 dismantles<br />them.
               </p>
-              <p className={styles.identityNote}>Literary Fiction · Nine Novels</p>
+              <p className={styles.identityNote}>Literary Fiction · Six Novels</p>
             </div>
 
             {/* Terminal — Ryan's side */}

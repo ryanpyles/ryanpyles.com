@@ -46,10 +46,11 @@ export default function HomepageFiction() {
           <Reveal delay={80} slow><h2 className={styles.heading}>Books</h2></Reveal>
           <Reveal delay={200}>
             <p className={styles.intro}>
-              Nine novels under the Elian Voigt name. Literary fiction in a shared
-              formal universe — not connected by plot, but by recurring structural
-              tensions. Systems that become belief. Languages that reshape their
-              speakers. Grief treated as investigation.
+              Six published novels under the Elian Voigt name, with three more
+              forthcoming. Literary fiction in a shared formal universe — not
+              connected by plot, but by recurring structural tensions. Systems
+              that become belief. Languages that reshape their speakers. Grief
+              treated as investigation.
             </p>
           </Reveal>
         </header>

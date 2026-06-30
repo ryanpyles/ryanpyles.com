@@ -143,6 +143,13 @@
   letter-spacing: 0.04em;
 }
 
+@media (max-width: 600px) {
+  /* Clear the fixed mobile action bar so the copyright isn't hidden behind it */
+  .footer {
+    padding-bottom: calc(var(--space-8) + 64px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 @media (max-width: 480px) {
   .inner {
     padding: 0 var(--space-4);

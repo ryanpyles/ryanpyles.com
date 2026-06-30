@@ -212,6 +212,10 @@
   .cardLink {
     padding: var(--space-6);
   }
+
+  .tagline {
+    font-size: var(--text-base);
+  }
 }
 
 @media (max-width: 480px) {

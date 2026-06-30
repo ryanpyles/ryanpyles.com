@@ -383,16 +383,43 @@
   max-width: 34ch;
 }
 
+/* Accordion row */
 .mSpread {
-  padding: var(--space-10) 0;
   border-top: 1px solid rgba(255, 255, 255, 0.09);
 }
 
-.mDimMeta {
+.mSummary {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: var(--space-3);
-  margin-bottom: var(--space-6);
+  padding: var(--space-6) 0;
+  cursor: pointer;
+  list-style: none;
+  min-height: 56px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mSummary::-webkit-details-marker {
+  display: none;
+}
+
+/* Down-caret that flips open */
+.mChevron {
+  width: 8px;
+  height: 8px;
+  margin-left: auto;
+  border-right: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.45);
+  transform: rotate(45deg);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.mSpread[open] .mChevron {
+  transform: rotate(-135deg);
+}
+
+.mSpreadBody {
+  padding-bottom: var(--space-10);
 }
 
 .mDimNum {

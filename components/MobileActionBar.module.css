@@ -1,0 +1,45 @@
+/* Mobile-only persistent action bar */
+.bar {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: color-mix(in srgb, var(--color-black) 94%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--color-border);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-white) 64%, transparent);
+    border-right: 1px solid var(--color-border);
+    transition: color var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .action:last-child {
+    border-right: none;
+  }
+
+  .action:active {
+    background: var(--color-surface);
+    color: var(--color-white);
+  }
+}

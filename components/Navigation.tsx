@@ -6,11 +6,12 @@ import { usePathname } from "next/navigation";
 import styles from "./Navigation.module.css";
 
 const navLinks = [
-  { href: "/books", label: "Fiction", sub: undefined },
-  { href: "/archive", label: "Research", sub: "In progress" },
-  { href: "/projects", label: "Systems", sub: undefined },
-  { href: "/field-notes", label: "Notes", sub: "Short fragments" },
-  { href: "/about", label: "About", sub: undefined },
+  { href: "/books", label: "Fiction" },
+  { href: "/projects", label: "Systems" },
+  { href: "/field-notes", label: "Notes" },
+  { href: "/archive", label: "Research" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navigation() {
@@ -43,17 +44,16 @@ export default function Navigation() {
         </Link>
 
         <ul className={[styles.links, menuOpen ? styles.open : ""].join(" ")} role="list">
-          {navLinks.map(({ href, label, sub }) => {
+          {navLinks.map(({ href, label }) => {
             const active = pathname === href || pathname.startsWith(href + "/");
             return (
               <li key={href}>
                 <Link
                   href={href}
-                  className={[styles.link, active ? styles.active : "", sub ? styles.linkWithSub : ""].join(" ")}
+                  className={[styles.link, active ? styles.active : ""].join(" ")}
                   aria-current={active ? "page" : undefined}
                 >
                   {label}
-                  {sub && <span className={styles.linkSub}>{sub}</span>}
                 </Link>
               </li>
             );

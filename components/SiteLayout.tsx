@@ -1,6 +1,7 @@
 import React from "react";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
+import MobileActionBar from "./MobileActionBar";
 import ArchiveProgress from "./ArchiveProgress";
 import PageEnter from "./PageEnter";
 import SplashScreen from "./SplashScreen";
@@ -32,6 +33,7 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
         <PageEnter>{children}</PageEnter>
       </main>
       <Footer />
+      <MobileActionBar />
     </div>
   );
 }

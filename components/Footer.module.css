@@ -110,6 +110,33 @@
   color: color-mix(in srgb, var(--color-white) 70%, transparent);
 }
 
+/* Latin inscription — a quiet epigraph for the archive */
+.inscription {
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.inscriptionLine {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(18px, 2.4vw, 26px);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--color-white) 52%, transparent);
+}
+
+.inscriptionGloss {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-white) 26%, transparent);
+}
+
 .copy {
   font-size: var(--text-xs);
   color: color-mix(in srgb, var(--color-white) 25%, transparent);

@@ -377,6 +377,77 @@ export default function VoigtProject() {
 
         </div>
       </div>
+
+      {/* ── Mobile showcase — vertical compare/contrast narrative ──────────── */}
+      {/*    The horizontal diptych can't survive a narrow portrait viewport,   */}
+      {/*    so phones get the full concept as a stacked sequence instead.      */}
+      <div className={styles.mobileShowcase}>
+        <header className={styles.mShowHeader}>
+          <span className={styles.mShowKicker}>§ 04 · The Voigt Project</span>
+          <h2 className={styles.mShowTitle}>A Case Study in Identity</h2>
+          <p className={styles.mShowIntro}>
+            One maker, two voices. Ryan Pyles builds systems; Elian Voigt
+            dismantles them. Five dimensions where the engineer and the author
+            diverge.
+          </p>
+        </header>
+
+        {dimensions.map((d) => (
+          <article key={d.id} className={styles.mSpread}>
+            <div className={styles.mDimMeta}>
+              <span className={styles.mDimNum}>{d.num}</span>
+              <span className={styles.mDimLabel}>{d.label}</span>
+            </div>
+
+            {/* Ryan — terminal */}
+            <div className={styles.mRyan}>
+              <span className={styles.mPaneName}>Ryan Pyles</span>
+              <span className={styles.mRyanHeading}>{d.ryan.heading}</span>
+              <div className={styles.terminalWindow}>
+                <div className={styles.terminalBar}>
+                  <span className={styles.terminalDot} />
+                  <span className={styles.terminalDot} />
+                  <span className={styles.terminalDot} />
+                </div>
+                <div className={styles.terminalBody}>
+                  <pre className={styles.terminalCode}>
+                    {d.ryan.code}
+                    <span className={styles.terminalCursor} aria-hidden="true" />
+                  </pre>
+                </div>
+              </div>
+            </div>
+
+            {/* Elian — handwriting */}
+            <div className={styles.mElian}>
+              <span className={styles.mPaneNameDark}>Elian Voigt</span>
+              <span className={styles.mElianHeading}>{d.elian.heading}</span>
+              <p className={styles.mElianNote}>{d.elian.note}</p>
+            </div>
+          </article>
+        ))}
+
+        <div className={styles.mCta}>
+          <a
+            href="https://www.formaetrix.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.ctaLink}
+            aria-label="Visit FORMÆTRIX — the studio site"
+          >
+            FORM<Ae />TRIX →
+          </a>
+          <a
+            href="https://www.elianvoigt.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.ctaLink}
+            aria-label="Visit Elian Voigt — the fiction site"
+          >
+            Elian Voigt →
+          </a>
+        </div>
+      </div>
     </section>
   );
 }

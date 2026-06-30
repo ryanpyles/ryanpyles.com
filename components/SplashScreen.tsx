@@ -14,11 +14,11 @@ export default function SplashScreen() {
       return;
     }
 
-    const t1 = setTimeout(() => setPhase("exiting"), 1600);
+    const t1 = setTimeout(() => setPhase("exiting"), 2200);
     const t2 = setTimeout(() => {
       setPhase("gone");
       sessionStorage.setItem("archive-opened", "1");
-    }, 2200);
+    }, 2800);
 
     return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
@@ -37,6 +37,9 @@ export default function SplashScreen() {
         <span className={styles.glyph}>§</span>
         <span className={styles.name}>Ryan J. Pyles</span>
         <span className={styles.label}>Opening the archive</span>
+        <span className={styles.incantation} lang="la">
+          In girum imus nocte et consumimur igne
+        </span>
       </div>
 
       <div className={styles.bottom}>

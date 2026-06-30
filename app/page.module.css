@@ -389,6 +389,32 @@
   }
 }
 
+@media (max-width: 600px) {
+  /* Stack the hero CTAs so each is a comfortable tap target */
+  .heroCtas {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .heroCta {
+    width: 100%;
+    text-align: center;
+    padding: var(--space-4) var(--space-6);
+  }
+
+  .heroCtaSecondary,
+  .heroCtaTertiary {
+    padding: var(--space-2) 0;
+  }
+
+  .contactCtaLinks {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+}
+
 @media (max-width: 480px) {
   .hero {
     padding: var(--space-16) var(--space-4) var(--space-12);

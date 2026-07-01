@@ -12,22 +12,16 @@
   gap: var(--space-12);
 }
 
-/* ── Two-column top: text + orbit ───────────────────────────────────────── */
+/* ── Opening: orientation intro + statement ─────────────────────────────── */
 .top {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: var(--space-12);
-  align-items: center;
+  display: block;
 }
 
 .topText {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-}
-
-.topOrbit {
-  height: 280px;
+  max-width: 900px;
 }
 
 /* ── Orientation intro ──────────────────────────────────────────────────── */
@@ -139,14 +133,6 @@
 
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
-  .top {
-    grid-template-columns: 1fr;
-  }
-
-  .topOrbit {
-    height: 200px;
-  }
-
   .triad {
     grid-template-columns: 1fr;
   }

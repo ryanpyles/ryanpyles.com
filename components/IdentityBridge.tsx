@@ -1,11 +1,8 @@
 import React from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import { Ae } from "./Ae";
 import styles from "./IdentityBridge.module.css";
-
-const IdentityOrbit = dynamic(() => import("./IdentityOrbit"), { ssr: false });
 
 const entities = [
   {
@@ -77,9 +74,6 @@ export default function IdentityBridge() {
                 is the literary identity.
               </p>
             </Reveal>
-          </div>
-          <div className={styles.topOrbit}>
-            <IdentityOrbit />
           </div>
         </div>
 

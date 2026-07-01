@@ -20,6 +20,12 @@ const LanguageSwitcher = dynamic(() => import("@/components/LanguageSwitcher"), 
   ssr: false,
 });
 
+// SiteProgressObject: fixed morphing constellation — scroll wayfinding (desktop)
+const SiteProgressObject = dynamic(
+  () => import("@/components/SiteProgressObject"),
+  { ssr: false }
+);
+
 // LivingManuscript: hero background — hero text renders immediately; canvas loads silently
 const LivingManuscript = dynamic(() => import("@/components/LivingManuscript"), {
   ssr: false,
@@ -100,8 +106,10 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: jsonLd }}
       />
 
+      <SiteProgressObject />
+
       {/* ── Hero ───────────────────────────────────────────────── */}
-      <section className={styles.hero}>
+      <section className={styles.hero} id="hero">
         <LivingManuscript />
 
         <div className={styles.heroInner}>
@@ -281,7 +289,7 @@ export default function HomePage() {
       </Section>
 
       {/* ── Contact CTA ────────────────────────────────────────── */}
-      <section className={styles.contactCta} aria-label="Get in touch">
+      <section className={styles.contactCta} id="contact" aria-label="Get in touch">
         <div className={styles.contactCtaInner}>
           <Reveal>
             <p className={styles.contactCtaHeading}>Work with Ryan</p>

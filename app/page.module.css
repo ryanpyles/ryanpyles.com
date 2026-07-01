@@ -356,6 +356,63 @@
   margin-top: var(--space-2);
 }
 
+/* ── Highlights band (credibility strip under the hero) ──────────────────── */
+.highlights {
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.highlightsInner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.highlight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-6) var(--space-8);
+  border-right: 1px solid var(--color-border);
+}
+
+.highlight:last-child {
+  border-right: none;
+}
+
+.highlightValue {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2vw, 24px);
+  font-style: italic;
+  color: var(--color-white);
+  line-height: 1.15;
+}
+
+.highlightLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+@media (max-width: 700px) {
+  .highlightsInner {
+    grid-template-columns: 1fr;
+  }
+
+  .highlight {
+    padding: var(--space-4) var(--space-6);
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .highlight:last-child {
+    border-bottom: none;
+  }
+}
+
 /* ── Mobile-only mid-page CTA (after identity cards) ─────────────────────── */
 .mobileMidCta {
   display: none;

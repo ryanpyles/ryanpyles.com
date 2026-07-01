@@ -145,49 +145,49 @@ export default function HomePage() {
             languages. This site is the personal archive behind all three.
           </p>
 
-          {/* Desktop / tablet CTAs */}
+          {/* Desktop / tablet CTAs — primary: work with Ryan directly.
+              The studio and fiction have their own sites (formaetrix.com,
+              elianvoigt.com); this hub's job is the direct relationship. */}
           <div className={`${styles.heroCtas} ${styles.heroEnter} ${styles.heroEnter5}`}>
+            <Link
+              href="/contact"
+              className={styles.heroCta}
+              aria-label="Work with Ryan — get in touch"
+            >
+              Work with me →
+            </Link>
             <a
               href="https://www.elianvoigt.com"
-              className={styles.heroCta}
+              className={styles.heroCtaSecondary}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Read the fiction — ElianVoigt.com"
             >
-              Read the Fiction →
-            </a>
-            <a
-              href="https://www.formaetrix.com"
-              className={styles.heroCtaSecondary}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Hire the studio — Formaetrix.com"
-            >
-              Hire the Studio
+              Read the fiction
             </a>
             <a href="#ecosystem" className={styles.heroCtaTertiary}>
               Explore the archive ↓
             </a>
           </div>
 
-          {/* Mobile-only CTAs — two sharp actions, archive demoted */}
+          {/* Mobile-only CTAs — primary: work with Ryan directly */}
           <div className={`${styles.heroCtasMobile} ${styles.heroEnter} ${styles.heroEnter5}`}>
+            <Link
+              href="/contact"
+              className={styles.heroCta}
+              aria-label="Work with Ryan — get in touch"
+            >
+              Work with me →
+            </Link>
             <a
               href="https://www.elianvoigt.com"
-              className={styles.heroCta}
+              className={styles.heroCtaWork}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Read the fiction — ElianVoigt.com"
             >
               Read the fiction →
             </a>
-            <Link
-              href="/contact"
-              className={styles.heroCtaWork}
-              aria-label="Work with Ryan — contact"
-            >
-              Work with me →
-            </Link>
             <a href="#ecosystem" className={styles.heroCtaTertiary}>
               Explore the archive ↓
             </a>
@@ -196,6 +196,24 @@ export default function HomePage() {
 
         <div className={styles.langWrap}>
           <LanguageSwitcher />
+        </div>
+      </section>
+
+      {/* ── Highlights: credibility at a glance ──────────────── */}
+      <section className={styles.highlights} aria-label="At a glance">
+        <div className={styles.highlightsInner}>
+          <div className={styles.highlight}>
+            <span className={styles.highlightValue}>Narrative systems</span>
+            <span className={styles.highlightLabel}>for authors &amp; publishers</span>
+          </div>
+          <div className={styles.highlight}>
+            <span className={styles.highlightValue}>Six published novels</span>
+            <span className={styles.highlightLabel}>as Elian Voigt</span>
+          </div>
+          <div className={styles.highlight}>
+            <span className={styles.highlightValue}>Twelve languages</span>
+            <span className={styles.highlightLabel}>in active study</span>
+          </div>
         </div>
       </section>
 

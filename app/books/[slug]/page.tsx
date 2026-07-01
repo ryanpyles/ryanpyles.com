@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
+import BookLineage from "@/components/BookLineage";
 import { getBookBySlug, getAllSlugs } from "@/content/books";
 import { buildBookMetadata, buildBookJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
@@ -129,6 +130,8 @@ export default function BookPage({ params }: Params) {
           </div>
         </article>
       </Section>
+
+      <BookLineage slug={book.slug} />
     </SiteLayout>
   );
 }

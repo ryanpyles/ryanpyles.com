@@ -7,6 +7,7 @@ import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import styles from "./SiteProgressObject.module.css";
 
 const PAPER = "#f5f1ea";
+const INK = "#1c1a16";
 const BRASS = "#c69c5d";
 
 const POINTS = 9;
@@ -75,20 +76,20 @@ const SHAPES: Record<string, Vec3[]> = {
   ],
 };
 
-// ── Homepage sections, in scroll order ───────────────────────────────────────
-const SECTIONS: { id: string; label: string; shape: Vec3[] }[] = [
-  { id: "hero", label: "Origin", shape: SHAPES.origin },
-  { id: "ecosystem", label: "Ecosystem", shape: SHAPES.orbit },
-  { id: "continuity-atlas", label: "Continuity Atlas", shape: SHAPES.network },
-  { id: "books", label: "Fiction", shape: SHAPES.shelf },
-  { id: "field-notes", label: "Field Notes", shape: SHAPES.scatter },
-  { id: "voigt", label: "The Voigt Project", shape: SHAPES.duality },
-  { id: "orrery", label: "Language Orrery", shape: SHAPES.sphere },
-  { id: "in-progress", label: "In Progress", shape: SHAPES.lattice },
-  { id: "contact", label: "Contact", shape: SHAPES.converge },
+// ── Homepage sections, in scroll order. `dark` = section paints a dark bg ─────
+const SECTIONS: { id: string; label: string; shape: Vec3[]; dark: boolean }[] = [
+  { id: "hero", label: "Origin", shape: SHAPES.origin, dark: false },
+  { id: "ecosystem", label: "Ecosystem", shape: SHAPES.orbit, dark: false },
+  { id: "continuity-atlas", label: "Continuity Atlas", shape: SHAPES.network, dark: false },
+  { id: "books", label: "Fiction", shape: SHAPES.shelf, dark: false },
+  { id: "field-notes", label: "Field Notes", shape: SHAPES.scatter, dark: false },
+  { id: "voigt", label: "The Voigt Project", shape: SHAPES.duality, dark: true },
+  { id: "orrery", label: "Language Orrery", shape: SHAPES.sphere, dark: true },
+  { id: "in-progress", label: "In Progress", shape: SHAPES.lattice, dark: false },
+  { id: "contact", label: "Contact", shape: SHAPES.converge, dark: false },
 ];
 
-type ScrollState = { f: number; progress: number };
+type ScrollState = { f: number; progress: number; dark: number };
 
 function Constellation({
   scrollRef,
@@ -101,15 +102,43 @@ function Constellation({
   const pointRefs = useRef<(THREE.Mesh | null)[]>([]);
   const lineRef = useRef<THREE.LineSegments>(null);
 
+  // Shared materials so colour can invert with the section background
+  const outerMat = useMemo(
+    () => new THREE.MeshStandardMaterial({ roughness: 0.5, emissiveIntensity: 0.2 }),
+    []
+  );
+  const centerMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: BRASS,
+        emissive: BRASS,
+        emissiveIntensity: 0.3,
+        roughness: 0.5,
+      }),
+    []
+  );
+  const lineMat = useMemo(
+    () => new THREE.LineBasicMaterial({ transparent: true, opacity: 0.32 }),
+    []
+  );
+  const inkC = useMemo(() => new THREE.Color(INK), []);
+  const paperC = useMemo(() => new THREE.Color(PAPER), []);
+  const darkCurr = useRef(0);
+
+  useEffect(() => {
+    return () => {
+      outerMat.dispose();
+      centerMat.dispose();
+      lineMat.dispose();
+    };
+  }, [outerMat, centerMat, lineMat]);
+
   // Live positions (eased toward the interpolated target each frame)
   const curr = useMemo<Vec3[]>(
     () => SECTIONS[0].shape.map((p) => [p[0], p[1], p[2]]),
     []
   );
-  const linePositions = useMemo(
-    () => new Float32Array(MAX_PAIRS * 2 * 3),
-    []
-  );
+  const linePositions = useMemo(() => new Float32Array(MAX_PAIRS * 2 * 3), []);
 
   useFrame((_, delta) => {
     const { f } = scrollRef.current;
@@ -156,6 +185,13 @@ function Constellation({
       geo.setDrawRange(0, ptr / 3);
     }
 
+    // Invert colour toward paper on dark sections, ink on light ones
+    darkCurr.current += (scrollRef.current.dark - darkCurr.current) *
+      Math.min(1, delta * 4);
+    outerMat.color.lerpColors(inkC, paperC, darkCurr.current);
+    outerMat.emissive.copy(outerMat.color);
+    lineMat.color.lerpColors(inkC, paperC, darkCurr.current);
+
     if (group.current && !reducedMotion) {
       group.current.rotation.y += delta * 0.16;
       group.current.rotation.x = Math.sin(performance.now() * 0.0002) * 0.12;
@@ -171,28 +207,19 @@ function Constellation({
         <mesh
           key={k}
           position={p}
+          material={k === 0 ? centerMat : outerMat}
           ref={(el) => {
             pointRefs.current[k] = el;
           }}
         >
           <sphereGeometry args={[0.075, 16, 16]} />
-          <meshStandardMaterial
-            color={k === 0 ? BRASS : PAPER}
-            emissive={k === 0 ? BRASS : PAPER}
-            emissiveIntensity={0.25}
-            roughness={0.5}
-          />
         </mesh>
       ))}
 
-      <lineSegments ref={lineRef}>
+      <lineSegments ref={lineRef} material={lineMat}>
         <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[linePositions, 3]}
-          />
+          <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
         </bufferGeometry>
-        <lineBasicMaterial color={PAPER} transparent opacity={0.28} />
       </lineSegments>
     </group>
   );
@@ -203,7 +230,8 @@ const RING_CIRC = 2 * Math.PI * RING_R;
 
 export default function SiteProgressObject() {
   const reducedMotion = usePrefersReducedMotion();
-  const scrollRef = useRef<ScrollState>({ f: 0, progress: 0 });
+  const scrollRef = useRef<ScrollState>({ f: 0, progress: 0, dark: 0 });
+  const rootRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<SVGCircleElement>(null);
   const numRef = useRef<HTMLSpanElement>(null);
   const nameRef = useRef<HTMLSpanElement>(null);
@@ -268,6 +296,10 @@ export default function SiteProgressObject() {
       if (idx !== lastIdx.current) {
         lastIdx.current = idx;
         const s = SECTIONS[idx];
+        scrollRef.current.dark = s && s.dark ? 1 : 0;
+        if (rootRef.current) {
+          rootRef.current.dataset.tone = s && s.dark ? "dark" : "light";
+        }
         if (numRef.current) {
           numRef.current.textContent = `${String(idx + 1).padStart(2, "0")} / ${String(
             SECTIONS.length
@@ -293,9 +325,8 @@ export default function SiteProgressObject() {
   }, []);
 
   return (
-    <div className={styles.root} aria-hidden="true">
+    <div className={styles.root} data-tone="light" ref={rootRef} aria-hidden="true">
       <div className={styles.dial}>
-        <div className={styles.backdrop} />
         <svg className={styles.ring} viewBox="0 0 120 120">
           <circle className={styles.ringTrack} cx="60" cy="60" r={RING_R} />
           <circle
@@ -316,10 +347,7 @@ export default function SiteProgressObject() {
             gl={{ antialias: true, alpha: true }}
           >
             <Suspense fallback={null}>
-              <Constellation
-                scrollRef={scrollRef}
-                reducedMotion={reducedMotion}
-              />
+              <Constellation scrollRef={scrollRef} reducedMotion={reducedMotion} />
             </Suspense>
           </Canvas>
         </div>

@@ -46,7 +46,7 @@ export default function Footer() {
         </div>
         <div className={styles.inscription}>
           <p className={styles.inscriptionLine} lang="la">
-            In girum imus nocte et consumimur igne
+            In girum imus nocte et consumimur igni
           </p>
           <p className={styles.inscriptionGloss}>
             Palindrome · &ldquo;We go wandering in the night and are consumed by fire.&rdquo;

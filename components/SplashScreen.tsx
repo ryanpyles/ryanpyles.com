@@ -38,7 +38,7 @@ export default function SplashScreen() {
         <span className={styles.name}>Ryan J. Pyles</span>
         <span className={styles.label}>Opening the archive</span>
         <span className={styles.incantation} lang="la">
-          In girum imus nocte et consumimur igne
+          In girum imus nocte et consumimur igni
         </span>
       </div>
 

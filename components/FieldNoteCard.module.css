@@ -123,3 +123,11 @@
 .relatedLink:hover {
   color: var(--color-accent);
 }
+
+/* Mobile: lift body text to a comfortable reading size */
+@media (max-width: 600px) {
+  .excerpt {
+    font-size: var(--text-base);
+    line-height: 1.6;
+  }
+}

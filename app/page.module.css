@@ -519,6 +519,11 @@
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
   }
+
+  /* Lift section intros to a comfortable reading size on phones */
+  .sectionIntro {
+    font-size: var(--text-base);
+  }
 }
 
 @media (max-width: 480px) {

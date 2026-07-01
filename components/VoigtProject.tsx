@@ -226,8 +226,7 @@ export default function VoigtProject() {
                   filter: `brightness(${ryanBrightness})`,
                   transition: "filter 600ms ease",
                 }}
-                priority
-                unoptimized
+                loading="lazy"
               />
               <div className={styles.gradientLeft} style={{ opacity: caseHeaderIn }} />
             </div>
@@ -283,8 +282,7 @@ export default function VoigtProject() {
                   filter: `brightness(${elianBrightness})`,
                   transition: "filter 600ms ease",
                 }}
-                priority
-                unoptimized
+                loading="lazy"
               />
               <div className={styles.gradientRight} style={{ opacity: caseHeaderIn }} />
             </div>
@@ -392,39 +390,43 @@ export default function VoigtProject() {
           </p>
         </header>
 
+        {/* Dimensions as a dossier — collapsed by default; tap to open */}
         {dimensions.map((d) => (
-          <article key={d.id} className={styles.mSpread}>
-            <div className={styles.mDimMeta}>
+          <details key={d.id} className={styles.mSpread}>
+            <summary className={styles.mSummary}>
               <span className={styles.mDimNum}>{d.num}</span>
               <span className={styles.mDimLabel}>{d.label}</span>
-            </div>
+              <span className={styles.mChevron} aria-hidden="true" />
+            </summary>
 
-            {/* Ryan — terminal */}
-            <div className={styles.mRyan}>
-              <span className={styles.mPaneName}>Ryan Pyles</span>
-              <span className={styles.mRyanHeading}>{d.ryan.heading}</span>
-              <div className={styles.terminalWindow}>
-                <div className={styles.terminalBar}>
-                  <span className={styles.terminalDot} />
-                  <span className={styles.terminalDot} />
-                  <span className={styles.terminalDot} />
-                </div>
-                <div className={styles.terminalBody}>
-                  <pre className={styles.terminalCode}>
-                    {d.ryan.code}
-                    <span className={styles.terminalCursor} aria-hidden="true" />
-                  </pre>
+            <div className={styles.mSpreadBody}>
+              {/* Ryan — terminal */}
+              <div className={styles.mRyan}>
+                <span className={styles.mPaneName}>Ryan Pyles</span>
+                <span className={styles.mRyanHeading}>{d.ryan.heading}</span>
+                <div className={styles.terminalWindow}>
+                  <div className={styles.terminalBar}>
+                    <span className={styles.terminalDot} />
+                    <span className={styles.terminalDot} />
+                    <span className={styles.terminalDot} />
+                  </div>
+                  <div className={styles.terminalBody}>
+                    <pre className={styles.terminalCode}>
+                      {d.ryan.code}
+                      <span className={styles.terminalCursor} aria-hidden="true" />
+                    </pre>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Elian — handwriting */}
-            <div className={styles.mElian}>
-              <span className={styles.mPaneNameDark}>Elian Voigt</span>
-              <span className={styles.mElianHeading}>{d.elian.heading}</span>
-              <p className={styles.mElianNote}>{d.elian.note}</p>
+              {/* Elian — handwriting */}
+              <div className={styles.mElian}>
+                <span className={styles.mPaneNameDark}>Elian Voigt</span>
+                <span className={styles.mElianHeading}>{d.elian.heading}</span>
+                <p className={styles.mElianNote}>{d.elian.note}</p>
+              </div>
             </div>
-          </article>
+          </details>
         ))}
 
         <div className={styles.mCta}>

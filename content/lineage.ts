@@ -22,7 +22,7 @@ export interface BookLineage {
 export const bookLineage: Record<string, BookLineage> = {
   "feast-of-the-broadcast-saints": {
     threads: ["Attention economy", "Platform capitalism", "Bodily autonomy", "Being watched"],
-    companionSlugs: ["terms-of-unbeing", "quiet-metrics"],
+    companionSlugs: ["terms-of-unbeing", "quiet-metric"],
   },
 
   "what-survives-is-proof": {
@@ -46,7 +46,7 @@ export const bookLineage: Record<string, BookLineage> = {
     companionSlugs: ["what-survives-is-proof"],
   },
 
-  "quiet-metrics": {
+  "quiet-metric": {
     threads: ["Recognition & control", "Precision as intimacy", "Coercion", "Restraint"],
     noteSlugs: ["why-restraint-only-works-when-something-underneath-is-unstable"],
     companionSlugs: ["feast-of-the-broadcast-saints", "terms-of-unbeing"],

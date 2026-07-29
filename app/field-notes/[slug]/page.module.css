@@ -58,6 +58,14 @@
   color: color-mix(in srgb, var(--color-white) 28%, transparent);
 }
 
+.readTime {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 28%, transparent);
+}
+
 .title {
   font-family: var(--font-serif);
   font-size: clamp(28px, 4vw, 48px);
@@ -130,6 +138,84 @@
 
 .relatedItem {
   color: color-mix(in srgb, var(--color-white) 45%, transparent);
+}
+
+/* ---- Related notes (archive graph) ---- */
+.relatedNotes {
+  max-width: 640px;
+  margin-top: var(--space-16);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.relatedNotesLabel {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-2);
+}
+
+.relatedNotesList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.relatedNote {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+  transition: padding-left var(--duration-fast) var(--ease-out);
+}
+
+.relatedNotesList li:first-child .relatedNote {
+  border-top: 1px solid var(--color-border);
+}
+
+.relatedNote:hover {
+  padding-left: var(--space-2);
+}
+
+.relatedNoteCategory {
+  flex-shrink: 0;
+  width: 74px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--brass) 80%, transparent);
+}
+
+.relatedNoteTitle {
+  flex: 1;
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  line-height: 1.3;
+  color: var(--color-white);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.relatedNote:hover .relatedNoteTitle {
+  color: var(--color-accent);
+}
+
+.relatedNoteArrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.relatedNote:hover .relatedNoteArrow {
+  transform: translateX(3px);
+  color: var(--color-accent);
 }
 
 /* ---- Pagination ---- */

@@ -301,7 +301,7 @@ export default function VoigtProject() {
             <div className={styles.identityRight} style={{ opacity: identityOpacity }}>
               <span className={styles.identityMono}>Elian Voigt</span>
               <p className={`${styles.identityVerb} ${styles.identityVerbSerif}`}>
-                dismantles<br />them.
+                tests<br />them.
               </p>
               <p className={styles.identityNote}>Literary Fiction · Six Novels</p>
             </div>
@@ -385,7 +385,7 @@ export default function VoigtProject() {
           <h2 className={styles.mShowTitle}>A Case Study in Identity</h2>
           <p className={styles.mShowIntro}>
             One maker, two voices. Ryan Pyles builds systems; Elian Voigt
-            dismantles them. Five dimensions where the engineer and the author
+            tests them. Five dimensions where the engineer and the author
             diverge.
           </p>
         </header>

@@ -9,6 +9,7 @@ import FieldNoteCard from "@/components/FieldNoteCard";
 import IdentityBridge from "@/components/IdentityBridge";
 import HomepageFiction from "@/components/HomepageFiction";
 import VoigtProject from "@/components/VoigtProject";
+import VoigtEssay from "@/components/VoigtEssay";
 import ContinuityAtlasFeatured from "@/components/ContinuityAtlasFeatured";
 import Reveal from "@/components/Reveal";
 import { currentWork } from "@/content/currentWork";
@@ -279,8 +280,9 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* ── The Voigt Project (deep scroll narrative) ─────────── */}
+      {/* ── The Voigt Project (deep scroll narrative + documentary essay) ─ */}
       <VoigtProject />
+      <VoigtEssay />
 
       {/* ── Language Orrery (reward section) ──────────────────── */}
       <div id="orrery" aria-hidden="true" />

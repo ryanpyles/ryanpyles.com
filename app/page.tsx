@@ -137,12 +137,15 @@ export default function HomePage() {
             is smaller than it first appears.
           </h1>
 
+          <p className={`${styles.heroClarity} ${styles.heroEnter} ${styles.heroEnter3}`}>
+            I design narrative systems for publishing, software, and fiction.
+          </p>
+
           <p className={`${styles.heroAttribution} ${styles.heroEnter} ${styles.heroEnter3}`}>Ryan Pyles — Chicago</p>
 
           <p className={`${styles.heroSummary} ${styles.heroEnter} ${styles.heroEnter4}`}>
-            Ryan J. Pyles writes experimental fiction as Elian Voigt, runs
-            FORMÆTRIX as a design and systems studio, and studies twelve
-            languages. This site is the personal archive behind all three.
+            The personal archive behind all three — the fiction of Elian Voigt,
+            the FORMÆTRIX studio, and the language work.
           </p>
 
           {/* Desktop / tablet CTAs — primary: work with Ryan directly.

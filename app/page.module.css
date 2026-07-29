@@ -78,6 +78,16 @@
   color: var(--color-muted);
 }
 
+/* Plain-language positioning line — answers "what does this person do?" */
+.heroClarity {
+  font-family: var(--font-sans);
+  font-size: clamp(15px, 1.6vw, 20px);
+  font-weight: 400;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--color-white) 88%, transparent);
+  max-width: 560px;
+}
+
 .heroCtas {
   display: flex;
   align-items: center;

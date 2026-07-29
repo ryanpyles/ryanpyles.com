@@ -6,6 +6,7 @@ import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import { fieldNotes } from "@/content/fieldNotes";
 import { RELATED_HREFS } from "@/content/fieldNotes/relatedLinks";
+import { readingMinutes, relatedNotes } from "@/content/fieldNotes/utils";
 import styles from "./page.module.css";
 
 interface Params {
@@ -68,6 +69,7 @@ export default function FieldNoteSlugPage({ params }: Params) {
               </time>
               <span className={styles.category}>{note.category}</span>
               <span className={styles.status}>{STATUS_LABEL[note.status]}</span>
+              <span className={styles.readTime}>{readingMinutes(note)} min read</span>
             </div>
             <h1 className={styles.title}>{note.title}</h1>
           </header>
@@ -112,6 +114,27 @@ export default function FieldNoteSlugPage({ params }: Params) {
             )}
           </div>
         </article>
+
+        {(() => {
+          const related = relatedNotes(note.slug);
+          if (related.length === 0) return null;
+          return (
+            <aside className={styles.relatedNotes} aria-label="Related notes">
+              <span className={styles.relatedNotesLabel}>Threads from the archive</span>
+              <ul className={styles.relatedNotesList}>
+                {related.map((r) => (
+                  <li key={r.slug}>
+                    <Link href={`/field-notes/${r.slug}`} className={styles.relatedNote}>
+                      <span className={styles.relatedNoteCategory}>{r.category}</span>
+                      <span className={styles.relatedNoteTitle}>{r.title}</span>
+                      <span className={styles.relatedNoteArrow} aria-hidden="true">→</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          );
+        })()}
 
         <nav className={styles.pagination} aria-label="Field note navigation">
           {(() => {

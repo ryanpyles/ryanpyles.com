@@ -6,9 +6,9 @@ import styles from "./VoigtEssay.module.css";
 const timeline = [
   { year: "2008", label: "Software engineering" },
   { year: "2016", label: "Editorial systems" },
-  { year: "2024", label: "Elian Voigt created" },
-  { year: "2025", label: "First novels published" },
-  { year: "2026", label: "FORMÆTRIX established" },
+  { year: "2024", label: "First novels" },
+  { year: "2025", label: "FORMÆTRIX established" },
+  { year: "2026", label: "Elian Voigt created" },
   { year: "Today", label: "One research program · three public expressions" },
 ];
 

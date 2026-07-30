@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Reveal from "@/components/Reveal";
+import ContinuityAtlasCaseStudy from "@/components/ContinuityAtlasCaseStudy";
 import { projectCases, getCaseStudy } from "@/content/projectCases";
 import styles from "./page.module.css";
 
@@ -33,6 +34,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default function CaseStudyPage({ params }: Props) {
   const cs = getCaseStudy(params.slug);
   if (!cs) notFound();
+
+  // The flagship case study gets a bespoke, deeper layout.
+  if (cs.slug === "continuity-atlas") {
+    return (
+      <SiteLayout>
+        <ContinuityAtlasCaseStudy
+          cs={cs}
+          demo={<ProjectDemo type={cs.demo.type} caption={cs.demo.caption} />}
+        />
+      </SiteLayout>
+    );
+  }
 
   return (
     <SiteLayout>

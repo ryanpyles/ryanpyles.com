@@ -23,6 +23,19 @@ export default function ContactPage() {
           </p>
         </header>
 
+        <div className={styles.accepting}>
+          <p className={styles.acceptingLabel}>
+            <span className={styles.acceptingDot} aria-hidden="true" />
+            Currently accepting
+          </p>
+          <ul className={styles.acceptingList}>
+            <li className={styles.acceptingItem}>Publishing systems</li>
+            <li className={styles.acceptingItem}>Editorial websites</li>
+            <li className={styles.acceptingItem}>AI narrative tooling</li>
+            <li className={styles.acceptingItem}>Research collaborations</li>
+          </ul>
+        </div>
+
         <div className={styles.options}>
           <div className={styles.option}>
             <h2 className={styles.optionLabel}>All Inquiries</h2>
@@ -34,8 +47,8 @@ export default function ContactPage() {
           <div className={styles.option}>
             <h2 className={styles.optionLabel}>Availability</h2>
             <p className={styles.optionText}>
-              Currently available for selected web development and brand design
-              engagements. Response time is typically two business days.
+              Taking on a small number of selected engagements. Response time is
+              typically two business days.
             </p>
           </div>
 

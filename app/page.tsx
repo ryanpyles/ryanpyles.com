@@ -10,7 +10,7 @@ import EcosystemScene from "@/components/EcosystemScene";
 import HomepageFiction from "@/components/HomepageFiction";
 import VoigtProject from "@/components/VoigtProject";
 import VoigtEssay from "@/components/VoigtEssay";
-import ContinuityAtlasFeatured from "@/components/ContinuityAtlasFeatured";
+import ContinuityAtlasScene from "@/components/ContinuityAtlasScene";
 import Reveal from "@/components/Reveal";
 import { currentWork } from "@/content/currentWork";
 import { fieldNotes } from "@/content/fieldNotes";
@@ -245,8 +245,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Featured Work: Continuity Atlas ───────────────────── */}
-      <ContinuityAtlasFeatured />
+      {/* ── Featured Work: Continuity Atlas — pinned product scene ─ */}
+      <ContinuityAtlasScene />
 
       {/* ── Fiction / Books (3 featured + forthcoming) ─────────── */}
       <HomepageFiction />

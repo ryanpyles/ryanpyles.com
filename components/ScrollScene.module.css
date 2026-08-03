@@ -1,0 +1,18 @@
+/* Reusable pinned scroll scene. The track is tall; the sticky child holds one
+   viewport and reveals staged content as `progress` advances. */
+.track {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* Static fallback (reduced motion / mobile): normal flow, fully revealed. */
+.staticRoot {
+  position: relative;
+}

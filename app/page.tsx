@@ -6,7 +6,7 @@ import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import CurrentWorkCard from "@/components/CurrentWorkCard";
 import FieldNoteCard from "@/components/FieldNoteCard";
-import IdentityBridge from "@/components/IdentityBridge";
+import EcosystemScene from "@/components/EcosystemScene";
 import HomepageFiction from "@/components/HomepageFiction";
 import VoigtProject from "@/components/VoigtProject";
 import VoigtEssay from "@/components/VoigtEssay";
@@ -221,8 +221,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Ecosystem (who Ryan is, what each identity does) ──── */}
-      <IdentityBridge />
+      {/* ── Ecosystem — pinned scroll scene: three doors reveal in turn ──── */}
+      <EcosystemScene />
 
       {/* ── Mobile-only mid-page CTA — surface "work with me" early ──── */}
       <section className={styles.mobileMidCta} aria-label="Work with Ryan">

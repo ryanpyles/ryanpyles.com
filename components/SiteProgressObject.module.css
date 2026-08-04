@@ -1,7 +1,7 @@
 /* Persistent scroll-progress constellation — desktop only.
-   No backdrop: the object sits directly on the page and inverts its colour
-   with the section behind it (ink on the light manuscript sections, paper on
-   the dark immersive ones). Ring accent stays brass throughout. */
+   The ring is nine clickable arc segments (one per section); the centre holds a
+   morphing constellation. Colour inverts with the section behind it: ink on the
+   light manuscript sections, paper on the dark immersive ones. */
 .root {
   position: fixed;
   right: var(--space-6);
@@ -28,25 +28,35 @@
   overflow: visible;
 }
 
-.ringTrack {
-  fill: none;
-  stroke-width: 1.5;
-  transition: stroke 400ms ease;
-}
-
-.ringFill {
-  fill: none;
-  stroke: var(--brass);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 140ms linear;
-}
-
 .canvasWrap {
   position: absolute;
-  inset: 12px;
+  inset: 16px;
+  pointer-events: none;
 }
 
+/* ── Clickable arc segments ─────────────────────────────────────────────── */
+.segHit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 13;
+  pointer-events: stroke;
+  cursor: pointer;
+  outline: none;
+}
+
+.seg {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  pointer-events: none;
+  transition: stroke 0.25s ease, stroke-width 0.2s ease;
+}
+
+.seg[data-state="visited"] {
+  stroke: color-mix(in srgb, var(--brass) 55%, transparent);
+}
+
+/* ── Label ──────────────────────────────────────────────────────────────── */
 .label {
   display: flex;
   flex-direction: column;
@@ -74,16 +84,23 @@
 }
 
 /* ── Tone inversion ─────────────────────────────────────────────────────── */
-.root[data-tone="light"] .ringTrack {
+.root[data-tone="light"] .seg[data-state="upcoming"] {
   stroke: rgba(28, 26, 22, 0.16);
 }
+.root[data-tone="dark"] .seg[data-state="upcoming"] {
+  stroke: rgba(245, 241, 234, 0.16);
+}
+
+/* Active + hovered segments win (placed last, equal specificity). */
+.root[data-tone] .seg[data-state="active"],
+.root[data-tone] .seg[data-hover] {
+  stroke: var(--brass);
+  stroke-width: 3.6;
+}
+
 .root[data-tone="light"] .labelName {
   color: rgba(28, 26, 22, 0.82);
   text-shadow: 0 1px 2px rgba(245, 241, 234, 0.55);
-}
-
-.root[data-tone="dark"] .ringTrack {
-  stroke: rgba(245, 241, 234, 0.16);
 }
 .root[data-tone="dark"] .labelName {
   color: rgba(245, 241, 234, 0.85);
@@ -98,8 +115,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ringFill,
-  .ringTrack,
+  .seg,
   .label,
   .labelName {
     transition: none;

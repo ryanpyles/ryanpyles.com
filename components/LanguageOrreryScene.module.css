@@ -1,0 +1,103 @@
+.track {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* Annotation layer floats over the canvas; never intercepts pointer events so
+   node hover/click still reach the orrery underneath. */
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.annotations {
+  position: absolute;
+  left: clamp(24px, 6vw, 96px);
+  bottom: clamp(72px, 16vh, 168px);
+  width: min(440px, 66vw);
+  height: 220px;
+}
+
+.annotation {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.annotation[data-active="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.annEyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.annTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 3.4vw, 42px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.12;
+  color: rgba(245, 241, 234, 0.96);
+}
+
+.annBody {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  color: rgba(245, 241, 234, 0.66);
+}
+
+.scrollHint {
+  position: absolute;
+  bottom: clamp(20px, 4vh, 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 234, 0.4);
+  transition: opacity 0.5s var(--ease-out);
+  animation: hintPulse 2.4s ease-in-out infinite;
+}
+
+.scrollHint[data-hide="true"] {
+  opacity: 0;
+}
+
+@keyframes hintPulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.18;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollHint {
+    animation: none;
+  }
+}

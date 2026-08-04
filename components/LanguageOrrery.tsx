@@ -17,6 +17,10 @@ const RING_RADIUS: Record<LanguageRing, number> = { 1: 1.9, 2: 3.05, 3: 4.2 };
 const RING_SPEED: Record<LanguageRing, number> = { 1: 0.05, 2: -0.035, 3: 0.025 };
 const REST_CAMERA = new THREE.Vector3(0, 3.6, 6.8);
 const REST_LOOK = new THREE.Vector3(0, 0, 0);
+// Wide establishing shot the scroll-zoom pushes in from.
+const ESTABLISH_CAMERA = new THREE.Vector3(0, 8.5, 15);
+const clampUnit = (v: number) => Math.max(0, Math.min(1, v));
+const easeIO = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
 
 function ringLayout(): Record<LanguageRing, LanguageProfile[]> {
   const grouped: Record<LanguageRing, LanguageProfile[]> = { 1: [], 2: [], 3: [] };
@@ -171,7 +175,15 @@ function LanguageNode({
   );
 }
 
-function CameraRig({ target, reducedMotion }: { target: THREE.Vector3 | null; reducedMotion: boolean }) {
+function CameraRig({
+  target,
+  reducedMotion,
+  scrollZoomRef,
+}: {
+  target: THREE.Vector3 | null;
+  reducedMotion: boolean;
+  scrollZoomRef?: React.MutableRefObject<number>;
+}) {
   const lookRef = useRef(REST_LOOK.clone());
 
   useFrame(({ camera }) => {
@@ -184,6 +196,10 @@ function CameraRig({ target, reducedMotion }: { target: THREE.Vector3 | null; re
         0.6
       );
       lookAt = target;
+    } else if (scrollZoomRef) {
+      // Scroll drives a push-in from the wide establishing shot to rest.
+      const z = easeIO(clampUnit(scrollZoomRef.current));
+      destination = ESTABLISH_CAMERA.clone().lerp(REST_CAMERA, z);
     }
 
     const factor = reducedMotion ? 1 : 0.045;
@@ -201,9 +217,10 @@ interface SceneProps {
   selectedPosition: THREE.Vector3 | null;
   onHover: (language: LanguageProfile | null) => void;
   onSelect: (language: LanguageProfile, position: THREE.Vector3) => void;
+  scrollZoomRef?: React.MutableRefObject<number>;
 }
 
-function Scene({ reducedMotion, selected, selectedPosition, onHover, onSelect }: SceneProps) {
+function Scene({ reducedMotion, selected, selectedPosition, onHover, onSelect, scrollZoomRef }: SceneProps) {
   const grouped = useMemo(ringLayout, []);
 
   return (
@@ -234,12 +251,22 @@ function Scene({ reducedMotion, selected, selectedPosition, onHover, onSelect }:
         </React.Fragment>
       ))}
 
-      <CameraRig target={selectedPosition} reducedMotion={reducedMotion} />
+      <CameraRig
+        target={selectedPosition}
+        reducedMotion={reducedMotion}
+        scrollZoomRef={scrollZoomRef}
+      />
     </>
   );
 }
 
-export default function LanguageOrrery() {
+export default function LanguageOrrery({
+  scrollZoomRef,
+  hideCaption,
+}: {
+  scrollZoomRef?: React.MutableRefObject<number>;
+  hideCaption?: boolean;
+} = {}) {
   const [hovered, setHovered] = useState<LanguageProfile | null>(null);
   const [selected, setSelected] = useState<LanguageProfile | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<THREE.Vector3 | null>(null);
@@ -285,33 +312,36 @@ export default function LanguageOrrery() {
               selectedPosition={selectedPosition}
               onHover={setHovered}
               onSelect={handleSelect}
+              scrollZoomRef={scrollZoomRef}
             />
           </Suspense>
         </Canvas>
       </div>
 
-      <div className={styles.caption}>
-        <p className={styles.captionEyebrow}>The Language Orrery</p>
-        <p className={styles.captionBody}>
-          Twelve languages, charted in orbit by how I hold them — fluency near the
-          center, curiosity further out. Hover a node for its bearings; click one to
-          open its notebook.
-        </p>
-        {hovered && !listMode && (
-          <p className={styles.captionHint}>
-            <span className={styles.captionHintName}>{hovered.name}</span> — {hovered.level}
+      {!hideCaption && (
+        <div className={styles.caption}>
+          <p className={styles.captionEyebrow}>The Language Orrery</p>
+          <p className={styles.captionBody}>
+            Twelve languages, charted in orbit by how I hold them — fluency near the
+            center, curiosity further out. Hover a node for its bearings; click one to
+            open its notebook.
           </p>
-        )}
-        <button
-          type="button"
-          className={styles.viewToggle}
-          onClick={() => setListMode((m) => !m)}
-          aria-pressed={listMode}
-          title={listMode ? "Switch to orrery view" : "Switch to list view"}
-        >
-          {listMode ? "⊙ Orrery view" : "≡ List view"}
-        </button>
-      </div>
+          {hovered && !listMode && (
+            <p className={styles.captionHint}>
+              <span className={styles.captionHintName}>{hovered.name}</span> — {hovered.level}
+            </p>
+          )}
+          <button
+            type="button"
+            className={styles.viewToggle}
+            onClick={() => setListMode((m) => !m)}
+            aria-pressed={listMode}
+            title={listMode ? "Switch to orrery view" : "Switch to list view"}
+          >
+            {listMode ? "⊙ Orrery view" : "≡ List view"}
+          </button>
+        </div>
+      )}
 
       <div className={styles.fallback} data-visible={listMode || undefined}>
         <p className={styles.fallbackEyebrow}>Languages, by orbit</p>

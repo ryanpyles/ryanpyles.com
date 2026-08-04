@@ -32,7 +32,7 @@ export default function ScrollScene({
   ariaLabel?: string;
   className?: string;
   contentClassName?: string;
-  children: (progress: number) => React.ReactNode;
+  children: (progress: number, isStatic: boolean) => React.ReactNode;
 }) {
   const ref = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(0);
@@ -82,7 +82,7 @@ export default function ScrollScene({
         aria-label={ariaLabel}
         className={`${styles.staticRoot} ${className ?? ""}`}
       >
-        <div className={contentClassName}>{children(1)}</div>
+        <div className={contentClassName}>{children(1, true)}</div>
       </section>
     );
   }
@@ -96,7 +96,7 @@ export default function ScrollScene({
       style={{ height: `${heightVh}vh` }}
     >
       <div className={`${styles.sticky} ${contentClassName ?? ""}`}>
-        {children(progress)}
+        {children(progress, false)}
       </div>
     </section>
   );

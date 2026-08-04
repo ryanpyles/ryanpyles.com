@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useMemo, useEffect, Suspense } from "react";
+import React, { useRef, useMemo, useEffect, useState, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
@@ -236,6 +236,19 @@ export default function SiteProgressObject() {
   const numRef = useRef<HTMLSpanElement>(null);
   const nameRef = useRef<HTMLSpanElement>(null);
   const lastIdx = useRef(-1);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  const go = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({
+        behavior: reducedMotion ? "auto" : "smooth",
+        block: "start",
+      });
+    }
+    setMenuOpen(false);
+  };
 
   useEffect(() => {
     const ids = SECTIONS.map((s) => s.id);
@@ -306,6 +319,7 @@ export default function SiteProgressObject() {
           ).padStart(2, "0")}`;
         }
         if (nameRef.current && s) nameRef.current.textContent = s.label;
+        setActiveIdx(idx);
       }
     };
 
@@ -325,41 +339,80 @@ export default function SiteProgressObject() {
   }, []);
 
   return (
-    <div className={styles.root} data-tone="light" ref={rootRef} aria-hidden="true">
-      <div className={styles.dial}>
-        <svg className={styles.ring} viewBox="0 0 120 120">
-          <circle className={styles.ringTrack} cx="60" cy="60" r={RING_R} />
-          <circle
-            ref={ringRef}
-            className={styles.ringFill}
-            cx="60"
-            cy="60"
-            r={RING_R}
-            strokeDasharray={RING_CIRC}
-            strokeDashoffset={RING_CIRC}
-            transform="rotate(-90 60 60)"
-          />
-        </svg>
-        <div className={styles.canvasWrap}>
-          <Canvas
-            camera={{ position: [0, 0, 4], fov: 40 }}
-            dpr={[1, 1.5]}
-            gl={{ antialias: true, alpha: true }}
-          >
-            <Suspense fallback={null}>
-              <Constellation scrollRef={scrollRef} reducedMotion={reducedMotion} />
-            </Suspense>
-          </Canvas>
+    <nav
+      className={styles.root}
+      data-tone="light"
+      ref={rootRef}
+      aria-label="Jump to section"
+      onMouseEnter={() => setMenuOpen(true)}
+      onMouseLeave={() => setMenuOpen(false)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setMenuOpen(false);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") setMenuOpen(false);
+      }}
+    >
+      <ul className={styles.menu} data-open={menuOpen || undefined}>
+        {SECTIONS.map((s, i) => (
+          <li key={s.id}>
+            <button
+              type="button"
+              className={styles.menuItem}
+              data-active={i === activeIdx || undefined}
+              tabIndex={menuOpen ? 0 : -1}
+              onClick={() => go(s.id)}
+            >
+              <span className={styles.menuNum}>{String(i + 1).padStart(2, "0")}</span>
+              <span className={styles.menuLabel}>{s.label}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <button
+        type="button"
+        className={styles.trigger}
+        aria-haspopup="true"
+        aria-expanded={menuOpen}
+        aria-label={`Jump to section. Current: ${SECTIONS[activeIdx].label}`}
+        onClick={() => setMenuOpen((o) => !o)}
+      >
+        <div className={styles.dial} aria-hidden="true">
+          <svg className={styles.ring} viewBox="0 0 120 120">
+            <circle className={styles.ringTrack} cx="60" cy="60" r={RING_R} />
+            <circle
+              ref={ringRef}
+              className={styles.ringFill}
+              cx="60"
+              cy="60"
+              r={RING_R}
+              strokeDasharray={RING_CIRC}
+              strokeDashoffset={RING_CIRC}
+              transform="rotate(-90 60 60)"
+            />
+          </svg>
+          <div className={styles.canvasWrap}>
+            <Canvas
+              camera={{ position: [0, 0, 4], fov: 40 }}
+              dpr={[1, 1.5]}
+              gl={{ antialias: true, alpha: true }}
+            >
+              <Suspense fallback={null}>
+                <Constellation scrollRef={scrollRef} reducedMotion={reducedMotion} />
+              </Suspense>
+            </Canvas>
+          </div>
         </div>
-      </div>
-      <div className={styles.label}>
-        <span ref={numRef} className={styles.labelNum}>
-          01 / {String(SECTIONS.length).padStart(2, "0")}
-        </span>
-        <span ref={nameRef} className={styles.labelName}>
-          {SECTIONS[0].label}
-        </span>
-      </div>
-    </div>
+        <div className={styles.label}>
+          <span ref={numRef} className={styles.labelNum}>
+            01 / {String(SECTIONS.length).padStart(2, "0")}
+          </span>
+          <span ref={nameRef} className={styles.labelName}>
+            {SECTIONS[0].label}
+          </span>
+        </div>
+      </button>
+    </nav>
   );
 }

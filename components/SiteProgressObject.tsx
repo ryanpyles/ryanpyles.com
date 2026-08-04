@@ -225,19 +225,30 @@ function Constellation({
   );
 }
 
-const RING_R = 54;
-const RING_CIRC = 2 * Math.PI * RING_R;
+const SEG_R = 52;
+const SEG_GAP_DEG = 7;
+
+function polar(angleFromTopDeg: number): [number, number] {
+  const a = ((angleFromTopDeg - 90) * Math.PI) / 180;
+  return [60 + SEG_R * Math.cos(a), 60 + SEG_R * Math.sin(a)];
+}
+
+function segmentPath(i: number, count: number): string {
+  const step = 360 / count;
+  const a0 = i * step + SEG_GAP_DEG / 2;
+  const a1 = (i + 1) * step - SEG_GAP_DEG / 2;
+  const [x0, y0] = polar(a0);
+  const [x1, y1] = polar(a1);
+  return `M ${x0.toFixed(2)} ${y0.toFixed(2)} A ${SEG_R} ${SEG_R} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+}
 
 export default function SiteProgressObject() {
   const reducedMotion = usePrefersReducedMotion();
   const scrollRef = useRef<ScrollState>({ f: 0, progress: 0, dark: 0 });
   const rootRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<SVGCircleElement>(null);
-  const numRef = useRef<HTMLSpanElement>(null);
-  const nameRef = useRef<HTMLSpanElement>(null);
   const lastIdx = useRef(-1);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
 
   const go = (id: string) => {
     const el = document.getElementById(id);
@@ -247,7 +258,6 @@ export default function SiteProgressObject() {
         block: "start",
       });
     }
-    setMenuOpen(false);
   };
 
   useEffect(() => {
@@ -299,12 +309,6 @@ export default function SiteProgressObject() {
       scrollRef.current.f = f;
       scrollRef.current.progress = progress;
 
-      if (ringRef.current) {
-        ringRef.current.style.strokeDashoffset = String(
-          RING_CIRC * (1 - progress)
-        );
-      }
-
       const idx = Math.round(f);
       if (idx !== lastIdx.current) {
         lastIdx.current = idx;
@@ -313,12 +317,6 @@ export default function SiteProgressObject() {
         if (rootRef.current) {
           rootRef.current.dataset.tone = s && s.dark ? "dark" : "light";
         }
-        if (numRef.current) {
-          numRef.current.textContent = `${String(idx + 1).padStart(2, "0")} / ${String(
-            SECTIONS.length
-          ).padStart(2, "0")}`;
-        }
-        if (nameRef.current && s) nameRef.current.textContent = s.label;
         setActiveIdx(idx);
       }
     };
@@ -338,81 +336,64 @@ export default function SiteProgressObject() {
     };
   }, []);
 
-  return (
-    <nav
-      className={styles.root}
-      data-tone="light"
-      ref={rootRef}
-      aria-label="Jump to section"
-      onMouseEnter={() => setMenuOpen(true)}
-      onMouseLeave={() => setMenuOpen(false)}
-      onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node)) setMenuOpen(false);
-      }}
-      onKeyDown={(e) => {
-        if (e.key === "Escape") setMenuOpen(false);
-      }}
-    >
-      <ul className={styles.menu} data-open={menuOpen || undefined}>
-        {SECTIONS.map((s, i) => (
-          <li key={s.id}>
-            <button
-              type="button"
-              className={styles.menuItem}
-              data-active={i === activeIdx || undefined}
-              tabIndex={menuOpen ? 0 : -1}
-              onClick={() => go(s.id)}
-            >
-              <span className={styles.menuNum}>{String(i + 1).padStart(2, "0")}</span>
-              <span className={styles.menuLabel}>{s.label}</span>
-            </button>
-          </li>
-        ))}
-      </ul>
+  const shown = hoverIdx ?? activeIdx;
 
-      <button
-        type="button"
-        className={styles.trigger}
-        aria-haspopup="true"
-        aria-expanded={menuOpen}
-        aria-label={`Jump to section. Current: ${SECTIONS[activeIdx].label}`}
-        onClick={() => setMenuOpen((o) => !o)}
-      >
-        <div className={styles.dial} aria-hidden="true">
-          <svg className={styles.ring} viewBox="0 0 120 120">
-            <circle className={styles.ringTrack} cx="60" cy="60" r={RING_R} />
-            <circle
-              ref={ringRef}
-              className={styles.ringFill}
-              cx="60"
-              cy="60"
-              r={RING_R}
-              strokeDasharray={RING_CIRC}
-              strokeDashoffset={RING_CIRC}
-              transform="rotate(-90 60 60)"
-            />
-          </svg>
-          <div className={styles.canvasWrap}>
-            <Canvas
-              camera={{ position: [0, 0, 4], fov: 40 }}
-              dpr={[1, 1.5]}
-              gl={{ antialias: true, alpha: true }}
-            >
-              <Suspense fallback={null}>
-                <Constellation scrollRef={scrollRef} reducedMotion={reducedMotion} />
-              </Suspense>
-            </Canvas>
-          </div>
+  return (
+    <nav className={styles.root} data-tone="light" ref={rootRef} aria-label="Jump to section">
+      <div className={styles.dial}>
+        <svg className={styles.ring} viewBox="0 0 120 120">
+          {SECTIONS.map((s, i) => {
+            const d = segmentPath(i, SECTIONS.length);
+            const state =
+              i === activeIdx ? "active" : i < activeIdx ? "visited" : "upcoming";
+            return (
+              <g key={s.id}>
+                <path
+                  className={styles.segHit}
+                  d={d}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Go to ${s.label}`}
+                  onClick={() => go(s.id)}
+                  onMouseEnter={() => setHoverIdx(i)}
+                  onMouseLeave={() => setHoverIdx((h) => (h === i ? null : h))}
+                  onFocus={() => setHoverIdx(i)}
+                  onBlur={() => setHoverIdx((h) => (h === i ? null : h))}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      go(s.id);
+                    }
+                  }}
+                />
+                <path
+                  className={styles.seg}
+                  d={d}
+                  data-state={state}
+                  data-hover={i === hoverIdx || undefined}
+                />
+              </g>
+            );
+          })}
+        </svg>
+        <div className={styles.canvasWrap}>
+          <Canvas
+            camera={{ position: [0, 0, 4], fov: 40 }}
+            dpr={[1, 1.5]}
+            gl={{ antialias: true, alpha: true }}
+          >
+            <Suspense fallback={null}>
+              <Constellation scrollRef={scrollRef} reducedMotion={reducedMotion} />
+            </Suspense>
+          </Canvas>
         </div>
-        <div className={styles.label}>
-          <span ref={numRef} className={styles.labelNum}>
-            01 / {String(SECTIONS.length).padStart(2, "0")}
-          </span>
-          <span ref={nameRef} className={styles.labelName}>
-            {SECTIONS[0].label}
-          </span>
-        </div>
-      </button>
+      </div>
+      <div className={styles.label}>
+        <span className={styles.labelNum}>
+          {String(shown + 1).padStart(2, "0")} / {String(SECTIONS.length).padStart(2, "0")}
+        </span>
+        <span className={styles.labelName}>{SECTIONS[shown].label}</span>
+      </div>
     </nav>
   );
 }

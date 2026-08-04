@@ -1,7 +1,7 @@
 /* Persistent scroll-progress constellation — desktop only.
-   No backdrop: the object sits directly on the page and inverts its colour
-   with the section behind it (ink on the light manuscript sections, paper on
-   the dark immersive ones). Ring accent stays brass throughout. */
+   The ring is nine clickable arc segments (one per section); the centre holds a
+   morphing constellation. Colour inverts with the section behind it: ink on the
+   light manuscript sections, paper on the dark immersive ones. */
 .root {
   position: fixed;
   right: var(--space-6);
@@ -28,25 +28,35 @@
   overflow: visible;
 }
 
-.ringTrack {
-  fill: none;
-  stroke-width: 1.5;
-  transition: stroke 400ms ease;
-}
-
-.ringFill {
-  fill: none;
-  stroke: var(--brass);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 140ms linear;
-}
-
 .canvasWrap {
   position: absolute;
-  inset: 12px;
+  inset: 16px;
+  pointer-events: none;
 }
 
+/* ── Clickable arc segments ─────────────────────────────────────────────── */
+.segHit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 13;
+  pointer-events: stroke;
+  cursor: pointer;
+  outline: none;
+}
+
+.seg {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  pointer-events: none;
+  transition: stroke 0.25s ease, stroke-width 0.2s ease;
+}
+
+.seg[data-state="visited"] {
+  stroke: color-mix(in srgb, var(--brass) 55%, transparent);
+}
+
+/* ── Label ──────────────────────────────────────────────────────────────── */
 .label {
   display: flex;
   flex-direction: column;
@@ -73,128 +83,24 @@
   transition: color 400ms ease, text-shadow 400ms ease;
 }
 
-/* ── Interactive trigger ────────────────────────────────────────────────── */
-.trigger {
-  pointer-events: auto;
-  cursor: pointer;
-  appearance: none;
-  background: none;
-  border: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  color: inherit;
-}
-
-.dial {
-  transition: transform var(--duration-base) var(--ease-out);
-}
-
-.trigger:hover .dial,
-.trigger:focus-visible .dial {
-  transform: scale(1.05);
-}
-
-.trigger:focus-visible {
-  outline: none;
-}
-
-.trigger:focus-visible .labelName {
-  color: var(--brass);
-}
-
-/* ── Jump menu ──────────────────────────────────────────────────────────── */
-.menu {
-  position: absolute;
-  bottom: 100%;
-  right: 0;
-  margin: 0 0 var(--space-3) 0;
-  padding: var(--space-3);
-  list-style: none;
-  min-width: 190px;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  background: rgba(16, 14, 10, 0.9);
-  border: 1px solid rgba(245, 241, 234, 0.12);
-  border-radius: var(--radius-base);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  opacity: 0;
-  transform: translateY(8px);
-  pointer-events: none;
-  transition: opacity 0.24s var(--ease-out), transform 0.24s var(--ease-out);
-}
-
-.menu[data-open] {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.menuItem {
-  appearance: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-3);
-  padding: var(--space-2) var(--space-3);
-  border-radius: calc(var(--radius-base) - 2px);
-  text-align: left;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-.menuNum {
-  flex-shrink: 0;
-  width: 18px;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  color: rgba(245, 241, 234, 0.4);
-}
-
-.menuLabel {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(245, 241, 234, 0.75);
-  white-space: nowrap;
-}
-
-.menuItem:hover,
-.menuItem:focus-visible {
-  background: rgba(245, 241, 234, 0.08);
-  outline: none;
-}
-
-.menuItem:hover .menuLabel,
-.menuItem:focus-visible .menuLabel {
-  color: rgba(245, 241, 234, 0.98);
-}
-
-.menuItem[data-active] .menuNum,
-.menuItem[data-active] .menuLabel {
-  color: var(--brass);
-}
-
 /* ── Tone inversion ─────────────────────────────────────────────────────── */
-.root[data-tone="light"] .ringTrack {
+.root[data-tone="light"] .seg[data-state="upcoming"] {
   stroke: rgba(28, 26, 22, 0.16);
 }
+.root[data-tone="dark"] .seg[data-state="upcoming"] {
+  stroke: rgba(245, 241, 234, 0.16);
+}
+
+/* Active + hovered segments win (placed last, equal specificity). */
+.root[data-tone] .seg[data-state="active"],
+.root[data-tone] .seg[data-hover] {
+  stroke: var(--brass);
+  stroke-width: 3.6;
+}
+
 .root[data-tone="light"] .labelName {
   color: rgba(28, 26, 22, 0.82);
   text-shadow: 0 1px 2px rgba(245, 241, 234, 0.55);
-}
-
-.root[data-tone="dark"] .ringTrack {
-  stroke: rgba(245, 241, 234, 0.16);
 }
 .root[data-tone="dark"] .labelName {
   color: rgba(245, 241, 234, 0.85);
@@ -209,8 +115,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ringFill,
-  .ringTrack,
+  .seg,
   .label,
   .labelName {
     transition: none;

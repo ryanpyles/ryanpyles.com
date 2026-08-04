@@ -182,6 +182,7 @@ export default function ContinuityAtlasScene() {
         op.forEach((o, i) => {
           if (o >= op[active]) active = i;
         });
+        const moduleProgress = clamp01((progress - 0.14) / (0.9 - 0.14));
         const ctaIn = mapRange(progress, 0.9, 1);
 
         return (
@@ -208,6 +209,18 @@ export default function ContinuityAtlasScene() {
 
               {/* Module stage */}
               <div className={styles.stage} style={{ opacity: 1 - introOpacity }}>
+                <div className={styles.ghost} aria-hidden="true">
+                  {modules.map((m, i) => (
+                    <span
+                      key={m.name}
+                      className={styles.ghostNum}
+                      style={{ opacity: op[i] * 0.05 }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  ))}
+                </div>
+
                 <div className={styles.focus}>
                   {modules.map((m, i) => (
                     <div
@@ -233,7 +246,17 @@ export default function ContinuityAtlasScene() {
                       style={{ opacity: op[i], transform: `scale(${0.9 + op[i] * 0.1})` }}
                       aria-hidden="true"
                     >
-                      <Glyph kind={m.glyph} />
+                      <div className={styles.plate}>
+                        <span className={styles.plateLabel}>
+                          Fig. {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <div className={styles.plateGlow} />
+                        <Glyph kind={m.glyph} />
+                        <span className={styles.tick} data-c="tl" />
+                        <span className={styles.tick} data-c="tr" />
+                        <span className={styles.tick} data-c="bl" />
+                        <span className={styles.tick} data-c="br" />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -241,17 +264,25 @@ export default function ContinuityAtlasScene() {
             </div>
 
             <div className={styles.bottom}>
-              <ul className={styles.rail} aria-hidden="true">
-                {modules.map((m, i) => (
-                  <li
-                    key={m.name}
-                    className={styles.railItem}
-                    data-active={active === i && introOpacity < 0.5}
-                  >
-                    {m.name}
-                  </li>
-                ))}
-              </ul>
+              <div className={styles.railWrap}>
+                <div className={styles.progressTrack} aria-hidden="true">
+                  <span
+                    className={styles.progressFill}
+                    style={{ width: `${moduleProgress * 100}%` }}
+                  />
+                </div>
+                <ul className={styles.rail} aria-hidden="true">
+                  {modules.map((m, i) => (
+                    <li
+                      key={m.name}
+                      className={styles.railItem}
+                      data-active={active === i && introOpacity < 0.5}
+                    >
+                      {m.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <div style={{ opacity: ctaIn, pointerEvents: ctaIn > 0.5 ? "auto" : "none" }}>
                 <Ctas />
               </div>

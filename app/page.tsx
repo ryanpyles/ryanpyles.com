@@ -75,10 +75,13 @@ function OrreryLoader() {
   );
 }
 
-const LanguageOrrery = dynamic(() => import("@/components/LanguageOrrery"), {
-  ssr: false,
-  loading: OrreryLoader,
-});
+const LanguageOrreryScene = dynamic(
+  () => import("@/components/LanguageOrreryScene"),
+  {
+    ssr: false,
+    loading: OrreryLoader,
+  }
+);
 
 export const metadata: Metadata = {
   title: "Ryan Pyles — Author, Engineer, Linguist",
@@ -284,9 +287,9 @@ export default function HomePage() {
       <VoigtProject />
       <VoigtEssay />
 
-      {/* ── Language Orrery (reward section) ──────────────────── */}
+      {/* ── Language Orrery — pinned zoom-and-annotate scene ──── */}
       <div id="orrery" aria-hidden="true" />
-      <LanguageOrrery />
+      <LanguageOrreryScene />
 
       {/* ── In Progress (condensed Research Log) ──────────────── */}
       <Section id="in-progress">

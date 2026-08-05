@@ -153,6 +153,20 @@ export default function VoigtProject() {
   const ryanBrightness  = 1 - 0.50 * portraitDim;
   const elianBrightness = (1 - 0.40 * portraitDim) * 0.92;
 
+  // ── Parallax: Ken-Burns settle + gentle counter-drift for depth ───────────
+  const imgScale    = 1.08 - 0.05 * clamp01(progress / 0.55); // 1.08 → 1.03
+  const imgDriftVw  = (progress - 0.5) * 2.6; // portraits drift opposite ways
+  const textDriftPx = (progress - 0.5) * -18; // text blocks drift slower
+
+  // ── Legibility scrims: keep a floor whenever text is on the photo ─────────
+  const dimScrim   = mapRange(progress, 0.50, 0.56) * (1 - mapRange(progress, 0.9, 0.97));
+  const rightScrim = Math.max(caseHeaderIn, identityOpacity * 0.9, dimScrim);
+  const leftScrim  = Math.max(caseHeaderIn, identityOpacity * 0.7, dimScrim * 0.7);
+
+  // Marginalia fragments fade in through the dimension phase
+  const marginaliaIn =
+    mapRange(progress, 0.52, 0.62) * (1 - mapRange(progress, 0.9, 0.97));
+
   // ── Typewriter animations ─────────────────────────────────────────────────
   useEffect(() => {
     if (activeDimIndex === prevDimRef.current) return;
@@ -224,11 +238,12 @@ export default function VoigtProject() {
                   objectFit: "cover",
                   objectPosition: "left 30%",
                   filter: `brightness(${ryanBrightness})`,
+                  transform: `scale(${imgScale}) translateY(${imgDriftVw}vw)`,
                   transition: "filter 600ms ease",
                 }}
                 loading="lazy"
               />
-              <div className={styles.gradientLeft} style={{ opacity: caseHeaderIn }} />
+              <div className={styles.gradientLeft} style={{ opacity: leftScrim }} />
             </div>
 
             {/* Center gap */}
@@ -243,7 +258,7 @@ export default function VoigtProject() {
                 className={styles.gapContent}
                 style={{
                   opacity: caseHeaderIn,
-                  transform: `translateY(${(1 - caseHeaderIn) * 18}px)`,
+                  transform: `translateY(${(1 - caseHeaderIn) * 18 + textDriftPx}px)`,
                 }}
               >
                 <span className={styles.gapMono}>§ 04 · The Voigt Project</span>
@@ -280,30 +295,61 @@ export default function VoigtProject() {
                   objectFit: "cover",
                   objectPosition: "right 30%",
                   filter: `brightness(${elianBrightness})`,
+                  transform: `scale(${imgScale}) translateY(${-imgDriftVw}vw)`,
                   transition: "filter 600ms ease",
                 }}
                 loading="lazy"
               />
-              <div className={styles.gradientRight} style={{ opacity: caseHeaderIn }} />
+              <div className={styles.gradientRight} style={{ opacity: rightScrim }} />
             </div>
 
             {/* ── Text overlays — direct children of .diptych so they          */}
             {/*    position relative to the full viewport, not the shifted halves */}
 
             {/* Identity label — left */}
-            <div className={styles.identityLeft} style={{ opacity: identityOpacity }}>
+            <div
+              className={styles.identityLeft}
+              style={{
+                opacity: identityOpacity,
+                transform: `translateY(${textDriftPx}px)`,
+              }}
+            >
               <span className={styles.identityMono}>Ryan Pyles</span>
               <p className={styles.identityVerb}>builds<br />systems.</p>
               <p className={styles.identityNote}>Engineer · Architect · Chicago</p>
             </div>
 
             {/* Identity label — right */}
-            <div className={styles.identityRight} style={{ opacity: identityOpacity }}>
+            <div
+              className={styles.identityRight}
+              style={{
+                opacity: identityOpacity,
+                transform: `translateY(${-textDriftPx}px)`,
+              }}
+            >
               <span className={styles.identityMono}>Elian Voigt</span>
               <p className={`${styles.identityVerb} ${styles.identityVerbSerif}`}>
                 tests<br />them.
               </p>
               <p className={styles.identityNote}>Literary Fiction · Six Novels</p>
+            </div>
+
+            {/* Marginalia fragments — reveal through the dimension phase */}
+            <div
+              className={styles.marginaliaLeft}
+              style={{ opacity: marginaliaIn }}
+              aria-hidden="true"
+            >
+              <span>fn. 04 — engineer&rsquo;s log</span>
+              <span>41°52′ N, 87°38′ W</span>
+            </div>
+            <div
+              className={styles.marginaliaRight}
+              style={{ opacity: marginaliaIn }}
+              aria-hidden="true"
+            >
+              <span>&mdash; Voigt, 2026</span>
+              <span>structura ergo fictio</span>
             </div>
 
             {/* Terminal — Ryan's side */}

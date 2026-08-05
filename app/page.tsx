@@ -7,6 +7,7 @@ import Section from "@/components/Section";
 import CurrentWorkCard from "@/components/CurrentWorkCard";
 import FieldNoteCard from "@/components/FieldNoteCard";
 import EcosystemScene from "@/components/EcosystemScene";
+import RotateHint from "@/components/RotateHint";
 import HomepageFiction from "@/components/HomepageFiction";
 import VoigtProject from "@/components/VoigtProject";
 import VoigtEssay from "@/components/VoigtEssay";
@@ -111,6 +112,7 @@ export default function HomePage() {
       />
 
       <SiteProgressObject />
+      <RotateHint />
 
       {/* ── Hero ───────────────────────────────────────────────── */}
       <section className={styles.hero} id="hero">

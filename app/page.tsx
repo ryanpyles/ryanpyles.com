@@ -8,7 +8,7 @@ import CurrentWorkCard from "@/components/CurrentWorkCard";
 import FieldNoteCard from "@/components/FieldNoteCard";
 import EcosystemScene from "@/components/EcosystemScene";
 import RotateHint from "@/components/RotateHint";
-import HomepageFiction from "@/components/HomepageFiction";
+import BooksScene from "@/components/BooksScene";
 import VoigtProject from "@/components/VoigtProject";
 import VoigtEssay from "@/components/VoigtEssay";
 import ContinuityAtlasScene from "@/components/ContinuityAtlasScene";
@@ -253,8 +253,8 @@ export default function HomePage() {
       {/* ── Featured Work: Continuity Atlas — pinned product scene ─ */}
       <ContinuityAtlasScene />
 
-      {/* ── Fiction / Books (3 featured + forthcoming) ─────────── */}
-      <HomepageFiction />
+      {/* ── Fiction / Books — pinned shelf scene ───────────────── */}
+      <BooksScene />
 
       {/* ── Living Archive: Field Notes ───────────────────────── */}
       <Section id="field-notes">

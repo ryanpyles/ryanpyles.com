@@ -166,6 +166,8 @@ export default function ContinuityAtlasScene() {
       id="continuity-atlas"
       ariaLabel="Continuity Atlas"
       heightVh={560}
+      heightVhMobile={520}
+      pinOnMobile
       className={styles.root}
       contentClassName={styles.sticky}
     >

@@ -433,6 +433,7 @@
 }
 
 @media (max-width: 768px) {
+  /* Static view (reduced motion) */
   .staticItem {
     grid-template-columns: 64px 1fr;
     gap: var(--space-5);
@@ -441,10 +442,60 @@
   .staticGlyph {
     width: 64px;
   }
-  .cta {
+  .staticScene .cta {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-3);
     margin-top: var(--space-10);
+  }
+
+  /* ── Pinned mobile scene: single column, fit one viewport ── */
+  .scene {
+    padding: var(--space-6) var(--space-5);
+  }
+  .introHeading {
+    font-size: clamp(26px, 7.5vw, 40px);
+  }
+  .introSub {
+    font-size: var(--text-md);
+  }
+  .stage {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    align-content: center;
+  }
+  .focus {
+    height: 152px;
+  }
+  .visual {
+    height: 180px;
+  }
+  .focusName {
+    font-size: var(--text-xl);
+  }
+  .focusTag {
+    font-size: var(--text-sm);
+    max-width: none;
+  }
+  .plate {
+    width: min(58%, 168px);
+  }
+  .plate .glyph {
+    width: clamp(96px, 30vw, 132px);
+  }
+  .ghostNum {
+    font-size: clamp(180px, 52vw, 320px);
+  }
+  .bottom {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+  .rail {
+    display: none;
+  }
+  .bottom .cta {
+    flex-direction: row;
+    gap: var(--space-5);
   }
 }

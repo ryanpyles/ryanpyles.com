@@ -33,7 +33,9 @@ const annotations = [
 export default function LanguageOrreryScene() {
   const reducedMotion = usePrefersReducedMotion();
   const [staticMode, setStaticMode] = useState(() =>
-    typeof window === "undefined" ? true : window.innerWidth <= 768
+    typeof window === "undefined"
+      ? false
+      : window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
   const [annIndex, setAnnIndex] = useState(0);
   const zoomRef = useRef(0);
@@ -41,7 +43,9 @@ export default function LanguageOrreryScene() {
   const lastIdx = useRef(-1);
 
   useEffect(() => {
-    const isStatic = reducedMotion || window.innerWidth <= 768;
+    // Pin + zoom on mobile too now; only reduced motion falls back to the plain
+    // interactive orrery.
+    const isStatic = reducedMotion;
     setStaticMode(isStatic);
     if (isStatic) {
       zoomRef.current = 1;

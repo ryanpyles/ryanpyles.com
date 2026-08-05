@@ -60,8 +60,8 @@
   inset: 0;
   background: linear-gradient(
     to left,
-    rgba(225, 215, 200, 0.70) 0%,
-    rgba(225, 215, 200, 0.28) 55%,
+    rgba(233, 224, 209, 0.86) 0%,
+    rgba(233, 224, 209, 0.48) 52%,
     transparent 100%
   );
   z-index: 1;
@@ -169,7 +169,13 @@
 }
 
 .identityLeft  { left: var(--space-8); }
-.identityRight { right: var(--space-8); text-align: right; }
+.identityRight {
+  right: var(--space-8);
+  text-align: right;
+  /* Light halo so the dark text lifts off the portrait regardless of tone */
+  text-shadow: 0 1px 2px rgba(242, 235, 222, 0.92),
+    0 0 16px rgba(242, 235, 222, 0.7);
+}
 
 .identityMono {
   display: block;
@@ -181,7 +187,7 @@
 }
 
 .identityLeft .identityMono  { color: rgba(255, 255, 255, 0.36); }
-.identityRight .identityMono { color: rgba(18, 14, 8, 0.42); }
+.identityRight .identityMono { color: rgba(12, 9, 5, 0.74); }
 
 .identityVerb {
   font-family: var(--font-sans);
@@ -198,7 +204,7 @@
 }
 
 .identityLeft  .identityVerb { color: rgba(255, 255, 255, 0.90); }
-.identityRight .identityVerb { color: rgba(18, 14, 8, 0.88); }
+.identityRight .identityVerb { color: rgba(8, 6, 3, 0.96); }
 
 .identityNote {
   font-family: var(--font-mono);
@@ -208,7 +214,46 @@
 }
 
 .identityLeft  .identityNote { color: rgba(255, 255, 255, 0.24); }
-.identityRight .identityNote { color: rgba(18, 14, 8, 0.28); }
+.identityRight .identityNote { color: rgba(12, 9, 5, 0.62); }
+
+/* ── Marginalia fragments (reveal through the dimension phase) ────────────── */
+.marginaliaLeft,
+.marginaliaRight {
+  position: absolute;
+  top: var(--space-10);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  transition: opacity 450ms ease;
+  will-change: opacity;
+  pointer-events: none;
+}
+
+.marginaliaLeft {
+  left: var(--space-8);
+}
+
+.marginaliaRight {
+  right: var(--space-8);
+  text-align: right;
+}
+
+.marginaliaLeft span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.marginaliaRight span {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(10, 7, 4, 0.74);
+  text-shadow: 0 1px 2px rgba(242, 235, 222, 0.85);
+}
 
 /* ── Per-dimension panels (phase 4+) ─────────────────────────────────────── */
 .dimHalf {
@@ -229,6 +274,8 @@
   left: auto;
   right: var(--space-8);
   text-align: right;
+  text-shadow: 0 1px 2px rgba(242, 235, 222, 0.92),
+    0 0 16px rgba(242, 235, 222, 0.7);
 }
 
 /* Small mono identifier above the terminal */
@@ -249,7 +296,7 @@
   font-style: italic;
   letter-spacing: -0.02em;
   line-height: 1.05;
-  color: rgba(18, 14, 8, 0.92);
+  color: rgba(8, 6, 3, 0.97);
 }
 
 /* EB Garamond note text — Elian's side */
@@ -258,7 +305,7 @@
   font-size: clamp(15px, 1.5vw, 19px);
   font-style: italic;
   line-height: 1.75;
-  color: rgba(18, 14, 8, 0.82);
+  color: rgba(10, 7, 4, 0.94);
   min-height: 4em;
 }
 

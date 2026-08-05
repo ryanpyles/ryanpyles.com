@@ -66,6 +66,8 @@ export default function EcosystemScene() {
       id="ecosystem"
       ariaLabel="The ecosystem"
       heightVh={340}
+      heightVhMobile={300}
+      pinOnMobile
       className={styles.root}
       contentClassName={styles.sticky}
     >

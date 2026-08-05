@@ -21,29 +21,38 @@ const MOBILE_MAX = 768;
  */
 export default function ScrollScene({
   heightVh = 300,
+  heightVhMobile,
   id,
   ariaLabel,
   className,
   contentClassName,
+  pinOnMobile = false,
   children,
 }: {
   heightVh?: number;
+  /** Optional shorter track height (vh) used at mobile widths when pinned. */
+  heightVhMobile?: number;
   id?: string;
   ariaLabel?: string;
   className?: string;
   contentClassName?: string;
+  /** Pin and reveal on mobile too (default: mobile falls back to static). */
+  pinOnMobile?: boolean;
   children: (progress: number, isStatic: boolean) => React.ReactNode;
 }) {
   const ref = useRef<HTMLElement>(null);
   const [progress, setProgress] = useState(0);
   const [staticMode, setStaticMode] = useState(true);
+  const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let raf = 0;
 
     const evaluate = () => {
-      const isStatic = reduced || window.innerWidth <= MOBILE_MAX;
+      const isMobile = window.innerWidth <= MOBILE_MAX;
+      setMobile(isMobile);
+      const isStatic = reduced || (!pinOnMobile && isMobile);
       setStaticMode(isStatic);
       if (isStatic) {
         setProgress(1);
@@ -93,7 +102,9 @@ export default function ScrollScene({
       aria-label={ariaLabel}
       ref={ref}
       className={`${styles.track} ${className ?? ""}`}
-      style={{ height: `${heightVh}vh` }}
+      style={{
+        height: `${mobile && heightVhMobile ? heightVhMobile : heightVh}vh`,
+      }}
     >
       <div className={`${styles.sticky} ${contentClassName ?? ""}`}>
         {children(progress, false)}

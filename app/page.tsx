@@ -7,6 +7,7 @@ import Section from "@/components/Section";
 import CurrentWorkCard from "@/components/CurrentWorkCard";
 import FieldNoteCard from "@/components/FieldNoteCard";
 import EcosystemScene from "@/components/EcosystemScene";
+import WhatIBuild from "@/components/WhatIBuild";
 import RotateHint from "@/components/RotateHint";
 import BooksScene from "@/components/BooksScene";
 import VoigtProject from "@/components/VoigtProject";
@@ -161,9 +162,9 @@ export default function HomePage() {
             <Link
               href="/contact"
               className={styles.heroCta}
-              aria-label="Work with Ryan — get in touch"
+              aria-label="Discuss your project — get in touch"
             >
-              Work with me →
+              Discuss your project →
             </Link>
             <a
               href="https://www.elianvoigt.com"
@@ -184,9 +185,9 @@ export default function HomePage() {
             <Link
               href="/contact"
               className={styles.heroCta}
-              aria-label="Work with Ryan — get in touch"
+              aria-label="Discuss your project — get in touch"
             >
-              Work with me →
+              Discuss your project →
             </Link>
             <a
               href="https://www.elianvoigt.com"
@@ -226,6 +227,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── What I build for clients (commercial legibility) ───── */}
+      <WhatIBuild />
+
       {/* ── Ecosystem — pinned scroll scene: three doors reveal in turn ──── */}
       <EcosystemScene />
 
@@ -237,7 +241,7 @@ export default function HomePage() {
         </p>
         <div className={styles.mobileMidCtaLinks}>
           <Link href="/contact" className={styles.heroCtaWork}>
-            Work with me →
+            Discuss your project →
           </Link>
           <a
             href="https://www.formaetrix.com"

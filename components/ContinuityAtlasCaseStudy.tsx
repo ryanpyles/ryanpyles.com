@@ -353,7 +353,7 @@ export default function ContinuityAtlasCaseStudy({
           ← All Projects
         </Link>
         <Link href="/contact" className={styles.footerCta}>
-          Work with Ryan →
+          Discuss your project →
         </Link>
       </footer>
     </article>

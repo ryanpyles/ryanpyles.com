@@ -7,26 +7,27 @@ import styles from "./BooksScene.module.css";
 
 const books = [
   {
-    slug: "feast-of-the-broadcast-saints",
+    slug: "terms-of-unbeing",
     vol: "I",
-    genre: "Speculative · Literary Fiction",
-    title: "Feast of the Broadcast Saints",
-    tagline: "A system learns to monetize miraculous healing through broadcast viewership.",
-  },
-  {
-    slug: "what-survives-is-proof",
-    vol: "II",
-    genre: "Literary Fiction",
-    title: "What Survives Is Proof",
+    genre: "Literary Horror · Identity",
+    title: "Terms of Unbeing",
     tagline:
-      "A doctor reconstructs her late husband's hidden life as a whistleblower, treating grief as an investigation.",
+      "A lease he doesn't remember signing, in a building where identity is negotiable and every clause hides another beneath it.",
   },
   {
     slug: "declensions-of-dark-water",
-    vol: "III",
+    vol: "II",
     genre: "Folk Horror · Language",
     title: "Declensions of Dark Water",
     tagline: "A grammar in which syntax shapes reality. He converts from observer to custodian.",
+  },
+  {
+    slug: "quiet-metric",
+    vol: "III",
+    genre: "Psychological · Literary Fiction",
+    title: "The Quiet Metric",
+    tagline:
+      "A relationship built on being understood exactly — until attentiveness hardens into management, then something harder to name.",
   },
 ];
 

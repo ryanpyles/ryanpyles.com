@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import CurrentWorkCard from "@/components/CurrentWorkCard";
-import FieldNoteCard from "@/components/FieldNoteCard";
+import FieldNotesScene from "@/components/FieldNotesScene";
 import EcosystemScene from "@/components/EcosystemScene";
 import WhatIBuild from "@/components/WhatIBuild";
 import RotateHint from "@/components/RotateHint";
@@ -15,7 +15,6 @@ import VoigtEssay from "@/components/VoigtEssay";
 import ContinuityAtlasScene from "@/components/ContinuityAtlasScene";
 import Reveal from "@/components/Reveal";
 import { currentWork } from "@/content/currentWork";
-import { fieldNotes } from "@/content/fieldNotes";
 import { buildPersonJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
 
@@ -102,8 +101,6 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const jsonLd = buildPersonJsonLd();
-  // Show only the 2 most recent field notes on the homepage
-  const homepageNotes = fieldNotes.slice(0, 2);
 
   return (
     <SiteLayout>
@@ -260,34 +257,8 @@ export default function HomePage() {
       {/* ── Fiction / Books — pinned shelf scene ───────────────── */}
       <BooksScene />
 
-      {/* ── Living Archive: Field Notes ───────────────────────── */}
-      <Section id="field-notes">
-        <header className={styles.sectionHeader}>
-          <div>
-            <Reveal><span className={styles.sectionKicker}>Notes</span></Reveal>
-            <Reveal delay={80} slow><h2>Field Notes</h2></Reveal>
-            <Reveal delay={200}>
-              <p className={styles.sectionIntro}>
-                Short fragments written close to the moment — observations,
-                structural curiosities, and language notes before they settle
-                into something more considered.
-              </p>
-            </Reveal>
-          </div>
-          <Reveal delay={120}>
-            <Link href="/field-notes" className={styles.sectionLink}>
-              Notes archive →
-            </Link>
-          </Reveal>
-        </header>
-        <div className={styles.fieldNoteGrid}>
-          {homepageNotes.map((note, i) => (
-            <Reveal key={note.slug} delay={160 + i * 140}>
-              <FieldNoteCard note={note} />
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      {/* ── Living Archive: Field Notes — pinned card-pile scene ─ */}
+      <FieldNotesScene />
 
       {/* ── The Voigt Project (deep scroll narrative + documentary essay) ─ */}
       <VoigtProject />

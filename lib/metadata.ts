@@ -121,6 +121,7 @@ export function buildPersonJsonLd(): string {
     url: "https://ryanpyles.com",
     sameAs: [
       "https://github.com/ryanpyles",
+      "https://www.linkedin.com/in/ryanpyles",
       "https://www.formaetrix.com",
       "https://www.elianvoigt.com",
     ],

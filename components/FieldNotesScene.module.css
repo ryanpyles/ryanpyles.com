@@ -1,0 +1,258 @@
+.root {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-black);
+}
+
+.sticky {
+  display: flex;
+}
+
+.scene {
+  width: 100%;
+  height: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-8);
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.wordmarkSmall {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+}
+
+.center {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
+
+.intro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-6);
+  max-width: 820px;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.introHeading {
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 5vw, 60px);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+}
+
+.introSub {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--color-white) 60%, transparent);
+  max-width: 620px;
+}
+
+/* ── Card pile ──────────────────────────────────────────────────────────── */
+.pile {
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--duration-base) var(--ease-out);
+}
+
+.pileItem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(440px, 82%);
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-8) var(--space-7);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--color-white) 5%, var(--color-black));
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.cardTab {
+  position: absolute;
+  top: 0;
+  right: var(--space-6);
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-black);
+  background: var(--color-accent);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--color-white) 40%, transparent);
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 400;
+  line-height: 1.18;
+  color: var(--color-white);
+}
+
+.cardExcerpt {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  font-style: italic;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-white) 62%, transparent);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardLink {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.06em;
+  color: var(--color-white);
+  margin-top: var(--space-2);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.cardLink:hover {
+  color: var(--color-accent);
+}
+
+/* ── Bottom ─────────────────────────────────────────────────────────────── */
+.bottom {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.counter {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: color-mix(in srgb, var(--color-white) 40%, transparent);
+}
+
+.archive {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.06em;
+  color: var(--color-white);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.archive:hover {
+  color: var(--color-accent);
+}
+
+/* ── Static fallback (reduced motion) ───────────────────────────────────── */
+.staticScene {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6);
+}
+
+.staticHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-bottom: var(--space-10);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.wordmark {
+  font-family: var(--font-serif);
+  font-size: clamp(34px, 9vw, 56px);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-white);
+}
+
+.staticList {
+  list-style: none;
+  margin: var(--space-10) 0 var(--space-10);
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.staticCardLink {
+  display: block;
+}
+
+.staticCardLink .card {
+  box-shadow: none;
+  height: 100%;
+}
+
+/* ── Responsive (pinned mobile) ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .scene {
+    padding: var(--space-6) var(--space-5);
+  }
+  .introHeading {
+    font-size: clamp(26px, 7.5vw, 40px);
+  }
+  .introSub {
+    font-size: var(--text-md);
+  }
+  .pileItem {
+    width: min(340px, 88%);
+  }
+  .card {
+    padding: var(--space-6);
+  }
+  .cardExcerpt {
+    -webkit-line-clamp: 3;
+  }
+  .staticList {
+    grid-template-columns: 1fr;
+  }
+}

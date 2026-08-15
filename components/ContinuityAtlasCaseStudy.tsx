@@ -231,7 +231,7 @@ export default function ContinuityAtlasCaseStudy({
 
         {/* ── Interactive prototype ─────────────────────────────────────── */}
         <Reveal>
-          <section className={styles.demoSection}>
+          <section className={styles.demoSection} id="prototype">
             <p className={styles.sectionLabel}>Interactive prototype</p>
             <p className={styles.demoNote}>
               A working prototype built on real manuscript data from{" "}

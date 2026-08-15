@@ -85,17 +85,21 @@ const LanguageOrreryScene = dynamic(
 );
 
 export const metadata: Metadata = {
-  title: "Ryan Pyles — Author, Engineer, Linguist",
+  title: "Ryan Pyles — Software Engineer & AI Systems Architect",
   description:
-    "Ryan Pyles writes experimental fiction as Elian Voigt, runs FORMÆTRIX as a design and systems studio, and studies twelve languages. The personal archive behind all three.",
+    "Ryan Pyles is a software engineer and AI systems architect in Chicago building AI, publishing, and multilingual web systems with React, Next.js, and TypeScript. He runs the FORMÆTRIX studio and writes fiction as Elian Voigt.",
   keywords: [
     "Ryan Pyles",
-    "Elian Voigt",
-    "FORMÆTRIX",
-    "experimental fiction",
     "software engineer Chicago",
-    "literary fiction",
-    "linguist",
+    "AI systems architect",
+    "full-stack developer",
+    "Next.js developer",
+    "React",
+    "TypeScript",
+    "AI narrative tooling",
+    "publishing infrastructure",
+    "FORMÆTRIX",
+    "Elian Voigt",
   ],
 };
 
@@ -163,17 +167,21 @@ export default function HomePage() {
             >
               Discuss your project →
             </Link>
+            <Link
+              href="/projects"
+              className={styles.heroCtaSecondary}
+              aria-label="View engineering work — projects and case studies"
+            >
+              View engineering work →
+            </Link>
             <a
               href="https://www.elianvoigt.com"
-              className={styles.heroCtaSecondary}
+              className={styles.heroCtaTertiary}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Read the fiction — ElianVoigt.com"
             >
-              Read the fiction
-            </a>
-            <a href="#ecosystem" className={styles.heroCtaTertiary}>
-              Explore the archive ↓
+              Read the fiction →
             </a>
           </div>
 
@@ -186,17 +194,21 @@ export default function HomePage() {
             >
               Discuss your project →
             </Link>
+            <Link
+              href="/projects"
+              className={styles.heroCtaWork}
+              aria-label="View engineering work — projects and case studies"
+            >
+              View engineering work →
+            </Link>
             <a
               href="https://www.elianvoigt.com"
-              className={styles.heroCtaWork}
+              className={styles.heroCtaTertiary}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Read the fiction — ElianVoigt.com"
             >
               Read the fiction →
-            </a>
-            <a href="#ecosystem" className={styles.heroCtaTertiary}>
-              Explore the archive ↓
             </a>
           </div>
         </div>

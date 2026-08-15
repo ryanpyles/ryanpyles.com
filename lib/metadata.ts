@@ -116,17 +116,36 @@ export function buildPersonJsonLd(): string {
   return JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Ryan J. Pyles",
+    name: "Ryan Pyles",
+    alternateName: "Ryan J. Pyles",
     url: "https://ryanpyles.com",
-    sameAs: ["https://www.formaetrix.com"],
-    jobTitle: "Author, Software Engineer & Linguist",
+    sameAs: [
+      "https://github.com/ryanpyles",
+      "https://www.formaetrix.com",
+      "https://www.elianvoigt.com",
+    ],
+    jobTitle: "Software Engineer & AI Systems Architect",
+    worksFor: {
+      "@type": "Organization",
+      name: "FORMÆTRIX",
+      url: "https://www.formaetrix.com",
+    },
+    homeLocation: {
+      "@type": "Place",
+      name: "Chicago, Illinois",
+    },
     description:
-      "Ryan J. Pyles is an experimental fiction author, software engineer, and linguist based in Chicago, Illinois.",
+      "Ryan Pyles is a software engineer and AI systems architect in Chicago, building AI, publishing, and multilingual web systems with React, Next.js, and TypeScript. He runs the FORMÆTRIX studio and writes fiction as Elian Voigt.",
     knowsAbout: [
-      "Experimental Fiction",
       "Software Engineering",
+      "AI Systems",
+      "Full-Stack Development",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Publishing Infrastructure",
       "Linguistics",
-      "Systems Thinking",
+      "Experimental Fiction",
     ],
   });
 }

@@ -41,7 +41,7 @@ export default function CaseStudyPage({ params }: Props) {
       <SiteLayout>
         <ContinuityAtlasCaseStudy
           cs={cs}
-          demo={<ProjectDemo type={cs.demo.type} caption={cs.demo.caption} />}
+          demo={<ProjectDemo type={cs.demo.type} />}
         />
       </SiteLayout>
     );
@@ -101,11 +101,13 @@ export default function CaseStudyPage({ params }: Props) {
             </section>
           </Reveal>
 
-          {/* Demo */}
+          {/* Demo — caption is server-rendered so the section is never empty
+              for crawlers (the interactive demo itself is client-only). */}
           <Reveal>
             <section className={styles.demoSection}>
               <p className={styles.sectionLabel}>Demo</p>
-              <ProjectDemo type={cs.demo.type} caption={cs.demo.caption} />
+              <p className={styles.prose}>{cs.demo.caption}</p>
+              <ProjectDemo type={cs.demo.type} />
             </section>
           </Reveal>
 

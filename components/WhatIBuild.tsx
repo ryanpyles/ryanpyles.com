@@ -81,6 +81,9 @@ export default function WhatIBuild() {
             <Link href="/contact" className={styles.ctaPrimary}>
               Discuss your project →
             </Link>
+            <Link href="/projects" className={styles.ctaSecondary}>
+              View engineering work →
+            </Link>
             <a
               href="https://www.formaetrix.com"
               target="_blank"

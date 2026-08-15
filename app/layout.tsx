@@ -1,16 +1,17 @@
 import React from "react";
 import type { Metadata } from "next";
 import { LanguageProvider } from "@/lib/LanguageContext";
+import { buildPersonJsonLd } from "@/lib/metadata";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ryanpyles.com"),
   title: {
-    default: "Ryan J. Pyles — Author & Developer",
-    template: "%s | Ryan J. Pyles",
+    default: "Ryan Pyles — Software Engineer & AI Systems Architect",
+    template: "%s | Ryan Pyles",
   },
   description:
-    "Ryan J. Pyles — author of experimental fiction, web developer, and brand designer based in Chicago. Writing that holds up under scrutiny.",
+    "Ryan Pyles is a software engineer and AI systems architect in Chicago building AI, publishing, and multilingual web systems with React, Next.js, and TypeScript. He runs the FORMÆTRIX studio and writes fiction as Elian Voigt.",
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
@@ -37,6 +38,11 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Sitewide Person entity — one canonical identity graph on every page. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: buildPersonJsonLd() }}
+        />
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>

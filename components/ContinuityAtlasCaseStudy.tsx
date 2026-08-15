@@ -1,7 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import ArticleBody from "@/components/ArticleBody";
 import type { CaseStudy } from "@/content/projectCases";
+import { getProof } from "@/content/projectProof";
+import type { Block } from "@/content/writing/types";
 import styles from "./ContinuityAtlasCaseStudy.module.css";
 
 const designedFor = [
@@ -122,6 +125,30 @@ export default function ContinuityAtlasCaseStudy({
   cs: CaseStudy;
   demo: React.ReactNode;
 }) {
+  const proof = getProof("continuity-atlas");
+  const proofBlocks: Block[] = [];
+  if (proof?.diagram)
+    proofBlocks.push({
+      type: "figure",
+      svg: proof.diagram.svg,
+      caption: proof.diagram.caption,
+      label: proof.diagram.label,
+    });
+  if (proof?.implementation)
+    proofBlocks.push({
+      type: "code",
+      language: proof.implementation.language,
+      code: proof.implementation.code,
+      caption: proof.implementation.caption,
+    });
+  if (proof?.constraint)
+    proofBlocks.push({
+      type: "callout",
+      variant: "failure",
+      title: proof.constraint.title,
+      text: proof.constraint.body,
+    });
+
   return (
     <article className={styles.root}>
       <div className={styles.back}>
@@ -241,6 +268,26 @@ export default function ContinuityAtlasCaseStudy({
           </section>
         </Reveal>
 
+        {/* ── Architecture & evidence ───────────────────────────────────── */}
+        {proof && (
+          <Reveal>
+            <section className={styles.section} id="architecture">
+              <p className={styles.sectionLabel}>Architecture &amp; evidence</p>
+              <ArticleBody blocks={proofBlocks} />
+              {proof.built && proof.built.length > 0 && (
+                <div>
+                  <h3 className={styles.subhead}>What I built</h3>
+                  <ul className={styles.list}>
+                    {proof.built.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </section>
+          </Reveal>
+        )}
+
         {/* ── Interactive prototype ─────────────────────────────────────── */}
         <Reveal>
           <section className={styles.demoSection} id="prototype">
@@ -314,14 +361,17 @@ export default function ContinuityAtlasCaseStudy({
             <p className={styles.sectionLabel}>Outcome</p>
             <div className={styles.prose}>
               <p>
-                Authors spend dramatically less time hunting through previous
-                chapters. Editors review a continuously updated continuity model
-                instead of static notes. Worldbuilding stays internally
-                consistent even across extensive revisions.
+                Instead of searching prose for what a character knows, an author
+                queries it: every fact carries who knows it and when it became
+                true. Editors review a continuously updated continuity model
+                rather than static notes, and author-only facts stay out of AI
+                generation by default.
               </p>
               <p>
-                Revision cycles become substantially faster because continuity
-                verification is automated alongside traditional editing.
+                This is a working prototype on real manuscript data, not a
+                shipped product with usage metrics — so the claim it makes is
+                specific and structural: continuity becomes a validation pass
+                over typed facts, not a manual re-read.
               </p>
             </div>
           </section>

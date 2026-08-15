@@ -3,6 +3,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { CaseStudy } from "@/content/projectCases";
+import { getProof } from "@/content/projectProof";
+import type { Block } from "@/content/writing/types";
+import ArticleBody from "./ArticleBody";
 import styles from "./CaseStudyView.module.css";
 
 interface Props {
@@ -13,16 +16,49 @@ interface Props {
 type Sec = { id: string; label: string };
 
 export default function CaseStudyView({ cs, demo }: Props) {
+  const proof = getProof(cs.slug);
+
+  // Diagram + code + constraint reuse the article renderer for consistency.
+  const proofBlocks = useMemo<Block[]>(() => {
+    if (!proof) return [];
+    const b: Block[] = [];
+    if (proof.diagram)
+      b.push({
+        type: "figure",
+        svg: proof.diagram.svg,
+        caption: proof.diagram.caption,
+        label: proof.diagram.label,
+      });
+    if (proof.implementation)
+      b.push({
+        type: "code",
+        language: proof.implementation.language,
+        code: proof.implementation.code,
+        caption: proof.implementation.caption,
+      });
+    if (proof.constraint)
+      b.push({
+        type: "callout",
+        variant: "insight",
+        title: proof.constraint.title,
+        text: proof.constraint.body,
+      });
+    return b;
+  }, [proof]);
+
   const sections: Sec[] = useMemo(() => {
     const s: Sec[] = [
       { id: "problem", label: "Problem" },
       { id: "approach", label: "Approach" },
+    ];
+    if (proof) s.push({ id: "evidence", label: "Evidence" });
+    s.push(
       { id: "demo", label: "Demo" },
       { id: "technical", label: "Technical" },
-      { id: "outcome", label: "Outcome" },
-    ];
+      { id: "outcome", label: "Outcome" }
+    );
     return s;
-  }, []);
+  }, [proof]);
 
   const articleRef = useRef<HTMLElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -167,6 +203,47 @@ export default function CaseStudyView({ cs, demo }: Props) {
               })}
             </ol>
           </section>
+
+          {/* Evidence — real diagram, code, constraint, and what I built. */}
+          {proof && (
+            <section id="evidence" className={styles.section}>
+              <p className={styles.sectionLabel}>Evidence</p>
+              {proofBlocks.length > 0 && <ArticleBody blocks={proofBlocks} />}
+
+              {proof.built && proof.built.length > 0 && (
+                <div className={styles.built}>
+                  <p className={styles.builtLabel}>What I built</p>
+                  <ul className={styles.builtList}>
+                    {proof.built.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {proof.links && proof.links.length > 0 && (
+                <div className={styles.proofLinks}>
+                  {proof.links.map((l) =>
+                    l.external ? (
+                      <a
+                        key={l.href}
+                        href={l.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.proofLink}
+                      >
+                        {l.label} ↗
+                      </a>
+                    ) : (
+                      <Link key={l.href} href={l.href} className={styles.proofLink}>
+                        {l.label} →
+                      </Link>
+                    )
+                  )}
+                </div>
+              )}
+            </section>
+          )}
 
           {/* Demo — caption server-rendered above the interactive island. */}
           <section id="demo" className={styles.section}>

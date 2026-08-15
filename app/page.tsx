@@ -12,7 +12,6 @@ import VoigtIdentityBand from "@/components/VoigtIdentityBand";
 import ContinuityAtlasScene from "@/components/ContinuityAtlasScene";
 import InProgressScene from "@/components/InProgressScene";
 import Reveal from "@/components/Reveal";
-import { buildPersonJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
 
 const LanguageSwitcher = dynamic(() => import("@/components/LanguageSwitcher"), {
@@ -101,15 +100,8 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const jsonLd = buildPersonJsonLd();
-
   return (
     <SiteLayout>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLd }}
-      />
-
       <SiteProgressObject />
       <RotateHint />
 

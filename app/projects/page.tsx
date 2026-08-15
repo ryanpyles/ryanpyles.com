@@ -1,25 +1,24 @@
 import React from "react";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
-import Section from "@/components/Section";
-import ProjectCard from "@/components/ProjectCard";
-import type { Project } from "@/components/ProjectCard";
-import styles from "./page.module.css";
+import ProjectsShowcase from "@/components/ProjectsShowcase";
+import type { ShowcaseProject } from "@/components/ProjectsShowcase";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Systems — Engineering Work",
   description:
-    "Web development and design projects by Ryan J. Pyles — systems architecture, brand identity, and production-grade web applications.",
+    "Engineering work by Ryan Pyles — systems architecture, AI narrative tooling, publishing infrastructure, and production-grade web applications built with Next.js, React, and TypeScript.",
   keywords: [
-    "web developer portfolio Chicago",
-    "brand and web design services",
-    "Ryan J. Pyles developer",
+    "software engineer portfolio Chicago",
+    "systems architecture",
+    "AI narrative tooling",
+    "Ryan Pyles developer",
     "Next.js projects",
     "TypeScript development",
   ],
 };
 
-const projects: Project[] = [
+const projects: ShowcaseProject[] = [
   {
     slug: "dual-domain-system",
     title: "Dual-Domain Identity System",
@@ -82,7 +81,7 @@ const projects: Project[] = [
     description:
       "Color theory tools that live in 2D can't show how colors relate in perceptual space. An interactive 3D color explorer with harmony modes, mood-based generation, film and brand palettes, and export to CSS, Tailwind, SCSS, or JSON.",
     tags: ["React", "Three.js", "Color Theory", "Design Tools"],
-    href: "https://color-workshop.vercel.app/",
+    live: true,
     year: "2025",
   },
   {
@@ -91,7 +90,7 @@ const projects: Project[] = [
     description:
       "Large international datasets are structurally comparable but rarely presented that way. An interactive dashboard for exploring and contrasting global statistics — responsive charts designed for navigation, not just display.",
     tags: ["React", "Data Visualization", "D3.js", "Dashboard"],
-    href: "https://global-data-visual.vercel.app/",
+    live: true,
     year: "2025",
   },
 ];
@@ -99,20 +98,7 @@ const projects: Project[] = [
 export default function ProjectsPage() {
   return (
     <SiteLayout>
-      <Section>
-        <header className={styles.header}>
-          <h1>Systems</h1>
-          <p className={styles.intro}>
-            Systems built to last. Work that resists entropy.
-          </p>
-        </header>
-
-        <div className={styles.grid}>
-          {projects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-      </Section>
+      <ProjectsShowcase projects={projects} />
     </SiteLayout>
   );
 }

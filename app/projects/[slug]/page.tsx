@@ -1,12 +1,13 @@
 import React from "react";
-import Link from "next/link";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
-import Reveal from "@/components/Reveal";
+import CaseStudyView from "@/components/CaseStudyView";
 import ContinuityAtlasCaseStudy from "@/components/ContinuityAtlasCaseStudy";
+import EmbeddedApp from "@/components/EmbeddedApp";
 import { projectCases, getCaseStudy } from "@/content/projectCases";
+import { embeddedApps, getEmbeddedApp } from "@/content/embeddedApps";
 import styles from "./page.module.css";
 
 const ProjectDemo = dynamic(() => import("@/components/ProjectDemo"), {
@@ -19,10 +20,20 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return projectCases.map((c) => ({ slug: c.slug }));
+  return [
+    ...projectCases.map((c) => ({ slug: c.slug })),
+    ...embeddedApps.map((a) => ({ slug: a.slug })),
+  ];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const app = getEmbeddedApp(params.slug);
+  if (app) {
+    return {
+      title: `${app.title} — Live App`,
+      description: app.tagline,
+    };
+  }
   const cs = getCaseStudy(params.slug);
   if (!cs) return {};
   return {
@@ -32,10 +43,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function CaseStudyPage({ params }: Props) {
+  // Live applications render embedded in-frame instead of redirecting out.
+  const app = getEmbeddedApp(params.slug);
+  if (app) {
+    return (
+      <SiteLayout>
+        <EmbeddedApp app={app} />
+      </SiteLayout>
+    );
+  }
+
   const cs = getCaseStudy(params.slug);
   if (!cs) notFound();
 
-  // The flagship case study gets a bespoke, deeper layout.
+  // The flagship case study keeps its bespoke, deeper layout.
   if (cs.slug === "continuity-atlas") {
     return (
       <SiteLayout>
@@ -49,101 +70,7 @@ export default function CaseStudyPage({ params }: Props) {
 
   return (
     <SiteLayout>
-      <article className={styles.root}>
-        {/* Back */}
-        <div className={styles.back}>
-          <Link href="/projects" className={styles.backLink}>
-            ← All Projects
-          </Link>
-        </div>
-
-        {/* Header */}
-        <Reveal>
-          <header className={styles.header}>
-            <div className={styles.headerMeta}>
-              <span className={styles.year}>{cs.year}</span>
-              <ul className={styles.stack} role="list">
-                {cs.stack.map((tag) => (
-                  <li key={tag} className={styles.stackTag}>{tag}</li>
-                ))}
-              </ul>
-            </div>
-            <h1 className={styles.title}>{cs.title}</h1>
-            <p className={styles.tagline}>{cs.tagline}</p>
-          </header>
-        </Reveal>
-
-        <div className={styles.body}>
-          {/* Problem */}
-          <Reveal delay={60}>
-            <section className={styles.section}>
-              <p className={styles.sectionLabel}>Problem</p>
-              <p className={styles.prose}>{cs.problem}</p>
-            </section>
-          </Reveal>
-
-          {/* Approach */}
-          <Reveal delay={80}>
-            <section className={styles.section}>
-              <p className={styles.sectionLabel}>Approach</p>
-              <p className={styles.prose}>{cs.approach.summary}</p>
-              <ul className={styles.decisions}>
-                {cs.approach.decisions.map((d, i) => {
-                  const [head, ...rest] = d.split(":");
-                  return (
-                    <li key={i} className={styles.decision}>
-                      <span className={styles.decisionHead}>{head}:</span>
-                      {rest.join(":")}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-          </Reveal>
-
-          {/* Demo — caption is server-rendered so the section is never empty
-              for crawlers (the interactive demo itself is client-only). */}
-          <Reveal>
-            <section className={styles.demoSection}>
-              <p className={styles.sectionLabel}>Demo</p>
-              <p className={styles.prose}>{cs.demo.caption}</p>
-              <ProjectDemo type={cs.demo.type} />
-            </section>
-          </Reveal>
-
-          {/* Technical */}
-          <Reveal delay={60}>
-            <section className={styles.section}>
-              <p className={styles.sectionLabel}>Technical Detail</p>
-              <p className={styles.prose}>{cs.technical}</p>
-            </section>
-          </Reveal>
-
-          {/* Outcome */}
-          <Reveal delay={80}>
-            <section className={styles.section}>
-              <p className={styles.sectionLabel}>Outcome</p>
-              <p className={styles.prose}>{cs.outcome}</p>
-              {cs.metrics && (
-                <ul className={styles.metrics}>
-                  {cs.metrics.map((m, i) => (
-                    <li key={i} className={styles.metric}>{m}</li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          </Reveal>
-        </div>
-
-        {/* Footer nav */}
-        <Reveal>
-          <footer className={styles.footer}>
-            <Link href="/projects" className={styles.footerLink}>
-              ← All Projects
-            </Link>
-          </footer>
-        </Reveal>
-      </article>
+      <CaseStudyView cs={cs} demo={<ProjectDemo type={cs.demo.type} />} />
     </SiteLayout>
   );
 }

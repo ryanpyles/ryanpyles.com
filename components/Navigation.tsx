@@ -8,6 +8,7 @@ import styles from "./Navigation.module.css";
 const navLinks = [
   { href: "/books", label: "Fiction" },
   { href: "/projects", label: "Systems" },
+  { href: "/writing", label: "Writing" },
   { href: "/field-notes", label: "Notes" },
   { href: "/archive", label: "Research" },
   { href: "/about", label: "About" },

@@ -3,8 +3,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
-import Section from "@/components/Section";
-import CurrentWorkCard from "@/components/CurrentWorkCard";
 import FieldNotesScene from "@/components/FieldNotesScene";
 import EcosystemScene from "@/components/EcosystemScene";
 import WhatIBuild from "@/components/WhatIBuild";
@@ -13,8 +11,8 @@ import BooksScene from "@/components/BooksScene";
 import VoigtProject from "@/components/VoigtProject";
 import VoigtEssay from "@/components/VoigtEssay";
 import ContinuityAtlasScene from "@/components/ContinuityAtlasScene";
+import InProgressScene from "@/components/InProgressScene";
 import Reveal from "@/components/Reveal";
-import { currentWork } from "@/content/currentWork";
 import { buildPersonJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
 
@@ -280,28 +278,8 @@ export default function HomePage() {
       <div id="orrery" aria-hidden="true" />
       <LanguageOrreryScene />
 
-      {/* ── In Progress (condensed Research Log) ──────────────── */}
-      <Section id="in-progress">
-        <header className={[styles.sectionHeader, styles.sectionHeaderQuiet].join(" ")}>
-          <div>
-            <Reveal><span className={styles.sectionKicker}>Research</span></Reveal>
-            <Reveal delay={80} slow><h2>In Progress</h2></Reveal>
-            <Reveal delay={200}><p className={styles.sectionIntro}>Longer-form work before it closes — language studies, narrative systems, ongoing manuscripts.</p></Reveal>
-          </div>
-          <Reveal delay={120}>
-            <Link href="/archive" className={styles.sectionLink}>
-              Research archive →
-            </Link>
-          </Reveal>
-        </header>
-        <div className={styles.currentWorkList}>
-          {currentWork.map((item, i) => (
-            <Reveal key={item.slug} delay={i * 100}>
-              <CurrentWorkCard item={item} />
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      {/* ── In Progress — pinned research-ledger scene ──────────── */}
+      <InProgressScene />
 
       {/* ── Contact CTA ────────────────────────────────────────── */}
       <section className={styles.contactCta} id="contact" aria-label="Get in touch">

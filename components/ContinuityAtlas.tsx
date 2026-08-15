@@ -457,7 +457,7 @@ function Landing({ go }: { go: (s: string) => void }) {
         style={{ font: `500 12px/1 ${mono}`, letterSpacing: ".22em", color: C.oxide, textTransform: "uppercase" as const, marginBottom: 22 }}>
         Story memory that behaves like a living manuscript
       </motion.p>
-      <h1 style={{ font: `400 clamp(38px,6vw,72px)/1.02 ${serif}`, margin: 0, maxWidth: 880, letterSpacing: "-.01em" }}>
+      <h1 style={{ font: `400 clamp(38px,6vw,72px)/1.02 ${serif}`, color: C.bone, margin: 0, maxWidth: 880, letterSpacing: "-.01em" }}>
         See how a book <em style={{ color: C.oxide, fontStyle: "italic" }}>changes</em> before you ask the AI to touch it.
       </h1>
       <p style={{ maxWidth: 600, marginTop: 26, font: `400 17px/1.6 ${sans}`, color: "rgba(245,240,232,.78)" }}>
@@ -854,7 +854,7 @@ function ScreenHead({ kicker, title, sub }: { kicker: string; title: string; sub
   return (
     <div style={{ maxWidth: 760 }}>
       <div style={{ font: `500 11px/1 ${mono}`, letterSpacing: ".18em", color: C.oxide, textTransform: "uppercase" as const, marginBottom: 14 }}>{kicker}</div>
-      <h2 style={{ font: `400 clamp(26px,3.6vw,40px)/1.08 ${serif}`, margin: 0, letterSpacing: "-.01em" }}>{title}</h2>
+      <h2 style={{ font: `400 clamp(26px,3.6vw,40px)/1.08 ${serif}`, color: C.bone, margin: 0, letterSpacing: "-.01em" }}>{title}</h2>
       {sub && <p style={{ marginTop: 14, font: `400 15px/1.6 ${sans}`, color: "rgba(245,240,232,.72)" }}>{sub}</p>}
     </div>
   );

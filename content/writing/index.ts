@@ -280,6 +280,209 @@ export const articles: Article[] = [
   },
 ];
 
+/* ── Entity-graph diagram for the split-identity article ────────────── */
+const entityGraphSvg = `
+<svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg" font-family="'IBM Plex Mono', monospace">
+  <defs>
+    <marker id="eg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor" opacity="0.5"/>
+    </marker>
+  </defs>
+
+  <!-- sameAs edges from the canonical Person -->
+  <g stroke="currentColor" fill="none" stroke-width="1.3" opacity="0.5">
+    <line x1="430" y1="150" x2="180" y2="70"  marker-end="url(#eg-arrow)"/>
+    <line x1="430" y1="150" x2="180" y2="300" marker-end="url(#eg-arrow)"/>
+    <line x1="430" y1="150" x2="690" y2="70"  marker-end="url(#eg-arrow)"/>
+    <line x1="430" y1="150" x2="690" y2="300" marker-end="url(#eg-arrow)"/>
+  </g>
+
+  <!-- edge labels -->
+  <g fill="currentColor" font-size="10" opacity="0.6" text-anchor="middle">
+    <text x="292" y="100">sameAs</text>
+    <text x="292" y="235">sameAs</text>
+    <text x="576" y="100">worksFor</text>
+    <text x="576" y="235">sameAs</text>
+  </g>
+
+  <!-- central Person -->
+  <rect x="322" y="128" width="216" height="66" rx="8" fill="#e0742f" fill-opacity="0.10" stroke="#c15f22" stroke-width="1.6"/>
+  <text x="430" y="150" text-anchor="middle" font-size="10" fill="#c15f22" letter-spacing="1.5">schema.org/Person · CANONICAL</text>
+  <text x="430" y="170" text-anchor="middle" font-size="15" fill="currentColor">Ryan Pyles</text>
+  <text x="430" y="185" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.65">alternateName: “Ryan J. Pyles”</text>
+
+  <!-- satellites -->
+  <g font-size="12" fill="currentColor">
+    <rect x="60" y="44" width="150" height="52" rx="6" fill="currentColor" fill-opacity="0.03" stroke="currentColor" stroke-width="1.5"/>
+    <text x="135" y="68" text-anchor="middle">GitHub</text>
+    <text x="135" y="84" text-anchor="middle" font-size="10" opacity="0.65">/ryanpyles</text>
+
+    <rect x="60" y="278" width="150" height="52" rx="6" fill="currentColor" fill-opacity="0.03" stroke="currentColor" stroke-width="1.5"/>
+    <text x="135" y="302" text-anchor="middle">LinkedIn</text>
+    <text x="135" y="318" text-anchor="middle" font-size="10" opacity="0.65">/in/ryanpyles</text>
+
+    <rect x="650" y="44" width="160" height="52" rx="6" fill="#b07a3d" fill-opacity="0.06" stroke="#b07a3d" stroke-width="1.6"/>
+    <text x="730" y="66" text-anchor="middle" fill="#b07a3d" font-size="10" letter-spacing="1">Organization</text>
+    <text x="730" y="84" text-anchor="middle">FORMÆTRIX</text>
+
+    <rect x="650" y="278" width="160" height="52" rx="6" fill="currentColor" fill-opacity="0.03" stroke="currentColor" stroke-width="1.5"/>
+    <text x="730" y="300" text-anchor="middle">Elian Voigt</text>
+    <text x="730" y="316" text-anchor="middle" font-size="10" opacity="0.65">pen name · fiction</text>
+  </g>
+</svg>`;
+
+const personJsonLdCode = `// One canonical Person entity, declared once, that claims its own
+// satellites. The alternateName resolves the two spellings of the name;
+// sameAs is what tells a search engine these profiles are ONE identity.
+
+export function buildPersonJsonLd(): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Ryan Pyles",
+    alternateName: "Ryan J. Pyles",
+    url: "https://ryanpyles.com",       // the canonical home
+    sameAs: [
+      "https://github.com/ryanpyles",
+      "https://www.linkedin.com/in/ryanpyles",
+      "https://www.formaetrix.com",     // the studio
+      "https://www.elianvoigt.com",     // the pen name
+    ],
+    jobTitle: "Software Engineer & AI Systems Architect",
+    worksFor: { "@type": "Organization", name: "FORMÆTRIX" },
+    knowsAbout: ["AI Systems", "Next.js", "Publishing Infrastructure",
+                 "Linguistics", "Experimental Fiction"],
+  });
+}`;
+
+const canonicalCode = `// Every page declares exactly one canonical URL. No page is reachable
+// at two addresses that both claim to be the original.
+
+alternates: { canonical: \`https://ryanpyles.com\${path}\` }
+
+// And at the host level, one 301 collapses the www duplicate:
+// next.config — www.ryanpyles.com/:path -> ryanpyles.com/:path (permanent)`;
+
+articles.push({
+  slug: "split-digital-identity",
+  title: "One Person, Two Names, Three Domains: Engineering a Split Digital Identity",
+  subtitle:
+    "A pen name, a studio, and a personal archive are not a branding problem — they are an entity-graph problem. Here is how I keep search engines from turning three identities into one muddy blur.",
+  byline: "Ryan Pyles",
+  date: "2026-08-15",
+  category: "Identity & SEO",
+  excerpt:
+    "I publish fiction as Elian Voigt, run the FORMÆTRIX studio, and keep a personal engineering archive at ryanpyles.com. To a search engine that is three overlapping entities waiting to be confused. This is the structured-data and canonical architecture that keeps them distinct — and connected.",
+  keywords: [
+    "pen name SEO",
+    "multiple brand website architecture",
+    "author identity SEO",
+    "Schema.org alternateName",
+    "sameAs schema",
+    "Ryan Pyles",
+  ],
+  targetSearches: [
+    "pen name SEO",
+    "multiple brand website architecture",
+    "author identity SEO",
+    "Schema.org alternateName",
+  ],
+  relatedProject: {
+    href: "/projects/book-seo-system",
+    label: "Book SEO Architecture — the nested-schema system",
+  },
+  status: "published",
+  blocks: [
+    {
+      type: "paragraph",
+      text: "I answer to more than one name on purpose. I write experimental fiction as **Elian Voigt**. I build software and run a studio called **FORMÆTRIX**. And I keep a personal engineering archive under my own name at ryanpyles.com. Three surfaces, one human. To a search engine, that is not a tidy story — it is three overlapping entities that will happily be merged, split, or confused unless you tell the machine, explicitly, how they relate.",
+    },
+    {
+      type: "paragraph",
+      text: "There is a second wrinkle. Search for “Ryan Pyles software engineer” and you will find _another_ engineer with the same name. Identity on the web is not resolved by how often you repeat your biography. It is resolved by structured, machine-readable claims. This is the architecture I use to make those claims — and the trap I engineered against.",
+    },
+
+    { type: "heading", level: 2, text: "Identity is an entity graph, not a bio" },
+    {
+      type: "paragraph",
+      text: "The instinct with multiple brands is to write one good biography and paste it on every domain. That is precisely the move that creates a muddy entity graph. Duplicated prose gives a search engine no signal about _boundaries_ — where one identity ends and another begins — so it does the reasonable thing and blurs them together, or picks the wrong one as canonical.",
+    },
+    {
+      type: "paragraph",
+      text: "The fix is to stop thinking in pages and start thinking in nodes and edges. There is one **canonical Person** node. It lives at exactly one URL. It _claims_ its satellites — the studio, the pen name, the code profiles — with explicit typed edges. Everything else points home.",
+    },
+    {
+      type: "figure",
+      label: "Entity graph",
+      caption:
+        "The canonical Person at ryanpyles.com declares its own satellites via `sameAs` and `worksFor`. The pen name and the studio are separate nodes, connected — not duplicated.",
+      svg: entityGraphSvg,
+    },
+
+    { type: "heading", level: 2, text: "alternateName and sameAs do the real work" },
+    {
+      type: "paragraph",
+      text: "Two `schema.org/Person` properties carry most of the weight. `alternateName` resolves the fact that “Ryan Pyles” and “Ryan J. Pyles” are the same person — a small thing that quietly prevents the two spellings from fragmenting into two entities. `sameAs` is the load-bearing one: it is an explicit assertion that a list of URLs all refer to _this_ identity. It is how you connect the studio and the pen name to the person without collapsing them into it.",
+    },
+    {
+      type: "code",
+      language: "typescript",
+      caption:
+        "The actual `buildPersonJsonLd()` from the site. `knowsAbout` is deliberate: it is disambiguation fuel against the other Ryan Pyles.",
+      code: personJsonLdCode,
+    },
+    {
+      type: "paragraph",
+      text: "`knowsAbout` and `jobTitle` are not decoration. When another person shares your name, generic identity signals are a coin flip. Specific, typed expertise — _AI Systems, Next.js, Publishing Infrastructure, Linguistics_ — is what lets a search engine attach the right facts to the right Ryan. Technical specificity beats biographical volume every time.",
+    },
+
+    { type: "heading", level: 2, text: "One canonical URL per thing that exists" },
+    {
+      type: "paragraph",
+      text: "Structured data tells engines how entities relate. Canonicalization tells them which address is the original. Every page on the site declares exactly one canonical URL, and the host layer collapses the obvious duplicate — `www` — with a single permanent redirect. The rule is boring and absolute: nothing important is reachable at two addresses that both claim to be the source.",
+    },
+    {
+      type: "code",
+      language: "typescript",
+      caption:
+        "Per-page canonical declaration, plus the host-level www → apex 301 that lives in next.config.",
+      code: canonicalCode,
+    },
+    {
+      type: "paragraph",
+      text: "The same discipline extends to the book pages, where the JSON-LD nests a `Book` inside an author `Person` and a `publisher` — so a novel is associated with a named author entity rather than a bare string. That nesting is what lets the fiction reinforce the person’s graph instead of floating free of it.",
+    },
+
+    { type: "heading", level: 2, text: "Where authorship boundaries actually matter" },
+    {
+      type: "paragraph",
+      text: "The point of separating the identities is not secrecy — it is _clarity_. Elian Voigt is the byline on the fiction; Ryan Pyles is the byline on the engineering. The technical writing you are reading is signed Ryan Pyles, consistently, because a stable byline is itself an entity signal. The pen name gets its own canonical home and its own graph; ryanpyles.com merely declares the connection. Cross-linking is one-directional discipline: each home claims the others, so the edges are asserted from a place that has the authority to assert them.",
+    },
+    {
+      type: "callout",
+      variant: "failure",
+      title: "The trap — a muddy entity graph",
+      text: "The naive version of this — copy one biography onto ryanpyles.com, formaetrix.com, and elianvoigt.com — actively harms you. Identical prose across three domains reads to a crawler as duplicate content with no entity boundaries, which invites exactly the merge you are trying to prevent: the studio absorbed into the person, the pen name collapsed into the real name, or worse, your graph fused with the _other_ Ryan Pyles. The countermeasure is structural, not editorial: distinct descriptions per surface, one canonical home per entity, and explicit `sameAs` edges instead of repeated paragraphs. Say it once, in a machine-readable way, from the place that owns the claim.",
+    },
+
+    { type: "heading", level: 2, text: "The short version" },
+    {
+      type: "list",
+      items: [
+        "Model identities as **nodes and edges**, not as repeated biographies.",
+        "Use `alternateName` to fuse spellings of one name; use `sameAs` to _connect_ distinct identities without merging them.",
+        "Give each entity **one canonical home** and collapse duplicate hosts with a 301.",
+        "Lean on `knowsAbout` / `jobTitle` for disambiguation when you share a name with someone else.",
+        "Keep a **consistent byline** per surface — the byline is an entity signal.",
+      ],
+    },
+    {
+      type: "paragraph",
+      text: "The publishing side of this — one typed content model generating pages, Open Graph, and nested JSON-LD automatically — is its own build: [Book SEO Architecture](/projects/book-seo-system).",
+    },
+  ],
+});
+
 export function getArticle(slug: string): Article | undefined {
   return articles.find((a) => a.slug === slug);
 }

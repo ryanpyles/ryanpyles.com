@@ -5,7 +5,9 @@ import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import type * as THREE from "three";
 import NotebookPanel from "./NotebookPanel";
+import WebGLBoundary from "./WebGLBoundary";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
+import { useWebGLAvailable } from "@/lib/useWebGLAvailable";
 import {
   manuscriptFragments,
   type ManuscriptFragment,
@@ -116,6 +118,7 @@ function Scene({ reducedMotion, onSelect }: SceneProps) {
 export default function LivingManuscript() {
   const [selected, setSelected] = useState<ManuscriptFragment | null>(null);
   const reducedMotion = usePrefersReducedMotion();
+  const webgl = useWebGLAvailable();
 
   const handleSelect = useCallback((fragment: ManuscriptFragment) => {
     setSelected(fragment);
@@ -132,16 +135,20 @@ export default function LivingManuscript() {
   return (
     <>
       <div className={styles.root} aria-hidden="true">
-        <Canvas
-          className={styles.canvas}
-          camera={{ position: [0, 0, 4], fov: 42 }}
-          dpr={[1, 1.5]}
-          gl={{ antialias: true, alpha: true }}
-        >
-          <Suspense fallback={null}>
-            <Scene reducedMotion={reducedMotion} onSelect={handleSelect} />
-          </Suspense>
-        </Canvas>
+        {webgl === true && (
+          <WebGLBoundary fallback={null}>
+            <Canvas
+              className={styles.canvas}
+              camera={{ position: [0, 0, 4], fov: 42 }}
+              dpr={[1, 1.5]}
+              gl={{ antialias: true, alpha: true }}
+            >
+              <Suspense fallback={null}>
+                <Scene reducedMotion={reducedMotion} onSelect={handleSelect} />
+              </Suspense>
+            </Canvas>
+          </WebGLBoundary>
+        )}
       </div>
 
       <NotebookPanel

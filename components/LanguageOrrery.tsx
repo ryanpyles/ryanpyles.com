@@ -5,7 +5,9 @@ import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
 import { Html, Line, Stars, Text } from "@react-three/drei";
 import * as THREE from "three";
 import NotebookPanel from "./NotebookPanel";
+import WebGLBoundary from "./WebGLBoundary";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
+import { useWebGLAvailable } from "@/lib/useWebGLAvailable";
 import { languages, type LanguageProfile, type LanguageRing } from "@/content/languages";
 import styles from "./LanguageOrrery.module.css";
 
@@ -271,8 +273,18 @@ export default function LanguageOrrery({
   const [selected, setSelected] = useState<LanguageProfile | null>(null);
   const [selectedPosition, setSelectedPosition] = useState<THREE.Vector3 | null>(null);
   const reducedMotion = usePrefersReducedMotion();
+  const webgl = useWebGLAvailable();
   // Reduced-motion users default to list view; others can toggle at will.
   const [listMode, setListMode] = useState(false);
+  // WebGL context failure (creation or later loss) → fall back to the list.
+  const [glFailed, setGlFailed] = useState(false);
+  // Lazy-mount the Canvas only once the section nears the viewport.
+  const [near, setNear] = useState(false);
+  const rootRef = useRef<HTMLElement>(null);
+
+  const canUse3D = webgl === true && !glFailed;
+  // The list is the single source of truth whenever 3D can't or shouldn't run.
+  const showList = listMode || webgl === false || glFailed;
 
   const handleSelect = useCallback((language: LanguageProfile, position: THREE.Vector3) => {
     setSelected(language);
@@ -290,6 +302,24 @@ export default function LanguageOrrery({
     if (reducedMotion) setListMode(true);
   }, [reducedMotion]);
 
+  // Only spin up WebGL once the orrery is close to the viewport.
+  useEffect(() => {
+    if (near) return;
+    const el = rootRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setNear(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "200px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [near]);
+
   useEffect(() => {
     return () => {
       document.body.style.cursor = "auto";
@@ -297,25 +327,40 @@ export default function LanguageOrrery({
   }, []);
 
   return (
-    <section className={styles.root} aria-label="Language Orrery — the languages I study, charted as orbits">
-      <div className={styles.canvasWrap} aria-hidden="true" data-hidden={listMode || undefined}>
-        <Canvas
-          className={styles.canvas}
-          camera={{ position: [REST_CAMERA.x, REST_CAMERA.y, REST_CAMERA.z], fov: 46 }}
-          dpr={[1, 1.5]}
-          gl={{ antialias: true }}
-        >
-          <Suspense fallback={null}>
-            <Scene
-              reducedMotion={reducedMotion}
-              selected={selected}
-              selectedPosition={selectedPosition}
-              onHover={setHovered}
-              onSelect={handleSelect}
-              scrollZoomRef={scrollZoomRef}
-            />
-          </Suspense>
-        </Canvas>
+    <section ref={rootRef} className={styles.root} aria-label="Language Orrery — the languages I study, charted as orbits">
+      <div className={styles.canvasWrap} aria-hidden="true" data-hidden={showList || undefined}>
+        {canUse3D && near && !listMode && (
+          <WebGLBoundary fallback={null} onError={() => setGlFailed(true)}>
+            <Canvas
+              className={styles.canvas}
+              camera={{ position: [REST_CAMERA.x, REST_CAMERA.y, REST_CAMERA.z], fov: 46 }}
+              dpr={[1, 1.5]}
+              gl={{ antialias: true }}
+              onCreated={({ gl }) => {
+                // Context loss (driver reset, tab backgrounding) → list fallback.
+                gl.domElement.addEventListener(
+                  "webglcontextlost",
+                  (e) => {
+                    e.preventDefault();
+                    setGlFailed(true);
+                  },
+                  { once: true }
+                );
+              }}
+            >
+              <Suspense fallback={null}>
+                <Scene
+                  reducedMotion={reducedMotion}
+                  selected={selected}
+                  selectedPosition={selectedPosition}
+                  onHover={setHovered}
+                  onSelect={handleSelect}
+                  scrollZoomRef={scrollZoomRef}
+                />
+              </Suspense>
+            </Canvas>
+          </WebGLBoundary>
+        )}
       </div>
 
       {!hideCaption && (
@@ -326,24 +371,26 @@ export default function LanguageOrrery({
             center, curiosity further out. Hover a node for its bearings; click one to
             open its notebook.
           </p>
-          {hovered && !listMode && (
+          {hovered && !showList && (
             <p className={styles.captionHint}>
               <span className={styles.captionHintName}>{hovered.name}</span> — {hovered.level}
             </p>
           )}
-          <button
-            type="button"
-            className={styles.viewToggle}
-            onClick={() => setListMode((m) => !m)}
-            aria-pressed={listMode}
-            title={listMode ? "Switch to orrery view" : "Switch to list view"}
-          >
-            {listMode ? "⊙ Orrery view" : "≡ List view"}
-          </button>
+          {canUse3D && (
+            <button
+              type="button"
+              className={styles.viewToggle}
+              onClick={() => setListMode((m) => !m)}
+              aria-pressed={listMode}
+              title={listMode ? "Switch to orrery view" : "Switch to list view"}
+            >
+              {listMode ? "⊙ Orrery view" : "≡ List view"}
+            </button>
+          )}
         </div>
       )}
 
-      <div className={styles.fallback} data-visible={listMode || undefined}>
+      <div className={styles.fallback} data-visible={showList || undefined}>
         <p className={styles.fallbackEyebrow}>Languages, by orbit</p>
         <dl className={styles.fallbackList}>
           {languages.map((language) => (

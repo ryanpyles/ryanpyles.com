@@ -158,6 +158,18 @@ export default function ContinuityAtlasCaseStudy({
         </p>
       </Reveal>
 
+      {/* ── Jump straight to the working prototype ──────────────────────── */}
+      <Reveal delay={100}>
+        <div className={styles.protoActions}>
+          <a href="#prototype" className={styles.protoCta}>
+            Launch the interactive prototype ↓
+          </a>
+          <Link href="/writing/ai-story-memory-engine" className={styles.protoSecondary}>
+            Read the architecture write-up →
+          </Link>
+        </div>
+      </Reveal>
+
       <div className={styles.body}>
         {/* ── Problem ───────────────────────────────────────────────────── */}
         <Reveal>

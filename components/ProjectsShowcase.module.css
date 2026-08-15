@@ -1,0 +1,362 @@
+.root {
+  --row-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-8) var(--space-24);
+}
+
+@media (max-width: 768px) {
+  .root {
+    padding: 0 var(--space-6) var(--space-16);
+  }
+}
+
+@media (max-width: 480px) {
+  .root {
+    padding: 0 var(--space-4) var(--space-12);
+  }
+}
+
+/* ── Masthead ──────────────────────────────────────────────────── */
+.masthead {
+  position: relative;
+  min-height: min(78vh, 720px);
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(6rem, 16vh, 12rem) 0 clamp(3rem, 8vh, 6rem);
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.marginalia {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.margin {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 24%, transparent);
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* Big ghost count, upper-right, drifts subtly with the masthead. */
+.ghostCount {
+  position: absolute;
+  top: clamp(2rem, 8vh, 5rem);
+  right: -0.06em;
+  font-family: var(--font-serif);
+  font-size: clamp(9rem, 30vw, 22rem);
+  line-height: 0.8;
+  font-weight: 400;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-white) 10%, transparent);
+  transform: translateX(var(--mast-shift, 0));
+  z-index: 0;
+  user-select: none;
+}
+
+.mastInner {
+  position: relative;
+  z-index: 1;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-6);
+}
+
+.mastTitle {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(4.5rem, 15vw, 12rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  margin: 0;
+}
+
+.dot {
+  color: var(--color-accent);
+}
+
+.intro {
+  margin-top: var(--space-6);
+  max-width: 38ch;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(var(--text-lg), 2.4vw, var(--text-2xl));
+  line-height: var(--leading-snug);
+  color: color-mix(in srgb, var(--color-white) 62%, transparent);
+}
+
+.scrollCue {
+  display: inline-block;
+  margin-top: var(--space-10);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  animation: cueFloat 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes cueFloat {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50% { transform: translateY(4px); opacity: 1; }
+}
+
+/* ── Index rows ────────────────────────────────────────────────── */
+.index {
+  position: relative;
+}
+
+.row {
+  border-bottom: 1px solid var(--color-border);
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity 0.7s var(--row-ease),
+    transform 0.9s var(--row-ease);
+  transition-delay: calc(var(--i, 0) * 20ms);
+}
+
+.row.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rowLink {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(72px, 9vw, 128px) 1fr auto;
+  gap: clamp(1.25rem, 4vw, 3rem);
+  align-items: start;
+  padding: clamp(2.25rem, 5.5vw, 4rem) var(--space-4);
+  color: inherit;
+  isolation: isolate;
+}
+
+/* Hover wash grows from the left edge. */
+.rowLink::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-white) 5%, transparent),
+    transparent 65%
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--row-ease);
+}
+
+.rowLink:hover::before,
+.rowLink:focus-visible::before {
+  transform: scaleX(1);
+}
+
+/* Parallax index numeral. */
+.rowNum {
+  font-family: var(--font-mono);
+  font-size: clamp(var(--text-sm), 1.3vw, var(--text-lg));
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--color-white) 32%, transparent);
+  padding-top: 0.5em;
+  transform: translateY(calc(var(--p, 0) * -28px));
+  transition: color var(--duration-base) var(--ease-out);
+  will-change: transform;
+}
+
+.rowLink:hover .rowNum,
+.rowLink:focus-visible .rowNum {
+  color: var(--brass);
+}
+
+.rowMain {
+  min-width: 0;
+}
+
+.rowHead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.rowTitle {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 4.4vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  margin: 0;
+  transform: translateX(0);
+  transition: transform 0.5s var(--row-ease);
+}
+
+/* Title lags the row reveal slightly for a layered feel. */
+.row .rowTitle {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s var(--row-ease) 0.12s,
+    transform 0.7s var(--row-ease) 0.12s;
+}
+.row.in .rowTitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rowLink:hover .rowTitle,
+.rowLink:focus-visible .rowTitle {
+  transform: translateX(10px);
+}
+
+.live {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 45%, transparent);
+  padding: 0.15em 0.6em;
+  border-radius: var(--radius-sm);
+}
+
+.rowDesc {
+  margin-top: var(--space-4);
+  max-width: 62ch;
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: color-mix(in srgb, var(--color-white) 58%, transparent);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+.rowLink:hover .tag,
+.rowLink:focus-visible .tag {
+  border-color: color-mix(in srgb, var(--color-white) 22%, transparent);
+  color: color-mix(in srgb, var(--color-white) 70%, transparent);
+}
+
+.rowMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-4);
+  padding-top: 0.5em;
+  /* Counter-drift against the numeral for depth. */
+  transform: translateY(calc(var(--p, 0) * 14px));
+  will-change: transform;
+}
+
+.year {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+.arrow {
+  font-size: var(--text-xl);
+  color: color-mix(in srgb, var(--color-white) 34%, transparent);
+  transition: color var(--duration-fast) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.rowLink:hover .arrow,
+.rowLink:focus-visible .arrow {
+  color: var(--color-white);
+  transform: translateX(6px);
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .masthead {
+    min-height: auto;
+    padding: clamp(4rem, 12vh, 7rem) 0 var(--space-12);
+  }
+
+  /* Marginalia gets noisy on small screens — keep only a whisper. */
+  .marginalia {
+    display: none;
+  }
+
+  .rowLink {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding: var(--space-10) var(--space-1);
+  }
+
+  .rowNum {
+    padding-top: 0;
+    transform: none;
+    font-size: var(--text-xs);
+  }
+
+  .rowMeta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    transform: none;
+    margin-top: var(--space-2);
+  }
+
+  /* Motion off — respect small-screen scroll performance. */
+  .rowTitle,
+  .rowLink:hover .rowTitle {
+    transform: none;
+  }
+  .row .rowTitle {
+    transition:
+      opacity 0.6s var(--row-ease) 0.08s,
+      transform 0.6s var(--row-ease) 0.08s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row,
+  .row .rowTitle {
+    transition: opacity 0.4s ease;
+    transform: none;
+  }
+  .rowNum,
+  .rowMeta {
+    transform: none !important;
+  }
+  .scrollCue {
+    animation: none;
+  }
+}

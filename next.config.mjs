@@ -11,6 +11,12 @@ const nextConfig = {
         destination: "https://ryanpyles.com/:path*",
         permanent: true,
       },
+      {
+        // Indexed professional-intent URL — keep it alive, point at the bio.
+        source: "/resume",
+        destination: "/about",
+        permanent: true,
+      },
     ];
   },
   async headers() {

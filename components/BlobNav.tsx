@@ -11,6 +11,8 @@ import { Environment } from "@react-three/drei";
 import { useRouter } from "next/navigation";
 import * as THREE from "three";
 import type { Domain } from "@/lib/domain";
+import WebGLBoundary from "./WebGLBoundary";
+import { useWebGLAvailable } from "@/lib/useWebGLAvailable";
 import styles from "./BlobNav.module.css";
 
 interface NavNode {
@@ -174,6 +176,7 @@ interface BlobNavProps {
 
 export default function BlobNav({ domain, onNodeClick }: BlobNavProps) {
   const router = useRouter();
+  const webgl = useWebGLAvailable();
   const mouseRef = useRef({ x: 0, y: 0 });
   const [hoveredLabel, setHoveredLabel] = useState<string | null>(null);
   const [labelPos, setLabelPos] = useState({ x: 0, y: 0 });
@@ -200,28 +203,33 @@ export default function BlobNav({ domain, onNodeClick }: BlobNavProps) {
     [router, onNodeClick]
   );
 
+  // No GPU (or not yet probed) → the accessible nav list, never a crash.
+  if (webgl !== true) return <BlobNavFallback domain={domain} />;
+
   return (
     <div
       className={[styles.root, domain === "formaetrix" ? styles.formaetrix : styles.ryan].join(" ")}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setHoveredLabel(null)}
     >
-      <Canvas
-        className={styles.canvas}
-        camera={{ position: [0, 0, 3.2], fov: 50 }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
-      >
-        <Suspense fallback={null}>
-          <Scene
-            domain={domain}
-            nodes={nodes}
-            mouseRef={mouseRef}
-            onSelect={handleSelect}
-            onHoverLabel={setHoveredLabel}
-          />
-        </Suspense>
-      </Canvas>
+      <WebGLBoundary fallback={<BlobNavFallback domain={domain} />}>
+        <Canvas
+          className={styles.canvas}
+          camera={{ position: [0, 0, 3.2], fov: 50 }}
+          dpr={[1, 2]}
+          gl={{ antialias: true, alpha: true }}
+        >
+          <Suspense fallback={null}>
+            <Scene
+              domain={domain}
+              nodes={nodes}
+              mouseRef={mouseRef}
+              onSelect={handleSelect}
+              onHoverLabel={setHoveredLabel}
+            />
+          </Suspense>
+        </Canvas>
+      </WebGLBoundary>
 
       {hoveredLabel && (
         <div

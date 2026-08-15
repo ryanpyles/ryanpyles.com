@@ -3,7 +3,9 @@
 import React, { useRef, useMemo, useEffect, useState, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import WebGLBoundary from "./WebGLBoundary";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
+import { useWebGLAvailable } from "@/lib/useWebGLAvailable";
 import styles from "./SiteProgressObject.module.css";
 
 const PAPER = "#f5f1ea";
@@ -83,7 +85,7 @@ const SECTIONS: { id: string; label: string; shape: Vec3[]; dark: boolean }[] = 
   { id: "continuity-atlas", label: "Continuity Atlas", shape: SHAPES.network, dark: false },
   { id: "books", label: "Fiction", shape: SHAPES.shelf, dark: false },
   { id: "field-notes", label: "Field Notes", shape: SHAPES.scatter, dark: false },
-  { id: "voigt", label: "The Voigt Project", shape: SHAPES.duality, dark: true },
+  { id: "voigt", label: "The Voigt Project", shape: SHAPES.duality, dark: false },
   { id: "orrery", label: "Language Orrery", shape: SHAPES.sphere, dark: true },
   { id: "in-progress", label: "In Progress", shape: SHAPES.lattice, dark: false },
   { id: "contact", label: "Contact", shape: SHAPES.converge, dark: false },
@@ -244,6 +246,7 @@ function segmentPath(i: number, count: number): string {
 
 export default function SiteProgressObject() {
   const reducedMotion = usePrefersReducedMotion();
+  const webgl = useWebGLAvailable();
   const scrollRef = useRef<ScrollState>({ f: 0, progress: 0, dark: 0 });
   const rootRef = useRef<HTMLDivElement>(null);
   const lastIdx = useRef(-1);
@@ -377,15 +380,19 @@ export default function SiteProgressObject() {
           })}
         </svg>
         <div className={styles.canvasWrap}>
-          <Canvas
-            camera={{ position: [0, 0, 4], fov: 40 }}
-            dpr={[1, 1.5]}
-            gl={{ antialias: true, alpha: true }}
-          >
-            <Suspense fallback={null}>
-              <Constellation scrollRef={scrollRef} reducedMotion={reducedMotion} />
-            </Suspense>
-          </Canvas>
+          {webgl === true && (
+            <WebGLBoundary fallback={null}>
+              <Canvas
+                camera={{ position: [0, 0, 4], fov: 40 }}
+                dpr={[1, 1.5]}
+                gl={{ antialias: true, alpha: true }}
+              >
+                <Suspense fallback={null}>
+                  <Constellation scrollRef={scrollRef} reducedMotion={reducedMotion} />
+                </Suspense>
+              </Canvas>
+            </WebGLBoundary>
+          )}
         </div>
       </div>
       <div className={styles.label}>

@@ -8,8 +8,7 @@ import EcosystemScene from "@/components/EcosystemScene";
 import WhatIBuild from "@/components/WhatIBuild";
 import RotateHint from "@/components/RotateHint";
 import BooksScene from "@/components/BooksScene";
-import VoigtProject from "@/components/VoigtProject";
-import VoigtEssay from "@/components/VoigtEssay";
+import VoigtIdentityBand from "@/components/VoigtIdentityBand";
 import ContinuityAtlasScene from "@/components/ContinuityAtlasScene";
 import InProgressScene from "@/components/InProgressScene";
 import Reveal from "@/components/Reveal";
@@ -183,32 +182,6 @@ export default function HomePage() {
             </a>
           </div>
 
-          {/* Mobile-only CTAs — primary: work with Ryan directly */}
-          <div className={`${styles.heroCtasMobile} ${styles.heroEnter} ${styles.heroEnter5}`}>
-            <Link
-              href="/contact"
-              className={styles.heroCta}
-              aria-label="Discuss your project — get in touch"
-            >
-              Discuss your project →
-            </Link>
-            <Link
-              href="/projects"
-              className={styles.heroCtaWork}
-              aria-label="View engineering work — projects and case studies"
-            >
-              View engineering work →
-            </Link>
-            <a
-              href="https://www.elianvoigt.com"
-              className={styles.heroCtaTertiary}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Read the fiction — ElianVoigt.com"
-            >
-              Read the fiction →
-            </a>
-          </div>
         </div>
 
         <div className={styles.langWrap}>
@@ -270,9 +243,8 @@ export default function HomePage() {
       {/* ── Living Archive: Field Notes — pinned card-pile scene ─ */}
       <FieldNotesScene />
 
-      {/* ── The Voigt Project (deep scroll narrative + documentary essay) ─ */}
-      <VoigtProject />
-      <VoigtEssay />
+      {/* ── The Voigt Project — short identity module (full case study at /voigt-project) ─ */}
+      <VoigtIdentityBand />
 
       {/* ── Language Orrery — pinned zoom-and-annotate scene ──── */}
       <div id="orrery" aria-hidden="true" />

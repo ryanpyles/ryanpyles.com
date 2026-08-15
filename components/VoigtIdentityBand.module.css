@@ -1,0 +1,128 @@
+.band {
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: clamp(4rem, 10vh, 7rem) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.thesis {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  margin: 0;
+}
+
+/* Couplet — the whole argument in two columns. */
+.couplet {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  margin: var(--space-4) 0;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.name {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.verb {
+  font-family: var(--font-mono);
+  font-size: clamp(1.4rem, 3vw, 2.1rem);
+  color: var(--color-white);
+  letter-spacing: 0.01em;
+}
+
+.verbSerif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  letter-spacing: 0;
+}
+
+.divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--color-border);
+}
+
+.aside {
+  max-width: 60ch;
+  font-family: var(--font-serif);
+  font-size: clamp(var(--text-md), 1.6vw, var(--text-lg));
+  line-height: var(--leading-relaxed);
+  color: color-mix(in srgb, var(--color-white) 62%, transparent);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-6);
+  margin-top: var(--space-2);
+}
+
+.primary {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid color-mix(in srgb, var(--color-white) 30%, transparent);
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.primary:hover {
+  background: color-mix(in srgb, var(--color-white) 8%, transparent);
+  border-color: var(--color-white);
+}
+
+.secondary {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.secondary:hover {
+  color: var(--color-white);
+}
+
+@media (max-width: 768px) {
+  .inner {
+    padding: clamp(3rem, 8vh, 5rem) var(--space-6);
+  }
+  .links {
+    gap: var(--space-4);
+  }
+}

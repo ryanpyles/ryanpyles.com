@@ -426,7 +426,7 @@ interface CaseStudy {
 }
 
 /* ---------- Dispatcher ---------- */
-export default function ProjectDemo({ type, caption }: { type: DemoType; caption: string }) {
+export default function ProjectDemo({ type, caption }: { type: DemoType; caption?: string }) {
   return (
     <div className={styles.root}>
       {type === "domain-toggle" && <DomainToggleDemo />}
@@ -436,7 +436,7 @@ export default function ProjectDemo({ type, caption }: { type: DemoType; caption
       {type === "tokens" && <TokensDemo />}
       {type === "schema" && <SchemaDemo />}
       {type === "continuity-atlas" && <ContinuityAtlasDemo />}
-      <p className={styles.caption}>{caption}</p>
+      {caption && <p className={styles.caption}>{caption}</p>}
     </div>
   );
 }

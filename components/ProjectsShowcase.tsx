@@ -10,6 +10,8 @@ export interface ShowcaseProject {
   description: string;
   tags: string[];
   href?: string;
+  /** Live, runnable app — linked internally and embedded in-frame. */
+  live?: boolean;
   year: string;
 }
 
@@ -151,7 +153,11 @@ export default function ProjectsShowcase({
               <div className={styles.rowMain}>
                 <div className={styles.rowHead}>
                   <h2 className={styles.rowTitle}>{p.title}</h2>
-                  {external && <span className={styles.live}>Live ↗</span>}
+                  {(p.live || external) && (
+                    <span className={styles.live}>
+                      Live{external ? " ↗" : ""}
+                    </span>
+                  )}
                 </div>
                 <p className={styles.rowDesc}>{p.description}</p>
                 <ul className={styles.tags} role="list">

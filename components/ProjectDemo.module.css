@@ -178,14 +178,23 @@
 }
 
 .langSample_vertical {
-  min-height: 220px;
-  align-items: flex-start;
+  min-height: 280px;
+  align-items: center;       /* center the vertical column block */
+  overflow-x: auto;          /* wide specimens scroll inside the demo box */
 }
 
+/* Vertical Japanese: reads top-to-bottom, columns right-to-left. Generous
+   line-height keeps the columns from colliding, and the block is bounded so
+   it never spills past the demo surface. */
 .langText_vertical {
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  height: 9em;
+  block-size: 200px;         /* column length (the reading measure) */
+  max-block-size: 200px;
+  line-height: 2.15;         /* horizontal gap between columns */
+  letter-spacing: 0.06em;    /* vertical gap between glyphs */
+  max-inline-size: 100%;
+  margin: 0;
 }
 
 .langMeta {

@@ -112,6 +112,79 @@ export function buildBookJsonLd(book: Book): string {
   return JSON.stringify(schema);
 }
 
+const PERSON_REF = {
+  "@type": "Person",
+  name: "Ryan Pyles",
+  url: "https://ryanpyles.com",
+} as const;
+
+/** CreativeWork markup for a project case study (a documented software system). */
+export function buildCaseStudyJsonLd(cs: {
+  title: string;
+  tagline: string;
+  slug: string;
+  year: string;
+  stack: string[];
+}): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: cs.title,
+    headline: cs.title,
+    description: cs.tagline,
+    url: `https://ryanpyles.com/projects/${cs.slug}`,
+    dateCreated: cs.year,
+    inLanguage: "en",
+    author: PERSON_REF,
+    creator: PERSON_REF,
+    keywords: cs.stack.join(", "),
+    about: cs.stack,
+  });
+}
+
+/** SoftwareApplication markup — for pages that are genuinely runnable apps. */
+export function buildSoftwareAppJsonLd(app: {
+  name: string;
+  description: string;
+  url: string;
+  category?: string;
+}): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: app.name,
+    description: app.description,
+    url: app.url,
+    applicationCategory: app.category ?? "DeveloperApplication",
+    operatingSystem: "Web",
+    author: PERSON_REF,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  });
+}
+
+/** CollectionPage + ItemList for the /projects archive. */
+export function buildProjectCollectionJsonLd(
+  items: { slug: string; title: string }[]
+): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Systems — Engineering Work by Ryan Pyles",
+    url: "https://ryanpyles.com/projects",
+    isPartOf: { "@type": "WebSite", url: "https://ryanpyles.com" },
+    about: PERSON_REF,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: items.map((it, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: it.title,
+        url: `https://ryanpyles.com/projects/${it.slug}`,
+      })),
+    },
+  });
+}
+
 export function buildPersonJsonLd(): string {
   return JSON.stringify({
     "@context": "https://schema.org",

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import ProjectsShowcase from "@/components/ProjectsShowcase";
 import type { ShowcaseProject } from "@/components/ProjectsShowcase";
+import { buildProjectCollectionJsonLd } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Systems — Engineering Work",
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     "Next.js projects",
     "TypeScript development",
   ],
+  alternates: { canonical: "https://ryanpyles.com/projects" },
 };
 
 const projects: ShowcaseProject[] = [
@@ -98,6 +100,14 @@ const projects: ShowcaseProject[] = [
 export default function ProjectsPage() {
   return (
     <SiteLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: buildProjectCollectionJsonLd(
+            projects.map((p) => ({ slug: p.slug, title: p.title }))
+          ),
+        }}
+      />
       <ProjectsShowcase projects={projects} />
     </SiteLayout>
   );

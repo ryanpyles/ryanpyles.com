@@ -279,6 +279,58 @@
   margin-top: var(--space-2);
 }
 
+/* Evidence extras — what I built + links. */
+.built {
+  margin-top: var(--space-4);
+}
+
+.builtLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin: 0 0 var(--space-3);
+}
+
+.builtList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.builtList li {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  color: color-mix(in srgb, var(--color-white) 76%, transparent);
+  padding-left: var(--space-5);
+  border-left: 2px solid color-mix(in srgb, var(--brass) 45%, transparent);
+}
+
+.proofLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+}
+
+.proofLink {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.proofLink:hover {
+  color: var(--color-white);
+}
+
 /* Metrics — stat band. */
 .metrics {
   display: grid;

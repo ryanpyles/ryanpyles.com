@@ -8,7 +8,17 @@ import ContinuityAtlasCaseStudy from "@/components/ContinuityAtlasCaseStudy";
 import EmbeddedApp from "@/components/EmbeddedApp";
 import { projectCases, getCaseStudy } from "@/content/projectCases";
 import { embeddedApps, getEmbeddedApp } from "@/content/embeddedApps";
+import {
+  buildCaseStudyJsonLd,
+  buildSoftwareAppJsonLd,
+} from "@/lib/metadata";
 import styles from "./page.module.css";
+
+function JsonLd({ data }: { data: string }) {
+  return (
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: data }} />
+  );
+}
 
 const ProjectDemo = dynamic(() => import("@/components/ProjectDemo"), {
   ssr: false,
@@ -32,6 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: `${app.title} — Live App`,
       description: app.tagline,
+      alternates: { canonical: `https://ryanpyles.com/projects/${app.slug}` },
     };
   }
   const cs = getCaseStudy(params.slug);
@@ -39,6 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${cs.title} — Case Study`,
     description: cs.tagline,
+    alternates: { canonical: `https://ryanpyles.com/projects/${cs.slug}` },
   };
 }
 
@@ -48,6 +60,14 @@ export default function CaseStudyPage({ params }: Props) {
   if (app) {
     return (
       <SiteLayout>
+        <JsonLd
+          data={buildSoftwareAppJsonLd({
+            name: app.title,
+            description: app.tagline,
+            url: `https://ryanpyles.com/projects/${app.slug}`,
+            category: "DesignApplication",
+          })}
+        />
         <EmbeddedApp app={app} />
       </SiteLayout>
     );
@@ -60,6 +80,14 @@ export default function CaseStudyPage({ params }: Props) {
   if (cs.slug === "continuity-atlas") {
     return (
       <SiteLayout>
+        <JsonLd
+          data={buildSoftwareAppJsonLd({
+            name: cs.title,
+            description: cs.tagline,
+            url: `https://ryanpyles.com/projects/${cs.slug}`,
+            category: "DeveloperApplication",
+          })}
+        />
         <ContinuityAtlasCaseStudy
           cs={cs}
           demo={<ProjectDemo type={cs.demo.type} />}
@@ -70,6 +98,7 @@ export default function CaseStudyPage({ params }: Props) {
 
   return (
     <SiteLayout>
+      <JsonLd data={buildCaseStudyJsonLd(cs)} />
       <CaseStudyView cs={cs} demo={<ProjectDemo type={cs.demo.type} />} />
     </SiteLayout>
   );

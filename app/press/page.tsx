@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import { Ae } from "@/components/Ae";
+import Portrait, { PortraitPair } from "@/components/Portrait";
 import { buildPageMetadata } from "@/lib/metadata";
 import styles from "./page.module.css";
 
@@ -60,6 +61,56 @@ export default function PressPage() {
               structure — the way grammar constrains and enables thought, and the
               way those constraints travel between natural language and code. He
               is based in Chicago.
+            </p>
+          </section>
+
+          <section className={styles.section}>
+            <h2 className={styles.sectionLabel}>Press Photos</h2>
+            <p className={styles.photoNote}>
+              Cleared for editorial use with credit. Right-click to save, or use
+              the download links beneath each plate.
+            </p>
+
+            <PortraitPair>
+              <div className={styles.photo}>
+                <Portrait
+                  src="/images/portraits/ryan-pyles-studio.jpg"
+                  alt="Ryan J. Pyles seated at a drafting table spread with floor plans, in a concrete-and-timber studio lined with books."
+                  index="01 · vertical"
+                  caption="Studio portrait — Chicago."
+                  aspect="3 / 4"
+                  sizes="(max-width: 760px) 100vw, 340px"
+                />
+                <a
+                  className={styles.download}
+                  href="/images/portraits/ryan-pyles-studio.jpg"
+                  download="ryan-pyles-studio.jpg"
+                >
+                  Download — JPG, 2000&nbsp;px ↓
+                </a>
+              </div>
+
+              <div className={styles.photo}>
+                <Portrait
+                  src="/images/portraits/ryan-pyles-figure.jpg"
+                  alt="A vinyl figure of Ryan Pyles on a desk, standing in front of a monitor showing the same character as an untextured 3D model, with anatomy reference sheets pinned to the wall behind."
+                  index="02 · vertical"
+                  caption="Figure study — modelling desk."
+                  aspect="3 / 4"
+                  sizes="(max-width: 760px) 100vw, 340px"
+                />
+                <a
+                  className={styles.download}
+                  href="/images/portraits/ryan-pyles-figure.jpg"
+                  download="ryan-pyles-figure.jpg"
+                >
+                  Download — JPG, 2000&nbsp;px ↓
+                </a>
+              </div>
+            </PortraitPair>
+
+            <p className={styles.credit}>
+              Credit line: <span>Courtesy of Ryan J. Pyles / FORM<Ae />TRIX.</span>
             </p>
           </section>
 

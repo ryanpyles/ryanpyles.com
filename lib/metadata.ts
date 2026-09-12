@@ -119,6 +119,7 @@ export function buildPersonJsonLd(): string {
     name: "Ryan Pyles",
     alternateName: "Ryan J. Pyles",
     url: "https://ryanpyles.com",
+    image: "https://ryanpyles.com/images/portraits/ryan-pyles-studio.jpg",
     sameAs: [
       "https://github.com/ryanpyles",
       "https://www.linkedin.com/in/ryanpyles",

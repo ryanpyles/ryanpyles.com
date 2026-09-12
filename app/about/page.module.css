@@ -164,3 +164,23 @@
 .pressLink:hover {
   color: color-mix(in srgb, var(--color-white) 70%, transparent);
 }
+
+/* ── Portraits ────────────────────────────────────────────────────────── */
+.leadPortrait {
+  margin-bottom: var(--space-10);
+}
+
+/* Inset plate inside the reading column — narrower, aligned to the margin. */
+.inlinePortrait {
+  align-self: flex-end;
+  width: 100%;
+  max-width: 22rem;
+  margin: var(--space-4) 0;
+}
+
+@media (max-width: 760px) {
+  .inlinePortrait {
+    align-self: stretch;
+    max-width: none;
+  }
+}

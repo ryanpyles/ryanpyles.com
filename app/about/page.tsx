@@ -5,6 +5,7 @@ import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import { buildPageMetadata } from "@/lib/metadata";
 import { Ae } from "@/components/Ae";
+import Portrait from "@/components/Portrait";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -49,6 +50,17 @@ export default function AboutPage() {
           <h1>About</h1>
         </header>
 
+        <Portrait
+          src="/images/portraits/ryan-pyles-studio.jpg"
+          alt="Ryan J. Pyles seated at a drafting table spread with floor plans, in a concrete-and-timber studio lined with books."
+          index="fig. 01"
+          caption="Chicago studio — drafting table, reference library, work in plan."
+          aspect="4 / 3"
+          sizes="(max-width: 760px) 100vw, 720px"
+          priority
+          className={styles.leadPortrait}
+        />
+
         <div className={styles.body}>
           <p>
             Ryan J. Pyles writes experimental fiction and builds web systems. The
@@ -71,6 +83,16 @@ export default function AboutPage() {
             built on the conviction that good design is the absence of everything
             that isn't load-bearing.
           </p>
+
+          <Portrait
+            src="/images/portraits/ryan-pyles-figure.jpg"
+            alt="A vinyl figure of Ryan Pyles on a desk, standing in front of a monitor showing the same character as an untextured 3D model, with anatomy reference sheets pinned to the wall behind."
+            index="fig. 02"
+            caption="Figure study — reference sheets, mesh, packaged object. The same pipeline, run end to end."
+            aspect="2 / 3"
+            sizes="(max-width: 760px) 100vw, 480px"
+            className={styles.inlinePortrait}
+          />
 
           <p>
             He studies twelve languages and is interested in the way grammar

@@ -6,7 +6,11 @@ import SiteLayout from "@/components/SiteLayout";
 import CaseStudyView from "@/components/CaseStudyView";
 import ContinuityAtlasCaseStudy from "@/components/ContinuityAtlasCaseStudy";
 import EmbeddedApp from "@/components/EmbeddedApp";
-import { projectCases, getCaseStudy } from "@/content/projectCases";
+import {
+  projectCases,
+  getCaseStudy,
+  getAdjacentCases,
+} from "@/content/projectCases";
 import { embeddedApps, getEmbeddedApp } from "@/content/embeddedApps";
 import styles from "./page.module.css";
 
@@ -68,9 +72,16 @@ export default function CaseStudyPage({ params }: Props) {
     );
   }
 
+  const { prev, next } = getAdjacentCases(cs.slug);
+
   return (
     <SiteLayout>
-      <CaseStudyView cs={cs} demo={<ProjectDemo type={cs.demo.type} />} />
+      <CaseStudyView
+        cs={cs}
+        demo={<ProjectDemo type={cs.demo.type} />}
+        prev={prev && { slug: prev.slug, title: prev.title }}
+        next={next && { slug: next.slug, title: next.title }}
+      />
     </SiteLayout>
   );
 }

@@ -6,6 +6,7 @@ import Section from "@/components/Section";
 import { buildPageMetadata } from "@/lib/metadata";
 import { Ae } from "@/components/Ae";
 import Portrait from "@/components/Portrait";
+import MotionPlate from "@/components/MotionPlate";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -84,13 +85,13 @@ export default function AboutPage() {
             that isn't load-bearing.
           </p>
 
-          <Portrait
-            src="/images/portraits/ryan-pyles-figure.jpg"
-            alt="A vinyl figure of Ryan Pyles on a desk, standing in front of a monitor showing the same character as an untextured 3D model, with anatomy reference sheets pinned to the wall behind."
+          <MotionPlate
+            src="/assets/videos/ryanpyles-figure-study.mp4"
+            poster="/assets/videos/ryanpyles-figure-study-poster.jpg"
+            label="A short film: a vinyl figure of Ryan Pyles on a desk in front of a monitor showing the same character as an untextured 3D model, which resolves into an annotated spec sheet of the disciplines the work runs across."
             index="fig. 02"
             caption="Figure study — reference sheets, mesh, packaged object. The same pipeline, run end to end."
             aspect="2 / 3"
-            sizes="(max-width: 760px) 100vw, 480px"
             className={styles.inlinePortrait}
           />
 

@@ -51,14 +51,13 @@ export default function AboutPage() {
           <h1>About</h1>
         </header>
 
-        <Portrait
-          src="/images/portraits/ryan-pyles-studio.jpg"
-          alt="Ryan J. Pyles seated at a drafting table spread with floor plans, in a concrete-and-timber studio lined with books."
+        <MotionPlate
+          src="/assets/videos/ryan-pyles-generalist.mp4"
+          poster="/assets/videos/ryan-pyles-generalist-poster.jpg"
+          label="A short film: Ryan Pyles stands in a dark studio under a single overhead light as scanning rings resolve around him and annotations name the disciplines the work runs across — language, software engineering, design, linguistics. It closes on the line: built across disciplines."
           index="fig. 01"
-          caption="Chicago studio — drafting table, reference library, work in plan."
-          aspect="4 / 3"
-          sizes="(max-width: 760px) 100vw, 720px"
-          priority
+          caption="Case Study 001 — The Generalist. Built across disciplines; still in development."
+          aspect="1504 / 832"
           className={styles.leadPortrait}
         />
 
@@ -68,6 +67,16 @@ export default function AboutPage() {
             work — across both disciplines — starts from the same premise: what
             is the minimum necessary to make something hold?
           </p>
+
+          <Portrait
+            src="/images/portraits/ryan-pyles-studio.jpg"
+            alt="Ryan J. Pyles seated at a drafting table spread with floor plans, in a concrete-and-timber studio lined with books."
+            index="fig. 02"
+            caption="Chicago studio — drafting table, reference library, work in plan."
+            aspect="4 / 3"
+            sizes="(max-width: 760px) 100vw, 720px"
+            className={styles.bodyPlate}
+          />
 
           <p>
             His novels operate through formal constraint. Each book proposes a
@@ -85,13 +94,13 @@ export default function AboutPage() {
             that isn't load-bearing.
           </p>
 
-          <MotionPlate
-            src="/assets/videos/ryanpyles-figure-study.mp4"
-            poster="/assets/videos/ryanpyles-figure-study-poster.jpg"
-            label="A short film: a vinyl figure of Ryan Pyles on a desk in front of a monitor showing the same character as an untextured 3D model, which resolves into an annotated spec sheet of the disciplines the work runs across."
-            index="fig. 02"
+          <Portrait
+            src="/images/portraits/ryan-pyles-figure.jpg"
+            alt="A vinyl figure of Ryan Pyles on a desk, standing in front of a monitor showing the same character as an untextured 3D model, with anatomy reference sheets pinned to the wall behind."
+            index="fig. 03"
             caption="Figure study — reference sheets, mesh, packaged object. The same pipeline, run end to end."
             aspect="2 / 3"
+            sizes="(max-width: 760px) 100vw, 480px"
             className={styles.inlinePortrait}
           />
 

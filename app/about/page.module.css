@@ -166,12 +166,21 @@
 }
 
 /* ── Portraits ────────────────────────────────────────────────────────── */
-.leadPortrait {
+/* Plate components reset `margin: 0` on their own root at equal specificity,
+   so these selectors are doubled to win. Without that the declarations below
+   are silently dropped and the plates butt straight against the prose. */
+.leadPortrait.leadPortrait {
   margin-bottom: var(--space-10);
 }
 
+/* Full-width plate inside the reading column — given room on both sides
+   rather than riding the paragraph gap alone. */
+.bodyPlate.bodyPlate {
+  margin: var(--space-6) 0;
+}
+
 /* Inset plate inside the reading column — narrower, aligned to the margin. */
-.inlinePortrait {
+.inlinePortrait.inlinePortrait {
   align-self: flex-end;
   width: 100%;
   max-width: 22rem;
@@ -179,7 +188,7 @@
 }
 
 @media (max-width: 760px) {
-  .inlinePortrait {
+  .inlinePortrait.inlinePortrait {
     align-self: stretch;
     max-width: none;
   }

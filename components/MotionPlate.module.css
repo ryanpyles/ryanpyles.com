@@ -1,0 +1,131 @@
+/* Wears the same plate chrome as Portrait.module.css so a still and a moving
+   frame can sit on the same page without looking like two different systems. */
+
+.plate {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: color-mix(in srgb, var(--color-white) 4%, transparent);
+  border: 1px solid var(--color-border);
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Matches the Portrait plate: sits back, resolves on hover. */
+  filter: saturate(0.82) brightness(0.94);
+  transform: scale(1.005);
+  transition:
+    filter var(--duration-slow, 600ms) var(--ease-out),
+    transform var(--duration-slow, 600ms) var(--ease-out);
+}
+
+.plate:hover .video,
+.plate:focus-within .video {
+  filter: saturate(1) brightness(1);
+  transform: scale(1.03);
+}
+
+/* Hairline accent tick in the lower-left of the frame. */
+.corner {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-accent);
+  transition: width var(--duration-slow, 600ms) var(--ease-out);
+  pointer-events: none;
+}
+
+.plate:hover .corner,
+.plate:focus-within .corner {
+  width: 28%;
+}
+
+/* ── Control ──────────────────────────────────────────────────────────── */
+.control {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  appearance: none;
+  cursor: pointer;
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  /* Fixed against the widest label so the button doesn't resize as it
+     changes between Play / Sound / Mute. */
+  min-width: 5.5rem;
+  text-align: center;
+  /* The control sits on the footage, not on the page, so it does NOT use the
+     semantic black/white tokens — those invert under [data-domain="ryan"] and
+     would put dark text on a pale scrim over a photographic frame. */
+  color: #f5f5f5;
+  background-color: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(245, 245, 245, 0.28);
+  transition:
+    background-color var(--duration-fast, 200ms) var(--ease-out),
+    border-color var(--duration-fast, 200ms) var(--ease-out);
+}
+
+.control:hover {
+  background-color: rgba(10, 10, 10, 0.78);
+  border-color: var(--color-accent);
+}
+
+.control:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Caption ──────────────────────────────────────────────────────────── */
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-top: var(--space-1);
+}
+
+.index {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 32%, transparent);
+}
+
+.captionText {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--color-white) 42%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video,
+  .corner,
+  .control {
+    transition: none;
+  }
+
+  .plate:hover .video,
+  .plate:focus-within .video {
+    transform: scale(1.005);
+  }
+}

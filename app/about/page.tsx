@@ -54,10 +54,11 @@ export default function AboutPage() {
         <MotionPlate
           src="/assets/videos/ryan-pyles-generalist.mp4"
           poster="/assets/videos/ryan-pyles-generalist-poster.jpg"
-          label="A short film: Ryan Pyles stands in a dark studio under a single overhead light as scanning rings resolve around him and annotations name the disciplines the work runs across — language, software engineering, design, linguistics. It closes on the line: built across disciplines."
+          label="A short silent loop: Ryan Pyles stands on a lit disc in a dark studio under a single overhead beam, as scanning rings rotate slowly around him. A lockup to the left reads: Ryan Pyles, Multidisciplinary Human System, built across disciplines."
           index="fig. 01"
-          caption="Case Study 001 — The Generalist. Built across disciplines; still in development."
-          aspect="1504 / 832"
+          caption="Multidisciplinary Human System — built across disciplines."
+          aspect="16 / 9"
+          silent
           className={styles.leadPortrait}
         />
 

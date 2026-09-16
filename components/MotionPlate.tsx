@@ -14,6 +14,11 @@ export interface MotionPlateProps {
   caption?: string;
   /** CSS aspect-ratio for the frame. Defaults to 2 / 3. */
   aspect?: string;
+  /**
+   * The source carries no audio track. Suppresses the sound control, which
+   * would otherwise offer to unmute silence.
+   */
+  silent?: boolean;
   className?: string;
 }
 
@@ -33,6 +38,7 @@ export default function MotionPlate({
   index,
   caption,
   aspect = "2 / 3",
+  silent = false,
   className,
 }: MotionPlateProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -83,6 +89,20 @@ export default function MotionPlate({
     const el = ensureSrc();
     if (!el) return;
 
+    // Nothing to unmute — the control is a plain play/pause instead.
+    if (silent) {
+      if (playing) {
+        el.pause();
+        setPlaying(false);
+      } else {
+        el.play().then(
+          () => setPlaying(true),
+          () => setPlaying(false)
+        );
+      }
+      return;
+    }
+
     if (sound) {
       // Back to silent wallpaper.
       el.muted = true;
@@ -100,7 +120,15 @@ export default function MotionPlate({
     );
   };
 
-  const controlLabel = !playing ? "Play" : sound ? "Mute" : "Sound";
+  const controlLabel = silent
+    ? playing
+      ? "Pause"
+      : "Play"
+    : !playing
+    ? "Play"
+    : sound
+    ? "Mute"
+    : "Sound";
 
   return (
     <figure className={[styles.plate, className ?? ""].join(" ")}>
@@ -112,13 +140,14 @@ export default function MotionPlate({
           aria-label={label}
           muted
           /* Looping is wallpaper behaviour; once it has sound it plays once. */
-          loop={!sound}
+          loop={silent || !sound}
           playsInline
           preload="none"
           onEnded={() => {
-            // Sound run finished — fall back to the silent loop.
+            // Sound run finished — fall back to the silent loop. A silent
+            // plate loops and never fires this.
             const el = videoRef.current;
-            if (!el) return;
+            if (!el || silent) return;
             el.muted = true;
             setSound(false);
             el.play().then(

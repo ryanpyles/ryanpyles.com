@@ -6,6 +6,7 @@ import Section from "@/components/Section";
 import { buildPageMetadata } from "@/lib/metadata";
 import { Ae } from "@/components/Ae";
 import Portrait from "@/components/Portrait";
+import MotionPlate from "@/components/MotionPlate";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -50,14 +51,14 @@ export default function AboutPage() {
           <h1>About</h1>
         </header>
 
-        <Portrait
-          src="/images/portraits/ryan-pyles-studio.jpg"
-          alt="Ryan J. Pyles seated at a drafting table spread with floor plans, in a concrete-and-timber studio lined with books."
+        <MotionPlate
+          src="/assets/videos/ryan-pyles-generalist.mp4"
+          poster="/assets/videos/ryan-pyles-generalist-poster.jpg"
+          label="A short silent loop: Ryan Pyles stands on a lit disc in a dark studio under a single overhead beam, as scanning rings rotate slowly around him. A lockup to the left reads: Ryan Pyles, Multidisciplinary Human System, built across disciplines."
           index="fig. 01"
-          caption="Chicago studio — drafting table, reference library, work in plan."
-          aspect="4 / 3"
-          sizes="(max-width: 760px) 100vw, 720px"
-          priority
+          caption="Multidisciplinary Human System — built across disciplines."
+          aspect="16 / 9"
+          silent
           className={styles.leadPortrait}
         />
 
@@ -67,6 +68,16 @@ export default function AboutPage() {
             work — across both disciplines — starts from the same premise: what
             is the minimum necessary to make something hold?
           </p>
+
+          <Portrait
+            src="/images/portraits/ryan-pyles-studio.jpg"
+            alt="Ryan J. Pyles seated at a drafting table spread with floor plans, in a concrete-and-timber studio lined with books."
+            index="fig. 02"
+            caption="Chicago studio — drafting table, reference library, work in plan."
+            aspect="4 / 3"
+            sizes="(max-width: 760px) 100vw, 720px"
+            className={styles.bodyPlate}
+          />
 
           <p>
             His novels operate through formal constraint. Each book proposes a
@@ -87,7 +98,7 @@ export default function AboutPage() {
           <Portrait
             src="/images/portraits/ryan-pyles-figure.jpg"
             alt="A vinyl figure of Ryan Pyles on a desk, standing in front of a monitor showing the same character as an untextured 3D model, with anatomy reference sheets pinned to the wall behind."
-            index="fig. 02"
+            index="fig. 03"
             caption="Figure study — reference sheets, mesh, packaged object. The same pipeline, run end to end."
             aspect="2 / 3"
             sizes="(max-width: 760px) 100vw, 480px"

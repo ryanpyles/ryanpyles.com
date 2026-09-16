@@ -11,6 +11,11 @@ interface RevealProps {
   className?: string;
   direction?: RevealDirection;
   slow?: boolean;
+  /**
+   * Element to render. Defaults to "div"; pass "li" when revealing list
+   * items so the wrapper doesn't sit invalidly between <ul>/<ol> and <li>.
+   */
+  as?: "div" | "li" | "section" | "span";
 }
 
 export default function Reveal({
@@ -19,8 +24,9 @@ export default function Reveal({
   className,
   direction = "up",
   slow = false,
+  as: Tag = "div",
 }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -49,8 +55,8 @@ export default function Reveal({
       : styles.up;
 
   return (
-    <div
-      ref={ref}
+    <Tag
+      ref={ref as React.Ref<never>}
       className={[
         styles.root,
         visible ? styles.visible : styles.hidden,
@@ -63,6 +69,6 @@ export default function Reveal({
       style={delay ? ({ "--reveal-delay": `${delay}ms` } as React.CSSProperties) : undefined}
     >
       {children}
-    </div>
+    </Tag>
   );
 }

@@ -7,6 +7,16 @@ export type DemoType =
   | "schema"
   | "continuity-atlas";
 
+/** A metric worth setting at display scale rather than burying in a list. */
+export interface Figure {
+  /** The numeral or short token, e.g. "0", "60", "100", "3D". */
+  value: string;
+  /** Optional suffix rendered smaller and tight against the value, e.g. "fps", "%". */
+  unit?: string;
+  /** What the figure counts. */
+  label: string;
+}
+
 export interface CaseStudy {
   slug: string;
   title: string;
@@ -25,11 +35,46 @@ export interface CaseStudy {
   technical: string;
   outcome: string;
   metrics?: string[];
+
+  /* ── Staged narrative ────────────────────────────────────────────────
+     The fields below re-cut `problem` and `technical` into beats so the
+     case study reads as a sequence rather than two walls of prose. The
+     sentences are the same ones; only their grouping and order differ.
+     All optional — a case study without them falls back to the long form. */
+
+  /** The sharpest line of `problem`, promoted to open the piece. */
+  lede?: string;
+  /** The rest of `problem`, grouped into paragraphs. */
+  problemBeats?: string[];
+  /** `technical`, split at its natural turns. */
+  technicalBeats?: string[];
+  /** One sentence worth reading on its own. */
+  pullQuote?: string;
+  /** Numeric metrics, set large. Non-numeric ones stay in `metrics`. */
+  figures?: Figure[];
 }
 
 export const projectCases: CaseStudy[] = [
   {
     slug: "dual-domain-system",
+    lede: "They couldn't share a palette.",
+    problemBeats: [
+      "FORMÆTRIX (a literary studio) and ryanpyles.com (a personal archive) needed to coexist in a single Next.js repository without bleeding into each other visually, semantically, or structurally.",
+      "Maintaining two separate repositories for what was essentially one interconnected system would have meant duplicating layout infrastructure, navigation logic, SEO primitives, and the entire design token architecture — then keeping them synchronized indefinitely.",
+      "The real constraint was that the two identities are aesthetically opposite: one is a dark, high-contrast studio brand with orange accents; the other is a manuscript-paper archive with terracotta and brass.",
+    ],
+    technicalBeats: [
+      "CSS custom property inheritance respects the DOM tree — [data-domain='ryan'] on the <html> element means every descendant's var(--color-black) resolves to #F5F1EA, even inside a shared component that was written for the formaetrix dark register.",
+      "The only place domain logic appears in component code is in components that need domain-exclusive behavior (like BlobNav, which only renders on formaetrix).",
+      "The performance profile is clean: no client-side domain detection, no hydration mismatch risk, no extra CSS bundles. Both domains share the same stylesheet and same JS bundle.",
+    ],
+    pullQuote:
+      "Zero conditional rendering in shared components. They simply inherit the correct values.",
+    figures: [
+      { value: "0", label: "shared components duplicated" },
+      { value: "1", label: "stylesheet and one JS bundle, for both domains" },
+      { value: "2", label: "independent visual identities from one token system" },
+    ],
     title: "Dual-Domain Identity System",
     year: "2025",
     stack: ["Next.js 14", "TypeScript", "CSS Modules", "Middleware"],
@@ -57,14 +102,33 @@ export const projectCases: CaseStudy[] = [
     outcome:
       "A single deployable unit serving two distinct brand identities. Adding a third domain (hypothetically) would require one new [data-domain] block in globals.css and a middleware Host match — no new components, no new routes, no new build configuration.",
     metrics: [
-      "Zero shared components duplicated",
-      "One stylesheet, one JS bundle",
       "Edge-level domain detection with no client JS",
-      "Two fully independent visual identities from one token system",
     ],
   },
   {
+    /* Note: /projects/language-typography-engine has its own route rendering
+       LangTypographyCaseStudy, so the staged fields below are not displayed
+       today. They are kept correct and ready for whenever that page adopts
+       the shared CaseStudyView. */
     slug: "language-typography-engine",
+    lede:
+      "A typography engine that only handles string replacement produces a site that technically supports eleven languages but visually reads like it was designed for one.",
+    problemBeats: [
+      "Standard i18n implementations swap text strings and stop there.",
+      "The actual problem is deeper: Arabic and Hebrew require RTL layout direction, CJK scripts require fundamentally different font stacks and line-height adjustments, and some languages have UI strings long enough to break fixed-width navigation elements.",
+    ],
+    technicalBeats: [
+      "The font switching mechanism relies on data-lang attributes cascaded from the html element rather than JavaScript-injected inline styles.",
+      "Each language has a CSS rule matching [data-lang='ja'] body { font-family: var(--font-cjk); line-height: 1.8; } — which means the font change happens in a single style recalculation pass rather than through multiple JS DOM mutations.",
+      "The LanguageSwitcher component itself is dynamically imported with ssr:false, preventing hydration mismatches from the localStorage read. The translations table is a flat TypeScript record rather than nested JSON files, which makes dead-code elimination simpler and keeps the bundle size predictable.",
+    ],
+    pullQuote:
+      "The font change happens in a single style recalculation pass rather than through multiple JS DOM mutations.",
+    figures: [
+      { value: "11", label: "languages — Latin, RTL, CJK, Cyrillic, Nordic" },
+      { value: "1", label: "CSS bundle, scoped by data attribute" },
+      { value: "0", label: "layout shift on language switch" },
+    ],
     title: "Multi-Language Typography Engine",
     year: "2025",
     stack: ["React Context", "TypeScript", "CSS Custom Properties", "i18n"],
@@ -92,14 +156,28 @@ export const projectCases: CaseStudy[] = [
     outcome:
       "Eleven languages rendering correctly with appropriate typography, reading direction, and UI strings — loaded from a single shared stylesheet with no per-language CSS bundles.",
     metrics: [
-      "11 languages: Latin, RTL (Arabic, Hebrew), CJK (Japanese, Mandarin), Cyrillic (Russian), Nordic",
-      "Single CSS bundle with data-attribute language scoping",
-      "No layout shift on language switch",
       "localStorage persistence eliminates repeat-visit FOUC",
     ],
   },
   {
     slug: "blob-navigation",
+    lede:
+      "The requirement was a navigation that felt like a living thing — something with mass and reactivity — while still being a functional, accessible wayfinding system.",
+    problemBeats: [
+      "The FORMÆTRIX studio needed a navigation system that embodied the brand's core tension between structure and instability.",
+      "A standard nav bar contradicts a publishing imprint that explicitly resists convention.",
+    ],
+    technicalBeats: [
+      "The noise function adds a time-varying sin/cos displacement to each vertex position vector, scaled by a cursor influence factor.",
+      "The key insight is that the original vertex positions are stored in a Float32Array at initialization — each frame, positions are computed from originals + noise(t, cursor) rather than accumulated, which prevents the geometry from drifting or compounding errors over time.",
+      "The domain-specific color values are passed as props rather than hardcoded, making the component reusable across both domains with different material configurations.",
+    ],
+    pullQuote:
+      "Positions are computed from originals plus noise, never accumulated — so the geometry cannot drift.",
+    figures: [
+      { value: "60", unit: "fps", label: "sustained on mid-range hardware" },
+      { value: "3D", label: "hit detection by angular proximity, not screen-space hotspots" },
+    ],
     title: "3D Identity Navigation",
     year: "2025",
     stack: ["Three.js", "React Three Fiber", "WebGL", "GLSL"],
@@ -127,14 +205,30 @@ export const projectCases: CaseStudy[] = [
     outcome:
       "A navigation interface that doubles as the primary brand expression on the FORMÆTRIX homepage — recognizable, cursor-reactive, and functionally complete for wayfinding.",
     metrics: [
-      "60fps on mid-range hardware",
       "Vertex-level deformation (not just scale/translate)",
-      "3D hit detection with angular proximity thresholds",
       "Accessible fallback for mobile and reduced-motion",
     ],
   },
   {
     slug: "book-seo-system",
+    lede:
+      "The challenge is authoring that metadata once per title — in the content layer — and having it flow automatically into every surface that needs it, without manual Open Graph tags or hand-written JSON-LD.",
+    problemBeats: [
+      "A literary publisher's catalog is only as discoverable as its metadata.",
+      "Book pages need to be indexable not just as generic web pages but as structured Book entities that search engines can parse, social platforms can preview, and reading apps can import.",
+    ],
+    technicalBeats: [
+      "The JSON-LD schema nests three schema.org types: Book (the primary entity), Person (for the author, with a sameAs URL linking to the author page), and Organization (for the publisher/imprint).",
+      "This nesting is what allows search engines to associate a book with a named author entity rather than treating the author as just a string.",
+      "The buildBookJsonLd() function is a pure TypeScript function — no hooks, no React — which makes it fully testable and reusable across SSG contexts.",
+    ],
+    pullQuote:
+      "The content model is the SEO model.",
+    figures: [
+      { value: "100", unit: "%", label: "of book pages carry Book schema, Open Graph, and Twitter Card" },
+      { value: "0", label: "per-page manual metadata authoring" },
+      { value: "3", label: "nested schema types — Book, Person, Organization" },
+    ],
     title: "Book SEO Architecture",
     year: "2025",
     stack: ["Next.js", "JSON-LD", "Open Graph", "Static Generation"],
@@ -162,14 +256,30 @@ export const projectCases: CaseStudy[] = [
     outcome:
       "Every book in the catalog is fully represented in search engine indexes, social media previews, and structured data graphs — authored once in the content layer with zero per-page SEO work.",
     metrics: [
-      "100% of book pages have Book schema, Open Graph, and Twitter Card",
-      "Zero per-page manual metadata authoring",
-      "Nested Person + Organization schemas for full entity graph",
       "Static HTML output — no runtime metadata fetching",
     ],
   },
   {
     slug: "editorial-design-system",
+    lede:
+      "Building without a UI framework forces every decision to be intentional rather than inherited.",
+    problemBeats: [
+      "Literary publishing requires a design system that serves reading first and brand second. Most CSS frameworks optimize for UI components — buttons, modals, navigation.",
+      "A system for long-form editorial content needs to prioritize vertical rhythm, type hierarchy, and the relationship between the reading column and the surrounding page.",
+    ],
+    technicalBeats: [
+      "The single most important structural decision was separating the manuscript palette tokens (--paper, --ink, --brass) from the semantic tokens (--color-black, --color-white).",
+      "The manuscript tokens are raw values defined once at :root. The semantic tokens are domain-scoped references to the raw values.",
+      "This two-layer system means you can write var(--paper) directly in ryan-exclusive components (like the NotebookPanel) where you always want parchment — while shared components write var(--color-black) and get the right value for whatever domain they're rendering in.",
+    ],
+    pullQuote:
+      "Components never need to know which register they're in.",
+    figures: [
+      { value: "0", label: "UI framework dependencies" },
+      { value: "2", label: "domain registers from one token system" },
+      { value: "7", label: "step type scale, set in rem" },
+      { value: "12", label: "step spacing system on a 4px base unit" },
+    ],
     title: "Editorial Design System",
     year: "2025",
     stack: ["CSS Custom Properties", "Design Tokens", "Typography", "Responsive"],
@@ -196,15 +306,25 @@ export const projectCases: CaseStudy[] = [
       "The single most important structural decision was separating the manuscript palette tokens (--paper, --ink, --brass, etc.) from the semantic tokens (--color-black, --color-white, etc.). The manuscript tokens are raw values defined once at :root. The semantic tokens are domain-scoped references to the raw values. This two-layer system means you can write var(--paper) directly in ryan-exclusive components (like the NotebookPanel) where you always want parchment — while shared components write var(--color-black) and get the right value for whatever domain they're rendering in.",
     outcome:
       "A design system that serves two fully differentiated brand identities from one stylesheet, with no framework dependency, no build-time token compilation, and complete control over every rendered value.",
-    metrics: [
-      "Zero UI framework dependencies",
-      "Two domain registers from one token system",
-      "7-step type scale in rem",
-      "12-step spacing system on a 4px base unit",
-    ],
   },
   {
     slug: "content-architecture",
+    lede:
+      "Without a typed content layer, these four consumers develop independent data assumptions that diverge over time and break silently.",
+    problemBeats: [
+      "A literary site's content isn't just text to display — it's structured data with relationships (books to authors, projects to tags, field notes to categories) that needs to feed UI components, SEO pipelines, static generation parameters, and structured data schemas simultaneously.",
+    ],
+    technicalBeats: [
+      "The key architectural discipline is that no component ever constructs content — components only render what they receive via props.",
+      "The content layer (typed data + utility functions) is entirely framework-agnostic TypeScript. It could be consumed by a different framework without changes.",
+      "This separation also means the content layer is the right place to add validation, relationships, or computed fields — not inside components or page files, where that logic would be invisible to other consumers.",
+    ],
+    pullQuote:
+      "No component ever constructs content. Components only render what they receive.",
+    figures: [
+      { value: "7", label: "typed content domains" },
+      { value: "0", label: "untyped content — TypeScript enforces schema compliance" },
+    ],
     title: "Data-Driven Content Architecture",
     year: "2025",
     stack: ["TypeScript", "Static Generation", "Content Modeling", "Next.js"],
@@ -232,9 +352,7 @@ export const projectCases: CaseStudy[] = [
     outcome:
       "A codebase where adding a new book, project, or field note is a single typed object addition in a content file — which automatically propagates to static page generation, SEO metadata, UI rendering, and structured data output.",
     metrics: [
-      "7 typed content domains (books, projects, field notes, languages, network nodes, current work, manuscript fragments)",
       "generateStaticParams driven entirely by content arrays",
-      "Zero untyped content — TypeScript enforces schema compliance",
       "Content layer framework-agnostic (pure TypeScript, no React imports)",
     ],
   },
@@ -277,4 +395,17 @@ export const projectCases: CaseStudy[] = [
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return projectCases.find((c) => c.slug === slug);
+}
+
+/** Previous and next case studies in catalogue order, for footer navigation. */
+export function getAdjacentCases(slug: string): {
+  prev?: CaseStudy;
+  next?: CaseStudy;
+} {
+  const i = projectCases.findIndex((c) => c.slug === slug);
+  if (i === -1) return {};
+  return {
+    prev: i > 0 ? projectCases[i - 1] : undefined,
+    next: i < projectCases.length - 1 ? projectCases[i + 1] : undefined,
+  };
 }

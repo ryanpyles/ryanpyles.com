@@ -1,4 +1,5 @@
 import React from "react";
+import { buildPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteLayout from "@/components/SiteLayout";
@@ -8,10 +9,11 @@ import { articles } from "@/content/writing";
 import { articleMinutes } from "@/content/writing/utils";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Writing — Engineering Essays by Ryan Pyles",
   description:
     "First-hand technical writing by Ryan Pyles on AI systems, software architecture, web engineering, and the places where language and code overlap — grounded in shipped work.",
+  path: "/writing",
   keywords: [
     "Ryan Pyles writing",
     "software engineering essays",
@@ -19,8 +21,8 @@ export const metadata: Metadata = {
     "narrative intelligence software",
     "technical writing",
   ],
-  alternates: { canonical: "https://ryanpyles.com/writing" },
-};
+  titleIsComplete: true,
+});
 
 function formatDate(date: string): string {
   return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {

@@ -1,4 +1,5 @@
 import React from "react";
+import { buildPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -21,17 +22,14 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const note = fieldNotes.find((n) => n.slug === params.slug);
   if (!note) return {};
 
-  return {
+  return buildPageMetadata({
     title: `${note.title} — Field Notes`,
     description: note.excerpt,
+    path: `/field-notes/${note.slug}`,
     keywords: ["Ryan Pyles field notes", note.category.toLowerCase(), "notebook"],
-    openGraph: {
-      title: note.title,
-      description: note.excerpt,
-      type: "article",
-      publishedTime: note.date,
-    },
-  };
+    titleIsComplete: true,
+    article: { publishedTime: note.date },
+  });
 }
 
 function formatDate(date: string): string {

@@ -1,4 +1,5 @@
 import React from "react";
+import { buildPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
@@ -6,10 +7,11 @@ import FieldNotesGrid from "@/components/FieldNotesGrid";
 import { fieldNotes } from "@/content/fieldNotes";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Field Notes",
   description:
     "Notebook fragments from Ryan Pyles — short entries on language, writing, software, and design, written as the ideas occur rather than after they're settled.",
+  path: "/field-notes",
   keywords: [
     "Ryan Pyles notebook",
     "field notes",
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
     "language notes",
     "design notes",
   ],
-};
+});
 
 export default function FieldNotesPage() {
   return (

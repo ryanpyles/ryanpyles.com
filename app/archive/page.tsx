@@ -1,14 +1,16 @@
 import React from "react";
+import { buildPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import ScholarArchiveGrid from "@/components/ScholarArchiveGrid";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Research",
   description:
     "A scholar's notebook: fragments, observations, structural curiosities, and unfinished thoughts on language, narrative, software, and architecture.",
+  path: "/archive",
   keywords: [
     "Ryan Pyles archive",
     "scholar's notebook",
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
     "narrative theory",
     "software observations",
   ],
-};
+});
 
 export default function ArchivePage() {
   return (

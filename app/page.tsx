@@ -12,7 +12,7 @@ import VoigtIdentityBand from "@/components/VoigtIdentityBand";
 import ContinuityAtlasScene from "@/components/ContinuityAtlasScene";
 import InProgressScene from "@/components/InProgressScene";
 import Reveal from "@/components/Reveal";
-import { buildPersonJsonLd } from "@/lib/metadata";
+import { buildPageMetadata, buildPersonJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
 
 const LanguageSwitcher = dynamic(() => import("@/components/LanguageSwitcher"), {
@@ -81,10 +81,11 @@ const LanguageOrreryScene = dynamic(
   }
 );
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Ryan Pyles — Software Engineer & AI Systems Architect",
   description:
     "Ryan Pyles is a software engineer and AI systems architect in Chicago building AI, publishing, and multilingual web systems with React, Next.js, and TypeScript. He runs the FORMÆTRIX studio and writes fiction as Elian Voigt.",
+  path: "",
   keywords: [
     "Ryan Pyles",
     "software engineer Chicago",
@@ -98,7 +99,8 @@ export const metadata: Metadata = {
     "FORMÆTRIX",
     "Elian Voigt",
   ],
-};
+  titleIsComplete: true,
+});
 
 export default function HomePage() {
   const jsonLd = buildPersonJsonLd();

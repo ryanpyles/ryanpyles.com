@@ -1,13 +1,15 @@
 import React from "react";
+import { buildPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import ProjectsShowcase from "@/components/ProjectsShowcase";
 import type { ShowcaseProject } from "@/components/ProjectsShowcase";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Systems — Engineering Work",
   description:
     "Engineering work by Ryan Pyles — systems architecture, AI narrative tooling, publishing infrastructure, and production-grade web applications built with Next.js, React, and TypeScript.",
+  path: "/projects",
   keywords: [
     "software engineer portfolio Chicago",
     "systems architecture",
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
     "Next.js projects",
     "TypeScript development",
   ],
-};
+});
 
 const projects: ShowcaseProject[] = [
   {

@@ -1,4 +1,5 @@
 import React from "react";
+import { buildPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
@@ -6,10 +7,11 @@ import BookCard from "@/components/BookCard";
 import { ryanBooks } from "@/content/books";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Books — Elian Voigt / FORMÆTRIX",
   description:
     "Novels by Elian Voigt, published by FORMÆTRIX — including Feast of the Broadcast Saints, What Survives Is Proof, Declensions of Dark Water, Terms of Unbeing, Summer of the Glass Bees, and The Quiet Metric.",
+  path: "/books",
   keywords: [
     "Elian Voigt books",
     "FORMÆTRIX novels",
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
     "Declensions of Dark Water",
     "Terms of Unbeing",
   ],
-};
+});
 
 export default function BooksPage() {
   return (

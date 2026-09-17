@@ -12,6 +12,7 @@ const navLinks = [
      material; the essays moved under Systems and the other two merged
      into /notes, which is linked from About rather than the top nav. */
   { href: "/projects", label: "Systems" },
+  { href: "/work", label: "Work" },
   { href: "/books", label: "Fiction" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },

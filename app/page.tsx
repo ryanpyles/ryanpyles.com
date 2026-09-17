@@ -212,16 +212,24 @@ export default function HomePage() {
       {/* ── What I build for clients (commercial legibility) ───── */}
       <WhatIBuild />
 
-      {/* ── Ecosystem — pinned scroll scene: three doors reveal in turn ──── */}
-      <EcosystemScene />
+      {/* ── Proof first: the flagship system, then work currently in flight.
+           A client or hiring manager gets the pitch, then evidence, then
+           a way to act — before the literary half of the site begins. ─ */}
+      {/* ── Featured Work: Continuity Atlas — pinned product scene ─ */}
+      <ContinuityAtlasScene />
 
-      {/* ── Mobile-only mid-page CTA — surface "work with me" early ──── */}
-      <section className={styles.mobileMidCta} aria-label="Work with Ryan">
-        <p className={styles.mobileMidCtaBody}>
+      {/* ── In Progress — pinned research-ledger scene ──────────── */}
+      <InProgressScene />
+
+      {/* ── Mid-page CTA — the conversion moment, after the pitch and the
+           proof. Previously mobile-only, which left desktop with no way
+           to act between the hero and the footer, 28 screens apart. ─── */}
+      <section className={styles.midCta} aria-label="Work with Ryan">
+        <p className={styles.midCtaBody}>
           Selected engagements through FORMÆTRIX: author sites, publishing
           systems, editorial interfaces, and narrative tools.
         </p>
-        <div className={styles.mobileMidCtaLinks}>
+        <div className={styles.midCtaLinks}>
           <Link href="/contact" className={styles.heroCtaWork}>
             Discuss your project →
           </Link>
@@ -236,24 +244,23 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Featured Work: Continuity Atlas — pinned product scene ─ */}
-      <ContinuityAtlasScene />
+      {/* ── The pivot: from what he builds to why there are three names. ─── */}
+      {/* ── Ecosystem — pinned scroll scene: three doors reveal in turn ──── */}
+      <EcosystemScene />
 
+      {/* ── The Voigt Project — short identity module (full case study at /voigt-project) ─ */}
+      <VoigtIdentityBand />
+
+      {/* ── The literary arc, for readers who keep going. ─────────────── */}
       {/* ── Fiction / Books — pinned shelf scene ───────────────── */}
       <BooksScene />
 
       {/* ── Living Archive: Field Notes — pinned card-pile scene ─ */}
       <FieldNotesScene />
 
-      {/* ── The Voigt Project — short identity module (full case study at /voigt-project) ─ */}
-      <VoigtIdentityBand />
-
       {/* ── Language Orrery — pinned zoom-and-annotate scene ──── */}
       <div id="orrery" aria-hidden="true" />
       <LanguageOrreryScene />
-
-      {/* ── In Progress — pinned research-ledger scene ──────────── */}
-      <InProgressScene />
 
       {/* ── Contact CTA ────────────────────────────────────────── */}
       <section className={styles.contactCta} id="contact" aria-label="Get in touch">

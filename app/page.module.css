@@ -424,11 +424,20 @@
 }
 
 /* ── Mobile-only mid-page CTA (after identity cards) ─────────────────────── */
-.mobileMidCta {
-  display: none;
+/* Mid-page CTA. This was display:none outside a phone media query, which
+   left desktop with no way to act between the hero and the footer — 28
+   screens apart. It now shows at every width, sized down on desktop so it
+   reads as a quiet offer between scenes rather than a second hero. */
+.midCta {
+  display: block;
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.mobileMidCtaBody {
+.midCtaBody {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: clamp(16px, 4.6vw, 19px);
@@ -436,11 +445,35 @@
   color: color-mix(in srgb, var(--color-white) 60%, transparent);
 }
 
-.mobileMidCtaLinks {
+.midCtaLinks {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-6);
   margin-top: var(--space-6);
+}
+
+/* .heroCtaWork is full-width by design for the stacked phone layout. Beside
+   a second link on a wide screen that reads as a stretched banner, so it
+   sizes to its label here and only fills the column on narrow screens. */
+.midCtaLinks .heroCtaWork {
+  width: auto;
+}
+
+.midCtaBody {
+  text-align: left;
+}
+
+@media (max-width: 760px) {
+  .midCtaLinks {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
+  .midCtaLinks .heroCtaWork {
+    width: 100%;
+  }
 }
 
 /* ── Contact CTA band ─────────────────────────────────────────────────────── */
@@ -593,11 +626,8 @@
     gap: var(--space-4);
   }
 
-  .mobileMidCta {
-    display: block;
+  .midCta {
     padding: var(--space-12) var(--space-4);
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
   }
 
   /* Lift section intros to a comfortable reading size on phones */

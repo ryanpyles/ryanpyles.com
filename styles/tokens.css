@@ -19,11 +19,14 @@
   --brass: #c69c5d;
 
   /* Typography */
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-garamond: "EB Garamond", "Adobe Garamond Pro", Georgia, serif;
-  --font-serif: "Cormorant Garamond", "Adobe Garamond Pro", Georgia, serif;
-  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+  /* The --f-* variables come from next/font (see lib/fonts.ts), which
+     self-hosts these families. The literal names stay as fallbacks so the
+     stack still resolves if a font file fails to load. */
+  --font-display: var(--f-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-garamond: var(--f-eb-garamond), "EB Garamond", "Adobe Garamond Pro", Georgia, serif;
+  --font-serif: var(--f-cormorant), "Cormorant Garamond", "Adobe Garamond Pro", Georgia, serif;
+  --font-sans: var(--f-inter), "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--f-plex-mono), "IBM Plex Mono", "Courier New", monospace;
   --font-body: var(--font-sans);
 
   /* Scale */

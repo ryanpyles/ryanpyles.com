@@ -18,16 +18,10 @@ export const metadata: Metadata = buildPageMetadata({
 
 const workAreas = [
   {
-    label: "Field Notes",
-    desc: "Short entries on language, writing, software, and design — written close to the moment, before they settle into something more considered.",
-    href: "/field-notes",
+    label: "Notes",
+    desc: "Short entries on language, writing, software, and design, written close to the moment — alongside a Scholar's Notebook of structural observations on twelve languages under active study.",
+    href: "/notes",
     annotation: "fn. ——",
-  },
-  {
-    label: "Language Archive",
-    desc: "A Scholar's Notebook. Structural observations on twelve languages under active study, charted by orbit and proficiency.",
-    href: "/archive",
-    annotation: "§ archive",
   },
   {
     label: "Systems & Projects",

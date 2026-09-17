@@ -17,6 +17,33 @@ const nextConfig = {
         destination: "/about",
         permanent: true,
       },
+
+      /* ── Phase 2 information architecture ────────────────────────────
+         Field Notes and the Scholar's Notebook merged into /notes, and
+         the Writing index was absorbed into Systems. Every one of these
+         paths was indexed and in the sitemap, so each gets a 301 rather
+         than being allowed to 404. Article URLs under /writing are
+         deliberately NOT moved — only the index did. */
+      {
+        source: "/field-notes",
+        destination: "/notes",
+        permanent: true,
+      },
+      {
+        source: "/field-notes/:slug",
+        destination: "/notes/:slug",
+        permanent: true,
+      },
+      {
+        source: "/archive",
+        destination: "/notes",
+        permanent: true,
+      },
+      {
+        source: "/writing",
+        destination: "/projects",
+        permanent: true,
+      },
     ];
   },
   async headers() {

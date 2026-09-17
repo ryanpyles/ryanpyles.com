@@ -88,7 +88,7 @@ export default function ArticlePage({ params }: Params) {
       />
       <Section narrow>
         <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-          <Link href="/writing" className={styles.back}>
+          <Link href="/projects" className={styles.back}>
             ← Writing
           </Link>
         </nav>
@@ -118,7 +118,7 @@ export default function ArticlePage({ params }: Params) {
               </Link>
             )}
             <div className={styles.footerNav}>
-              <Link href="/writing" className={styles.back}>
+              <Link href="/projects" className={styles.back}>
                 ← All writing
               </Link>
               <Link href="/contact" className={styles.contact}>

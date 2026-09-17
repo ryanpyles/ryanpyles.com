@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return buildPageMetadata({
     title: `${note.title} — Field Notes`,
     description: note.excerpt,
-    path: `/field-notes/${note.slug}`,
+    path: `/notes/${note.slug}`,
     keywords: ["Ryan Pyles field notes", note.category.toLowerCase(), "notebook"],
     titleIsComplete: true,
     article: { publishedTime: note.date },
@@ -54,7 +54,7 @@ export default function FieldNoteSlugPage({ params }: Params) {
     <SiteLayout>
       <Section narrow>
         <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-          <Link href="/field-notes" className={styles.back}>
+          <Link href="/notes" className={styles.back}>
             ← Field Notes
           </Link>
         </nav>
@@ -122,7 +122,7 @@ export default function FieldNoteSlugPage({ params }: Params) {
               <ul className={styles.relatedNotesList}>
                 {related.map((r) => (
                   <li key={r.slug}>
-                    <Link href={`/field-notes/${r.slug}`} className={styles.relatedNote}>
+                    <Link href={`/notes/${r.slug}`} className={styles.relatedNote}>
                       <span className={styles.relatedNoteCategory}>{r.category}</span>
                       <span className={styles.relatedNoteTitle}>{r.title}</span>
                       <span className={styles.relatedNoteArrow} aria-hidden="true">→</span>
@@ -142,13 +142,13 @@ export default function FieldNoteSlugPage({ params }: Params) {
             return (
               <>
                 {prev && (
-                  <Link href={`/field-notes/${prev.slug}`} className={styles.paginationLink} data-dir="prev">
+                  <Link href={`/notes/${prev.slug}`} className={styles.paginationLink} data-dir="prev">
                     <span className={styles.paginationDir}>← Previous</span>
                     <span className={styles.paginationTitle}>{prev.title}</span>
                   </Link>
                 )}
                 {next && (
-                  <Link href={`/field-notes/${next.slug}`} className={styles.paginationLink} data-dir="next">
+                  <Link href={`/notes/${next.slug}`} className={styles.paginationLink} data-dir="next">
                     <span className={styles.paginationDir}>Next →</span>
                     <span className={styles.paginationTitle}>{next.title}</span>
                   </Link>

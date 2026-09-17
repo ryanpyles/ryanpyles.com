@@ -3,6 +3,9 @@ import { buildPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import ProjectsShowcase from "@/components/ProjectsShowcase";
+import Section from "@/components/Section";
+import EssayList from "@/components/EssayList";
+import styles from "./page.module.css";
 import type { ShowcaseProject } from "@/components/ProjectsShowcase";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -101,6 +104,23 @@ export default function ProjectsPage() {
   return (
     <SiteLayout>
       <ProjectsShowcase projects={projects} />
+
+      {/* The long-form write-ups belong with the systems they describe,
+          not in a separate section that read as a blog. */}
+      <Section>
+        <div className={styles.essays}>
+          <header className={styles.essaysHeader}>
+            <span className={styles.essaysKicker}>Long form</span>
+            <h2 className={styles.essaysHeading}>Engineering essays</h2>
+            <p className={styles.essaysIntro}>
+              First-hand technical writing from shipped work. One diagram,
+              one real code sample, one honest failure per piece.
+            </p>
+          </header>
+
+          <EssayList />
+        </div>
+      </Section>
     </SiteLayout>
   );
 }

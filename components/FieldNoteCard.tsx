@@ -31,7 +31,7 @@ export default function FieldNoteCard({ note }: FieldNoteCardProps) {
       </header>
 
       <h3 className={styles.title}>
-        <Link href={`/field-notes/${note.slug}`} className={styles.titleLink}>{note.title}</Link>
+        <Link href={`/notes/${note.slug}`} className={styles.titleLink}>{note.title}</Link>
       </h3>
       <p className={styles.excerpt}>{note.excerpt}</p>
 

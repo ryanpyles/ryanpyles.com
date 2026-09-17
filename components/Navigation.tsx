@@ -6,11 +6,13 @@ import { usePathname } from "next/navigation";
 import styles from "./Navigation.module.css";
 
 const navLinks = [
-  { href: "/books", label: "Fiction" },
+  /* Systems leads: it is the section a client or hiring manager came for,
+     and it now carries the long-form engineering essays too. Writing,
+     Notes and Research were three separate destinations for overlapping
+     material; the essays moved under Systems and the other two merged
+     into /notes, which is linked from About rather than the top nav. */
   { href: "/projects", label: "Systems" },
-  { href: "/writing", label: "Writing" },
-  { href: "/field-notes", label: "Notes" },
-  { href: "/archive", label: "Research" },
+  { href: "/books", label: "Fiction" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

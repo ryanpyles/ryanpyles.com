@@ -1,0 +1,94 @@
+.header {
+  margin-bottom: var(--space-12);
+  max-width: 640px;
+}
+
+.intro {
+  margin-top: var(--space-4);
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-style: italic;
+  line-height: var(--leading-snug);
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.updates {
+  margin-top: var(--space-16);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.updatesText {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--color-white) 30%, transparent);
+  max-width: 560px;
+}
+
+.updatesLink {
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.updatesLink:hover {
+  color: color-mix(in srgb, var(--color-white) 80%, transparent);
+}
+
+/* ── Scholar's Notebook ───────────────────────────────────────────────
+   The second register on this page. Field Notes are written to be read;
+   these are working material, so they keep their own heading and a rule
+   above rather than being interleaved with the notes. */
+.notebook {
+  margin-top: var(--space-24);
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--color-border);
+}
+
+.notebookHeader {
+  margin-bottom: var(--space-12);
+  max-width: 640px;
+}
+
+.kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+
+.notebookHeading {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--color-white);
+  margin-bottom: var(--space-5);
+}
+
+.notebookIntro {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-style: italic;
+  line-height: var(--leading-relaxed);
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+}

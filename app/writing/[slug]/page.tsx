@@ -1,4 +1,5 @@
 import React from "react";
+import { buildPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -21,20 +22,18 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const a = getArticle(params.slug);
   if (!a) return {};
-  return {
+  return buildPageMetadata({
     title: `${a.title} — Ryan Pyles`,
     description: a.excerpt,
+    path: `/writing/${a.slug}`,
     keywords: a.keywords,
-    alternates: { canonical: `https://ryanpyles.com/writing/${a.slug}` },
-    openGraph: {
-      title: a.title,
-      description: a.excerpt,
-      type: "article",
+    titleIsComplete: true,
+    article: {
       publishedTime: a.date,
       modifiedTime: a.updated ?? a.date,
       authors: [a.byline],
     },
-  };
+  });
 }
 
 function formatDate(date: string): string {
@@ -89,7 +88,7 @@ export default function ArticlePage({ params }: Params) {
       />
       <Section narrow>
         <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-          <Link href="/writing" className={styles.back}>
+          <Link href="/projects" className={styles.back}>
             ← Writing
           </Link>
         </nav>
@@ -119,7 +118,7 @@ export default function ArticlePage({ params }: Params) {
               </Link>
             )}
             <div className={styles.footerNav}>
-              <Link href="/writing" className={styles.back}>
+              <Link href="/projects" className={styles.back}>
                 ← All writing
               </Link>
               <Link href="/contact" className={styles.contact}>

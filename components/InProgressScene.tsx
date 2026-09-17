@@ -57,7 +57,7 @@ function StaticView() {
           <Row key={item.slug} item={item} index={i} />
         ))}
       </div>
-      <Link href="/archive" className={styles.archive}>
+      <Link href="/notes" className={styles.archive}>
         Research archive →
       </Link>
     </div>
@@ -143,7 +143,7 @@ export default function InProgressScene() {
                 {String(Math.min(revealed, items.length)).padStart(2, "0")} /{" "}
                 {String(items.length).padStart(2, "0")}
               </span>
-              <Link href="/archive" className={styles.archive}>
+              <Link href="/notes" className={styles.archive}>
                 Research archive →
               </Link>
             </div>

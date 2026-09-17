@@ -12,6 +12,11 @@ import {
   getAdjacentCases,
 } from "@/content/projectCases";
 import { embeddedApps, getEmbeddedApp } from "@/content/embeddedApps";
+import {
+  buildPageMetadata,
+  buildCaseStudyJsonLd,
+  buildEmbeddedAppJsonLd,
+} from "@/lib/metadata";
 import styles from "./page.module.css";
 
 const ProjectDemo = dynamic(() => import("@/components/ProjectDemo"), {
@@ -33,17 +38,21 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const app = getEmbeddedApp(params.slug);
   if (app) {
-    return {
+    return buildPageMetadata({
       title: `${app.title} — Live App`,
       description: app.tagline,
-    };
+      path: `/projects/${app.slug}`,
+      keywords: app.tags,
+    });
   }
   const cs = getCaseStudy(params.slug);
   if (!cs) return {};
-  return {
+  return buildPageMetadata({
     title: `${cs.title} — Case Study`,
     description: cs.tagline,
-  };
+    path: `/projects/${cs.slug}`,
+    keywords: cs.stack,
+  });
 }
 
 export default function CaseStudyPage({ params }: Props) {
@@ -52,6 +61,10 @@ export default function CaseStudyPage({ params }: Props) {
   if (app) {
     return (
       <SiteLayout>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: buildEmbeddedAppJsonLd(app) }}
+        />
         <EmbeddedApp app={app} />
       </SiteLayout>
     );
@@ -64,6 +77,10 @@ export default function CaseStudyPage({ params }: Props) {
   if (cs.slug === "continuity-atlas") {
     return (
       <SiteLayout>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: buildCaseStudyJsonLd(cs) }}
+        />
         <ContinuityAtlasCaseStudy
           cs={cs}
           demo={<ProjectDemo type={cs.demo.type} />}
@@ -76,6 +93,10 @@ export default function CaseStudyPage({ params }: Props) {
 
   return (
     <SiteLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: buildCaseStudyJsonLd(cs) }}
+      />
       <CaseStudyView
         cs={cs}
         demo={<ProjectDemo type={cs.demo.type} />}

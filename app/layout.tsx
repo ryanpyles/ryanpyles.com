@@ -1,4 +1,6 @@
 import React from "react";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { LanguageProvider } from "@/lib/LanguageContext";
 import "@/styles/globals.css";
@@ -38,6 +40,9 @@ export default function RootLayout({
       </head>
       <body>
         <LanguageProvider>{children}</LanguageProvider>
+        {/* Cookieless, no consent banner required. Both are no-ops off Vercel. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

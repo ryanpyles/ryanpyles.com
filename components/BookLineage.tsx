@@ -55,7 +55,7 @@ export default function BookLineage({ slug }: { slug: string }) {
               </Link>
             ))}
             {notes.map((n) => (
-              <Link key={n.slug} href={`/field-notes/${n.slug}`} className={styles.link}>
+              <Link key={n.slug} href={`/notes/${n.slug}`} className={styles.link}>
                 <span className={styles.linkKind}>Note</span>
                 <span className={styles.linkLabel}>{n.title}</span>
                 <span className={styles.linkArrow} aria-hidden="true">→</span>

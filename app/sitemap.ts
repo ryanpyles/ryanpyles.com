@@ -13,12 +13,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${BASE}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: `${BASE}/projects`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${BASE}/writing`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${BASE}/books`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE}/field-notes`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
-    { url: `${BASE}/archive`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/notes`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
     { url: `${BASE}/contact`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
+    { url: `${BASE}/voigt-project`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
     { url: `${BASE}/press`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
   ];
 
@@ -49,7 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const noteRoutes: MetadataRoute.Sitemap = fieldNotes.map((n) => ({
-    url: `${BASE}/field-notes/${n.slug}`,
+    url: `${BASE}/notes/${n.slug}`,
     lastModified: new Date(`${n.date}T00:00:00`),
     changeFrequency: "yearly",
     priority: 0.5,

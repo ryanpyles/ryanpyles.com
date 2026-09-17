@@ -35,7 +35,7 @@ export default function ScholarNotebook() {
 
         <Reveal delay={320}>
           <div className={styles.footer}>
-            <Link href="/archive" className={styles.archiveLink}>
+            <Link href="/notes" className={styles.archiveLink}>
               Browse Archive →
             </Link>
           </div>

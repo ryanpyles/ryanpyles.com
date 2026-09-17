@@ -14,14 +14,33 @@ export function buildPageMetadata(overrides: {
   description: string;
   path?: string;
   ogImage?: string;
+  keywords?: string[];
+  /**
+   * Use the title verbatim rather than appending the site name. For pages
+   * whose title already carries it — the homepage above all, where
+   * "… | Ryan J. Pyles" would only repeat the name.
+   */
+  titleIsComplete?: boolean;
+  /**
+   * Marks the page as an article rather than a generic website, preserving
+   * publication dates and bylines that a plain og:type would drop.
+   */
+  article?: {
+    publishedTime: string;
+    modifiedTime?: string;
+    authors?: string[];
+  };
 }): Metadata {
-  const fullTitle = `${overrides.title} | ${site.name}`;
+  const fullTitle = overrides.titleIsComplete
+    ? overrides.title
+    : `${overrides.title} | ${site.name}`;
   const url = `${site.url}${overrides.path ?? ""}`;
   const ogImage = overrides.ogImage ?? `/og/ryan-default.jpg`;
 
   return {
     title: { absolute: fullTitle },
     description: overrides.description,
+    ...(overrides.keywords ? { keywords: overrides.keywords } : {}),
     metadataBase: new URL(site.url),
     alternates: { canonical: url },
     openGraph: {
@@ -30,7 +49,17 @@ export function buildPageMetadata(overrides: {
       url,
       siteName: site.name,
       locale: "en_US",
-      type: "website",
+      ...(overrides.article
+        ? {
+            type: "article" as const,
+            publishedTime: overrides.article.publishedTime,
+            modifiedTime:
+              overrides.article.modifiedTime ?? overrides.article.publishedTime,
+            ...(overrides.article.authors
+              ? { authors: overrides.article.authors }
+              : {}),
+          }
+        : { type: "website" as const }),
       images: [{ url: ogImage, width: 1200, height: 630, alt: fullTitle }],
     },
     twitter: {
@@ -150,4 +179,58 @@ export function buildPersonJsonLd(): string {
       "Experimental Fiction",
     ],
   });
+}
+
+/**
+ * Structured data for a case study. Uses only fields the CaseStudy model
+ * actually carries — nothing is inferred or invented.
+ */
+export function buildCaseStudyJsonLd(cs: {
+  slug: string;
+  title: string;
+  year: string;
+  tagline: string;
+  stack: string[];
+}): string {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: cs.title,
+    headline: cs.title,
+    description: cs.tagline,
+    url: `${site.url}/projects/${cs.slug}`,
+    dateCreated: cs.year,
+    author: { "@type": "Person", name: site.name, url: site.url },
+    creator: { "@type": "Person", name: site.name, url: site.url },
+    keywords: cs.stack.join(", "),
+    inLanguage: "en",
+  };
+  return JSON.stringify(schema);
+}
+
+/**
+ * Structured data for a live application embedded on the site. These are
+ * running software rather than write-ups, so they take SoftwareApplication.
+ */
+export function buildEmbeddedAppJsonLd(app: {
+  slug: string;
+  title: string;
+  year: string;
+  description: string;
+  tags: string[];
+}): string {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: app.title,
+    description: app.description,
+    url: `${site.url}/projects/${app.slug}`,
+    applicationCategory: "WebApplication",
+    operatingSystem: "Any",
+    dateCreated: app.year,
+    author: { "@type": "Person", name: site.name, url: site.url },
+    keywords: app.tags.join(", "),
+    inLanguage: "en",
+  };
+  return JSON.stringify(schema);
 }

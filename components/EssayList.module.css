@@ -1,33 +1,5 @@
-.header {
-  max-width: 720px;
-  margin-bottom: var(--space-16);
-}
-
-.kicker {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-}
-
-.title {
-  margin-top: var(--space-4);
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(2.6rem, 7vw, 4.5rem);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-  color: var(--color-white);
-}
-
-.intro {
-  margin-top: var(--space-6);
-  font-family: var(--font-serif);
-  font-size: clamp(var(--text-md), 1.8vw, var(--text-xl));
-  line-height: var(--leading-relaxed);
-  color: color-mix(in srgb, var(--color-white) 64%, transparent);
-}
+/* Lifted verbatim from the former /writing index so the essays look
+   identical in their new home under Systems. */
 
 .list {
   list-style: none;

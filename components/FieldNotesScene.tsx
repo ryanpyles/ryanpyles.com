@@ -37,7 +37,7 @@ function NoteCard({
       <h3 className={styles.cardTitle}>{note.title}</h3>
       <p className={styles.cardExcerpt}>{note.excerpt}</p>
       {interactive && (
-        <Link href={`/field-notes/${note.slug}`} className={styles.cardLink}>
+        <Link href={`/notes/${note.slug}`} className={styles.cardLink}>
           Read the note →
         </Link>
       )}
@@ -56,13 +56,13 @@ function StaticView() {
       <ul className={styles.staticList}>
         {notes.map((note) => (
           <li key={note.slug}>
-            <Link href={`/field-notes/${note.slug}`} className={styles.staticCardLink}>
+            <Link href={`/notes/${note.slug}`} className={styles.staticCardLink}>
               <NoteCard note={note} />
             </Link>
           </li>
         ))}
       </ul>
-      <Link href="/field-notes" className={styles.archive}>
+      <Link href="/notes" className={styles.archive}>
         Notes archive →
       </Link>
     </div>
@@ -140,7 +140,7 @@ export default function FieldNotesScene() {
                 {String(Math.min(revealed, notes.length)).padStart(2, "0")} /{" "}
                 {String(notes.length).padStart(2, "0")}
               </span>
-              <Link href="/field-notes" className={styles.archive}>
+              <Link href="/notes" className={styles.archive}>
                 Notes archive →
               </Link>
             </div>

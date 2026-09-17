@@ -23,8 +23,10 @@ const C = {
 
 /* ---------- font references ---------- */
 const mono = "'IBM Plex Mono', ui-monospace, monospace";
-const serif = "'Fraunces', 'Cormorant Garamond', Georgia, serif";
-const sans = "'Manrope', system-ui, sans-serif";
+/* next/font generates hashed family names, so these reference the CSS
+   variables it exposes rather than the literal family names. */
+const serif = "var(--f-fraunces), 'Cormorant Garamond', Georgia, serif";
+const sans = "var(--f-manrope), system-ui, sans-serif";
 
 /* ---------- data types ---------- */
 interface MemoryItem {

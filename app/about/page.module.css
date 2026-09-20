@@ -7,7 +7,7 @@
 .body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-8);
 }
 
 .body p {
@@ -170,13 +170,13 @@
    so these selectors are doubled to win. Without that the declarations below
    are silently dropped and the plates butt straight against the prose. */
 .leadPortrait.leadPortrait {
-  margin-bottom: var(--space-10);
+  margin-bottom: var(--space-16);
 }
 
 /* Full-width plate inside the reading column — given room on both sides
    rather than riding the paragraph gap alone. */
 .bodyPlate.bodyPlate {
-  margin: var(--space-6) 0;
+  margin: var(--space-12) 0;
 }
 
 /* Inset plate inside the reading column — narrower, aligned to the margin. */
@@ -184,7 +184,7 @@
   align-self: flex-end;
   width: 100%;
   max-width: 22rem;
-  margin: var(--space-4) 0;
+  margin: var(--space-10) 0;
 }
 
 @media (max-width: 760px) {

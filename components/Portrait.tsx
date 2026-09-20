@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import { useCinematicPlate } from "./useCinematicPlate";
 import styles from "./Portrait.module.css";
 
 export interface PortraitProps {
@@ -19,7 +22,8 @@ export interface PortraitProps {
 
 /**
  * An editorial photo plate: hairline frame, mono index, serif caption.
- * Server component — the hover and reduced-motion behaviour is pure CSS.
+ * Reveals on entry and parallaxes the image within its frame as it passes
+ * (see useCinematicPlate); hover behaviour is pure CSS.
  */
 export default function Portrait({
   src,
@@ -31,18 +35,22 @@ export default function Portrait({
   priority = false,
   className,
 }: PortraitProps) {
+  const { plateRef, frameRef } = useCinematicPlate<HTMLElement, HTMLDivElement>();
+
   return (
-    <figure className={[styles.plate, className ?? ""].join(" ")}>
-      <div className={styles.frame} style={{ aspectRatio: aspect }}>
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes={sizes}
-          className={styles.img}
-          priority={priority}
-          loading={priority ? undefined : "lazy"}
-        />
+    <figure ref={plateRef} className={[styles.plate, className ?? ""].join(" ")}>
+      <div ref={frameRef} className={styles.frame} style={{ aspectRatio: aspect }}>
+        <div className={styles.mediaLayer}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={sizes}
+            className={styles.img}
+            priority={priority}
+            loading={priority ? undefined : "lazy"}
+          />
+        </div>
         <span className={styles.corner} aria-hidden="true" />
       </div>
 

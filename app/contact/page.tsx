@@ -1,14 +1,16 @@
 import React from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
+import InquiryForm from "@/components/InquiryForm";
 import { buildPageMetadata } from "@/lib/metadata";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Contact",
+  title: "Start a project",
   description:
-    "Contact Ryan J. Pyles for web development, brand design, or speaking inquiries.",
+    "Start a project with Ryan Pyles — AI narrative tooling, publishing and author platforms, editorial web systems, and content architecture. Tell me what you're building.",
   path: "/contact",
 });
 
@@ -17,9 +19,10 @@ export default function ContactPage() {
     <SiteLayout>
       <Section narrow>
         <header className={styles.header}>
-          <h1>Contact</h1>
+          <h1>Start a project</h1>
           <p className={styles.intro}>
-            For web development, brand design, or speaking inquiries.
+            Tell me what you&rsquo;re building. I read every inquiry myself and
+            reply within about two business days.
           </p>
         </header>
 
@@ -29,53 +32,66 @@ export default function ContactPage() {
             Currently accepting
           </p>
           <ul className={styles.acceptingList}>
-            <li className={styles.acceptingItem}>Publishing systems</li>
-            <li className={styles.acceptingItem}>Editorial websites</li>
             <li className={styles.acceptingItem}>AI narrative tooling</li>
-            <li className={styles.acceptingItem}>Research collaborations</li>
+            <li className={styles.acceptingItem}>Publishing &amp; author platforms</li>
+            <li className={styles.acceptingItem}>Editorial web systems</li>
+            <li className={styles.acceptingItem}>Prototype &amp; discovery sprints</li>
           </ul>
         </div>
 
+        {/* ── Inquiry form — the primary action ─────────────────────── */}
+        <div className={styles.formSection}>
+          <h2 className={styles.formLabel}>The inquiry</h2>
+          <InquiryForm />
+        </div>
+
+        {/* ── Context: fit, availability, direct line ───────────────── */}
         <div className={styles.options}>
           <div className={styles.option}>
-            <h2 className={styles.optionLabel}>All Inquiries</h2>
+            <h2 className={styles.optionLabel}>Prefer email?</h2>
             <a href="mailto:me@ryanpyles.com" className={styles.optionLink}>
               me@ryanpyles.com
             </a>
           </div>
 
           <div className={styles.option}>
-            <h2 className={styles.optionLabel}>Availability</h2>
+            <h2 className={styles.optionLabel}>How engagements work</h2>
             <p className={styles.optionText}>
-              Taking on a small number of selected engagements. Response time is
-              typically two business days.
+              I take on a small number of selected engagements at a time —
+              fixed-scope project builds, short prototype/discovery sprints, and
+              advisory. See{" "}
+              <Link href="/work" className={styles.noteLink}>
+                how I work
+              </Link>{" "}
+              for the full picture.
             </p>
           </div>
 
-          <div className={styles.option}>
-            <h2 className={styles.optionLabel}>Good fit</h2>
-            <ul className={styles.fitList}>
-              <li>Brand identity systems and editorial design</li>
-              <li>Publishing and author platforms — Next.js, structured content, SEO</li>
-              <li>Web applications with language, typography, or data at the center</li>
-              <li>Speaking: experimental fiction, constraint-based writing, language and systems</li>
-            </ul>
-          </div>
-
-          <div className={styles.option}>
-            <h2 className={styles.optionLabel}>Not a fit</h2>
-            <ul className={styles.fitList}>
-              <li>Maintenance contracts or ongoing retainer support</li>
-              <li>Projects requiring a large team or agency infrastructure</li>
-              <li>Rush timelines without prior relationship</li>
-            </ul>
+          <div className={styles.fitGrid}>
+            <div className={styles.option}>
+              <h2 className={styles.optionLabel}>Good fit</h2>
+              <ul className={styles.fitList}>
+                <li>AI narrative tooling and story-memory systems</li>
+                <li>Publishing and author platforms — Next.js, structured content, SEO</li>
+                <li>Web apps with language, typography, or data at the center</li>
+                <li>A prototype that has to prove an idea before a full build</li>
+              </ul>
+            </div>
+            <div className={styles.option}>
+              <h2 className={styles.optionLabel}>Not a fit</h2>
+              <ul className={styles.fitList}>
+                <li>Ongoing maintenance or open-ended retainer support</li>
+                <li>Projects requiring a large team or agency infrastructure</li>
+                <li>Rush timelines without a prior relationship</li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <p className={styles.note}>
-          I do not respond to cold pitches, unsolicited manuscripts, or
-          automated outreach. For press and media inquiries, see the{" "}
-          <a href="/press" className={styles.noteLink}>press page</a>.
+          I don&rsquo;t respond to cold pitches, unsolicited manuscripts, or
+          automated outreach. For press and media, see the{" "}
+          <Link href="/press" className={styles.noteLink}>press page</Link>.
         </p>
       </Section>
     </SiteLayout>

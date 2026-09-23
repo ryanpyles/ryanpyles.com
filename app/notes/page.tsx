@@ -3,6 +3,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
+import PageHeader from "@/components/PageHeader";
 import FieldNotesGrid from "@/components/FieldNotesGrid";
 import ScholarArchiveGrid from "@/components/ScholarArchiveGrid";
 import { fieldNotes } from "@/content/fieldNotes";
@@ -33,14 +34,11 @@ export default function NotesPage() {
   return (
     <SiteLayout>
       <Section>
-        <header className={styles.header}>
-          <h1>Notes</h1>
-          <p className={styles.intro}>
-            Short entries — on language, writing, software, and design —
-            written close to the moment they occurred to me, before they had
-            the chance to settle into something more polished.
-          </p>
-        </header>
+        <PageHeader
+          kicker="Notebook & marginalia"
+          title="Notes"
+          intro="Short entries — on language, writing, software, and design — written close to the moment they occurred to me, before they had the chance to settle into something more polished."
+        />
 
         <FieldNotesGrid notes={fieldNotes} />
 

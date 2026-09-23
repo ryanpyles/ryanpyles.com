@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
+import PageHeader from "@/components/PageHeader";
 import InquiryForm from "@/components/InquiryForm";
 import { buildPageMetadata } from "@/lib/metadata";
 import styles from "./page.module.css";
@@ -18,13 +19,16 @@ export default function ContactPage() {
   return (
     <SiteLayout>
       <Section narrow>
-        <header className={styles.header}>
-          <h1>Start a project</h1>
-          <p className={styles.intro}>
-            Tell me what you&rsquo;re building. I read every inquiry myself and
-            reply within about two business days.
-          </p>
-        </header>
+        <PageHeader
+          kicker="Work with FORMÆTRIX"
+          title="Start a project"
+          intro={
+            <>
+              Tell me what you&rsquo;re building. I read every inquiry myself and
+              reply within about two business days.
+            </>
+          }
+        />
 
         <div className={styles.accepting}>
           <p className={styles.acceptingLabel}>

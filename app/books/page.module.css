@@ -1,15 +1,3 @@
-.header {
-  margin-bottom: var(--space-12);
-}
-
-.intro {
-  margin-top: var(--space-4);
-  font-family: var(--font-serif);
-  font-size: var(--text-lg);
-  color: color-mix(in srgb, var(--color-white) 55%, transparent);
-  font-style: italic;
-}
-
 .list {
   display: flex;
   flex-direction: column;

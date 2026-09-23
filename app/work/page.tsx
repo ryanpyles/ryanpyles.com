@@ -4,6 +4,7 @@ import Link from "next/link";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import PageHeader from "@/components/PageHeader";
+import ProcessTrack from "@/components/ProcessTrack";
 import Reveal from "@/components/Reveal";
 import { Ae } from "@/components/Ae";
 import { buildPageMetadata } from "@/lib/metadata";
@@ -168,16 +169,7 @@ export default function WorkPage() {
             <p className={styles.blockLabel}>How the work moves</p>
           </Reveal>
           <Reveal delay={80}>
-            <ol className={styles.process}>
-              {process.map((step, i) => (
-                <li key={step} className={styles.step}>
-                  <span className={styles.stepNum}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className={styles.stepName}>{step}</span>
-                </li>
-              ))}
-            </ol>
+            <ProcessTrack steps={process} />
           </Reveal>
         </section>
 

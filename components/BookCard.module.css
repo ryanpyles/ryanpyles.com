@@ -13,6 +13,7 @@
 
 .coverLink {
   display: block;
+  perspective: 900px;
 }
 
 .coverWrap {
@@ -20,6 +21,11 @@
   aspect-ratio: 2 / 3;
   background-color: var(--color-mid);
   overflow: hidden;
+  /* Signature: the cover tilts toward the cursor in 3D — "off the shelf."
+     (box-shadow is drawn outside the box, so overflow:hidden won't clip it.) */
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+  will-change: transform;
 }
 
 .cover {
@@ -27,8 +33,30 @@
   transition: transform var(--duration-slow) var(--ease-out);
 }
 
+.coverLink:hover .coverWrap {
+  box-shadow:
+    0 22px 40px -22px color-mix(in srgb, var(--color-black) 55%, transparent),
+    0 8px 16px -12px color-mix(in srgb, var(--color-black) 40%, transparent);
+}
+
 .coverLink:hover .cover {
   transform: scale(1.03);
+}
+
+/* Light that tracks the cursor across the cover. */
+.sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: calc(var(--lit, 0) * 0.5);
+  background: radial-gradient(
+    120% 90% at var(--mx, 50%) 0%,
+    color-mix(in srgb, #ffffff 42%, transparent),
+    transparent 55%
+  );
+  mix-blend-mode: soft-light;
+  transition: opacity 0.4s var(--ease-out);
 }
 
 .body {

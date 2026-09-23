@@ -4,6 +4,14 @@
   gap: var(--space-12);
 }
 
+/* Section label paired with its copy affordance. */
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
 .section {
   display: flex;
   flex-direction: column;

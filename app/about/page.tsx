@@ -7,6 +7,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { Ae } from "@/components/Ae";
 import Portrait from "@/components/Portrait";
 import MotionPlate from "@/components/MotionPlate";
+import Parallax from "@/components/Parallax";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -57,11 +58,13 @@ export default function AboutPage() {
         />
 
         <div className={styles.body}>
-          <p>
-            Ryan J. Pyles writes experimental fiction and builds web systems. The
-            work — across both disciplines — starts from the same premise: what
-            is the minimum necessary to make something hold?
-          </p>
+          <Parallax speed={26}>
+            <p>
+              Ryan J. Pyles writes experimental fiction and builds web systems. The
+              work — across both disciplines — starts from the same premise: what
+              is the minimum necessary to make something hold?
+            </p>
+          </Parallax>
 
           <Portrait
             src="/images/portraits/ryan-pyles-studio.jpg"
@@ -73,21 +76,25 @@ export default function AboutPage() {
             className={styles.bodyPlate}
           />
 
-          <p>
-            His novels operate through formal constraint. Each book proposes a
-            structure — a legal brief, a grammar of declensions, an archive of
-            measurement — and then inhabits that structure until it produces
-            something the structure alone could not predict. The result is fiction
-            that is precise without being cold, and strange without being
-            ornamental.
-          </p>
+          <Parallax speed={24}>
+            <p>
+              His novels operate through formal constraint. Each book proposes a
+              structure — a legal brief, a grammar of declensions, an archive of
+              measurement — and then inhabits that structure until it produces
+              something the structure alone could not predict. The result is fiction
+              that is precise without being cold, and strange without being
+              ornamental.
+            </p>
+          </Parallax>
 
-          <p>
-            On the web side, he works at the intersection of identity, language,
-            and system design. His practice is editorial rather than decorative —
-            built on the conviction that good design is the absence of everything
-            that isn't load-bearing.
-          </p>
+          <Parallax speed={24}>
+            <p>
+              On the web side, he works at the intersection of identity, language,
+              and system design. His practice is editorial rather than decorative —
+              built on the conviction that good design is the absence of everything
+              that isn't load-bearing.
+            </p>
+          </Parallax>
 
           <Portrait
             src="/images/portraits/ryan-pyles-figure.jpg"
@@ -99,30 +106,36 @@ export default function AboutPage() {
             className={styles.inlinePortrait}
           />
 
-          <p>
-            He studies twelve languages and is interested in the way grammar
-            constrains and enables thought — and in how those constraints travel
-            between natural language and code.
-          </p>
+          <Parallax speed={22}>
+            <p>
+              He studies twelve languages and is interested in the way grammar
+              constrains and enables thought — and in how those constraints travel
+              between natural language and code.
+            </p>
+          </Parallax>
 
-          <p>
-            He is based in Chicago.
-          </p>
+          <Parallax speed={22}>
+            <p>He is based in Chicago.</p>
+          </Parallax>
 
           <h2 className={styles.subheading}>FORM<Ae />TRIX</h2>
 
-          <p>
-            FORM<Ae />TRIX is an imprint Ryan founded for work that operates at the
-            edge of what publishing categories can hold. It is the home of
-            Elian Voigt — the literary identity through which Ryan's fiction is
-            released — whose books refuse the distinction between literary and
-            genre fiction.
-          </p>
+          <Parallax speed={20}>
+            <p>
+              FORM<Ae />TRIX is an imprint Ryan founded for work that operates at the
+              edge of what publishing categories can hold. It is the home of
+              Elian Voigt — the literary identity through which Ryan's fiction is
+              released — whose books refuse the distinction between literary and
+              genre fiction.
+            </p>
+          </Parallax>
 
-          <p>
-            The relationship between the person and the imprint is not fully
-            explained here. It is felt in the work.
-          </p>
+          <Parallax speed={20}>
+            <p>
+              The relationship between the person and the imprint is not fully
+              explained here. It is felt in the work.
+            </p>
+          </Parallax>
 
           <p className={styles.footnote}>
             <span className={styles.footnoteMarker}>*</span>

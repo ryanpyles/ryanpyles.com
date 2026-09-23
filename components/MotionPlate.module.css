@@ -8,12 +8,34 @@
   gap: var(--space-3);
 }
 
+.plate[data-inview="0"] {
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+.plate[data-inview="1"] {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.8s var(--ease-out), transform 0.9s var(--ease-out);
+}
+
 .frame {
   position: relative;
   width: 100%;
   overflow: hidden;
   background-color: color-mix(in srgb, var(--color-white) 4%, transparent);
   border: 1px solid var(--color-border);
+}
+
+/* Oversized layer that parallaxes within the frame as the plate scrolls. */
+.mediaLayer {
+  position: absolute;
+  left: 0;
+  top: -7%;
+  width: 100%;
+  height: 114%;
+  transform: translate3d(0, calc(var(--py, 0) * -6%), 0);
+  will-change: transform;
 }
 
 .video {
@@ -121,6 +143,14 @@
   .video,
   .corner,
   .control {
+    transition: none;
+  }
+
+  .mediaLayer {
+    transform: none !important;
+  }
+
+  .plate[data-inview="1"] {
     transition: none;
   }
 

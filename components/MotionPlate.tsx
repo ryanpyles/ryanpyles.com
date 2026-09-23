@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCinematicPlate } from "./useCinematicPlate";
 import styles from "./MotionPlate.module.css";
 
 export interface MotionPlateProps {
@@ -42,6 +43,7 @@ export default function MotionPlate({
   className,
 }: MotionPlateProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { plateRef, frameRef } = useCinematicPlate<HTMLElement, HTMLDivElement>();
   const [playing, setPlaying] = useState(false);
   const [sound, setSound] = useState(false);
 
@@ -131,31 +133,33 @@ export default function MotionPlate({
     : "Sound";
 
   return (
-    <figure className={[styles.plate, className ?? ""].join(" ")}>
-      <div className={styles.frame} style={{ aspectRatio: aspect }}>
-        <video
-          ref={videoRef}
-          className={styles.video}
-          poster={poster}
-          aria-label={label}
-          muted
-          /* Looping is wallpaper behaviour; once it has sound it plays once. */
-          loop={silent || !sound}
-          playsInline
-          preload="none"
-          onEnded={() => {
-            // Sound run finished — fall back to the silent loop. A silent
-            // plate loops and never fires this.
-            const el = videoRef.current;
-            if (!el || silent) return;
-            el.muted = true;
-            setSound(false);
-            el.play().then(
-              () => setPlaying(true),
-              () => setPlaying(false)
-            );
-          }}
-        />
+    <figure ref={plateRef} className={[styles.plate, className ?? ""].join(" ")}>
+      <div ref={frameRef} className={styles.frame} style={{ aspectRatio: aspect }}>
+        <div className={styles.mediaLayer}>
+          <video
+            ref={videoRef}
+            className={styles.video}
+            poster={poster}
+            aria-label={label}
+            muted
+            /* Looping is wallpaper behaviour; once it has sound it plays once. */
+            loop={silent || !sound}
+            playsInline
+            preload="none"
+            onEnded={() => {
+              // Sound run finished — fall back to the silent loop. A silent
+              // plate loops and never fires this.
+              const el = videoRef.current;
+              if (!el || silent) return;
+              el.muted = true;
+              setSound(false);
+              el.play().then(
+                () => setPlaying(true),
+                () => setPlaying(false)
+              );
+            }}
+          />
+        </div>
         <span className={styles.corner} aria-hidden="true" />
 
         <button type="button" className={styles.control} onClick={onControl}>

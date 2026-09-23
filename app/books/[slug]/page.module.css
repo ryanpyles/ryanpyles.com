@@ -37,6 +37,36 @@
   object-fit: cover;
 }
 
+/* Secondary edition (e.g. paperback) shown small beneath the primary cover. */
+.altEdition {
+  margin: var(--space-5) 0 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.altEditionFrame {
+  position: relative;
+  flex: none;
+  width: 84px;
+  aspect-ratio: 2 / 3;
+  background-color: var(--color-mid);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.altEditionImg {
+  object-fit: cover;
+}
+
+.altEditionCaption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
 .textCol {
   display: flex;
   flex-direction: column;

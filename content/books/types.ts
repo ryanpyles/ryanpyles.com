@@ -23,6 +23,8 @@ export interface Book {
   status?: BookStatus;
   /** Path to cover image in /public — omit for forthcoming titles without a cover yet. */
   coverImage?: string;
+  /** Secondary edition cover (e.g. the print/paperback art) when it differs from the primary. */
+  paperbackCover?: string;
   theme: BookTheme;
   amazon?: AmazonData;
 }

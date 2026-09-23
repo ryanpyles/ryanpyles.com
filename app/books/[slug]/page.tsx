@@ -62,6 +62,23 @@ export default function BookPage({ params }: Params) {
                 </div>
               )}
             </div>
+
+            {book.paperbackCover && (
+              <figure className={styles.altEdition}>
+                <div className={styles.altEditionFrame}>
+                  <Image
+                    src={book.paperbackCover}
+                    alt={`${book.title} — paperback edition cover`}
+                    fill
+                    sizes="120px"
+                    className={styles.altEditionImg}
+                  />
+                </div>
+                <figcaption className={styles.altEditionCaption}>
+                  Also in paperback
+                </figcaption>
+              </figure>
+            )}
           </div>
 
           <div className={styles.textCol}>

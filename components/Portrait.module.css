@@ -8,7 +8,7 @@
 /* Reveal on entry (armed only once JS runs, so it stays visible with none). */
 .plate[data-inview="0"] {
   opacity: 0;
-  transform: translateY(26px);
+  transform: translateY(18px);
 }
 
 .plate[data-inview="1"] {

@@ -8,7 +8,6 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { Ae } from "@/components/Ae";
 import Portrait from "@/components/Portrait";
 import MotionPlate from "@/components/MotionPlate";
-import Parallax from "@/components/Parallax";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -42,104 +41,99 @@ const workAreas = [
 export default function AboutPage() {
   return (
     <SiteLayout>
-      <Section narrow>
+      <Section>
         <PageHeader
           kicker="Ryan J. Pyles — the archive"
           title="About"
           intro="Author, engineer, and linguist in Chicago — the person behind FORMÆTRIX and Elian Voigt."
         />
 
-
-        <MotionPlate
-          src="/assets/videos/ryan-pyles-generalist.mp4"
-          poster="/assets/videos/ryan-pyles-generalist-poster.jpg"
-          label="A short silent loop: Ryan Pyles stands on a lit disc in a dark studio under a single overhead beam, as scanning rings rotate slowly around him. A lockup to the left reads: Ryan Pyles, Multidisciplinary Human System, built across disciplines."
-          index="fig. 01"
-          caption="Multidisciplinary Human System — built across disciplines."
-          aspect="16 / 9"
-          silent
-          className={styles.leadPortrait}
-        />
-
-        <div className={styles.body}>
-          <Parallax speed={26}>
-            <p>
-              Ryan J. Pyles writes experimental fiction and builds web systems. The
-              work — across both disciplines — starts from the same premise: what
-              is the minimum necessary to make something hold?
+        {/* ── Editorial spread ─────────────────────────────────────── */}
+        <div className={styles.spread}>
+          {/* Lead: moving frame beside the opening statement. */}
+          <div className={`${styles.row} ${styles.rowLead}`}>
+            <MotionPlate
+              src="/assets/videos/ryan-pyles-generalist.mp4"
+              poster="/assets/videos/ryan-pyles-generalist-poster.jpg"
+              label="A short silent loop: Ryan Pyles stands on a lit disc in a dark studio under a single overhead beam, as scanning rings rotate slowly around him. A lockup to the left reads: Ryan Pyles, Multidisciplinary Human System, built across disciplines."
+              index="fig. 01"
+              caption="Multidisciplinary Human System — built across disciplines."
+              aspect="16 / 9"
+              silent
+              className={styles.leadPlate}
+            />
+            <p className={styles.lede}>
+              Ryan J. Pyles writes experimental fiction and builds web systems.
+              The work — across both disciplines — starts from the same premise:
+              what is the minimum necessary to make something hold?
             </p>
-          </Parallax>
+          </div>
 
-          <Portrait
-            src="/images/portraits/ryan-pyles-studio.jpg"
-            alt="Ryan J. Pyles seated at a drafting table spread with floor plans, in a concrete-and-timber studio lined with books."
-            index="fig. 02"
-            caption="Chicago studio — drafting table, reference library, work in plan."
-            aspect="4 / 3"
-            sizes="(max-width: 760px) 100vw, 720px"
-            className={styles.bodyPlate}
-          />
+          {/* Studio plate beside the practice. */}
+          <div className={`${styles.row} ${styles.rowStudio}`}>
+            <Portrait
+              src="/images/portraits/ryan-pyles-studio.jpg"
+              alt="Ryan J. Pyles seated at a drafting table spread with floor plans, in a concrete-and-timber studio lined with books."
+              index="fig. 02"
+              caption="Chicago studio — drafting table, reference library, work in plan."
+              aspect="4 / 3"
+              sizes="(max-width: 900px) 100vw, 560px"
+              className={styles.studioPlate}
+            />
+            <div className={styles.rowText}>
+              <p>
+                His novels operate through formal constraint. Each book proposes
+                a structure — a legal brief, a grammar of declensions, an archive
+                of measurement — and then inhabits that structure until it
+                produces something the structure alone could not predict. The
+                result is fiction that is precise without being cold, and strange
+                without being ornamental.
+              </p>
+              <p>
+                On the web side, he works at the intersection of identity,
+                language, and system design. His practice is editorial rather
+                than decorative — built on the conviction that good design is the
+                absence of everything that isn&rsquo;t load-bearing.
+              </p>
+            </div>
+          </div>
 
-          <Parallax speed={24}>
-            <p>
-              His novels operate through formal constraint. Each book proposes a
-              structure — a legal brief, a grammar of declensions, an archive of
-              measurement — and then inhabits that structure until it produces
-              something the structure alone could not predict. The result is fiction
-              that is precise without being cold, and strange without being
-              ornamental.
-            </p>
-          </Parallax>
+          {/* Figure study, offset opposite the language note. */}
+          <div className={`${styles.row} ${styles.rowFigure}`}>
+            <div className={styles.rowText}>
+              <p>
+                He studies twelve languages and is interested in the way grammar
+                constrains and enables thought — and in how those constraints
+                travel between natural language and code.
+              </p>
+              <p className={styles.pull}>He is based in Chicago.</p>
+            </div>
+            <Portrait
+              src="/images/portraits/ryan-pyles-figure.jpg"
+              alt="A vinyl figure of Ryan Pyles on a desk, standing in front of a monitor showing the same character as an untextured 3D model, with anatomy reference sheets pinned to the wall behind."
+              index="fig. 03"
+              caption="Figure study — reference sheets, mesh, packaged object. The same pipeline, run end to end."
+              aspect="2 / 3"
+              sizes="(max-width: 900px) 100vw, 300px"
+              className={styles.figurePlate}
+            />
+          </div>
+        </div>
 
-          <Parallax speed={24}>
-            <p>
-              On the web side, he works at the intersection of identity, language,
-              and system design. His practice is editorial rather than decorative —
-              built on the conviction that good design is the absence of everything
-              that isn't load-bearing.
-            </p>
-          </Parallax>
-
-          <Portrait
-            src="/images/portraits/ryan-pyles-figure.jpg"
-            alt="A vinyl figure of Ryan Pyles on a desk, standing in front of a monitor showing the same character as an untextured 3D model, with anatomy reference sheets pinned to the wall behind."
-            index="fig. 03"
-            caption="Figure study — reference sheets, mesh, packaged object. The same pipeline, run end to end."
-            aspect="2 / 3"
-            sizes="(max-width: 760px) 100vw, 480px"
-            className={styles.inlinePortrait}
-          />
-
-          <Parallax speed={22}>
-            <p>
-              He studies twelve languages and is interested in the way grammar
-              constrains and enables thought — and in how those constraints travel
-              between natural language and code.
-            </p>
-          </Parallax>
-
-          <Parallax speed={22}>
-            <p>He is based in Chicago.</p>
-          </Parallax>
-
+        {/* ── Closing: the imprint, in a single reading column ─────── */}
+        <div className={styles.closing}>
           <h2 className={styles.subheading}>FORM<Ae />TRIX</h2>
-
-          <Parallax speed={20}>
-            <p>
-              FORM<Ae />TRIX is an imprint Ryan founded for work that operates at the
-              edge of what publishing categories can hold. It is the home of
-              Elian Voigt — the literary identity through which Ryan's fiction is
-              released — whose books refuse the distinction between literary and
-              genre fiction.
-            </p>
-          </Parallax>
-
-          <Parallax speed={20}>
-            <p>
-              The relationship between the person and the imprint is not fully
-              explained here. It is felt in the work.
-            </p>
-          </Parallax>
+          <p>
+            FORM<Ae />TRIX is an imprint Ryan founded for work that operates at
+            the edge of what publishing categories can hold. It is the home of
+            Elian Voigt — the literary identity through which Ryan&rsquo;s fiction
+            is released — whose books refuse the distinction between literary and
+            genre fiction.
+          </p>
+          <p>
+            The relationship between the person and the imprint is not fully
+            explained here. It is felt in the work.
+          </p>
 
           <p className={styles.footnote}>
             <span className={styles.footnoteMarker}>*</span>

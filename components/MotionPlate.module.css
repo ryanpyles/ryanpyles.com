@@ -10,7 +10,7 @@
 
 .plate[data-inview="0"] {
   opacity: 0;
-  transform: translateY(26px);
+  transform: translateY(18px);
 }
 
 .plate[data-inview="1"] {
@@ -27,15 +27,14 @@
   border: 1px solid var(--color-border);
 }
 
-/* Oversized layer that parallaxes within the frame as the plate scrolls. */
+/* Fills the frame exactly (no overscan): footage often carries an edge-anchored
+   lockup, and cropping the sides to parallax it would clip that branding. When
+   the frame's aspect matches the source, object-fit: cover shows every edge. */
 .mediaLayer {
   position: absolute;
-  left: 0;
-  top: -7%;
+  inset: 0;
   width: 100%;
-  height: 114%;
-  transform: translate3d(0, calc(var(--py, 0) * -6%), 0);
-  will-change: transform;
+  height: 100%;
 }
 
 .video {

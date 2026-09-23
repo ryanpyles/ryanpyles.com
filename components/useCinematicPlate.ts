@@ -35,7 +35,9 @@ export function useCinematicPlate<
               io.disconnect();
             }
           },
-          { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+          // Reveal as the plate begins to enter, so it is already resolving by
+          // the time it is well in view — no dead space ahead of a late fade.
+          { threshold: 0, rootMargin: "0px 0px -8% 0px" }
         );
         io.observe(plate);
         cleanups.push(() => io.disconnect());

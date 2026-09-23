@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
+import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import { Ae } from "@/components/Ae";
 import { buildPageMetadata } from "@/lib/metadata";
@@ -93,18 +94,17 @@ export default function WorkPage() {
       />
       <Section>
         {/* ── Hero ─────────────────────────────────────────────────── */}
-        <header className={styles.hero}>
-          <Reveal>
-            <p className={styles.kicker}>
+        <PageHeader
+          kicker={
+            <>
               Work with FORM<Ae />TRIX
-            </p>
-          </Reveal>
-          <Reveal delay={80} slow>
-            <h1 className={styles.title}>
-              Design and engineering for systems where language is load-bearing.
-            </h1>
-          </Reveal>
-          <Reveal delay={160}>
+            </>
+          }
+          title="Work"
+          intro="Design and engineering for systems where language is load-bearing."
+        />
+        <div className={styles.heroLede}>
+          <Reveal>
             <p className={styles.intro}>
               I build for publishers, authors, and teams whose products live or
               die on language, structure, and typography — from AI narrative
@@ -112,7 +112,7 @@ export default function WorkPage() {
               engagement below is backed by shipped work you can inspect.
             </p>
           </Reveal>
-          <Reveal delay={220}>
+          <Reveal delay={80}>
             <div className={styles.heroCtas}>
               <Link href="/contact" className={styles.ctaPrimary}>
                 Start a project →
@@ -122,7 +122,7 @@ export default function WorkPage() {
               </Link>
             </div>
           </Reveal>
-        </header>
+        </div>
 
         {/* ── Services ─────────────────────────────────────────────── */}
         <section className={styles.block} aria-label="Services">

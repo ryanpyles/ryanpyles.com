@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
+import PageHeader from "@/components/PageHeader";
 import { buildPageMetadata } from "@/lib/metadata";
 import { Ae } from "@/components/Ae";
 import Portrait from "@/components/Portrait";
@@ -42,9 +43,12 @@ export default function AboutPage() {
   return (
     <SiteLayout>
       <Section narrow>
-        <header className={styles.header}>
-          <h1>About</h1>
-        </header>
+        <PageHeader
+          kicker="Ryan J. Pyles — the archive"
+          title="About"
+          intro="Author, engineer, and linguist in Chicago — the person behind FORMÆTRIX and Elian Voigt."
+        />
+
 
         <MotionPlate
           src="/assets/videos/ryan-pyles-generalist.mp4"

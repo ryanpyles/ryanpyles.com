@@ -3,6 +3,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
+import PageHeader from "@/components/PageHeader";
 import BookCard from "@/components/BookCard";
 import { ryanBooks } from "@/content/books";
 import styles from "./page.module.css";
@@ -26,12 +27,11 @@ export default function BooksPage() {
   return (
     <SiteLayout>
       <Section>
-        <header className={styles.header}>
-          <h1>Fiction</h1>
-          <p className={styles.intro}>
-            Novels that resist easy resolution. Fiction built from constraint.
-          </p>
-        </header>
+        <PageHeader
+          kicker="Elian Voigt — FORMÆTRIX"
+          title="Fiction"
+          intro="Novels that resist easy resolution. Fiction built from constraint."
+        />
 
         <div className={styles.list}>
           {ryanBooks.map((book) => (

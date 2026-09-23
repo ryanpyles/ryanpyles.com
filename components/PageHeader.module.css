@@ -1,0 +1,45 @@
+/* Shared subpage masthead — mirrors the projects "Systems." header. */
+.header {
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-5);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(3.75rem, 12vw, 9rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  margin: 0;
+}
+
+.dot {
+  color: var(--color-accent);
+}
+
+.intro {
+  margin-top: var(--space-6);
+  max-width: 42ch;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(var(--text-lg), 2.2vw, var(--text-2xl));
+  line-height: var(--leading-snug);
+  color: color-mix(in srgb, var(--color-white) 62%, transparent);
+}
+
+@media (max-width: 480px) {
+  .header {
+    margin-bottom: var(--space-10);
+  }
+}

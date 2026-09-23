@@ -1,26 +1,8 @@
 /* ── Hero ──────────────────────────────────────────────────────── */
-.hero {
+/* Lede paragraph + CTAs sit beneath the shared PageHeader masthead. */
+.heroLede {
   max-width: 820px;
   margin-bottom: var(--space-24);
-}
-
-.kicker {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-}
-
-.title {
-  margin-top: var(--space-6);
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
-  color: var(--color-white);
-  max-width: 16ch;
 }
 
 .intro {

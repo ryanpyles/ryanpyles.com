@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
+import PageHeader from "@/components/PageHeader";
 import { Ae } from "@/components/Ae";
 import Portrait, { PortraitPair } from "@/components/Portrait";
 import { buildPageMetadata } from "@/lib/metadata";
@@ -18,12 +19,11 @@ export default function PressPage() {
   return (
     <SiteLayout>
       <Section narrow>
-        <header className={styles.header}>
-          <h1>Press</h1>
-          <p className={styles.intro}>
-            For interviews, reviews, author features, and speaking inquiries.
-          </p>
-        </header>
+        <PageHeader
+          kicker="Media & press kit"
+          title="Press"
+          intro="For interviews, reviews, author features, and speaking inquiries."
+        />
 
         <div className={styles.body}>
           <section className={styles.section}>

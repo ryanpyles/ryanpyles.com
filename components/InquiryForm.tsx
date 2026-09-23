@@ -67,7 +67,13 @@ export default function InquiryForm() {
   const [copied, setCopied] = useState(false);
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const valid = name.trim() && emailValid && message.trim().length > 10;
+  const requirements = [
+    Boolean(name.trim()),
+    emailValid,
+    message.trim().length > 10,
+  ];
+  const filled = requirements.filter(Boolean).length;
+  const valid = filled === requirements.length;
 
   const composed = useMemo(
     () => composeEmail({ name, email, org, projectType, budget, timeline, message }),
@@ -225,6 +231,21 @@ export default function InquiryForm() {
           required
         />
       </label>
+
+      <div className={styles.readiness}>
+        <span className={styles.readinessTrack} aria-hidden="true">
+          <span
+            className={styles.readinessFill}
+            style={{ width: `${(filled / requirements.length) * 100}%` }}
+          />
+        </span>
+        <span
+          className={`${styles.readinessLabel} ${valid ? styles.readinessReady : ""}`}
+          role="status"
+        >
+          {valid ? "Ready to send" : `${filled} of ${requirements.length} — name, email, a few words`}
+        </span>
+      </div>
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submit} disabled={!valid}>

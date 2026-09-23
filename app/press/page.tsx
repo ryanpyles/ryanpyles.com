@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import PageHeader from "@/components/PageHeader";
+import CopyButton from "@/components/CopyButton";
 import { Ae } from "@/components/Ae";
 import Portrait, { PortraitPair } from "@/components/Portrait";
 import { buildPageMetadata } from "@/lib/metadata";
@@ -14,6 +15,17 @@ export const metadata: Metadata = buildPageMetadata({
     "Press and media information for Ryan J. Pyles — bios, book information, and contact for interviews, reviews, and speaking inquiries.",
   path: "/press",
 });
+
+/* Plain-text mirrors of the bios for one-click copy (the visible copy uses the
+   stylised Æ; the clipboard gets clean, paste-ready text). */
+const SHORT_BIO =
+  "Ryan J. Pyles is an experimental fiction author, software engineer, and linguist based in Chicago. He writes novels as Elian Voigt, published through FORMÆTRIX. His work operates through formal constraint — fiction that proposes a structure, inhabits it, and produces something the structure alone could not predict.";
+
+const LONG_BIO = [
+  "Ryan J. Pyles writes experimental and speculative fiction under the name Elian Voigt. His novels resist easy genre placement: they are precise without being cold, and strange without being ornamental. Each book proposes a formal structure — a legal brief, a grammar of declensions, an archive of measurement — and then inhabits that structure until it produces something the structure alone could not predict.",
+  "He is also a software engineer who works at the intersection of identity, language, and system design. His web practice is editorial rather than decorative, built on the conviction that good design is the absence of everything that isn't load-bearing. He has built dual-identity publishing platforms, multilingual typography engines, and narrative intelligence tools for authors working with AI.",
+  "He studies twelve languages and is interested in language as structure — the way grammar constrains and enables thought, and the way those constraints travel between natural language and code. He is based in Chicago.",
+].join("\n\n");
 
 export default function PressPage() {
   return (
@@ -27,7 +39,10 @@ export default function PressPage() {
 
         <div className={styles.body}>
           <section className={styles.section}>
-            <h2 className={styles.sectionLabel}>Short Bio</h2>
+            <div className={styles.sectionHead}>
+              <h2 className={styles.sectionLabel}>Short Bio</h2>
+              <CopyButton text={SHORT_BIO} label="Copy bio" />
+            </div>
             <p>
               Ryan J. Pyles is an experimental fiction author, software
               engineer, and linguist based in Chicago. He writes novels as Elian
@@ -38,7 +53,10 @@ export default function PressPage() {
           </section>
 
           <section className={styles.section}>
-            <h2 className={styles.sectionLabel}>Long Bio</h2>
+            <div className={styles.sectionHead}>
+              <h2 className={styles.sectionLabel}>Long Bio</h2>
+              <CopyButton text={LONG_BIO} label="Copy bio" />
+            </div>
             <p>
               Ryan J. Pyles writes experimental and speculative fiction under the
               name Elian Voigt. His novels resist easy genre placement: they are
@@ -156,7 +174,10 @@ export default function PressPage() {
           </section>
 
           <section className={styles.contact}>
-            <h2 className={styles.sectionLabel}>Press Contact</h2>
+            <div className={styles.sectionHead}>
+              <h2 className={styles.sectionLabel}>Press Contact</h2>
+              <CopyButton text="me@ryanpyles.com" label="Copy email" />
+            </div>
             <a href="mailto:me@ryanpyles.com?subject=Press inquiry" className={styles.email}>
               me@ryanpyles.com
             </a>

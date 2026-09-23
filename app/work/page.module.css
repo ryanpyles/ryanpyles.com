@@ -160,35 +160,8 @@
 }
 
 /* ── Process ───────────────────────────────────────────────────── */
-.process {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-}
-
-.step {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-6);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-}
-
-.stepNum {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--color-accent);
-}
-
-.stepName {
-  font-family: var(--font-serif);
-  font-size: var(--text-lg);
-  color: var(--color-white);
-}
+/* The process timeline is its own component (ProcessTrack) with a
+   self-drawing accent rail — see components/ProcessTrack.*. */
 
 /* ── Outcomes ──────────────────────────────────────────────────── */
 .outcomes {

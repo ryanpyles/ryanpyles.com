@@ -8,6 +8,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { Ae } from "@/components/Ae";
 import Portrait from "@/components/Portrait";
 import MotionPlate from "@/components/MotionPlate";
+import ReadingSpine from "@/components/ReadingSpine";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -41,6 +42,7 @@ const workAreas = [
 export default function AboutPage() {
   return (
     <SiteLayout>
+      <ReadingSpine />
       <Section>
         <PageHeader
           kicker="Ryan J. Pyles — the archive"

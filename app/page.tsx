@@ -12,12 +12,10 @@ import VoigtIdentityBand from "@/components/VoigtIdentityBand";
 import ContinuityAtlasScene from "@/components/ContinuityAtlasScene";
 import InProgressScene from "@/components/InProgressScene";
 import Reveal from "@/components/Reveal";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 import { buildPageMetadata, buildPersonJsonLd } from "@/lib/metadata";
+import { siteUrl, landingLanguageAlternates } from "@/lib/i18n";
 import styles from "./page.module.css";
-
-const LanguageSwitcher = dynamic(() => import("@/components/LanguageSwitcher"), {
-  ssr: false,
-});
 
 // SiteProgressObject: fixed morphing constellation — scroll wayfinding (desktop)
 const SiteProgressObject = dynamic(
@@ -101,6 +99,12 @@ export const metadata: Metadata = buildPageMetadata({
   ],
   titleIsComplete: true,
 });
+
+// hreflang across the localized landing surface (en canonical at root).
+metadata.alternates = {
+  canonical: `${siteUrl}/`,
+  languages: landingLanguageAlternates(),
+};
 
 export default function HomePage() {
   const jsonLd = buildPersonJsonLd();
@@ -187,7 +191,7 @@ export default function HomePage() {
         </div>
 
         <div className={styles.langWrap}>
-          <LanguageSwitcher />
+          <LocaleSwitcher current="en" />
         </div>
       </section>
 

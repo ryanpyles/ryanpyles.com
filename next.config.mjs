@@ -17,6 +17,12 @@ const nextConfig = {
         destination: "/about",
         permanent: true,
       },
+      {
+        // English lives at the root; /en is not a separate route.
+        source: "/en",
+        destination: "/",
+        permanent: true,
+      },
 
       /* ── Phase 2 information architecture ────────────────────────────
          Field Notes and the Scholar's Notebook merged into /notes, and

@@ -82,7 +82,9 @@ button {
   --color-black: var(--paper);
   --color-white: var(--ink);
   --color-mid: var(--charcoal);
-  --color-muted: var(--gray);
+  /* Darker than --gray (#8A8A8A ≈ 3.3:1) so muted/secondary text clears
+     WCAG AA on the paper background (#6A6A6A ≈ 5:1). */
+  --color-muted: #6a6a6a;
   --color-accent: var(--orange);
   --color-border: rgba(17, 17, 17, 0.10);
   --color-surface: rgba(17, 17, 17, 0.04);

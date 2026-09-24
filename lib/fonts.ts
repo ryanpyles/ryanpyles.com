@@ -3,8 +3,6 @@ import {
   EB_Garamond,
   Inter,
   IBM_Plex_Mono,
-  Fraunces,
-  Manrope,
 } from "next/font/google";
 
 /**
@@ -50,28 +48,13 @@ export const plexMono = IBM_Plex_Mono({
   variable: "--f-plex-mono",
 });
 
-/* Fraunces and Manrope are used only by the Continuity Atlas prototype, but
-   it renders on the homepage as well as its own case study, so they stay in
-   the shared set rather than being loaded twice. */
-export const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  variable: "--f-fraunces",
-});
-
-export const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--f-manrope",
-});
-
+/* Fraunces and Manrope are used only by the Continuity Atlas prototype, so
+   they are declared in components/continuityFonts.ts and applied on that
+   component's root — kept out of this global set to avoid preloading them on
+   every page. */
 export const fontVariables = [
   cormorant.variable,
   ebGaramond.variable,
   inter.variable,
   plexMono.variable,
-  fraunces.variable,
-  manrope.variable,
 ].join(" ");

@@ -135,7 +135,7 @@
   font-style: italic;
   font-size: var(--text-sm);
   line-height: 1.65;
-  color: color-mix(in srgb, var(--color-white) 42%, transparent);
+  color: color-mix(in srgb, var(--color-white) 60%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

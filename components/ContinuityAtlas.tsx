@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { continuityFontVars } from "./continuityFonts";
 
 /* ============================================================
    CONTINUITY ATLAS
@@ -384,7 +385,7 @@ function Slip({ children, locked, style }: { children: React.ReactNode; locked?:
 export default function ContinuityAtlas() {
   const [screen, setScreen] = useState<string>("landing");
   return (
-    <div style={{
+    <div className={continuityFontVars} style={{
       minHeight: "100%", background: C.ink, color: C.bone,
       fontFamily: sans,
       backgroundImage:

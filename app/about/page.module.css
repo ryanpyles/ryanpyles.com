@@ -123,7 +123,7 @@
   font-size: var(--text-xs) !important;
   font-style: normal !important;
   line-height: 1.6 !important;
-  color: color-mix(in srgb, var(--color-white) 38%, transparent) !important;
+  color: color-mix(in srgb, var(--color-white) 58%, transparent) !important;
   border-left: 2px solid var(--color-border);
   padding-left: var(--space-4);
   margin-top: var(--space-4);

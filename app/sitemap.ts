@@ -4,14 +4,17 @@ import { fieldNotes } from "@/content/fieldNotes";
 import { projectCases } from "@/content/projectCases";
 import { embeddedApps } from "@/content/embeddedApps";
 import { ryanBooks } from "@/content/books";
+import { landingLocales, landingLanguageAlternates } from "@/lib/i18n";
 
 const BASE = "https://ryanpyles.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
+  const alternates = { languages: landingLanguageAlternates() };
+
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${BASE}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: `${BASE}/`, lastModified: now, changeFrequency: "weekly", priority: 1, alternates },
     { url: `${BASE}/projects`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/work`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/books`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
@@ -21,6 +24,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/voigt-project`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
     { url: `${BASE}/press`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
   ];
+
+  // Per-locale landing pages (English canonical lives at "/").
+  const localeRoutes: MetadataRoute.Sitemap = landingLocales.map((lang) => ({
+    url: `${BASE}/${lang}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+    alternates,
+  }));
 
   const writingRoutes: MetadataRoute.Sitemap = articles
     .filter((a) => a.status === "published")
@@ -57,6 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticRoutes,
+    ...localeRoutes,
     ...writingRoutes,
     ...projectRoutes,
     ...bookRoutes,

@@ -3,7 +3,6 @@ import { fontVariables } from "@/lib/fonts";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { LanguageProvider } from "@/lib/LanguageContext";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -25,9 +24,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={fontVariables}>
-
       <body>
-        <LanguageProvider>{children}</LanguageProvider>
+        {children}
         {/* Cookieless, no consent banner required. Both are no-ops off Vercel. */}
         <Analytics />
         <SpeedInsights />

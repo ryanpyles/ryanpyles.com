@@ -1,0 +1,448 @@
+.root {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-black); /* paper on the ryan domain */
+  color: var(--color-white); /* ink */
+}
+
+/* ── Top bar ──────────────────────────────────────────────────────────── */
+.top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-8);
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+}
+
+.wordmark {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+/* ── Main ─────────────────────────────────────────────────────────────── */
+.main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(var(--space-12), 10vh, var(--space-24)) var(--space-8) var(--space-20);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-6);
+}
+
+.statement {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5.2vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  margin: 0;
+  max-width: 20ch;
+  white-space: pre-line;
+}
+
+.descriptor {
+  margin-top: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+}
+
+.summary {
+  margin-top: var(--space-5);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(var(--text-md), 1.8vw, var(--text-lg));
+  line-height: var(--leading-relaxed);
+  color: color-mix(in srgb, var(--color-white) 62%, transparent);
+  max-width: 52ch;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4) var(--space-6);
+  margin-top: var(--space-8);
+}
+
+.ctaPrimary {
+  padding: var(--space-3) var(--space-8);
+  background: var(--color-white);
+  color: var(--color-black);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.ctaPrimary:hover {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.ctaSecondary {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 60%, transparent);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.ctaSecondary:hover {
+  color: var(--color-accent);
+}
+
+/* ── Highlights ───────────────────────────────────────────────────────── */
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin: var(--space-16) 0 0;
+  padding: var(--space-8) 0 0;
+  border-top: 1px solid var(--color-border);
+  list-style: none;
+}
+
+.highlight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.highlightValue {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  color: var(--color-white);
+}
+
+.highlightLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+}
+
+/* ── Section index ────────────────────────────────────────────────────── */
+.index {
+  margin-top: var(--space-20);
+}
+
+.lookingFor {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(var(--text-lg), 2.4vw, var(--text-2xl));
+  color: var(--color-white);
+  margin-bottom: var(--space-6);
+}
+
+.indexNav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid var(--color-border);
+}
+
+.indexItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  color: var(--color-white);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.indexItem:nth-child(odd) {
+  border-right: 1px solid var(--color-border);
+  padding-right: var(--space-6);
+}
+
+.indexItem:nth-child(even) {
+  padding-left: var(--space-6);
+}
+
+.indexArrow {
+  font-family: var(--font-mono);
+  color: var(--color-muted);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+.indexItem:hover {
+  color: var(--color-accent);
+}
+
+.indexItem:hover .indexArrow {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--color-accent);
+}
+
+/* ── Signature devices ────────────────────────────────────────────────── */
+.pullQuote {
+  margin: var(--space-20) 0 0;
+  padding-left: var(--space-6);
+  border-left: 2px solid var(--color-accent);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(var(--text-lg), 2.6vw, var(--text-2xl));
+  line-height: var(--leading-snug);
+  color: color-mix(in srgb, var(--color-white) 78%, transparent);
+  max-width: 40ch;
+}
+
+.pullQuoteMark {
+  color: var(--color-accent);
+  margin-right: var(--space-2);
+  font-style: normal;
+}
+
+/* German system status */
+.status {
+  margin: var(--space-20) 0 0;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-8);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+}
+
+.statusTitle {
+  font-size: var(--text-xs);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 45%, transparent);
+}
+
+.statusState {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
+
+.statusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 55%, transparent);
+  animation: statusPulse 2.6s ease-out infinite;
+}
+
+@keyframes statusPulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 55%, transparent); }
+  70% { box-shadow: 0 0 0 7px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.statusRows {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--color-white) 60%, transparent);
+}
+
+/* Japanese vertical device — a horizontal accent label over a single clean
+   vertical column. */
+.vertical {
+  margin: var(--space-20) 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.verticalCaption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Characters stacked as blocks — a vertical column immune to broken vertical
+   font metrics. */
+.verticalText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.verticalChar {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP",
+    "Noto Sans JP", serif;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  line-height: 1;
+  color: var(--color-white);
+}
+
+/* ── Imprint ──────────────────────────────────────────────────────────── */
+.imprint {
+  margin-top: var(--space-20);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.imprintLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.24em;
+  color: var(--color-accent);
+}
+
+.imprintBody {
+  margin-top: var(--space-4);
+  font-family: var(--font-serif);
+  font-size: clamp(var(--text-md), 1.8vw, var(--text-xl));
+  line-height: var(--leading-relaxed);
+  color: color-mix(in srgb, var(--color-white) 75%, transparent);
+  max-width: 48ch;
+  white-space: pre-line;
+}
+
+.imprintLink {
+  display: inline-block;
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.imprintLink:hover {
+  color: var(--color-accent);
+}
+
+/* ── Localization notes ───────────────────────────────────────────────── */
+.locNote {
+  margin-top: var(--space-12);
+}
+
+.locNoteSummary {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.locNoteSummary::-webkit-details-marker {
+  display: none;
+}
+
+.locNoteSummary::before {
+  content: "+ ";
+}
+
+details[open] .locNoteSummary::before {
+  content: "− ";
+}
+
+.locNoteSummary:hover {
+  color: var(--color-white);
+}
+
+.locNoteBody {
+  margin-top: var(--space-4);
+  font-family: var(--font-serif);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  color: color-mix(in srgb, var(--color-white) 60%, transparent);
+  max-width: 52ch;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+.footer {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-10) var(--space-8) var(--space-12);
+  border-top: 1px solid var(--color-border);
+}
+
+.artifact {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  color: color-mix(in srgb, var(--color-white) 70%, transparent);
+  white-space: pre-line;
+  max-width: 40ch;
+}
+
+.footerMeta {
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--color-white) 40%, transparent);
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .highlights {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  .indexNav {
+    grid-template-columns: 1fr;
+  }
+
+  .indexItem:nth-child(odd) {
+    border-right: none;
+    padding-right: var(--space-2);
+  }
+
+  .indexItem:nth-child(even) {
+    padding-left: var(--space-2);
+  }
+}

@@ -42,7 +42,10 @@ export function buildPageMetadata(overrides: {
     description: overrides.description,
     ...(overrides.keywords ? { keywords: overrides.keywords } : {}),
     metadataBase: new URL(site.url),
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      types: { "application/rss+xml": `${site.url}/feed.xml` },
+    },
     openGraph: {
       title: fullTitle,
       description: overrides.description,
@@ -87,7 +90,10 @@ export function buildBookMetadata(book: Book): Metadata {
     description: book.description,
     metadataBase: new URL(site.url),
     keywords: book.keywords,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      types: { "application/rss+xml": `${site.url}/feed.xml` },
+    },
     openGraph: {
       title: fullTitle,
       description: book.description,
@@ -178,6 +184,62 @@ export function buildPersonJsonLd(): string {
       "Linguistics",
       "Experimental Fiction",
     ],
+  });
+}
+
+/**
+ * BreadcrumbList structured data — helps search engines render a breadcrumb
+ * trail in results. Paths are site-relative; names are the visible labels.
+ */
+export function buildBreadcrumbJsonLd(
+  items: { name: string; path: string }[]
+): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: `${site.url}${item.path}`,
+    })),
+  });
+}
+
+/** Organization structured data for the FORMÆTRIX studio. */
+export function buildOrganizationJsonLd(): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "FORMÆTRIX",
+    url: "https://www.formaetrix.com",
+    founder: { "@type": "Person", name: "Ryan Pyles", url: site.url },
+    description:
+      "A multidisciplinary studio for publishing, software, and narrative systems, founded by Ryan Pyles. Home of the pen name Elian Voigt.",
+    sameAs: ["https://www.formaetrix.com", "https://www.elianvoigt.com"],
+  });
+}
+
+/** BlogPosting structured data for a Field Note. */
+export function buildNoteJsonLd(note: {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  category: string;
+}): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: note.title,
+    description: note.excerpt,
+    datePublished: note.date,
+    dateModified: note.date,
+    url: `${site.url}/notes/${note.slug}`,
+    author: { "@type": "Person", name: site.name, url: site.url },
+    publisher: { "@type": "Person", name: site.name, url: site.url },
+    articleSection: note.category,
+    inLanguage: "en",
   });
 }
 

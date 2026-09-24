@@ -1,5 +1,5 @@
 import React from "react";
-import { buildPageMetadata } from "@/lib/metadata";
+import { buildPageMetadata, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -85,6 +85,16 @@ export default function ArticlePage({ params }: Params) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Writing", path: "/projects" },
+            { name: a.title, path: `/writing/${a.slug}` },
+          ]),
+        }}
       />
       <Section narrow>
         <nav className={styles.breadcrumb} aria-label="Breadcrumb">

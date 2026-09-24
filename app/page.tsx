@@ -14,7 +14,7 @@ import InProgressScene from "@/components/InProgressScene";
 import Reveal from "@/components/Reveal";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import DeferMount from "@/components/DeferMount";
-import { buildPageMetadata, buildPersonJsonLd } from "@/lib/metadata";
+import { buildPageMetadata, buildPersonJsonLd, buildOrganizationJsonLd } from "@/lib/metadata";
 import { siteUrl, landingLanguageAlternates } from "@/lib/i18n";
 import styles from "./page.module.css";
 
@@ -105,6 +105,7 @@ export const metadata: Metadata = buildPageMetadata({
 metadata.alternates = {
   canonical: `${siteUrl}/`,
   languages: landingLanguageAlternates(),
+  types: { "application/rss+xml": `${siteUrl}/feed.xml` },
 };
 
 export default function HomePage() {
@@ -115,6 +116,10 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: buildOrganizationJsonLd() }}
       />
 
       <DeferMount strategy="idle">

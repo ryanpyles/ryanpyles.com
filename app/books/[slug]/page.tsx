@@ -7,7 +7,7 @@ import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import BookLineage from "@/components/BookLineage";
 import { getBookBySlug, getAllSlugs } from "@/content/books";
-import { buildBookMetadata, buildBookJsonLd } from "@/lib/metadata";
+import { buildBookMetadata, buildBookJsonLd, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
 
 interface Params {
@@ -28,7 +28,11 @@ export default function BookPage({ params }: Params) {
   const book = getBookBySlug(params.slug);
   if (!book) notFound();
 
-  const jsonLd = buildBookJsonLd(book);
+  const jsonLd = `[${buildBookJsonLd(book)},${buildBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Fiction", path: "/books" },
+    { name: book.title, path: `/books/${book.slug}` },
+  ])}]`;
 
   return (
     <SiteLayout>

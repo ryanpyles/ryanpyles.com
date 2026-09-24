@@ -1,5 +1,5 @@
 import React from "react";
-import { buildPageMetadata } from "@/lib/metadata";
+import { buildPageMetadata, buildNoteJsonLd, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -50,8 +50,15 @@ export default function FieldNoteSlugPage({ params }: Params) {
   const note = fieldNotes.find((n) => n.slug === params.slug);
   if (!note) notFound();
 
+  const jsonLd = `[${buildNoteJsonLd(note)},${buildBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Notes", path: "/notes" },
+    { name: note.title, path: `/notes/${note.slug}` },
+  ])}]`;
+
   return (
     <SiteLayout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       <Section narrow>
         <nav className={styles.breadcrumb} aria-label="Breadcrumb">
           <Link href="/notes" className={styles.back}>

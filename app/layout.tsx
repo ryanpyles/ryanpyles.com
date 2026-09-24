@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   },
   description:
     "Ryan J. Pyles — author of experimental fiction, web developer, and brand designer based in Chicago. Writing that holds up under scrutiny.",
+  alternates: {
+    types: { "application/rss+xml": "/feed.xml" },
+  },
   // Icons are provided by app/icon.png and app/apple-icon.png (the RP monogram),
   // which Next links automatically — no manual paths to keep in sync.
 };

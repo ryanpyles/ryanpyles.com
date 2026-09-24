@@ -44,6 +44,7 @@ export function generateMetadata({ params }: Params): Metadata {
     alternates: {
       canonical: url,
       languages: landingLanguageAlternates(),
+      types: { "application/rss+xml": `${siteUrl}/feed.xml` },
     },
     openGraph: {
       title: "Ryan Pyles",

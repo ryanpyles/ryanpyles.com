@@ -16,7 +16,17 @@ import {
   buildPageMetadata,
   buildCaseStudyJsonLd,
   buildEmbeddedAppJsonLd,
+  buildBreadcrumbJsonLd,
 } from "@/lib/metadata";
+
+/** Systems › <title> breadcrumb for a project detail page. */
+function projectBreadcrumb(title: string, slug: string): string {
+  return buildBreadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Systems", path: "/projects" },
+    { name: title, path: `/projects/${slug}` },
+  ]);
+}
 import styles from "./page.module.css";
 
 const ProjectDemo = dynamic(() => import("@/components/ProjectDemo"), {
@@ -65,6 +75,10 @@ export default function CaseStudyPage({ params }: Props) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: buildEmbeddedAppJsonLd(app) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: projectBreadcrumb(app.title, app.slug) }}
+        />
         <EmbeddedApp app={app} />
       </SiteLayout>
     );
@@ -81,6 +95,10 @@ export default function CaseStudyPage({ params }: Props) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: buildCaseStudyJsonLd(cs) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: projectBreadcrumb(cs.title, cs.slug) }}
+        />
         <ContinuityAtlasCaseStudy
           cs={cs}
           demo={<ProjectDemo type={cs.demo.type} />}
@@ -96,6 +114,10 @@ export default function CaseStudyPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: buildCaseStudyJsonLd(cs) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: projectBreadcrumb(cs.title, cs.slug) }}
       />
       <CaseStudyView
         cs={cs}

@@ -3,11 +3,24 @@
  *
  * English is the canonical site and lives at the root (/about, /books, …).
  * The other locales get their own landing page at /<lang> with content written
- * for that audience; those landings link into the shared English depth. This
- * keeps every existing URL intact and avoids advertising machine-translated
- * pages — each locale surface is genuinely its own content.
+ * for that audience. Each is a cultural variant, not a translation.
+ *
+ * "skandi" (Scandimix) is a deliberate experimental locale — a personal
+ * Scandinavian hybrid — so it is routeable and in the switcher, but excluded
+ * from hreflang/og:locale (it is not a standard BCP-47 language).
  */
-export const locales = ["en", "es", "fr", "de", "ja"] as const;
+export const locales = [
+  "en",
+  "fr",
+  "es",
+  "de",
+  "it",
+  "pt",
+  "ja",
+  "zh",
+  "he",
+  "skandi",
+] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = "en";
@@ -15,22 +28,56 @@ export const defaultLocale: Locale = "en";
 /** Locales that have their own landing route under /<lang>. */
 export const landingLocales = locales.filter((l) => l !== defaultLocale);
 
+/** Switcher display labels (each in its own script). */
 export const localeNames: Record<Locale, string> = {
   en: "English",
-  es: "Español",
   fr: "Français",
+  es: "Español",
   de: "Deutsch",
+  it: "Italiano",
+  pt: "Português",
   ja: "日本語",
+  zh: "繁中",
+  he: "עברית",
+  skandi: "SKANDI",
 };
 
-/** BCP-47 tag for html lang / og:locale. */
-export const localeTags: Record<Locale, string> = {
-  en: "en_US",
-  es: "es_ES",
-  fr: "fr_FR",
-  de: "de_DE",
-  ja: "ja_JP",
+/**
+ * hreflang value per locale. Uses precise tags where the segment is loose
+ * (Traditional Chinese, Brazilian Portuguese). `null` = not a valid hreflang
+ * locale (Scandimix), excluded from alternates.
+ */
+export const hreflangTag: Record<Locale, string | null> = {
+  en: "en",
+  fr: "fr",
+  es: "es",
+  de: "de",
+  it: "it",
+  pt: "pt-BR",
+  ja: "ja",
+  zh: "zh-Hant",
+  he: "he",
+  skandi: null,
 };
+
+/** og:locale (BCP-47 with region). `null` where none applies. */
+export const localeTags: Record<Locale, string | null> = {
+  en: "en_US",
+  fr: "fr_FR",
+  es: "es_ES",
+  de: "de_DE",
+  it: "it_IT",
+  pt: "pt_BR",
+  ja: "ja_JP",
+  zh: "zh_TW",
+  he: "he_IL",
+  skandi: null,
+};
+
+/** Writing direction. Only Hebrew is RTL. */
+export function localeDir(locale: Locale): "ltr" | "rtl" {
+  return locale === "he" ? "rtl" : "ltr";
+}
 
 export const siteUrl = "https://ryanpyles.com";
 
@@ -44,13 +91,14 @@ export function landingPath(locale: Locale): string {
 }
 
 /**
- * hreflang alternates for the landing surface — every locale's landing plus
- * an x-default pointing at English. Used in each landing's metadata.
+ * hreflang alternates for the landing surface — every standard-locale landing
+ * plus an x-default pointing at English. Scandimix is excluded (no valid tag).
  */
 export function landingLanguageAlternates(): Record<string, string> {
   const languages: Record<string, string> = {};
   for (const locale of locales) {
-    languages[locale] = `${siteUrl}${landingPath(locale)}`;
+    const tag = hreflangTag[locale];
+    if (tag) languages[tag] = `${siteUrl}${landingPath(locale)}`;
   }
   languages["x-default"] = `${siteUrl}/`;
   return languages;

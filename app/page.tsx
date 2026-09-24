@@ -13,6 +13,7 @@ import ContinuityAtlasScene from "@/components/ContinuityAtlasScene";
 import InProgressScene from "@/components/InProgressScene";
 import Reveal from "@/components/Reveal";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
+import DeferMount from "@/components/DeferMount";
 import { buildPageMetadata, buildPersonJsonLd } from "@/lib/metadata";
 import { siteUrl, landingLanguageAlternates } from "@/lib/i18n";
 import styles from "./page.module.css";
@@ -116,12 +117,16 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: jsonLd }}
       />
 
-      <SiteProgressObject />
+      <DeferMount strategy="idle">
+        <SiteProgressObject />
+      </DeferMount>
       <RotateHint />
 
       {/* ── Hero ───────────────────────────────────────────────── */}
       <section className={styles.hero} id="hero">
-        <LivingManuscript />
+        <DeferMount strategy="idle">
+          <LivingManuscript />
+        </DeferMount>
 
         <div className={styles.heroInner}>
           <div className={`${styles.heroAnnotations} ${styles.heroEnter} ${styles.heroEnter1}`} aria-hidden="true">
@@ -264,7 +269,9 @@ export default function HomePage() {
 
       {/* ── Language Orrery — pinned zoom-and-annotate scene ──── */}
       <div id="orrery" aria-hidden="true" />
-      <LanguageOrreryScene />
+      <DeferMount minHeight="100vh">
+        <LanguageOrreryScene />
+      </DeferMount>
 
       {/* ── Contact CTA ────────────────────────────────────────── */}
       <section className={styles.contactCta} id="contact" aria-label="Get in touch">

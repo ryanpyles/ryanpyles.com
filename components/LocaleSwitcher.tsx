@@ -1,6 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { locales, localeNames, landingPath, type Locale } from "@/lib/i18n";
+import {
+  locales,
+  localeNames,
+  landingPath,
+  hreflangTag,
+  type Locale,
+} from "@/lib/i18n";
 import styles from "./LocaleSwitcher.module.css";
 
 /**
@@ -21,7 +27,7 @@ export default function LocaleSwitcher({
           <li key={l}>
             <Link
               href={landingPath(l)}
-              hrefLang={l}
+              hrefLang={hreflangTag[l] ?? undefined}
               className={styles.item}
               data-active={l === current || undefined}
               aria-current={l === current ? "true" : undefined}

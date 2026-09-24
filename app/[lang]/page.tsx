@@ -10,6 +10,7 @@ import {
   defaultLocale,
   landingLocales,
   localeTags,
+  localeDir,
   landingPath,
   landingLanguageAlternates,
   siteUrl,
@@ -35,6 +36,7 @@ export function generateMetadata({ params }: Params): Metadata {
   if (!isLocale(lang) || lang === defaultLocale) return {};
   const c = landingContent[lang as Locale];
   const url = `${siteUrl}${landingPath(lang as Locale)}`;
+  const ogLocale = localeTags[lang as Locale];
 
   return {
     title: { absolute: `Ryan Pyles — ${c.descriptor.split(" · ")[0]}` },
@@ -48,7 +50,7 @@ export function generateMetadata({ params }: Params): Metadata {
       description: c.hero.statement,
       url,
       siteName: "Ryan J. Pyles",
-      locale: localeTags[lang as Locale],
+      ...(ogLocale ? { locale: ogLocale } : {}),
       type: "website",
       images: [{ url: "/og/ryan-default.jpg", width: 1200, height: 630, alt: "Ryan Pyles" }],
     },
@@ -62,10 +64,11 @@ export default function LocaleLanding({ params }: Params) {
   if (!isLocale(lang) || lang === defaultLocale) notFound();
 
   const c = landingContent[lang as Locale];
+  const dir = localeDir(lang as Locale);
 
   return (
-    <div className={styles.root} data-domain="ryan" lang={c.lang}>
-      <HtmlLang lang={c.lang} />
+    <div className={styles.root} data-domain="ryan" lang={c.lang} dir={dir}>
+      <HtmlLang lang={c.lang} dir={dir} />
       <PageBackground />
 
       <header className={styles.top}>
@@ -76,6 +79,13 @@ export default function LocaleLanding({ params }: Params) {
       </header>
 
       <main className={styles.main}>
+        {c.experimentNote && (
+          <aside className={styles.experiment}>
+            <span className={styles.experimentLabel}>{c.experimentNote.label}</span>
+            <p className={styles.experimentBody}>{c.experimentNote.body}</p>
+          </aside>
+        )}
+
         {/* ── Hero ─────────────────────────────────────────────── */}
         <p className={styles.eyebrow}>{c.emphasis}</p>
         <h1 className={styles.statement}>{c.hero.statement}</h1>
@@ -159,6 +169,17 @@ function Signature({ c }: { c: (typeof landingContent)[Locale] }) {
         </span>
         {s.quote}
       </blockquote>
+    );
+  }
+  if (s.kind === "triad") {
+    return (
+      <ul className={styles.triad}>
+        {s.lines.map((line, i) => (
+          <li key={i} className={styles.triadLine}>
+            {line}
+          </li>
+        ))}
+      </ul>
     );
   }
   if (s.kind === "systemStatus") {

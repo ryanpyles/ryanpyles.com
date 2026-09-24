@@ -19,7 +19,8 @@ export interface LandingNavItem {
 export type LandingSignature =
   | { kind: "pullQuote"; quote: string }
   | { kind: "systemStatus"; title: string; state: string; rows: string[] }
-  | { kind: "vertical"; text: string; caption: string };
+  | { kind: "vertical"; text: string; caption: string }
+  | { kind: "triad"; lines: string[] };
 
 export interface LandingContent {
   /** Content-subtree language (also applied to <html lang> on this route). */
@@ -51,6 +52,11 @@ export interface LandingContent {
   rights: string;
   /** The linguist touch: why the localization isn't literal. */
   localizationNote: {
+    label: string;
+    body: string;
+  };
+  /** Only Scandimix: an admission that the locale is a deliberate experiment. */
+  experimentNote?: {
     label: string;
     body: string;
   };
@@ -290,6 +296,236 @@ export const landingContent: Record<Locale, LandingContent> = {
     localizationNote: {
       label: "ローカライズについて",
       body: "各言語はその読者のために書かれており、逐語訳ではありません。長い文章は英語のままです。",
+    },
+  },
+
+  it: {
+    lang: "it",
+    emphasis: "Umano — prosa espressiva",
+    descriptor: "Architetto di soluzioni · Designer · Sviluppatore · Autore",
+    hero: {
+      statement:
+        "Creo sistemi digitali, esperienze e storie all'incrocio tra tecnologia, design, linguaggio e immaginazione.",
+      summary:
+        "L'archivio dietro la narrativa di Elian Voigt, lo studio FORMÆTRIX e il lavoro sulle lingue.",
+    },
+    lookingFor: "Cosa stai cercando?",
+    nav: [
+      { label: "Chi sono", href: NAV.about },
+      { label: "Progetti", href: NAV.projects },
+      { label: "Narrativa", href: NAV.fiction },
+      { label: "Scrittura", href: NAV.writing },
+      { label: "Servizi", href: NAV.work },
+      { label: "Contatti", href: NAV.contact },
+    ],
+    highlights: [
+      { value: "Sistemi narrativi", label: "per autori ed editori" },
+      { value: "Sei romanzi pubblicati", label: "come Elian Voigt" },
+      { value: "Dodici lingue", label: "in studio attivo" },
+    ],
+    formaetrix: {
+      label: "FORMÆTRIX",
+      body: "Una pratica multidisciplinare dove software, design, linguaggio e narrazione si incontrano.",
+      href: "https://www.formaetrix.com",
+    },
+    signature: {
+      kind: "pullQuote",
+      quote: "Scrivo anche.",
+    },
+    ctas: {
+      primary: { label: "Parliamo del tuo progetto →", href: NAV.contact },
+      secondary: { label: "Guarda i sistemi →", href: NAV.projects },
+    },
+    footerArtifact: "Fatto a Chicago. Nato dalla curiosità.",
+    rights: "Tutti i diritti riservati.",
+    localizationNote: {
+      label: "Note di localizzazione",
+      body: "Ogni lingua è scritta per il suo pubblico, non tradotta parola per parola. I testi lunghi restano in inglese.",
+    },
+  },
+
+  pt: {
+    lang: "pt-BR",
+    emphasis: "Conversacional — microcópia pessoal",
+    descriptor: "Arquiteto de soluções · Designer · Desenvolvedor · Autor",
+    hero: {
+      statement:
+        "Crio sistemas digitais, experiências e histórias onde tecnologia, design e linguagem se encontram.",
+      summary:
+        "O arquivo por trás da ficção de Elian Voigt, do estúdio FORMÆTRIX e do trabalho com as línguas.",
+    },
+    lookingFor: "O que você procura?",
+    nav: [
+      { label: "Sobre mim", href: NAV.about },
+      { label: "Projetos", href: NAV.projects },
+      { label: "Ficção", href: NAV.fiction },
+      { label: "Escrita", href: NAV.writing },
+      { label: "Serviços", href: NAV.work },
+      { label: "Contato", href: NAV.contact },
+    ],
+    highlights: [
+      { value: "Sistemas narrativos", label: "para autores e editoras" },
+      { value: "Seis romances publicados", label: "como Elian Voigt" },
+      { value: "Doze idiomas", label: "em estudo ativo" },
+    ],
+    formaetrix: {
+      label: "FORMÆTRIX",
+      body: "Uma prática multidisciplinar onde software, design, linguagem e narrativa se encontram.",
+      href: "https://www.formaetrix.com",
+    },
+    signature: {
+      kind: "triad",
+      lines: ["Feito para funcionar.", "Feito para durar.", "Feito para ser lembrado."],
+    },
+    ctas: {
+      primary: { label: "Vamos falar do seu projeto →", href: NAV.contact },
+      secondary: { label: "Ver os sistemas →", href: NAV.projects },
+    },
+    footerArtifact: "Feito em Chicago. Em algum lugar entre disciplinas.",
+    rights: "Todos os direitos reservados.",
+    localizationNote: {
+      label: "Notas de localização",
+      body: "Cada idioma é escrito para o seu público, não traduzido palavra por palavra. Os textos longos permanecem em inglês.",
+    },
+  },
+
+  zh: {
+    lang: "zh-Hant",
+    emphasis: "簡約 — 台灣用語",
+    descriptor: "解決方案架構師 · 設計師 · 開發者 · 作家",
+    hero: {
+      statement:
+        "我在科技、設計、語言與故事之間尋找交會點，並將想法做成真正可以使用的東西。",
+      summary:
+        "Elian Voigt 的小說、FORMÆTRIX 工作室，以及語言的工作——背後的檔案庫。",
+    },
+    lookingFor: "您在找什麼？",
+    nav: [
+      { label: "關於我", href: NAV.about },
+      { label: "專案", href: NAV.projects },
+      { label: "小說", href: NAV.fiction },
+      { label: "寫作", href: NAV.writing },
+      { label: "服務", href: NAV.work },
+      { label: "聯絡", href: NAV.contact },
+    ],
+    highlights: [
+      { value: "敘事系統", label: "為作家與出版社" },
+      { value: "六部長篇小說", label: "以 Elian Voigt 之名" },
+      { value: "十二種語言", label: "持續研究中" },
+    ],
+    formaetrix: {
+      label: "FORMÆTRIX",
+      body: "一個跨領域的工作室，軟體、設計、語言與敘事在此交會。",
+      href: "https://www.formaetrix.com",
+    },
+    signature: {
+      kind: "vertical",
+      text: "科技與敘事",
+      caption: "Technology & narrative",
+    },
+    ctas: {
+      primary: { label: "聊聊你的專案 →", href: NAV.contact },
+      secondary: { label: "查看系統 →", href: NAV.projects },
+    },
+    footerArtifact: "來自芝加哥。在領域的交界處工作。",
+    rights: "版權所有。",
+    localizationNote: {
+      label: "在地化說明",
+      body: "每一種語言都是為它的讀者而寫，而非逐字翻譯；此處採用台灣用語（軟體、專案、網站、資訊）。長篇內容維持英文。",
+    },
+  },
+
+  he: {
+    lang: "he",
+    emphasis: "כיווניות — התאמה מלאה מימין לשמאל",
+    descriptor: "ארכיטקט פתרונות · מעצב · מפתח · סופר",
+    hero: {
+      statement:
+        "אני בונה מערכות, חוויות דיגיטליות וסיפורים הנמצאים בין טכנולוגיה, עיצוב, שפה ותרבות.",
+      summary:
+        "הארכיון שמאחורי הסיפורת של Elian Voigt, אולפן FORMÆTRIX והעבודה עם השפות.",
+    },
+    lookingFor: "מה אתם מחפשים?",
+    nav: [
+      { label: "אודות", href: NAV.about },
+      { label: "פרויקטים", href: NAV.projects },
+      { label: "סיפורת", href: NAV.fiction },
+      { label: "כתיבה", href: NAV.writing },
+      { label: "שירותים", href: NAV.work },
+      { label: "צור קשר", href: NAV.contact },
+    ],
+    highlights: [
+      { value: "מערכות נרטיביות", label: "לסופרים ולמו״לים" },
+      { value: "שישה רומנים", label: "בשם Elian Voigt" },
+      { value: "שתים־עשרה שפות", label: "בלימוד פעיל" },
+    ],
+    formaetrix: {
+      label: "FORMÆTRIX",
+      body: "פרקטיקה רב־תחומית שבה תוכנה, עיצוב, שפה ונרטיב נפגשים.",
+      href: "https://www.formaetrix.com",
+    },
+    signature: {
+      kind: "pullQuote",
+      quote: "בין השורות.",
+    },
+    ctas: {
+      primary: { label: "← נדבר על הפרויקט שלך", href: NAV.contact },
+      secondary: { label: "← לצפייה במערכות", href: NAV.projects },
+    },
+    footerArtifact: "נבנה בשיקגו. אי־שם בין התחומים.",
+    rights: "כל הזכויות שמורות.",
+    localizationNote: {
+      label: "הערות לוקליזציה",
+      body: "כל שפה נכתבת עבור הקהל שלה ואינה תרגום מילולי. כאן הממשק כולו עובר לכיוון ימין־לשמאל. הטקסטים הארוכים נשארים באנגלית.",
+    },
+  },
+
+  skandi: {
+    lang: "no",
+    emphasis: "Eksperiment — nordisk hybrid",
+    descriptor: "Løysingsarkitekt · Designar · Utviklar · Forfattar",
+    hero: {
+      statement:
+        "Eg bygger digitale system, formar opplevingar og skriv historier mellom teknologi, språk og menneske.",
+      summary:
+        "Arkivet bak skjønnlitteraturen til Elian Voigt, studioet FORMÆTRIX og språkarbeidet.",
+    },
+    lookingFor: "Kva ser du etter?",
+    nav: [
+      { label: "Om meg", href: NAV.about },
+      { label: "Prosjekt", href: NAV.projects },
+      { label: "Skjønnlitteratur", href: NAV.fiction },
+      { label: "Skriving", href: NAV.writing },
+      { label: "Tenester", href: NAV.work },
+      { label: "Kontakt", href: NAV.contact },
+    ],
+    highlights: [
+      { value: "Narrative system", label: "for forfattarar og forlag" },
+      { value: "Seks romanar", label: "som Elian Voigt" },
+      { value: "Tolv språk", label: "i aktiv studie" },
+    ],
+    formaetrix: {
+      label: "FORMÆTRIX",
+      body: "Ein tverrfagleg praksis der programvare, design, språk og forteljing møtest.",
+      href: "https://www.formaetrix.com",
+    },
+    signature: {
+      kind: "pullQuote",
+      quote: "Eg bygger system, formar opplevingar og skriv historier.",
+    },
+    ctas: {
+      primary: { label: "Snakk om prosjektet →", href: NAV.contact },
+      secondary: { label: "Sjå systema →", href: NAV.projects },
+    },
+    footerArtifact: "Laga i Chicago. Ein stad mellom disiplinar.",
+    rights: "Alle rettar reserverte.",
+    localizationNote: {
+      label: "Om lokaliseringa",
+      body: "Kvart språk er skrive for lesaren sin, ikkje omsett ord for ord. Dei lange tekstane er på engelsk.",
+    },
+    experimentNote: {
+      label: "Skandimix",
+      body: "Ein personleg nordisk hybrid. Ikkje heilt svensk. Ikkje heilt norsk. Ikkje heilt dansk — språk som noko å designe med.",
     },
   },
 };

@@ -4,7 +4,7 @@ import { fieldNotes } from "@/content/fieldNotes";
 import { projectCases } from "@/content/projectCases";
 import { embeddedApps } from "@/content/embeddedApps";
 import { ryanBooks } from "@/content/books";
-import { landingLocales, landingLanguageAlternates } from "@/lib/i18n";
+import { landingLocales, landingLanguageAlternates, hreflangTag } from "@/lib/i18n";
 
 const BASE = "https://ryanpyles.com";
 
@@ -25,13 +25,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/press`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
   ];
 
-  // Per-locale landing pages (English canonical lives at "/").
+  // Per-locale landing pages (English canonical lives at "/"). Only locales
+  // with a valid hreflang carry the alternates cluster; Scandimix is a plain
+  // entry (it is an experimental locale, not a standard language).
   const localeRoutes: MetadataRoute.Sitemap = landingLocales.map((lang) => ({
     url: `${BASE}/${lang}`,
     lastModified: now,
     changeFrequency: "monthly",
     priority: 0.7,
-    alternates,
+    ...(hreflangTag[lang] ? { alternates } : {}),
   }));
 
   const writingRoutes: MetadataRoute.Sitemap = articles

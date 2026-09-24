@@ -8,14 +8,25 @@ import { useEffect } from "react";
  * doesn't leave a stale lang. The visible content also carries its own `lang`
  * attribute on the wrapper, so SSR is correct even before this runs.
  */
-export default function HtmlLang({ lang }: { lang: string }) {
+export default function HtmlLang({
+  lang,
+  dir = "ltr",
+}: {
+  lang: string;
+  dir?: "ltr" | "rtl";
+}) {
   useEffect(() => {
-    const prev = document.documentElement.lang;
-    document.documentElement.lang = lang;
+    const el = document.documentElement;
+    const prevLang = el.lang;
+    const prevDir = el.getAttribute("dir");
+    el.lang = lang;
+    el.dir = dir;
     return () => {
-      document.documentElement.lang = prev || "en";
+      el.lang = prevLang || "en";
+      if (prevDir) el.setAttribute("dir", prevDir);
+      else el.removeAttribute("dir");
     };
-  }, [lang]);
+  }, [lang, dir]);
 
   return null;
 }

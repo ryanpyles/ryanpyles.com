@@ -1,0 +1,40 @@
+/* ── Engineering essays ───────────────────────────────────────────────
+   The long-form write-ups, surfaced beneath the systems showcase. */
+.essays {
+  margin-top: var(--space-24);
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--color-border);
+}
+
+.essaysHeader {
+  margin-bottom: var(--space-12);
+  max-width: 640px;
+}
+
+.essaysKicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+
+.essaysHeading {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--color-white);
+  margin-bottom: var(--space-5);
+}
+
+.essaysIntro {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-style: italic;
+  line-height: var(--leading-relaxed);
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+}

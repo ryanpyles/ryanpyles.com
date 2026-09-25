@@ -23,6 +23,13 @@ const nextConfig = {
         destination: "/",
         permanent: true,
       },
+      {
+        // Localized subpages exist at /<lang>/<section>, but English has no
+        // prefix — fold any /en/<section> back onto the canonical root path.
+        source: "/en/:path*",
+        destination: "/:path*",
+        permanent: true,
+      },
 
       /* ── Phase 2 information architecture ────────────────────────────
          Field Notes and the Scholar's Notebook merged into /notes, and

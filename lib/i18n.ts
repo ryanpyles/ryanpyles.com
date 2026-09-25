@@ -103,3 +103,49 @@ export function landingLanguageAlternates(): Record<string, string> {
   languages["x-default"] = `${siteUrl}/`;
   return languages;
 }
+
+/**
+ * The five section-landing subpages that have localized variants. English lives
+ * at the root path; each locale gets a prefixed copy (/es/projects, …). The
+ * catalogue and case-study detail pages (/books/[slug], /projects/[slug]) are
+ * English-only and deliberately absent here.
+ */
+export const localizedSections = [
+  "/about",
+  "/projects",
+  "/books",
+  "/work",
+  "/contact",
+] as const;
+export type LocalizedSection = (typeof localizedSections)[number];
+
+/** Path for a section in a given locale ("/projects" for en, "/es/projects"). */
+export function localizedPath(locale: Locale, section: string): string {
+  return locale === defaultLocale ? section : `/${locale}${section}`;
+}
+
+/**
+ * Rewrites an English section href into the current locale when a localized
+ * variant exists; anything else (detail pages, /notes, external) is left as-is
+ * so it falls back to the English canon rather than 404.
+ */
+export function localizedHref(locale: Locale, href: string): string {
+  if (locale === defaultLocale) return href;
+  return (localizedSections as readonly string[]).includes(href)
+    ? `/${locale}${href}`
+    : href;
+}
+
+/**
+ * hreflang alternates for one localized subpage — every standard-locale variant
+ * of that section plus an x-default pointing at the English canon.
+ */
+export function subpageLanguageAlternates(section: string): Record<string, string> {
+  const languages: Record<string, string> = {};
+  for (const locale of locales) {
+    const tag = hreflangTag[locale];
+    if (tag) languages[tag] = `${siteUrl}${localizedPath(locale, section)}`;
+  }
+  languages["x-default"] = `${siteUrl}${section}`;
+  return languages;
+}

@@ -5,6 +5,7 @@ import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import PageHeader from "@/components/PageHeader";
 import { buildPageMetadata } from "@/lib/metadata";
+import { subpageLanguageAlternates } from "@/lib/i18n";
 import { Ae } from "@/components/Ae";
 import Portrait from "@/components/Portrait";
 import MotionPlate from "@/components/MotionPlate";
@@ -16,6 +17,7 @@ export const metadata: Metadata = buildPageMetadata({
   description:
     "Ryan J. Pyles — experimental fiction author, software engineer, and linguist based in Chicago. The personal archive behind FORMÆTRIX and Elian Voigt.",
   path: "/about",
+  languageAlternates: subpageLanguageAlternates("/about"),
 });
 
 const workAreas = [

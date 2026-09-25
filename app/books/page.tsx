@@ -1,5 +1,6 @@
 import React from "react";
 import { buildPageMetadata } from "@/lib/metadata";
+import { subpageLanguageAlternates } from "@/lib/i18n";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
@@ -21,6 +22,7 @@ export const metadata: Metadata = buildPageMetadata({
     "Declensions of Dark Water",
     "Terms of Unbeing",
   ],
+  languageAlternates: subpageLanguageAlternates("/books"),
 });
 
 export default function BooksPage() {

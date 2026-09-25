@@ -30,6 +30,12 @@ export function buildPageMetadata(overrides: {
     modifiedTime?: string;
     authors?: string[];
   };
+  /**
+   * hreflang cluster for pages that have localized variants. Maps each
+   * language tag (plus x-default) to its URL, emitted as <link rel="alternate">
+   * so the return links are bidirectional with the localized routes.
+   */
+  languageAlternates?: Record<string, string>;
 }): Metadata {
   const fullTitle = overrides.titleIsComplete
     ? overrides.title
@@ -44,6 +50,9 @@ export function buildPageMetadata(overrides: {
     metadataBase: new URL(site.url),
     alternates: {
       canonical: url,
+      ...(overrides.languageAlternates
+        ? { languages: overrides.languageAlternates }
+        : {}),
       types: { "application/rss+xml": `${site.url}/feed.xml` },
     },
     openGraph: {

@@ -292,3 +292,9 @@ details[open] .blurbSummary::before {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
 }
+
+/* Physical-edition photograph, shown beneath the article on its own. */
+.objectPhoto {
+  max-width: 460px;
+  margin: var(--space-16) auto 0;
+}

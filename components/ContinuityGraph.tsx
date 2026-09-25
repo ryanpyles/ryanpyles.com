@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./ContinuityGraph.module.css";
 
 /**
@@ -64,13 +64,45 @@ export default function ContinuityGraph() {
   const [authorLayer, setAuthorLayer] = useState(false);
   const [hover, setHover] = useState<string | null>(null);
 
+  // Draw-on entrance: the graph inks itself in — edges drawn stroke-first,
+  // then nodes and labels — the first time it scrolls into view. Once the
+  // entrance finishes we drop the animation attribute so the interactive
+  // opacity (hover dimming, author-layer toggle) takes back over untouched.
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [anim, setAnim] = useState<"" | "armed" | "drawn">("");
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    setAnim("armed");
+    let done: ReturnType<typeof setTimeout> | undefined;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAnim("drawn");
+          io.disconnect();
+          // Hand control back to the interactive state after the draw settles.
+          done = setTimeout(() => setAnim(""), 1700);
+        }
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      if (done) clearTimeout(done);
+    };
+  }, []);
+
   const byId = (id: string) => NODES.find((n) => n.id === id)!;
   const visible = (n: { authorOnly?: boolean }) => authorLayer || !n.authorOnly;
 
   const active = hover ? byId(hover) : null;
 
   return (
-    <div className={styles.root}>
+    <div className={styles.root} ref={rootRef} data-anim={anim || undefined}>
       <div className={styles.toolbar}>
         <span className={styles.title}>Story-memory graph</span>
         <button
@@ -102,13 +134,34 @@ export default function ContinuityGraph() {
               const mx = (a.x + b.x) / 2;
               const my = (a.y + b.y) / 2;
               const dim = hover && hover !== e.from && hover !== e.to;
+              // Solid edges ink themselves in: dash the whole line, then
+              // transition the offset to 0. Length is computed from geometry so
+              // the effect is exact (no pathLength ambiguity). Dashed
+              // conflict/author edges keep their pattern and fade in instead.
+              const len = Math.hypot(b.x - a.x, b.y - a.y);
+              const solid = !e.conflict && !e.authorOnly;
+              const drawStyle: React.CSSProperties | undefined =
+                solid && anim
+                  ? {
+                      strokeDasharray: len,
+                      strokeDashoffset: anim === "armed" ? len : 0,
+                      transition: "stroke-dashoffset 0.75s var(--ease-out)",
+                      transitionDelay: `${i * 90}ms`,
+                    }
+                  : undefined;
               return (
-                <g key={i} opacity={dim ? 0.18 : 1} className={styles.edge}>
+                <g
+                  key={i}
+                  opacity={dim ? 0.18 : 1}
+                  className={styles.edge}
+                  style={{ "--i": i } as React.CSSProperties}
+                >
                   <line
                     x1={a.x}
                     y1={a.y}
                     x2={b.x}
                     y2={b.y}
+                    style={drawStyle}
                     className={[
                       styles.edgeLine,
                       e.conflict ? styles.edgeConflict : "",
@@ -125,7 +178,7 @@ export default function ContinuityGraph() {
 
           {/* nodes */}
           <g>
-            {NODES.filter(visible).map((n) => {
+            {NODES.filter(visible).map((n, ni) => {
               const dim = hover && hover !== n.id;
               return (
                 <g
@@ -133,6 +186,7 @@ export default function ContinuityGraph() {
                   transform={`translate(${n.x},${n.y})`}
                   opacity={dim ? 0.4 : 1}
                   className={styles.nodeG}
+                  style={{ "--ni": ni } as React.CSSProperties}
                   onMouseEnter={() => setHover(n.id)}
                   onMouseLeave={() => setHover(null)}
                   tabIndex={0}

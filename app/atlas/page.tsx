@@ -7,6 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import FaqBlock from "@/components/FaqBlock";
 import SectionCta from "@/components/SectionCta";
+import Figure from "@/components/Figure";
 import { buildPageMetadata, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
 
@@ -177,6 +178,19 @@ export default function AtlasPage() {
           </Reveal>
         </div>
 
+        <Reveal>
+          <Figure
+            src="/images/atlas/typed-memory-instrument.jpg"
+            alt="A brass surveying instrument sighted along a row of typed cards — motif, secret, state, claim, evidence, record — whose copper threads resolve into a node graph pinned to a slate board."
+            width={1168}
+            height={784}
+            index="fig. 01"
+            caption="Typed memory, read like a survey: every card — motif, secret, state, claim, evidence, record — becomes a node in one continuity graph."
+            priority
+            sizes="(max-width: 1000px) 100vw, 960px"
+          />
+        </Reveal>
+
         <section className={styles.block} aria-label="Modules">
           <Reveal>
             <p className={styles.blockLabel}>What it holds</p>
@@ -195,6 +209,18 @@ export default function AtlasPage() {
             ))}
           </div>
         </section>
+
+        <Reveal>
+          <Figure
+            src="/images/atlas/context-receipt.jpg"
+            alt="An archival index card beside a Context Receipt slip, its columns stamped Preserved, Forbidden, and Hidden with catalogue numbers and dates."
+            width={1168}
+            height={784}
+            index="fig. 02"
+            caption="Before any rewrite fires, a Context Receipt states what is preserved, what is forbidden, and what stays hidden from generation."
+            sizes="(max-width: 1000px) 100vw, 960px"
+          />
+        </Reveal>
 
         <section className={styles.block} aria-label="Who it is for">
           <Reveal>

@@ -11,6 +11,8 @@ import Portrait from "@/components/Portrait";
 import MotionPlate from "@/components/MotionPlate";
 import ReadingSpine from "@/components/ReadingSpine";
 import FaqBlock from "@/components/FaqBlock";
+import Figure from "@/components/Figure";
+import Reveal from "@/components/Reveal";
 import styles from "./page.module.css";
 
 /**
@@ -160,6 +162,18 @@ export default function AboutPage() {
             />
           </div>
         </div>
+
+        <Reveal>
+          <Figure
+            src="/images/about/orrery-formaetrix.jpg"
+            alt="A small brass orrery-like sculpture of stacked gears and orbiting spheres, standing on a sheet of paper, signed Ryan Pyles · FORMÆTRIX."
+            width={1168}
+            height={784}
+            index="fig. 04"
+            caption="FORMÆTRIX — the studio as a mechanism: many disciplines turning on one axis."
+            sizes="(max-width: 900px) 100vw, 720px"
+          />
+        </Reveal>
 
         {/* ── Closing: the imprint, in a single reading column ─────── */}
         <div className={styles.closing}>

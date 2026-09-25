@@ -25,6 +25,17 @@ export interface Book {
   coverImage?: string;
   /** Secondary edition cover (e.g. the print/paperback art) when it differs from the primary. */
   paperbackCover?: string;
+  /**
+   * A photograph of the physical edition (the object, not the flat cover art),
+   * shown as a figure on the book's detail page. Portrait orientation.
+   */
+  objectPhoto?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    caption?: string;
+  };
   theme: BookTheme;
   amazon?: AmazonData;
 }

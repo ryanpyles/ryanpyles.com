@@ -278,6 +278,48 @@
   stroke: none;
 }
 
+/* ── Glyph draw-on ──────────────────────────────────────────────────────────
+   Each specimen inks itself when its module takes focus: strokes draw via a
+   normalized dashoffset (pathLength=1), accent a beat later, dots fade in last.
+   Re-plays each time you scroll a module back into focus. Only in the pinned
+   interactive stage (.plate) — the static/reduced views keep full glyphs. */
+@media (prefers-reduced-motion: no-preference) {
+  .plate .glyphStroke,
+  .plate .glyphAccent {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  .plate .glyphDot {
+    opacity: 0;
+  }
+  .visualItem[data-active] .plate .glyphStroke {
+    animation: cgaDraw 0.85s ease forwards;
+  }
+  .visualItem[data-active] .plate .glyphAccent {
+    animation: cgaDraw 0.85s ease 0.22s forwards;
+  }
+  .visualItem[data-active] .plate .glyphDot {
+    animation: cgaDot 0.4s ease 0.72s forwards;
+  }
+
+  @keyframes cgaDraw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes cgaDot {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
 /* ── Bottom: rail + cta ─────────────────────────────────────────────────── */
 .bottom {
   flex-shrink: 0;

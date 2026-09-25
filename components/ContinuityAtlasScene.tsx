@@ -44,23 +44,26 @@ function Glyph({ kind }: { kind: GlyphKind }) {
   const s = styles.glyphStroke;
   const a = styles.glyphAccent;
   const d = styles.glyphDot;
+  // pathLength={1} normalizes every shape's length to 1 so the same
+  // stroke-dashoffset draw-on animation works across rects, lines, circles,
+  // and paths regardless of their real geometry.
   switch (kind) {
     case "cards":
       return (
         <svg viewBox="0 0 120 120" className={styles.glyph} aria-hidden="true">
-          <rect x="26" y="30" width="60" height="44" rx="4" className={s} />
-          <rect x="34" y="40" width="60" height="44" rx="4" className={s} />
-          <rect x="42" y="50" width="60" height="44" rx="4" className={a} />
+          <rect x="26" y="30" width="60" height="44" rx="4" pathLength={1} className={s} />
+          <rect x="34" y="40" width="60" height="44" rx="4" pathLength={1} className={s} />
+          <rect x="42" y="50" width="60" height="44" rx="4" pathLength={1} className={a} />
         </svg>
       );
     case "drift":
       return (
         <svg viewBox="0 0 120 120" className={styles.glyph} aria-hidden="true">
-          <line x1="18" y1="60" x2="102" y2="60" className={s} />
-          <circle cx="18" cy="60" r="5" className={s} />
-          <circle cx="46" cy="60" r="5" className={s} />
-          <rect x="69" y="51" width="18" height="18" transform="rotate(45 78 60)" className={a} />
-          <circle cx="102" cy="60" r="5" className={s} />
+          <line x1="18" y1="60" x2="102" y2="60" pathLength={1} className={s} />
+          <circle cx="18" cy="60" r="5" pathLength={1} className={s} />
+          <circle cx="46" cy="60" r="5" pathLength={1} className={s} />
+          <rect x="69" y="51" width="18" height="18" transform="rotate(45 78 60)" pathLength={1} className={a} />
+          <circle cx="102" cy="60" r="5" pathLength={1} className={s} />
         </svg>
       );
     case "bars":
@@ -73,6 +76,7 @@ function Glyph({ kind }: { kind: GlyphKind }) {
               y1={90}
               x2={22 + i * 13}
               y2={90 - h}
+              pathLength={1}
               className={i === 3 ? a : s}
             />
           ))}
@@ -81,32 +85,32 @@ function Glyph({ kind }: { kind: GlyphKind }) {
     case "receipt":
       return (
         <svg viewBox="0 0 120 120" className={styles.glyph} aria-hidden="true">
-          <rect x="38" y="24" width="44" height="72" rx="3" className={s} />
-          <line x1="46" y1="40" x2="74" y2="40" className={s} />
-          <line x1="46" y1="52" x2="74" y2="52" className={s} />
-          <line x1="46" y1="64" x2="66" y2="64" className={s} />
-          <path d="M47 78 l6 6 l12 -14" className={a} />
+          <rect x="38" y="24" width="44" height="72" rx="3" pathLength={1} className={s} />
+          <line x1="46" y1="40" x2="74" y2="40" pathLength={1} className={s} />
+          <line x1="46" y1="52" x2="74" y2="52" pathLength={1} className={s} />
+          <line x1="46" y1="64" x2="66" y2="64" pathLength={1} className={s} />
+          <path d="M47 78 l6 6 l12 -14" pathLength={1} className={a} />
         </svg>
       );
     case "graph":
       return (
         <svg viewBox="0 0 120 120" className={styles.glyph} aria-hidden="true">
-          <line x1="60" y1="34" x2="30" y2="66" className={s} />
-          <line x1="60" y1="34" x2="90" y2="66" className={s} />
-          <line x1="30" y1="66" x2="60" y2="90" className={s} />
-          <line x1="90" y1="66" x2="60" y2="90" className={s} />
-          <line x1="30" y1="66" x2="90" y2="66" className={s} />
-          <circle cx="60" cy="34" r="6" className={a} />
-          <circle cx="30" cy="66" r="6" className={s} />
-          <circle cx="90" cy="66" r="6" className={s} />
-          <circle cx="60" cy="90" r="6" className={s} />
+          <line x1="60" y1="34" x2="30" y2="66" pathLength={1} className={s} />
+          <line x1="60" y1="34" x2="90" y2="66" pathLength={1} className={s} />
+          <line x1="30" y1="66" x2="60" y2="90" pathLength={1} className={s} />
+          <line x1="90" y1="66" x2="60" y2="90" pathLength={1} className={s} />
+          <line x1="30" y1="66" x2="90" y2="66" pathLength={1} className={s} />
+          <circle cx="60" cy="34" r="6" pathLength={1} className={a} />
+          <circle cx="30" cy="66" r="6" pathLength={1} className={s} />
+          <circle cx="90" cy="66" r="6" pathLength={1} className={s} />
+          <circle cx="60" cy="90" r="6" pathLength={1} className={s} />
         </svg>
       );
     case "rings":
       return (
         <svg viewBox="0 0 120 120" className={styles.glyph} aria-hidden="true">
-          <circle cx="60" cy="60" r="34" className={s} />
-          <circle cx="60" cy="60" r="22" className={s} />
+          <circle cx="60" cy="60" r="34" pathLength={1} className={s} />
+          <circle cx="60" cy="60" r="22" pathLength={1} className={s} />
           <circle cx="60" cy="60" r="6" className={d} />
           <circle cx="94" cy="60" r="3.5" className={d} />
           <circle cx="60" cy="26" r="3.5" className={d} />
@@ -246,6 +250,7 @@ export default function ContinuityAtlasScene() {
                       key={m.name}
                       className={styles.visualItem}
                       style={{ opacity: op[i], transform: `scale(${0.9 + op[i] * 0.1})` }}
+                      data-active={op[i] > 0.6 || undefined}
                       aria-hidden="true"
                     >
                       <div className={styles.plate}>

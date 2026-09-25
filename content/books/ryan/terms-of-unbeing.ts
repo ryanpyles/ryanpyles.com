@@ -34,6 +34,7 @@ Her name is Arya.
   status: "published",
   coverImage: "/images/books/terms-of-unbeing.jpg",
   paperbackCover: "/images/books/terms-of-unbeing-paperback.jpg",
+  paperbackCoverLabel: "Paperback cover",
   theme: "ryan",
   amazon: {
     blurbHTML: `<p>Gideon Cross signs a lease he doesn't remember reading.</p>

@@ -27,7 +27,7 @@ For readers of *A Little Life*, *The Guest*, *Disgrace*, and *The Copenhagen Tri
   purchaseUrl: "https://www.amazon.com/dp/B0H26WHKCJ",
   publishDate: "2024-02-01",
   status: "published",
-  coverImage: "/images/books/quiet-metric.webp",
+  coverImage: "/images/books/quiet-metric.svg",
   theme: "ryan",
   amazon: {
     blurbHTML: `<p>There are people who can make harm sound reasonable.</p>

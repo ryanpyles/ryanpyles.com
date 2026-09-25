@@ -25,6 +25,8 @@ export interface Book {
   coverImage?: string;
   /** Secondary edition cover (e.g. the print/paperback art) when it differs from the primary. */
   paperbackCover?: string;
+  /** Caption under the secondary cover. Defaults to "Alternate cover". */
+  paperbackCoverLabel?: string;
   theme: BookTheme;
   amazon?: AmazonData;
 }

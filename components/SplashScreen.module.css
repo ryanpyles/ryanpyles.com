@@ -62,6 +62,15 @@
   text-align: center;
 }
 
+/* The drawing portrait — warm off-white ink on the dark overlay. */
+.portrait {
+  width: min(300px, 58vw);
+  color: #ece6dc;
+  opacity: 0;
+  animation: fade-up 0.6s ease forwards;
+  animation-delay: 0.15s;
+}
+
 .glyph {
   display: block;
   font-family: "Cormorant Garamond", "EB Garamond", serif;
@@ -81,8 +90,8 @@
   letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.88);
   opacity: 0;
-  animation: fade-up 0.44s ease forwards;
-  animation-delay: 0.68s;
+  animation: fade-up 0.55s ease forwards;
+  animation-delay: 2.25s;
 }
 
 .label {
@@ -92,8 +101,8 @@
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.32);
   opacity: 0;
-  animation: fade-up 0.44s ease forwards;
-  animation-delay: 0.84s;
+  animation: fade-up 0.55s ease forwards;
+  animation-delay: 2.5s;
 }
 
 /* Latin incantation — final reveal before the page turns */
@@ -154,7 +163,7 @@
 /* ── Reduced motion ───────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-  .chip, .name, .label, .incantation, .bottom { animation: none; opacity: 1; }
+  .chip, .name, .label, .incantation, .bottom, .portrait { animation: none; opacity: 1; }
 
   .glyph { animation: none; opacity: 1; }
 

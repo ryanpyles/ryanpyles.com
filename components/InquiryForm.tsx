@@ -32,6 +32,7 @@ export interface InquiryFormLabels {
 
 export const defaultInquiryLabels: InquiryFormLabels = {
   projectTypes: [
+    "Continuity Atlas commission",
     "AI narrative tooling",
     "Publishing / author platform",
     "Editorial web system",
@@ -128,7 +129,6 @@ export default function InquiryForm({
     const href = `mailto:${EMAIL}?subject=${encodeURIComponent(
       composed.subject
     )}&body=${encodeURIComponent(composed.body)}`;
-    // Open the visitor's mail client with everything pre-filled.
     window.location.href = href;
     setSent(true);
   };

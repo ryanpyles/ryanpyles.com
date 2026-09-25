@@ -66,7 +66,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function CaseStudyPage({ params }: Props) {
-  // Live applications render embedded in-frame instead of redirecting out.
   const app = getEmbeddedApp(params.slug);
   if (app) {
     return (
@@ -87,13 +86,37 @@ export default function CaseStudyPage({ params }: Props) {
   const cs = getCaseStudy(params.slug);
   if (!cs) notFound();
 
-  // The flagship case study keeps its bespoke, deeper layout.
   if (cs.slug === "continuity-atlas") {
     return (
       <SiteLayout>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: buildCaseStudyJsonLd(cs) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: "Continuity Atlas",
+              applicationCategory: "WebApplication",
+              operatingSystem: "Any",
+              description: cs.tagline,
+              url: "https://ryanpyles.com/atlas",
+              author: {
+                "@type": "Person",
+                name: "Ryan Pyles",
+                url: "https://ryanpyles.com",
+              },
+              offers: {
+                "@type": "Offer",
+                url: "https://ryanpyles.com/contact",
+                availability: "https://schema.org/InStock",
+                category: "Custom software engagement",
+              },
+            }),
+          }}
         />
         <script
           type="application/ld+json"

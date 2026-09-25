@@ -64,7 +64,11 @@ export default function NotesPage() {
               me@ryanpyles.com
             </a>{" "}
             with the subject &ldquo;Notes updates&rdquo; and I&rsquo;ll add
-            you to the list.
+            you to the list. The same pieces also go out on the{" "}
+            <a href="/feed.xml" className={styles.updatesLink}>
+              RSS feed
+            </a>
+            .
           </p>
         </div>
       </Section>

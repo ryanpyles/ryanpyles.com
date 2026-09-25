@@ -72,14 +72,14 @@ export default function BookPage({ params }: Params) {
                 <div className={styles.altEditionFrame}>
                   <Image
                     src={book.paperbackCover}
-                    alt={`${book.title} — paperback edition cover`}
+                    alt={`${book.title} — ${book.paperbackCoverLabel ?? "alternate cover"}`}
                     fill
                     sizes="120px"
                     className={styles.altEditionImg}
                   />
                 </div>
                 <figcaption className={styles.altEditionCaption}>
-                  Also in paperback
+                  {book.paperbackCoverLabel ?? "Alternate cover"}
                 </figcaption>
               </figure>
             )}

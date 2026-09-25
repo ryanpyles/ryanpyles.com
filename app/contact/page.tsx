@@ -5,9 +5,33 @@ import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import PageHeader from "@/components/PageHeader";
 import InquiryForm from "@/components/InquiryForm";
+import FaqBlock from "@/components/FaqBlock";
 import { buildPageMetadata, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import { subpageLanguageAlternates } from "@/lib/i18n";
 import styles from "./page.module.css";
+
+const faq = [
+  {
+    question: "How soon do you reply?",
+    answer:
+      "I read every inquiry myself and reply within about two business days. Automated outreach and unsolicited manuscripts are not answered.",
+  },
+  {
+    question: "What does a prototype sprint include?",
+    answer:
+      "A short, fixed-scope build to prove an idea or de-risk a decision before a full commitment — typically a working slice of an author platform, editorial interface, or narrative tool.",
+  },
+  {
+    question: "Do you take retainers or ongoing maintenance?",
+    answer:
+      "No. Engagements are fixed-scope project builds, prototype sprints, or advisory reviews. Open-ended retainer support is not a fit.",
+  },
+  {
+    question: "Can you build a story-memory system like Continuity Atlas?",
+    answer:
+      "Yes. Continuity Atlas is the working prototype of that class of work — see ryanpyles.com/atlas. Inquiries about story-memory, continuity validation, and inspectable AI workflows for long-form fiction are a good fit.",
+  },
+];
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Start a project",
@@ -47,20 +71,19 @@ export default function ContactPage() {
             Currently accepting
           </p>
           <ul className={styles.acceptingList}>
+            <li className={styles.acceptingItem}>Continuity Atlas commissions</li>
             <li className={styles.acceptingItem}>AI narrative tooling</li>
-            <li className={styles.acceptingItem}>Publishing &amp; author platforms</li>
+            <li className={styles.acceptingItem}>Publishing & author platforms</li>
             <li className={styles.acceptingItem}>Editorial web systems</li>
-            <li className={styles.acceptingItem}>Prototype &amp; discovery sprints</li>
+            <li className={styles.acceptingItem}>Prototype & discovery sprints</li>
           </ul>
         </div>
 
-        {/* ── Inquiry form — the primary action ─────────────────────── */}
         <div className={styles.formSection}>
           <h2 className={styles.formLabel}>The inquiry</h2>
           <InquiryForm />
         </div>
 
-        {/* ── Context: fit, availability, direct line ───────────────── */}
         <div className={styles.options}>
           <div className={styles.option}>
             <h2 className={styles.optionLabel}>Prefer email?</h2>
@@ -102,6 +125,8 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
+
+        <FaqBlock heading="Before you write" items={faq} />
 
         <p className={styles.note}>
           I don&rsquo;t respond to cold pitches, unsolicited manuscripts, or

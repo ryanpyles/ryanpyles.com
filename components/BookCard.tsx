@@ -10,6 +10,8 @@ interface BookCardProps {
   book: Book;
   buyLabel?: string;
   byLabel?: string;
+  /** Label for the direct-to-retailer link when the title is for sale. */
+  buyNowLabel?: string;
 }
 
 /** Max tilt in degrees at the cover's edges. Kept small so it reads as weight. */
@@ -19,6 +21,7 @@ export default function BookCard({
   book,
   buyLabel = "View book",
   byLabel = "by",
+  buyNowLabel = "Buy →",
 }: BookCardProps) {
   const coverRef = useRef<HTMLDivElement>(null);
   const reduced = useRef(false);
@@ -104,6 +107,20 @@ export default function BookCard({
               >
                 Get notified →
               </a>
+            </>
+          ) : book.purchaseUrl ? (
+            <>
+              <a
+                href={book.purchaseUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.cta}
+              >
+                {buyNowLabel}
+              </a>
+              <Link href={`/books/${book.slug}`} className={styles.ctaNotify}>
+                {buyLabel}
+              </Link>
             </>
           ) : (
             <Link href={`/books/${book.slug}`} className={styles.cta}>

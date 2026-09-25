@@ -1,5 +1,5 @@
 import React from "react";
-import { buildPageMetadata } from "@/lib/metadata";
+import { buildPageMetadata, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import { subpageLanguageAlternates } from "@/lib/i18n";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
@@ -28,6 +28,15 @@ export const metadata: Metadata = buildPageMetadata({
 export default function BooksPage() {
   return (
     <SiteLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Fiction", path: "/books" },
+          ]),
+        }}
+      />
       <Section>
         <PageHeader
           kicker="Elian Voigt — FORMÆTRIX"

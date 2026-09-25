@@ -7,7 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import ProcessTrack from "@/components/ProcessTrack";
 import Reveal from "@/components/Reveal";
 import { Ae } from "@/components/Ae";
-import { buildPageMetadata } from "@/lib/metadata";
+import { buildPageMetadata, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import { subpageLanguageAlternates } from "@/lib/i18n";
 import styles from "./page.module.css";
 
@@ -94,6 +94,15 @@ export default function WorkPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Work", path: "/work" },
+          ]),
+        }}
       />
       <Section>
         {/* ── Hero ─────────────────────────────────────────────────── */}

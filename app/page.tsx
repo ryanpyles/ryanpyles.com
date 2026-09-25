@@ -145,41 +145,54 @@ export default function HomePage() {
           {/* Mobile-only orientation — name, role, one sharp line */}
           <div className={`${styles.heroMobileIntro} ${styles.heroEnter} ${styles.heroEnter2}`}>
             <span className={styles.heroMobileName}>Ryan J. Pyles</span>
-            <span className={styles.heroMobileRoles}>Author · Engineer · Linguist</span>
+            <span className={styles.heroMobileRoles}>Engineer · Author · Linguist</span>
             <span className={styles.heroMobilePlace}>Chicago</span>
             <p className={styles.heroMobileLine}>
-              I write experimental fiction as Elian Voigt and build narrative
-              systems through FORMÆTRIX.
+              I build narrative systems through FORMÆTRIX, and write fiction as
+              Elian Voigt.
             </p>
           </div>
 
+          <p className={`${styles.heroAttribution} ${styles.heroEnter} ${styles.heroEnter1}`}>
+            Ryan Pyles — Chicago · Narrative systems
+          </p>
+
+          {/* The offer, as the H1 — the line search engines and answer engines
+              weight, and the sentence a buyer can act on. */}
           <h1 className={`${styles.heroStatement} ${styles.heroEnter} ${styles.heroEnter2}`}>
-            The distance between a manuscript, a language, and a software system
-            is smaller than it first appears.
+            I build narrative systems for publishers, authors, and teams who
+            can&rsquo;t afford continuity failures.
           </h1>
 
-          <p className={`${styles.heroClarity} ${styles.heroEnter} ${styles.heroEnter3}`}>
-            I design narrative systems for publishing, software, and fiction.
+          {/* The original thesis, kept as the deck — the voice, one line down. */}
+          <p className={`${styles.heroDeck} ${styles.heroEnter} ${styles.heroEnter3}`}>
+            The distance between a manuscript, a language, and a software system
+            is smaller than it first appears.
           </p>
 
-          <p className={`${styles.heroAttribution} ${styles.heroEnter} ${styles.heroEnter3}`}>Ryan Pyles — Chicago</p>
-
-          <p className={`${styles.heroSummary} ${styles.heroEnter} ${styles.heroEnter4}`}>
-            The personal archive behind all three — the fiction of Elian Voigt,
-            the FORMÆTRIX studio, and the language work.
+          <p className={`${styles.heroClarity} ${styles.heroEnter} ${styles.heroEnter4}`}>
+            Publishing platforms, AI narrative tooling, and editorial web
+            systems — built at FORMÆTRIX.
           </p>
 
-          {/* Desktop / tablet CTAs — primary: work with Ryan directly.
-              The studio and fiction have their own sites (formaetrix.com,
-              elianvoigt.com); this hub's job is the direct relationship. */}
+          {/* Two visually equal paths — hire, or read — then a quiet third. */}
           <div className={`${styles.heroCtas} ${styles.heroEnter} ${styles.heroEnter5}`}>
             <Link
               href="/contact"
               className={styles.heroCta}
-              aria-label="Discuss your project — get in touch"
+              aria-label="Discuss a project — get in touch"
             >
-              Discuss your project →
+              Discuss a project →
             </Link>
+            <a
+              href="https://www.elianvoigt.com"
+              className={styles.heroCtaOutline}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Read the fiction — ElianVoigt.com"
+            >
+              Read the fiction →
+            </a>
             <Link
               href="/projects"
               className={styles.heroCtaSecondary}
@@ -187,15 +200,6 @@ export default function HomePage() {
             >
               View engineering work →
             </Link>
-            <a
-              href="https://www.elianvoigt.com"
-              className={styles.heroCtaTertiary}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Read the fiction — ElianVoigt.com"
-            >
-              Read the fiction →
-            </a>
           </div>
 
         </div>

@@ -4,13 +4,41 @@ import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import PageHeader from "@/components/PageHeader";
-import { buildPageMetadata } from "@/lib/metadata";
+import { buildPageMetadata, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import { subpageLanguageAlternates } from "@/lib/i18n";
 import { Ae } from "@/components/Ae";
 import Portrait from "@/components/Portrait";
 import MotionPlate from "@/components/MotionPlate";
 import ReadingSpine from "@/components/ReadingSpine";
+import FaqBlock from "@/components/FaqBlock";
 import styles from "./page.module.css";
+
+/**
+ * Branded-query FAQ. "Ryan Pyles" collides with other people in search, and
+ * "is Ryan Pyles Elian Voigt" is a question the site should answer directly —
+ * both for readers and for the entity graph.
+ */
+const faq = [
+  {
+    question: "Is Ryan Pyles the same person as Elian Voigt?",
+    answer:
+      "Yes. Ryan Pyles is the person; Elian Voigt is the authorial identity his fiction is published under through FORMÆTRIX. It is a distinct literary voice, not a pseudonym in any simple sense — the distinction matters less than the work it produces.",
+  },
+  {
+    question: "What is FORMÆTRIX?",
+    answer:
+      "FORMÆTRIX is the studio and imprint Ryan Pyles founded for work where language and form are load-bearing: publishing and author platforms, AI narrative tooling, editorial web systems, and the fiction of Elian Voigt.",
+  },
+  {
+    question: "What does Ryan Pyles do?",
+    answer:
+      "He designs and builds narrative systems — publishing platforms, AI narrative tooling, and editorial web architecture — and writes experimental fiction as Elian Voigt. He works with React, Next.js, and TypeScript.",
+  },
+  {
+    question: "Where is Ryan Pyles based?",
+    answer: "Chicago, Illinois. He works with clients worldwide.",
+  },
+];
 
 export const metadata: Metadata = buildPageMetadata({
   title: "About",
@@ -44,6 +72,15 @@ const workAreas = [
 export default function AboutPage() {
   return (
     <SiteLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+          ]),
+        }}
+      />
       <ReadingSpine />
       <Section>
         <PageHeader
@@ -168,6 +205,8 @@ export default function AboutPage() {
             Press &amp; media kit →
           </Link>
         </div>
+
+        <FaqBlock items={faq} />
       </Section>
     </SiteLayout>
   );

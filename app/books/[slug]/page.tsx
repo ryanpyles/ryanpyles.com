@@ -6,6 +6,7 @@ import Link from "next/link";
 import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import BookLineage from "@/components/BookLineage";
+import Figure from "@/components/Figure";
 import { getBookBySlug, getAllSlugs } from "@/content/books";
 import { buildBookMetadata, buildBookJsonLd, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
@@ -150,6 +151,20 @@ export default function BookPage({ params }: Params) {
             )}
           </div>
         </article>
+
+        {book.objectPhoto && (
+          <div className={styles.objectPhoto}>
+            <Figure
+              src={book.objectPhoto.src}
+              alt={book.objectPhoto.alt}
+              width={book.objectPhoto.width}
+              height={book.objectPhoto.height}
+              caption={book.objectPhoto.caption}
+              index="the object"
+              sizes="(max-width: 640px) 100vw, 460px"
+            />
+          </div>
+        )}
       </Section>
 
       <BookLineage slug={book.slug} />

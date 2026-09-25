@@ -28,6 +28,13 @@ For readers of *A Little Life*, *The Guest*, *Disgrace*, and *The Copenhagen Tri
   publishDate: "2024-02-01",
   status: "published",
   coverImage: "/images/books/quiet-metric.webp",
+  objectPhoto: {
+    src: "/images/books/quiet-metric-edition.jpg",
+    alt: "The hardcover first edition of The Quiet Metric by Elian Voigt standing on a wooden table — cream cloth boards, black spine, FORMÆTRIX imprint at the foot.",
+    width: 1136,
+    height: 1744,
+    caption: "The hardcover edition — cloth boards, foil rules, FORMÆTRIX imprint.",
+  },
   theme: "ryan",
   amazon: {
     blurbHTML: `<p>There are people who can make harm sound reasonable.</p>

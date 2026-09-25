@@ -6,7 +6,7 @@ const site = {
   url: "https://ryanpyles.com",
   description:
     "Ryan J. Pyles — author of experimental fiction, software engineer, and linguist based in Chicago.",
-  twitterHandle: "@ryanpyles",
+  twitterHandle: "@rypychi",
 };
 
 export function buildPageMetadata(overrides: {
@@ -147,11 +147,23 @@ export function buildBookJsonLd(book: Book): string {
     image: book.coverImage,
     ...(book.isbn ? { isbn: book.isbn } : {}),
     publisher: {
-      "@type": "Person",
-      name: "Ryan J. Pyles",
+      "@type": "Organization",
+      name: "FORMÆTRIX",
     },
     inLanguage: "en",
     genre: book.keywords[0] ?? "Literary Fiction",
+    // Offer only when the title is actually for sale and has a real retailer
+    // URL — no fabricated prices. Availability + URL is honest and valid.
+    ...(book.status !== "forthcoming" && book.purchaseUrl
+      ? {
+          offers: {
+            "@type": "Offer",
+            url: book.purchaseUrl,
+            availability: "https://schema.org/InStock",
+            priceCurrency: "USD",
+          },
+        }
+      : {}),
   };
   return JSON.stringify(schema);
 }
@@ -161,12 +173,15 @@ export function buildPersonJsonLd(): string {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Ryan Pyles",
-    alternateName: "Ryan J. Pyles",
+    // Both the formal byline and the pen name, so the entity resolves for
+    // "Ryan J. Pyles" and "Elian Voigt" queries alike.
+    alternateName: ["Ryan J. Pyles", "Elian Voigt"],
     url: "https://ryanpyles.com",
     image: "https://ryanpyles.com/images/portraits/ryan-pyles-studio.jpg",
     sameAs: [
       "https://github.com/ryanpyles",
       "https://www.linkedin.com/in/ryanpyles",
+      "https://x.com/rypychi",
       "https://www.formaetrix.com",
       "https://www.elianvoigt.com",
     ],
@@ -211,6 +226,22 @@ export function buildBreadcrumbJsonLd(
       position: i + 1,
       name: item.name,
       item: `${site.url}${item.path}`,
+    })),
+  });
+}
+
+/**
+ * FAQPage structured data. Answers are plain text (no markup), matching what
+ * the visible FAQ renders — the two must agree or Google drops the rich result.
+ */
+export function buildFaqJsonLd(items: { question: string; answer: string }[]): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((it) => ({
+      "@type": "Question",
+      name: it.question,
+      acceptedAnswer: { "@type": "Answer", text: it.answer },
     })),
   });
 }

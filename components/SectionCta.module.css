@@ -1,0 +1,83 @@
+.cta {
+  max-width: var(--max-width);
+  margin: var(--space-24) auto 0;
+  padding: var(--space-16) var(--space-8);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.text {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--color-white);
+  max-width: 22ch;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.primary {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--oxide);
+  border: 1px solid var(--oxide);
+  padding: var(--space-3) var(--space-6);
+  transition: background-color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+
+.primary:hover {
+  background: color-mix(in srgb, var(--oxide) 80%, var(--ink));
+  border-color: color-mix(in srgb, var(--oxide) 80%, var(--ink));
+}
+
+.secondary {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+  transition: color var(--duration-fast) var(--ease-out),
+              letter-spacing var(--duration-fast) var(--ease-out);
+}
+
+.secondary:hover {
+  color: var(--color-white);
+  letter-spacing: 0.2em;
+}
+
+@media (max-width: 600px) {
+  .cta {
+    flex-direction: column;
+    align-items: stretch;
+    padding: var(--space-12) var(--space-6);
+  }
+
+  .primary,
+  .secondary {
+    width: 100%;
+    text-align: center;
+    padding: var(--space-4) var(--space-6);
+  }
+
+  .secondary {
+    border: 1px solid color-mix(in srgb, var(--color-white) 25%, transparent);
+    color: color-mix(in srgb, var(--color-white) 78%, transparent);
+  }
+}

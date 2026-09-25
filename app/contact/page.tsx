@@ -5,7 +5,7 @@ import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import PageHeader from "@/components/PageHeader";
 import InquiryForm from "@/components/InquiryForm";
-import { buildPageMetadata } from "@/lib/metadata";
+import { buildPageMetadata, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import { subpageLanguageAlternates } from "@/lib/i18n";
 import styles from "./page.module.css";
 
@@ -20,6 +20,15 @@ export const metadata: Metadata = buildPageMetadata({
 export default function ContactPage() {
   return (
     <SiteLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: buildBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Start a project", path: "/contact" },
+          ]),
+        }}
+      />
       <Section narrow>
         <PageHeader
           kicker="Work with FORMÆTRIX"

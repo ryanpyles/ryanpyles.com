@@ -12,6 +12,7 @@ import {
   localeTags,
   localeDir,
   landingPath,
+  localizedHref,
   landingLanguageAlternates,
   siteUrl,
   type Locale,
@@ -94,10 +95,16 @@ export default function LocaleLanding({ params }: Params) {
         <p className={styles.summary}>{c.hero.summary}</p>
 
         <div className={styles.ctas}>
-          <Link href={c.ctas.primary.href} className={styles.ctaPrimary}>
+          <Link
+            href={localizedHref(lang as Locale, c.ctas.primary.href)}
+            className={styles.ctaPrimary}
+          >
             {c.ctas.primary.label}
           </Link>
-          <Link href={c.ctas.secondary.href} className={styles.ctaSecondary}>
+          <Link
+            href={localizedHref(lang as Locale, c.ctas.secondary.href)}
+            className={styles.ctaSecondary}
+          >
             {c.ctas.secondary.label}
           </Link>
         </div>
@@ -116,7 +123,11 @@ export default function LocaleLanding({ params }: Params) {
           <p className={styles.lookingFor}>{c.lookingFor}</p>
           <nav className={styles.indexNav}>
             {c.nav.map((item) => (
-              <Link key={item.href} href={item.href} className={styles.indexItem}>
+              <Link
+                key={item.href}
+                href={localizedHref(lang as Locale, item.href)}
+                className={styles.indexItem}
+              >
                 <span>{item.label}</span>
                 <span className={styles.indexArrow} aria-hidden="true">
                   →

@@ -1,0 +1,62 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  max-width: 34ch;
+}
+
+[dir="rtl"] .root {
+  align-items: flex-start;
+}
+
+.trigger {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: help;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-sm);
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--color-muted) 70%, transparent);
+  transition: color 0.25s ease;
+}
+
+.trigger:hover,
+.trigger:focus-visible {
+  color: var(--color-accent);
+  outline: none;
+}
+
+.reveal {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-white);
+  text-align: end;
+  animation: eggIn 0.4s ease both;
+}
+
+[dir="rtl"] .reveal {
+  text-align: start;
+}
+
+@keyframes eggIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+}

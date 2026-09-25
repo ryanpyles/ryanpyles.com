@@ -3,29 +3,67 @@
 import React, { useMemo, useState } from "react";
 import styles from "./InquiryForm.module.css";
 
-const PROJECT_TYPES = [
-  "AI narrative tooling",
-  "Publishing / author platform",
-  "Editorial web system",
-  "Systems & content architecture",
-  "Prototype / discovery sprint",
-  "Something else",
-];
+export interface InquiryFormLabels {
+  projectTypes: string[];
+  budgets: string[];
+  timelines: string[];
+  select: string;
+  name: string;
+  email: string;
+  organization: string;
+  optional: string;
+  projectType: string;
+  budget: string;
+  timeline: string;
+  message: string;
+  messagePlaceholder: string;
+  ready: string;
+  /** {filled} and {total} are substituted. */
+  progress: string;
+  submit: string;
+  privacy: string;
+  doneTitle: string;
+  /** {email} is substituted with a mailto link. */
+  doneBody: string;
+  copy: string;
+  copied: string;
+  editInquiry: string;
+}
 
-const BUDGETS = [
-  "Under $10k",
-  "$10k – $25k",
-  "$25k – $50k",
-  "$50k+",
-  "Not sure yet",
-];
-
-const TIMELINES = [
-  "Exploring",
-  "Next 1–3 months",
-  "3–6 months",
-  "Flexible",
-];
+export const defaultInquiryLabels: InquiryFormLabels = {
+  projectTypes: [
+    "AI narrative tooling",
+    "Publishing / author platform",
+    "Editorial web system",
+    "Systems & content architecture",
+    "Prototype / discovery sprint",
+    "Something else",
+  ],
+  budgets: ["Under $10k", "$10k – $25k", "$25k – $50k", "$50k+", "Not sure yet"],
+  timelines: ["Exploring", "Next 1–3 months", "3–6 months", "Flexible"],
+  select: "Select…",
+  name: "Name *",
+  email: "Email *",
+  organization: "Organization",
+  optional: "(optional)",
+  projectType: "Project type",
+  budget: "Budget",
+  timeline: "Timeline",
+  message: "What are you trying to build? *",
+  messagePlaceholder:
+    "The problem, who it's for, and what success looks like. A paragraph is plenty.",
+  ready: "Ready to send",
+  progress: "{filled} of {total} — name, email, a few words",
+  submit: "Start the conversation →",
+  privacy:
+    "Opens your email app with the details filled in. No data is stored here.",
+  doneTitle: "Your draft is ready.",
+  doneBody:
+    "Your email client should have opened with everything filled in — just hit send. If nothing opened, email me directly at {email} or copy the message below.",
+  copy: "Copy the message",
+  copied: "Copied ✓",
+  editInquiry: "← Edit the inquiry",
+};
 
 const EMAIL = "me@ryanpyles.com";
 
@@ -55,7 +93,11 @@ function composeEmail(f: {
   return { subject, body };
 }
 
-export default function InquiryForm() {
+export default function InquiryForm({
+  labels = defaultInquiryLabels,
+}: {
+  labels?: InquiryFormLabels;
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [org, setOrg] = useState("");
@@ -104,27 +146,27 @@ export default function InquiryForm() {
   };
 
   if (sent) {
+    const [beforeEmail, afterEmail] = labels.doneBody.split("{email}");
     return (
       <div className={styles.done} role="status">
-        <p className={styles.doneTitle}>Your draft is ready.</p>
+        <p className={styles.doneTitle}>{labels.doneTitle}</p>
         <p className={styles.doneBody}>
-          Your email client should have opened with everything filled in — just
-          hit send. If nothing opened, email me directly at{" "}
+          {beforeEmail}
           <a href={`mailto:${EMAIL}`} className={styles.doneLink}>
             {EMAIL}
-          </a>{" "}
-          or copy the message below.
+          </a>
+          {afterEmail}
         </p>
         <div className={styles.doneActions}>
           <button type="button" className={styles.secondaryBtn} onClick={handleCopy}>
-            {copied ? "Copied ✓" : "Copy the message"}
+            {copied ? labels.copied : labels.copy}
           </button>
           <button
             type="button"
             className={styles.secondaryBtn}
             onClick={() => setSent(false)}
           >
-            ← Edit the inquiry
+            {labels.editInquiry}
           </button>
         </div>
       </div>
@@ -135,7 +177,7 @@ export default function InquiryForm() {
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
       <div className={styles.row}>
         <label className={styles.field}>
-          <span className={styles.label}>Name *</span>
+          <span className={styles.label}>{labels.name}</span>
           <input
             className={styles.input}
             value={name}
@@ -145,7 +187,7 @@ export default function InquiryForm() {
           />
         </label>
         <label className={styles.field}>
-          <span className={styles.label}>Email *</span>
+          <span className={styles.label}>{labels.email}</span>
           <input
             className={styles.input}
             type="email"
@@ -160,7 +202,8 @@ export default function InquiryForm() {
 
       <label className={styles.field}>
         <span className={styles.label}>
-          Organization <span className={styles.optional}>(optional)</span>
+          {labels.organization}{" "}
+          <span className={styles.optional}>{labels.optional}</span>
         </span>
         <input
           className={styles.input}
@@ -172,14 +215,14 @@ export default function InquiryForm() {
 
       <div className={styles.row3}>
         <label className={styles.field}>
-          <span className={styles.label}>Project type</span>
+          <span className={styles.label}>{labels.projectType}</span>
           <select
             className={styles.select}
             value={projectType}
             onChange={(e) => setProjectType(e.target.value)}
           >
-            <option value="">Select…</option>
-            {PROJECT_TYPES.map((t) => (
+            <option value="">{labels.select}</option>
+            {labels.projectTypes.map((t) => (
               <option key={t} value={t}>
                 {t}
               </option>
@@ -187,14 +230,14 @@ export default function InquiryForm() {
           </select>
         </label>
         <label className={styles.field}>
-          <span className={styles.label}>Budget</span>
+          <span className={styles.label}>{labels.budget}</span>
           <select
             className={styles.select}
             value={budget}
             onChange={(e) => setBudget(e.target.value)}
           >
-            <option value="">Select…</option>
-            {BUDGETS.map((t) => (
+            <option value="">{labels.select}</option>
+            {labels.budgets.map((t) => (
               <option key={t} value={t}>
                 {t}
               </option>
@@ -202,14 +245,14 @@ export default function InquiryForm() {
           </select>
         </label>
         <label className={styles.field}>
-          <span className={styles.label}>Timeline</span>
+          <span className={styles.label}>{labels.timeline}</span>
           <select
             className={styles.select}
             value={timeline}
             onChange={(e) => setTimeline(e.target.value)}
           >
-            <option value="">Select…</option>
-            {TIMELINES.map((t) => (
+            <option value="">{labels.select}</option>
+            {labels.timelines.map((t) => (
               <option key={t} value={t}>
                 {t}
               </option>
@@ -219,15 +262,13 @@ export default function InquiryForm() {
       </div>
 
       <label className={styles.field}>
-        <span className={styles.label}>
-          What are you trying to build? *
-        </span>
+        <span className={styles.label}>{labels.message}</span>
         <textarea
           className={styles.textarea}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           rows={6}
-          placeholder="The problem, who it's for, and what success looks like. A paragraph is plenty."
+          placeholder={labels.messagePlaceholder}
           required
         />
       </label>
@@ -243,17 +284,19 @@ export default function InquiryForm() {
           className={`${styles.readinessLabel} ${valid ? styles.readinessReady : ""}`}
           role="status"
         >
-          {valid ? "Ready to send" : `${filled} of ${requirements.length} — name, email, a few words`}
+          {valid
+            ? labels.ready
+            : labels.progress
+                .replace("{filled}", String(filled))
+                .replace("{total}", String(requirements.length))}
         </span>
       </div>
 
       <div className={styles.actions}>
         <button type="submit" className={styles.submit} disabled={!valid}>
-          Start the conversation →
+          {labels.submit}
         </button>
-        <span className={styles.privacy}>
-          Opens your email app with the details filled in. No data is stored here.
-        </span>
+        <span className={styles.privacy}>{labels.privacy}</span>
       </div>
     </form>
   );

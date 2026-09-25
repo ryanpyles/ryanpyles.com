@@ -6,6 +6,7 @@ import Section from "@/components/Section";
 import PageHeader from "@/components/PageHeader";
 import InquiryForm from "@/components/InquiryForm";
 import { buildPageMetadata } from "@/lib/metadata";
+import { subpageLanguageAlternates } from "@/lib/i18n";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -13,6 +14,7 @@ export const metadata: Metadata = buildPageMetadata({
   description:
     "Start a project with Ryan Pyles — AI narrative tooling, publishing and author platforms, editorial web systems, and content architecture. Tell me what you're building.",
   path: "/contact",
+  languageAlternates: subpageLanguageAlternates("/contact"),
 });
 
 export default function ContactPage() {

@@ -8,6 +8,7 @@ import ProcessTrack from "@/components/ProcessTrack";
 import Reveal from "@/components/Reveal";
 import { Ae } from "@/components/Ae";
 import { buildPageMetadata } from "@/lib/metadata";
+import { subpageLanguageAlternates } from "@/lib/i18n";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -15,6 +16,7 @@ export const metadata: Metadata = buildPageMetadata({
   description:
     "Design and engineering for publishers, authors, and teams where language and systems are load-bearing — AI narrative tooling, publishing platforms, editorial web systems, and content architecture. How I work, and how to start a project.",
   path: "/work",
+  languageAlternates: subpageLanguageAlternates("/work"),
 });
 
 const services = [

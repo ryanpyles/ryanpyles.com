@@ -24,10 +24,29 @@ const annotations: { text: string; x: string; y: string; rate: number }[] = [
   { text: "§ architecture", x: "82%", y: "40%", rate: 0.14 },
 ];
 
+export interface ShowcaseMasthead {
+  kicker: string;
+  /** Rendered large, with the accent period appended automatically. */
+  title: string;
+  intro: string;
+  scrollCue: string;
+}
+
+const DEFAULT_MASTHEAD: ShowcaseMasthead = {
+  kicker: "Selected engineering — 2025",
+  title: "Systems",
+  intro:
+    "Systems built to last — architecture, interfaces, and the infrastructure underneath. Work that resists entropy.",
+  scrollCue: "Scroll the index ↓",
+};
+
 export default function ProjectsShowcase({
   projects,
+  masthead = DEFAULT_MASTHEAD,
 }: {
   projects: ShowcaseProject[];
+  /** Localized masthead copy. The case-study rows themselves stay in English. */
+  masthead?: ShowcaseMasthead;
 }) {
   const rows = useRef<(HTMLElement | null)[]>([]);
   const marginalia = useRef<(HTMLSpanElement | null)[]>([]);
@@ -124,16 +143,14 @@ export default function ProjectsShowcase({
         </span>
 
         <div className={styles.mastInner}>
-          <p className={styles.kicker}>Selected engineering — 2025</p>
+          <p className={styles.kicker}>{masthead.kicker}</p>
           <h1 className={styles.mastTitle}>
-            Systems<span className={styles.dot}>.</span>
+            {masthead.title}
+            <span className={styles.dot}>.</span>
           </h1>
-          <p className={styles.intro}>
-            Systems built to last — architecture, interfaces, and the
-            infrastructure underneath. Work that resists entropy.
-          </p>
+          <p className={styles.intro}>{masthead.intro}</p>
           <span className={styles.scrollCue} aria-hidden="true">
-            Scroll the index ↓
+            {masthead.scrollCue}
           </span>
         </div>
       </header>

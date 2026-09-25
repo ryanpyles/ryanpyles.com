@@ -32,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/books`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: sectionAlt("/books") },
     { url: `${BASE}/notes`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/writing`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE}/atlas`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${BASE}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.6, alternates: sectionAlt("/about") },
     { url: `${BASE}/contact`, lastModified: now, changeFrequency: "yearly", priority: 0.6, alternates: sectionAlt("/contact") },
     { url: `${BASE}/voigt-project`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },

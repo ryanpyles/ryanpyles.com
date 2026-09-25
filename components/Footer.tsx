@@ -36,6 +36,12 @@ export default function Footer() {
             >
               FORM<Ae />TRIX →
             </a>
+            <a href="/atlas" className={styles.formaetrixLink}>
+              Continuity Atlas →
+            </a>
+            <a href="/writing" className={styles.formaetrixLink}>
+              Essays →
+            </a>
             <a href="/press" className={styles.formaetrixLink}>
               Press →
             </a>

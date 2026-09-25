@@ -23,7 +23,7 @@ const services = [
   {
     name: "AI narrative tooling",
     body: "Story-memory systems, continuity validation, and inspectable AI workflows for long-form fiction and publishing — the machinery around the model, not another prompt.",
-    proof: { label: "Continuity Atlas", href: "/projects/continuity-atlas" },
+    proof: { label: "Continuity Atlas", href: "/atlas" },
   },
   {
     name: "Publishing & author platforms",
@@ -105,7 +105,6 @@ export default function WorkPage() {
         }}
       />
       <Section>
-        {/* ── Hero ─────────────────────────────────────────────────── */}
         <PageHeader
           kicker={
             <>
@@ -136,7 +135,6 @@ export default function WorkPage() {
           </Reveal>
         </div>
 
-        {/* ── Services ─────────────────────────────────────────────── */}
         <section className={styles.block} aria-label="Services">
           <Reveal>
             <p className={styles.blockLabel}>What I build</p>
@@ -156,7 +154,6 @@ export default function WorkPage() {
           </div>
         </section>
 
-        {/* ── Engagements ──────────────────────────────────────────── */}
         <section className={styles.block} aria-label="How engagements work">
           <Reveal>
             <p className={styles.blockLabel}>How engagements work</p>
@@ -174,7 +171,6 @@ export default function WorkPage() {
           </div>
         </section>
 
-        {/* ── Process ──────────────────────────────────────────────── */}
         <section className={styles.block} aria-label="Process">
           <Reveal>
             <p className={styles.blockLabel}>How the work moves</p>
@@ -184,7 +180,6 @@ export default function WorkPage() {
           </Reveal>
         </section>
 
-        {/* ── Outcomes + CTA ───────────────────────────────────────── */}
         <section className={styles.block} aria-label="Selected outcomes">
           <Reveal>
             <p className={styles.blockLabel}>Selected outcomes</p>

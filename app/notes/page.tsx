@@ -6,6 +6,7 @@ import Section from "@/components/Section";
 import PageHeader from "@/components/PageHeader";
 import FieldNotesGrid from "@/components/FieldNotesGrid";
 import ScholarArchiveGrid from "@/components/ScholarArchiveGrid";
+import SelfDrawingSvg from "@/components/SelfDrawingSvg";
 import { fieldNotes } from "@/content/fieldNotes";
 import styles from "./page.module.css";
 
@@ -39,6 +40,15 @@ export default function NotesPage() {
           title="Notes"
           intro="Short entries — on language, writing, software, and design — written close to the moment they occurred to me, before they had the chance to settle into something more polished."
         />
+
+        <div className={styles.drawnEmblem}>
+          <SelfDrawingSvg
+            variant="line"
+            src="/images/filecabinet.svg"
+            aspect="1800 / 1208"
+            label="Line drawing of an open file-cabinet drawer full of hanging folders — the working archive."
+          />
+        </div>
 
         <FieldNotesGrid notes={fieldNotes} />
 

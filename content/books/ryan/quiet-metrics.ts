@@ -25,6 +25,8 @@ For readers of *A Little Life*, *The Guest*, *Disgrace*, and *The Copenhagen Tri
   ],
   isbn: "979-8-197296-16-0",
   purchaseUrl: "https://www.amazon.com/dp/B0H26WHKCJ",
+  price: 4.99,
+  priceHigh: 16.99,
   publishDate: "2024-02-01",
   status: "published",
   coverImage: "/images/books/quiet-metric.webp",

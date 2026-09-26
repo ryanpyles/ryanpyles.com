@@ -78,3 +78,10 @@
   line-height: var(--leading-relaxed);
   color: color-mix(in srgb, var(--color-white) 55%, transparent);
 }
+
+/* Drawn archival emblem (SelfDrawingSvg) beneath the header. */
+.drawnEmblem {
+  max-width: 520px;
+  margin: var(--space-8) auto var(--space-16);
+  color: var(--color-white);
+}

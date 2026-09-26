@@ -69,6 +69,8 @@ export default function SplashScreen() {
           <SelfDrawingSvg
             src="/images/Seatedpose.svg"
             label="Ink line-drawing portrait of Ryan Pyles, seated"
+            variant="ink-fill"
+            aspect="1168 / 1563"
             autoStart
             drawMs={2200}
             fillMs={700}

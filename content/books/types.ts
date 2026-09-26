@@ -19,6 +19,15 @@ export interface Book {
   isbn?: string;
   /** Direct retailer URL (Amazon product page, Bookshop.org, etc.). Omit if not yet listed. */
   purchaseUrl?: string;
+  /**
+   * Lowest listed price in USD (usually the eBook). Drives the Offer/
+   * AggregateOffer in structured data and an optional "From $X" on the page.
+   * Omit for titles not yet on sale.
+   */
+  price?: number;
+  /** Highest listed price in USD (e.g. hardcover), when the title has multiple
+   * formats. With `price`, produces an AggregateOffer price range. */
+  priceHigh?: number;
   publishDate?: string;
   status?: BookStatus;
   /** Path to cover image in /public — omit for forthcoming titles without a cover yet. */
@@ -34,6 +43,16 @@ export interface Book {
     alt: string;
     width: number;
     height: number;
+    caption?: string;
+  };
+  /**
+   * A line-art SVG shown on the detail page that draws itself on scroll-in
+   * (via SelfDrawingSvg). `aspect` is the viewBox ratio, e.g. "1208 / 1800".
+   */
+  drawnFigure?: {
+    src: string;
+    label: string;
+    aspect: string;
     caption?: string;
   };
   theme: BookTheme;

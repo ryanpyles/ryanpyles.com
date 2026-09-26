@@ -188,6 +188,14 @@
   opacity: 0.8;
 }
 
+.price {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 55%, transparent);
+}
+
 .isbn {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -297,4 +305,20 @@ details[open] .blurbSummary::before {
 .objectPhoto {
   max-width: 460px;
   margin: var(--space-16) auto 0;
+}
+
+/* Drawn line-art figure (SelfDrawingSvg) beneath the article. */
+.drawnFigure {
+  max-width: 340px;
+  margin: var(--space-16) auto 0;
+  color: var(--color-white);
+  text-align: center;
+}
+
+.drawnFigureCaption {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
 }

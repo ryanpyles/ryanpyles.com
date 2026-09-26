@@ -29,6 +29,8 @@ Perfect for readers of dystopian fiction, literary speculative fiction, techno-t
   ],
   isbn: "979-8-251792-36-2",
   purchaseUrl: "https://www.amazon.com/dp/B0H2CY1PX3",
+  price: 4.99,
+  priceHigh: 16.99,
   publishDate: "2024-01-01",
   status: "published",
   coverImage: "/images/books/feast-of-the-broadcast-saints.jpg",

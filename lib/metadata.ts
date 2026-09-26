@@ -153,15 +153,27 @@ export function buildBookJsonLd(book: Book): string {
     inLanguage: "en",
     genre: book.keywords[0] ?? "Literary Fiction",
     // Offer only when the title is actually for sale and has a real retailer
-    // URL — no fabricated prices. Availability + URL is honest and valid.
+    // URL. With a price range (multiple formats) emit an AggregateOffer;
+    // with a single price a plain Offer; otherwise URL + availability only.
     ...(book.status !== "forthcoming" && book.purchaseUrl
       ? {
-          offers: {
-            "@type": "Offer",
-            url: book.purchaseUrl,
-            availability: "https://schema.org/InStock",
-            priceCurrency: "USD",
-          },
+          offers:
+            book.price != null && book.priceHigh != null && book.priceHigh > book.price
+              ? {
+                  "@type": "AggregateOffer",
+                  url: book.purchaseUrl,
+                  availability: "https://schema.org/InStock",
+                  priceCurrency: "USD",
+                  lowPrice: book.price.toFixed(2),
+                  highPrice: book.priceHigh.toFixed(2),
+                }
+              : {
+                  "@type": "Offer",
+                  url: book.purchaseUrl,
+                  availability: "https://schema.org/InStock",
+                  priceCurrency: "USD",
+                  ...(book.price != null ? { price: book.price.toFixed(2) } : {}),
+                },
         }
       : {}),
   };

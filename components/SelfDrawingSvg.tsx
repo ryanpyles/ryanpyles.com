@@ -4,23 +4,29 @@ import React, { useEffect, useRef } from "react";
 import styles from "./SelfDrawingSvg.module.css";
 
 /**
- * Loads an inline SVG and makes it draw itself: each path's outline inks in via
- * a stroke-dashoffset transition (length from getTotalLength, so it's exact for
- * any geometry), then the fill fades in so it settles to the finished art.
+ * Loads an inline SVG and makes it draw itself, via a length-based
+ * stroke-dashoffset animation (from getTotalLength, so it's exact for any
+ * geometry).
  *
- * - `autoStart`: draw as soon as it loads (used by the intro splash). Otherwise
- *   it waits until scrolled into view.
- * - `onDone`: called once the fill has settled (the splash uses it to exit).
+ * Two variants:
+ * - "line" (default): stroked line art. The paths draw on and stay as strokes;
+ *   the finished art *is* the linework. Paths draw on a small stagger.
+ * - "ink-fill": filled art (e.g. a silhouette). The outline strokes on first,
+ *   then the fill fades in and the outline is dropped, settling to the source.
  *
- * Honors prefers-reduced-motion (shows the finished art, then fires onDone) and
- * degrades to a plain <img> with no JS. Colors inherit currentColor so the
- * placement decides the ink tone.
+ * `autoStart` draws as soon as it loads (the intro splash); otherwise it waits
+ * to scroll into view. `onDone` fires once it settles. Honors
+ * prefers-reduced-motion (shows the finished art, then onDone) and degrades to
+ * a plain <img> with no JS. Strokes inherit currentColor so the placement sets
+ * the ink tone; `aspect` reserves layout space to avoid a shift while loading.
  */
 export default function SelfDrawingSvg({
   src,
   label,
   className,
-  drawMs = 2000,
+  variant = "line",
+  aspect,
+  drawMs = 1800,
   fillMs = 900,
   autoStart = false,
   onDone,
@@ -28,13 +34,15 @@ export default function SelfDrawingSvg({
   src: string;
   label: string;
   className?: string;
+  variant?: "line" | "ink-fill";
+  /** CSS aspect-ratio for the host box, e.g. "1208 / 1800" (from the viewBox). */
+  aspect?: string;
   drawMs?: number;
   fillMs?: number;
   autoStart?: boolean;
   onDone?: () => void;
 }) {
   const hostRef = useRef<HTMLDivElement>(null);
-  // Keep the latest onDone without retriggering the effect.
   const onDoneRef = useRef(onDone);
   onDoneRef.current = onDone;
 
@@ -57,7 +65,6 @@ export default function SelfDrawingSvg({
       .then((r) => r.text())
       .then((text) => {
         if (cancelled) return;
-        // Our own committed asset; strip any script defensively before injecting.
         host.innerHTML = text.replace(/<script[\s\S]*?<\/script>/gi, "");
         const svg = host.querySelector("svg");
         if (!svg) return;
@@ -69,12 +76,40 @@ export default function SelfDrawingSvg({
         if (paths.length === 0) return;
 
         if (reduced) {
-          // Leave the finished art; still report completion for the splash.
-          after(600, () => onDoneRef.current?.());
+          // Show the finished art. For line art, still theme the stroke.
+          if (variant === "line") {
+            for (const p of paths) p.style.stroke = "currentColor";
+          }
+          after(500, () => onDoneRef.current?.());
           return;
         }
 
-        // Arm: hide fill, dash each outline out to full length.
+        if (variant === "line") {
+          // Arm: dash each stroke out; keep the authored stroke-width.
+          const lens = paths.map((p) => p.getTotalLength());
+          paths.forEach((p, i) => {
+            p.style.stroke = "currentColor";
+            p.style.strokeDasharray = String(lens[i]);
+            p.style.strokeDashoffset = String(lens[i]);
+            p.style.transition = "none";
+          });
+          void svg.getBoundingClientRect();
+
+          const spread = 800; // total stagger across all paths, capped
+          const draw = () => {
+            if (cancelled) return;
+            paths.forEach((p, i) => {
+              const delay = paths.length > 1 ? (i / (paths.length - 1)) * spread : 0;
+              p.style.transition = `stroke-dashoffset ${drawMs}ms ease ${delay}ms`;
+              p.style.strokeDashoffset = "0";
+            });
+            after(drawMs + spread + 100, () => onDoneRef.current?.());
+          };
+          arm(draw);
+          return;
+        }
+
+        // ── ink-fill ──────────────────────────────────────────────────────
         for (const p of paths) {
           const len = p.getTotalLength();
           p.style.setProperty("fill", "none");
@@ -84,15 +119,14 @@ export default function SelfDrawingSvg({
           p.style.strokeDashoffset = String(len);
           p.style.transition = "none";
         }
-        void svg.getBoundingClientRect(); // paint the armed state first
+        void svg.getBoundingClientRect();
 
-        const draw = () => {
+        const drawFill = () => {
           if (cancelled) return;
           for (const p of paths) {
             p.style.transition = `stroke-dashoffset ${drawMs}ms ease`;
             p.style.strokeDashoffset = "0";
           }
-          // Ink fills in; the outline hands off to the source fill.
           after(drawMs + 60, () => {
             for (const p of paths) {
               p.style.transition = `fill ${fillMs}ms ease, stroke ${fillMs}ms ease`;
@@ -102,24 +136,26 @@ export default function SelfDrawingSvg({
             after(fillMs + 80, () => onDoneRef.current?.());
           });
         };
+        arm(drawFill);
 
-        if (autoStart) {
-          draw();
-        } else {
-          io = new IntersectionObserver(
-            (entries) => {
-              if (entries[0]?.isIntersecting) {
-                io?.disconnect();
-                draw();
-              }
-            },
-            { threshold: 0.25 }
-          );
-          io.observe(svg);
+        function arm(start: () => void) {
+          if (autoStart) {
+            start();
+          } else {
+            io = new IntersectionObserver(
+              (entries) => {
+                if (entries[0]?.isIntersecting) {
+                  io?.disconnect();
+                  start();
+                }
+              },
+              { threshold: 0.2 }
+            );
+            io.observe(svg!);
+          }
         }
       })
       .catch(() => {
-        // Network failed — fall back to completion so a splash never hangs.
         after(400, () => onDoneRef.current?.());
       });
 
@@ -128,11 +164,23 @@ export default function SelfDrawingSvg({
       io?.disconnect();
       timers.forEach(clearTimeout);
     };
-  }, [src, label, drawMs, fillMs, autoStart]);
+  }, [src, label, variant, drawMs, fillMs, autoStart]);
 
   return (
-    <div className={[styles.root, className].filter(Boolean).join(" ")}>
-      <div ref={hostRef} className={styles.host} />
+    <div
+      className={[
+        styles.root,
+        variant === "ink-fill" ? styles.inkFill : styles.line,
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      <div
+        ref={hostRef}
+        className={styles.host}
+        style={aspect ? { aspectRatio: aspect } : undefined}
+      />
       <noscript>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={src} alt={label} className={styles.fallback} />

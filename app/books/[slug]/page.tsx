@@ -7,6 +7,7 @@ import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import BookLineage from "@/components/BookLineage";
 import Figure from "@/components/Figure";
+import SelfDrawingSvg from "@/components/SelfDrawingSvg";
 import { getBookBySlug, getAllSlugs } from "@/content/books";
 import { buildBookMetadata, buildBookJsonLd, buildBreadcrumbJsonLd } from "@/lib/metadata";
 import styles from "./page.module.css";
@@ -136,6 +137,15 @@ export default function BookPage({ params }: Params) {
               </Link>
             </div>
 
+            {book.status !== "forthcoming" && book.price != null && (
+              <p className={styles.price}>
+                From ${book.price.toFixed(2)}
+                {book.priceHigh != null && book.priceHigh > book.price
+                  ? ` – $${book.priceHigh.toFixed(2)} across formats`
+                  : ""}
+              </p>
+            )}
+
             {book.isbn && (
               <p className={styles.isbn}>ISBN: {book.isbn}</p>
             )}
@@ -164,6 +174,22 @@ export default function BookPage({ params }: Params) {
               sizes="(max-width: 640px) 100vw, 460px"
             />
           </div>
+        )}
+
+        {book.drawnFigure && (
+          <figure className={styles.drawnFigure}>
+            <SelfDrawingSvg
+              variant="line"
+              src={book.drawnFigure.src}
+              aspect={book.drawnFigure.aspect}
+              label={book.drawnFigure.label}
+            />
+            {book.drawnFigure.caption && (
+              <figcaption className={styles.drawnFigureCaption}>
+                {book.drawnFigure.caption}
+              </figcaption>
+            )}
+          </figure>
         )}
       </Section>
 

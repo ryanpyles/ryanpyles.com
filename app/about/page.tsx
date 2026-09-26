@@ -13,6 +13,7 @@ import ReadingSpine from "@/components/ReadingSpine";
 import FaqBlock from "@/components/FaqBlock";
 import Figure from "@/components/Figure";
 import Reveal from "@/components/Reveal";
+import SelfDrawingSvg from "@/components/SelfDrawingSvg";
 import styles from "./page.module.css";
 
 /**
@@ -90,6 +91,19 @@ export default function AboutPage() {
           title="About"
           intro="Author, engineer, and linguist in Chicago — the person behind FORMÆTRIX and Elian Voigt."
         />
+
+        {/* A drawn portrait — one person in three passes — inks itself in. */}
+        <figure className={styles.drawnSelf}>
+          <SelfDrawingSvg
+            variant="line"
+            src="/images/ryanseated.svg"
+            aspect="1167 / 1740"
+            label="Line drawing of Ryan Pyles seated, the figure repeated three times in overlapping passes."
+          />
+          <figcaption className={styles.drawnSelfCaption}>
+            One person, three passes — author, engineer, linguist.
+          </figcaption>
+        </figure>
 
         {/* ── Editorial spread ─────────────────────────────────────── */}
         <div className={styles.spread}>

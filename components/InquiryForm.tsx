@@ -28,6 +28,10 @@ export interface InquiryFormLabels {
   copy: string;
   copied: string;
   editInquiry: string;
+  /** Optional (English defaults applied): the Resend-send states. */
+  sending?: string;
+  successTitle?: string;
+  successBody?: string;
 }
 
 export const defaultInquiryLabels: InquiryFormLabels = {
@@ -56,14 +60,17 @@ export const defaultInquiryLabels: InquiryFormLabels = {
   ready: "Ready to send",
   progress: "{filled} of {total} — name, email, a few words",
   submit: "Start the conversation →",
-  privacy:
-    "Opens your email app with the details filled in. No data is stored here.",
+  privacy: "Sends straight to me. I reply within about two business days.",
   doneTitle: "Your draft is ready.",
   doneBody:
     "Your email client should have opened with everything filled in — just hit send. If nothing opened, email me directly at {email} or copy the message below.",
   copy: "Copy the message",
   copied: "Copied ✓",
   editInquiry: "← Edit the inquiry",
+  sending: "Sending…",
+  successTitle: "Thank you — your inquiry is in.",
+  successBody:
+    "I read every inquiry myself and reply within about two business days.",
 };
 
 const EMAIL = "me@ryanpyles.com";
@@ -95,10 +102,12 @@ function composeEmail(f: {
 }
 
 export default function InquiryForm({
-  labels = defaultInquiryLabels,
+  labels: labelsProp = defaultInquiryLabels,
 }: {
   labels?: InquiryFormLabels;
 }) {
+  // Merge over defaults so optional (untranslated) labels always resolve.
+  const labels = { ...defaultInquiryLabels, ...labelsProp };
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [org, setOrg] = useState("");
@@ -106,7 +115,11 @@ export default function InquiryForm({
   const [budget, setBudget] = useState("");
   const [timeline, setTimeline] = useState("");
   const [message, setMessage] = useState("");
-  const [sent, setSent] = useState(false);
+  const [company, setCompany] = useState(""); // honeypot
+  /** idle → sending → (success | mailto) */
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "mailto">(
+    "idle"
+  );
   const [copied, setCopied] = useState(false);
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -123,14 +136,55 @@ export default function InquiryForm({
     [name, email, org, projectType, budget, timeline, message]
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!valid) return;
+  /** Fallback path: open the visitor's mail client, pre-filled. */
+  const openMailto = () => {
     const href = `mailto:${EMAIL}?subject=${encodeURIComponent(
       composed.subject
     )}&body=${encodeURIComponent(composed.body)}`;
     window.location.href = href;
-    setSent(true);
+    setStatus("mailto");
+  };
+
+  const readUtm = (): Record<string, string> => {
+    if (typeof window === "undefined") return {};
+    const p = new URLSearchParams(window.location.search);
+    const out: Record<string, string> = {};
+    for (const k of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"]) {
+      const v = p.get(k);
+      if (v) out[k] = v;
+    }
+    return out;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!valid || status === "sending") return;
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          org,
+          projectType,
+          budget,
+          timeline,
+          message,
+          company, // honeypot
+          utm: readUtm(),
+        }),
+      });
+      if (res.ok) {
+        setStatus("success");
+      } else {
+        // Not configured / send failed — never lose the inquiry.
+        openMailto();
+      }
+    } catch {
+      openMailto();
+    }
   };
 
   const handleCopy = async () => {
@@ -145,7 +199,16 @@ export default function InquiryForm({
     }
   };
 
-  if (sent) {
+  if (status === "success") {
+    return (
+      <div className={styles.done} role="status">
+        <p className={styles.doneTitle}>{labels.successTitle}</p>
+        <p className={styles.doneBody}>{labels.successBody}</p>
+      </div>
+    );
+  }
+
+  if (status === "mailto") {
     const [beforeEmail, afterEmail] = labels.doneBody.split("{email}");
     return (
       <div className={styles.done} role="status">
@@ -164,7 +227,7 @@ export default function InquiryForm({
           <button
             type="button"
             className={styles.secondaryBtn}
-            onClick={() => setSent(false)}
+            onClick={() => setStatus("idle")}
           >
             {labels.editInquiry}
           </button>
@@ -175,6 +238,20 @@ export default function InquiryForm({
 
   return (
     <form className={styles.form} onSubmit={handleSubmit} noValidate>
+      {/* Honeypot — hidden from people, catnip for bots. */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
+        <label>
+          Company
+          <input
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+          />
+        </label>
+      </div>
+
       <div className={styles.row}>
         <label className={styles.field}>
           <span className={styles.label}>{labels.name}</span>
@@ -293,8 +370,12 @@ export default function InquiryForm({
       </div>
 
       <div className={styles.actions}>
-        <button type="submit" className={styles.submit} disabled={!valid}>
-          {labels.submit}
+        <button
+          type="submit"
+          className={styles.submit}
+          disabled={!valid || status === "sending"}
+        >
+          {status === "sending" ? labels.sending : labels.submit}
         </button>
         <span className={styles.privacy}>{labels.privacy}</span>
       </div>

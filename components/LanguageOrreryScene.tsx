@@ -38,9 +38,34 @@ export default function LanguageOrreryScene() {
       : window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
   const [annIndex, setAnnIndex] = useState(0);
+  const [entered, setEntered] = useState(false);
   const zoomRef = useRef(0);
   const trackRef = useRef<HTMLDivElement>(null);
+  const enterRef = useRef<HTMLDivElement>(null);
   const lastIdx = useRef(-1);
+
+  // Materialize entrance: fade + settle the whole orrery in the first time it
+  // scrolls into view, echoing the draw-on used on the SVG scenes. WebGL can't
+  // stroke-draw, so the canvas assembles instead.
+  useEffect(() => {
+    if (reducedMotion) {
+      setEntered(true);
+      return;
+    }
+    const el = enterRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setEntered(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [reducedMotion]);
 
   useEffect(() => {
     // Pin + zoom on mobile too now; only reduced motion falls back to the plain
@@ -93,7 +118,14 @@ export default function LanguageOrreryScene() {
   return (
     <div ref={trackRef} className={styles.track} style={{ height: "360vh" }}>
       <div className={styles.sticky}>
-        <LanguageOrrery scrollZoomRef={zoomRef} hideCaption />
+        <div
+          ref={enterRef}
+          className={styles.canvasEnter}
+          data-entered={entered || undefined}
+        >
+          <LanguageOrrery scrollZoomRef={zoomRef} hideCaption />
+        </div>
+        {/* canvasEnter */}
 
         <div className={styles.overlay} aria-hidden="true">
           <div className={styles.annotations}>

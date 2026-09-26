@@ -8,8 +8,8 @@
 
 .host {
   width: 100%;
-  /* Reserve space to the art's aspect ratio so there's no layout shift while
-     the SVG loads. Matches the source viewBox (1168 × 1563). */
+  /* Reserve space to the art's aspect ratio (passed inline from the viewBox)
+     so there's no layout shift while the SVG loads. */
   aspect-ratio: 1168 / 1563;
 }
 
@@ -20,10 +20,11 @@
   overflow: visible;
 }
 
-/* Source paths are authored with a black fill; recolor to the page ink. The
-   component temporarily overrides fill inline during the draw, then removes
-   that override to fall back here. */
-.svg path {
+/* Ink-fill art (e.g. the splash portrait) is authored with a black fill;
+   recolor to the page ink. The component overrides fill inline during the
+   draw, then removes that override to fall back here. Line art keeps its
+   authored fill:none — no rule here — so only its strokes show. */
+.inkFill .svg path {
   fill: currentColor;
 }
 

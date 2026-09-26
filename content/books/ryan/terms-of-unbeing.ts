@@ -30,6 +30,8 @@ Her name is Arya.
   ],
   isbn: "979-8-196275-18-0",
   purchaseUrl: "https://www.amazon.com/dp/B0H1ZRLRTP",
+  price: 5.99,
+  priceHigh: 15.99,
   publishDate: "2024-03-01",
   status: "published",
   coverImage: "/images/books/terms-of-unbeing.jpg",

@@ -2,3 +2,20 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Drawn moth-and-flame emblem beneath the catalogue (the imprint's incantation). */
+.emblem {
+  max-width: 300px;
+  margin: var(--space-24) auto 0;
+  color: var(--color-white);
+  text-align: center;
+}
+
+.emblemCaption {
+  margin-top: var(--space-4);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--color-white) 50%, transparent);
+}

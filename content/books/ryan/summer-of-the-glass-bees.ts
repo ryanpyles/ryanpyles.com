@@ -35,6 +35,8 @@ For readers of atmospheric fiction and slow-burn dread, this is a story about a 
   ],
   isbn: "979-8-248168-24-8",
   purchaseUrl: "https://www.amazon.com/dp/B0GT13BH2F",
+  price: 4.99,
+  priceHigh: 9.99,
   publishDate: "2025-04-01",
   status: "published",
   coverImage: "/images/books/summer-of-the-glass-bees.jpg",

@@ -32,6 +32,8 @@ And Nora is now part of it.
   ],
   isbn: "979-8-254884-79-8",
   purchaseUrl: "https://www.amazon.com/dp/B0GW3R9CVN",
+  price: 5.99,
+  priceHigh: 29.99,
   publishDate: "2025-01-01",
   status: "published",
   coverImage: "/images/books/what-survives-is-proof.jpg",

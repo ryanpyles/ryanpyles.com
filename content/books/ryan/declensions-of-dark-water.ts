@@ -29,9 +29,17 @@ Set in the Brynjavík milieu also explored in *Guestbook of the North Wind*.`,
   ],
   isbn: "979-8-245377-35-3",
   purchaseUrl: "https://www.amazon.com/dp/B0GJNTWS36",
+  price: 4.99,
+  priceHigh: 14.99,
   publishDate: "2024-06-01",
   status: "published",
   coverImage: "/images/books/declensions-of-dark-water.jpg",
+  drawnFigure: {
+    src: "/images/declensions.svg",
+    label: "Line drawing of a branching declension tree — a grammar diagram hung like a mobile.",
+    aspect: "1208 / 1800",
+    caption: "A grammar of avoidance — declensions, branching.",
+  },
   theme: "ryan",
   amazon: {
     blurbHTML: `<p>A village that survives by refusing to name the sea.</p>

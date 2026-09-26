@@ -120,3 +120,24 @@
     animation: none;
   }
 }
+
+/* Materialize entrance for the WebGL canvas — fade + settle on first view. */
+.canvasEnter {
+  opacity: 0;
+  transform: scale(0.94);
+  transform-origin: center 45%;
+  transition: opacity 1.3s ease, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.canvasEnter[data-entered] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvasEnter {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

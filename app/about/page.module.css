@@ -258,3 +258,20 @@
 .pressLink:hover {
   color: color-mix(in srgb, var(--color-white) 70%, transparent);
 }
+
+/* Drawn three-passes self-portrait (SelfDrawingSvg) beneath the masthead. */
+.drawnSelf {
+  max-width: 420px;
+  margin: var(--space-12) auto var(--space-16);
+  color: var(--color-white);
+  text-align: center;
+}
+
+.drawnSelfCaption {
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}

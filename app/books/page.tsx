@@ -6,6 +6,7 @@ import SiteLayout from "@/components/SiteLayout";
 import Section from "@/components/Section";
 import PageHeader from "@/components/PageHeader";
 import BookCard from "@/components/BookCard";
+import SelfDrawingSvg from "@/components/SelfDrawingSvg";
 import { ryanBooks } from "@/content/books";
 import styles from "./page.module.css";
 
@@ -49,6 +50,18 @@ export default function BooksPage() {
             <BookCard key={book.slug} book={book} />
           ))}
         </div>
+
+        <figure className={styles.emblem}>
+          <SelfDrawingSvg
+            variant="line"
+            src="/images/moth.svg"
+            aspect="1208 / 1800"
+            label="Line drawing of a moth above a flame within a circle."
+          />
+          <figcaption className={styles.emblemCaption} lang="la">
+            In girum imus nocte et consumimur igni
+          </figcaption>
+        </figure>
       </Section>
     </SiteLayout>
   );

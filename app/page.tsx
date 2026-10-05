@@ -6,6 +6,7 @@ import SiteLayout from "@/components/SiteLayout";
 import FieldNotesScene from "@/components/FieldNotesScene";
 import EcosystemScene from "@/components/EcosystemScene";
 import WhatIBuild from "@/components/WhatIBuild";
+import Disciplines from "@/components/Disciplines";
 import RotateHint from "@/components/RotateHint";
 import BooksScene from "@/components/BooksScene";
 import VoigtIdentityBand from "@/components/VoigtIdentityBand";
@@ -81,9 +82,9 @@ const LanguageOrreryScene = dynamic(
 );
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Ryan Pyles — Software Engineer & AI Systems Architect",
+  title: "Ryan Pyles — Software Engineer, AI Architect & Multidisciplinary Technologist",
   description:
-    "Ryan Pyles is a software engineer and AI systems architect in Chicago building AI, publishing, and multilingual web systems with React, Next.js, and TypeScript. He runs the FORMÆTRIX studio and writes fiction as Elian Voigt.",
+    "Ryan Pyles is a Chicago technologist working across software engineering, AI systems, design, and language — building AI, publishing, and multilingual web systems with React, Next.js, and TypeScript. He runs the FORMÆTRIX studio and writes fiction as Elian Voigt.",
   path: "",
   keywords: [
     "Ryan Pyles",
@@ -145,34 +146,35 @@ export default function HomePage() {
           {/* Mobile-only orientation — name, role, one sharp line */}
           <div className={`${styles.heroMobileIntro} ${styles.heroEnter} ${styles.heroEnter2}`}>
             <span className={styles.heroMobileName}>Ryan J. Pyles</span>
-            <span className={styles.heroMobileRoles}>Engineer · Author · Linguist</span>
+            <span className={styles.heroMobileRoles}>Software · AI · Design · Language</span>
             <span className={styles.heroMobilePlace}>Chicago</span>
             <p className={styles.heroMobileLine}>
-              I build narrative systems through FORMÆTRIX, and write fiction as
-              Elian Voigt.
+              I work across software, AI, design, and language — through
+              FORMÆTRIX, and write fiction as Elian Voigt.
             </p>
           </div>
 
           <p className={`${styles.heroAttribution} ${styles.heroEnter} ${styles.heroEnter1}`}>
-            Ryan Pyles — Chicago · Narrative systems
+            Ryan Pyles — Chicago · Software · AI · Design · Language
           </p>
 
-          {/* The offer, as the H1 — the line search engines and answer engines
-              weight, and the sentence a buyer can act on. */}
+          {/* The offer, as the H1 — broadened from "narrative systems" to the
+              multidisciplinary proposition. The line search and answer engines
+              weight, and the one that sets the site's aperture. */}
           <h1 className={`${styles.heroStatement} ${styles.heroEnter} ${styles.heroEnter2}`}>
-            I build narrative systems for publishers, authors, and teams who
-            can&rsquo;t afford continuity failures.
+            I build systems for problems that refuse to stay in one discipline.
           </h1>
 
-          {/* The original thesis, kept as the deck — the voice, one line down. */}
+          {/* The literary thesis, kept as the deck — it carries the voice and
+              names the four axes the systems cross. */}
           <p className={`${styles.heroDeck} ${styles.heroEnter} ${styles.heroEnter3}`}>
             The distance between a manuscript, a language, and a software system
             is smaller than it first appears.
           </p>
 
           <p className={`${styles.heroClarity} ${styles.heroEnter} ${styles.heroEnter4}`}>
-            Publishing platforms, AI narrative tooling, and editorial web
-            systems — built at FORMÆTRIX.
+            Software engineering, AI systems, product design, and language —
+            brought to problems that cross all four, through FORMÆTRIX.
           </p>
 
           {/* Two visually equal paths — hire, or read — then a quiet third. */}
@@ -209,12 +211,17 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── The four disciplines — the multidisciplinary proposition,
+           visible immediately. Software, AI, design, language as one
+           practice before any single flagship. ─────────────────── */}
+      <Disciplines />
+
       {/* ── Highlights: credibility at a glance ──────────────── */}
       <section className={styles.highlights} aria-label="At a glance">
         <div className={styles.highlightsInner}>
           <div className={styles.highlight}>
-            <span className={styles.highlightValue}>Narrative systems</span>
-            <span className={styles.highlightLabel}>for authors &amp; publishers</span>
+            <span className={styles.highlightValue}>AI &amp; web systems</span>
+            <span className={styles.highlightLabel}>shipped end to end</span>
           </div>
           <div className={styles.highlight}>
             <span className={styles.highlightValue}>Six published novels</span>

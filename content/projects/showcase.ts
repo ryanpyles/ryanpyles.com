@@ -19,8 +19,8 @@ export const showcaseProjects: ShowcaseProject[] = [
     slug: "language-typography-engine",
     title: "Multi-Language Typography Engine",
     description:
-      "A site studying eleven languages needed to look like it was designed for each one, not just translated. RTL layout, CJK font stacks, and localized UI strings switch simultaneously from a single context dispatch — no layout shift, no flash of wrong direction.",
-    tags: ["React Context", "i18n", "Typography", "RTL"],
+      "A site studying many languages needed to look designed for each one, not translated. Locale is a route resolved on the server — English canonical at the root, each other locale its own indexed path — so language, direction, hreflang, and typography are correct in the first byte of HTML, no flash of the wrong direction.",
+    tags: ["Next.js App Router", "RSC", "i18n / hreflang", "RTL"],
     year: "2025",
   },
   {

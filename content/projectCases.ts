@@ -106,44 +106,41 @@ export const projectCases: CaseStudy[] = [
     ],
   },
   {
-    /* Note: /projects/language-typography-engine has its own route rendering
-       LangTypographyCaseStudy, so the staged fields below are not displayed
-       today. They are kept correct and ready for whenever that page adopts
-       the shared CaseStudyView. */
     slug: "language-typography-engine",
     lede:
-      "A typography engine that only handles string replacement produces a site that technically supports eleven languages but visually reads like it was designed for one.",
+      "Most i18n ships the same page in another language. The harder problem is serving a different page — correct in route, direction, typography, and metadata — before any JavaScript runs.",
     problemBeats: [
-      "Standard i18n implementations swap text strings and stop there.",
-      "The actual problem is deeper: Arabic and Hebrew require RTL layout direction, CJK scripts require fundamentally different font stacks and line-height adjustments, and some languages have UI strings long enough to break fixed-width navigation elements.",
+      "Standard internationalization bolts translated strings onto one canonical layout: same page, swapped words, a language cookie read on the client. That produces a site that technically supports many languages but reads like it was designed for one and then relabeled.",
+      "A site that actually studies language needs more than strings. It needs per-locale routes search engines can index separately, honest hreflang signaling so each variant points at the others, right-to-left layout for Hebrew, locale-appropriate typography for CJK, and — the editorial problem under the engineering one — content written for each audience rather than machine-translated.",
+      "And it needed room for one deliberate anomaly: Scandimix, a constructed Scandinavian hybrid, had to be routable and selectable without corrupting the search-engine signals for the real locales.",
     ],
     technicalBeats: [
-      "The font switching mechanism relies on data-lang attributes cascaded from the html element rather than JavaScript-injected inline styles.",
-      "Each language has a CSS rule matching [data-lang='ja'] body { font-family: var(--font-cjk); line-height: 1.8; } — which means the font change happens in a single style recalculation pass rather than through multiple JS DOM mutations.",
-      "The LanguageSwitcher component itself is dynamically imported with ssr:false, preventing hydration mismatches from the localStorage read. The translations table is a flat TypeScript record rather than nested JSON files, which makes dead-code elimination simpler and keeps the bundle size predictable.",
+      "Because the locale lives in the URL and is resolved in a Server Component, the <html lang> and dir attributes, the og:locale, and the canonical and alternate links are all emitted in the initial HTML. There is no client-side locale detection to hydrate around and no intermediate render in the wrong direction.",
+      "The registry is a set of small typed maps keyed by locale — hreflangTag, localeTags, localeDir, localizedSections — so the switcher, every page's metadata, and the sitemap derive from one source. Adding a locale is one row plus its content; the hreflang cluster, og tags, and switcher entry follow automatically.",
+      "Hebrew is the only RTL locale; localeDir returns 'rtl' for it and 'ltr' for everything else, and that value sets dir on the document so the whole layout mirrors from the server render outward rather than after a client correction.",
     ],
     pullQuote:
-      "The font change happens in a single style recalculation pass rather than through multiple JS DOM mutations.",
+      "The route is the source of truth, so the first byte of HTML already knows its language and its direction.",
     figures: [
-      { value: "11", label: "languages — Latin, RTL, CJK, Cyrillic, Nordic" },
-      { value: "1", label: "CSS bundle, scoped by data attribute" },
-      { value: "0", label: "layout shift on language switch" },
+      { value: "10", label: "routable locales — nine hreflang-valid, one experimental" },
+      { value: "1", label: "RTL locale (Hebrew), direction set in the server-rendered HTML" },
+      { value: "0", label: "client-side locale detection — the URL is the source of truth" },
     ],
     title: "Multi-Language Typography Engine",
     year: "2025",
-    stack: ["React Context", "TypeScript", "CSS Custom Properties", "i18n"],
+    stack: ["Next.js App Router", "React Server Components", "TypeScript", "i18n / hreflang"],
     tagline:
-      "Typography that doesn't just translate text — it reconfigures the entire reading surface for each language's structural requirements.",
+      "A route-based localization architecture — English canonical at the root, each other locale its own indexed route, correct in language, direction, typography, and metadata before any JavaScript runs.",
     problem:
-      "Standard i18n implementations swap text strings and stop there. The actual problem is deeper: Arabic and Hebrew require RTL layout direction, CJK scripts require fundamentally different font stacks and line-height adjustments, and some languages have UI strings long enough to break fixed-width navigation elements. A typography engine that only handles string replacement produces a site that technically supports eleven languages but visually reads like it was designed for one.",
+      "Standard internationalization bolts translated strings onto one canonical layout and ships the same page in another language, with direction and typography treated as afterthoughts and the locale read on the client. That technically supports many languages but reads like one design relabeled. A site that genuinely studies language needs per-locale routes that index separately, honest hreflang that makes each variant discoverable, right-to-left layout for Hebrew, locale-appropriate typography for CJK, and content authored for each audience rather than translated. It also had to carry one deliberate experiment — Scandimix, a constructed Scandinavian hybrid — as a routable, selectable locale without polluting the search signals for the real ones.",
     approach: {
       summary:
-        "Language switching is implemented as a coordinated state update that modifies the document's dir attribute, the html element's lang, the body's font-family via a scoped CSS class, and all UI strings simultaneously — from a single context dispatch.",
+        "The locale is a route segment, not client state. English is canonical at the root; every other locale is a prefixed route resolved in a Server Component, so the correct lang, dir, hreflang, and canonical are in the first byte of HTML. A small typed locale registry — the single source of truth — is read by every page, the switcher, and the metadata layer alike.",
       decisions: [
-        "localStorage persistence: the selected language is stored in localStorage and read on initial hydration to prevent flash-of-wrong-direction on return visits. The SSR default is 'en' with LTR; the client immediately reconciles on mount.",
-        "CJK font stack: Japanese and Mandarin apply a separate --font-body token resolving to 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Noto Sans CJK JP', system-ui. Line height increases from 1.6 to 1.8 for CJK to accommodate taller character bounding boxes.",
-        "RTL cascade: Arabic and Hebrew set dir='rtl' on the html element, which reverses flex direction across the entire layout. Padding, margin, and border radius values that are directional (start/end, not left/right) are written using logical properties throughout the CSS.",
-        "Dynamic dir attribute management: the LanguageSwitcher component reads the current language's metadata (including isRTL) and imperatively updates document.dir on selection. This is intentionally imperative rather than declarative to avoid an intermediate render with the wrong direction.",
+        "Locale as route, not state: English is canonical at the root (/about, /books); every other locale is a prefixed route (/es/projects). The segment is resolved server-side, so lang, dir, and hreflang are correct in the server-rendered HTML — no client detection, no localStorage, no flash of the wrong direction on first paint.",
+        "Cultural variants, not translations: each locale's landing and section pages are authored for that audience rather than run through string replacement. A typed content layer holds the per-locale copy, so a French reader and a Japanese reader get different pages, not the same page in two fonts.",
+        "Honest hreflang, including x-default: a typed registry maps each locale to its precise subtag — pt-BR and zh-Hant where the bare tag is too loose — and every localized page emits a bidirectional alternates cluster plus an x-default pointing at the English canon. The href helper rewrites only sections that have a localized variant; detail pages, notes, and external links fall back to the canon rather than 404.",
+        "One deliberate anomaly, encoded: Scandimix is routable and in the switcher but excluded from hreflang and og:locale because it is not valid BCP-47. The registry encodes that exclusion (its hreflang tag is null), so the experiment ships without corrupting the signals for the nine real locales.",
       ],
     },
     demo: {
@@ -152,11 +149,13 @@ export const projectCases: CaseStudy[] = [
         "Switch between scripts to see font stack, reading direction, and typographic adjustments applied live.",
     },
     technical:
-      "The font switching mechanism relies on data-lang attributes cascaded from the html element rather than JavaScript-injected inline styles. Each language has a CSS rule matching [data-lang='ja'] body { font-family: var(--font-cjk); line-height: 1.8; } — which means the font change happens in a single style recalculation pass rather than through multiple JS DOM mutations. The LanguageSwitcher component itself is dynamically imported with ssr:false, preventing hydration mismatches from the localStorage read. The translations table is a flat TypeScript record rather than nested JSON files, which makes dead-code elimination simpler and keeps the bundle size predictable.",
+      "Because the locale lives in the URL and is resolved in a Server Component, the <html lang> and dir attributes, the og:locale, and the canonical and alternate links are all emitted in the initial HTML — there is no client-side locale detection to hydrate around and no intermediate render in the wrong direction. The registry is a set of small typed maps keyed by locale (hreflangTag, localeTags, localeDir, localizedSections), so the switcher, every page's metadata, and the sitemap derive from one source; adding a locale is one row plus its content, and the hreflang cluster, og tags, and switcher entry follow automatically. Hebrew is the only RTL locale — localeDir returns 'rtl' for it and 'ltr' for everything else, and that value sets dir on the document so the layout mirrors from the server render outward.",
     outcome:
-      "Eleven languages rendering correctly with appropriate typography, reading direction, and UI strings — loaded from a single shared stylesheet with no per-language CSS bundles.",
+      "Ten routable locales — nine search-visible with correct hreflang and og:locale, one a deliberate experiment held out of those signals — each served as a server-rendered page that is correct in language, direction, and metadata before any JavaScript runs. Adding the eleventh is a registry row and its content.",
     metrics: [
-      "localStorage persistence eliminates repeat-visit FOUC",
+      "hreflang cluster with x-default on every localized page, bidirectional with each route",
+      "Precise subtags where the bare tag is loose — pt-BR, zh-Hant",
+      "Cultural variants authored per locale, not machine translations",
     ],
   },
   {

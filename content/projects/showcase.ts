@@ -8,6 +8,14 @@ import type { ShowcaseProject } from "@/components/ProjectsShowcase";
  */
 export const showcaseProjects: ShowcaseProject[] = [
   {
+    slug: "polytype",
+    title: "Polytype",
+    description:
+      "A locale-aware typography engine that sits above the browser's text shaping and makes the decisions it can't: font stack per script, script-dependent leading, RTL, line-break mode, and — the useful part — forecasting which translations overflow a component before anyone opens the app in that language. Deterministic core, live demo.",
+    tags: ["TypeScript", "Intl / Unicode", "i18n", "Design Systems"],
+    year: "2026",
+  },
+  {
     slug: "dual-domain-system",
     title: "Dual-Domain Identity System",
     description:

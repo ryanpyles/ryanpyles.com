@@ -5,6 +5,7 @@ export type DemoType =
   | "seo"
   | "tokens"
   | "schema"
+  | "polytype"
   | "continuity-atlas";
 
 /** A metric worth setting at display scale rather than burying in a list. */
@@ -156,6 +157,58 @@ export const projectCases: CaseStudy[] = [
       "hreflang cluster with x-default on every localized page, bidirectional with each route",
       "Precise subtags where the bare tag is loose — pt-BR, zh-Hant",
       "Cultural variants authored per locale, not machine translations",
+    ],
+  },
+  {
+    slug: "polytype",
+    lede:
+      "Most multilingual interfaces are not designed in multiple languages. They are designed in English and repaired afterward.",
+    problemBeats: [
+      "A designer draws a button that reads “Save changes.” Then localization happens. French turns it into “Enregistrer les modifications” — nearly twice as wide. German stacks compound words. Hebrew and Arabic flip the whole layout right-to-left. Japanese does not break lines on spaces. The usual remedy is to ship it and hope CSS survives.",
+      "Polytype is an experiment in reversing that assumption. It treats script, locale, direction, line breaking, font coverage, and text expansion as inputs to the design system — not bugs discovered after translation.",
+      "The engine sits above the browser's text shaping. It does not reimplement HarfBuzz, Unicode bidi, or rasterization; it makes the product and design decisions below that layer the browser has no opinion about — which font a script should use, how much leading it needs, and whether a label will overflow once it is translated.",
+    ],
+    technicalBeats: [
+      "The core object is a TypographyContext — locale, content type, density, and the sample text — resolved to a TypographyPolicy: font stack, size, line-height, letter-spacing, text-align, hyphenation, line-break mode, and overflow strategy. A component stops hardcoding font-size: 16px; line-height: 1.5 and instead asks the engine for values correct for the script and the content type.",
+      "Script analysis inspects actual character usage by Unicode block rather than trusting the locale, so a string mixing Latin, Hebrew, and numerals resolves per run and the coverage audit reports exactly which faces each run will fall back to. Line-height is script-dependent, because equal numbers do not read as equal rhythm across scripts — the kind of value a script-aware design token should carry.",
+      "Expansion forecasting measures rendered width with canvas and compares each translation to the component's budget, so overflow is caught before anyone opens the app in that language. Everything in the core is deterministic and inspectable — there is deliberately no model in the decision path. That is the point: it shows where a model does not belong.",
+    ],
+    pullQuote: "The broken one is the point.",
+    figures: [
+      { value: "10", label: "scripts classified from Unicode ranges" },
+      { value: "0", label: "AI in the core — deterministic, inspectable rules" },
+      { value: "6", label: "locales rendered side by side; watch which one breaks" },
+    ],
+    title: "Polytype",
+    year: "2026",
+    stack: ["TypeScript", "Intl / Unicode CLDR", "React", "CSS Logical Properties"],
+    tagline:
+      "A locale-aware typography engine for multilingual interfaces — script, direction, line breaking, font coverage, and text expansion treated as inputs to the design system, not bugs found after translation.",
+    problem:
+      "Most multilingual interfaces are designed in English and repaired afterward. A button sized for “Save changes” clips “Enregistrer les modifications”; Hebrew and Arabic invert the layout; Japanese ignores English word boundaries; a Latin UI font has zero Hebrew or CJK coverage and silently falls back to whatever the OS supplies. The usual solution is to translate the strings and hope the layout holds. Polytype treats these as predictable system behaviors rather than post-translation surprises — a locale-aware typesetting layer that sits above the browser's shaping and makes the decisions the browser cannot.",
+    approach: {
+      summary:
+        "A deterministic pipeline: content → locale and script analysis → typographic policy → font and fallback resolution → line-break and width behavior → direction and punctuation → responsive adaptation. Each stage is a small, inspectable, pure function; the engine exposes a resolve() that returns a concrete TypographyPolicy for a given context.",
+      decisions: [
+        "Policy over properties: components describe intent (locale, contentType: 'navigation') and the engine returns the typographic values. The decision lives in one place that can be tested, not scattered across component CSS.",
+        "Script analysis, not locale assumption: text is split into runs by Unicode block, so mixed-script strings resolve per run and the coverage audit names exactly which face renders each — turning font fallback into something testable.",
+        "Expansion forecasting: translations are measured against a component's width budget with canvas, producing a PASS / WARN / FAIL matrix and a sizing recommendation before a single string reaches a translator.",
+        "Deterministic by design: the core has no model in the decision path. AI is reserved for secondary, advisory features (suggesting a shorter label, pairing a companion face) — which is itself a positioning statement about where a model belongs and where it does not.",
+      ],
+    },
+    demo: {
+      type: "polytype",
+      caption:
+        "The live engine. Pick a UI string and a button width and watch each locale resolve, then overflow — the one that breaks is breaking in your own browser. Also: policy resolution per script, mixed-script analysis with a coverage audit, and pseudo-localization.",
+    },
+    technical:
+      "Polytype's core (lib/polytype) is framework-agnostic TypeScript over Intl and Unicode block ranges. detectScripts() breaks a string into maximal same-script runs; resolvePolicy() maps a TypographyContext to a TypographyPolicy with script-dependent leading and content-type-aware hyphenation, overflow, and line-break modes; auditCoverage() checks a sample's scripts against declared font profiles and reports the fallbacks it forces; measureTranslationRisk() forecasts overflow, accepting a real canvas measurer in the browser and falling back to per-script advance-width estimates on the server. None of it touches a network or a model. The React layer and the Studio demo are thin skins over these pure functions, so the thing on screen is the engine, not a mock of it.",
+    outcome:
+      "A working engine that makes multilingual typography testable: a locale matrix that flags overflow, a coverage audit that names missing glyphs, and pseudo-localization that exposes layout assumptions before translation begins. The core is small enough to read in one sitting and deterministic enough to trust — a portfolio piece that is genuinely built, not described.",
+    metrics: [
+      "Expansion forecasting flags overflow before translators are involved",
+      "Pseudo-localization exposes clipping and hardcoded widths pre-translation",
+      "RTL handled with logical properties, not left/right",
     ],
   },
   {

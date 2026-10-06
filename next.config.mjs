@@ -57,6 +57,14 @@ const nextConfig = {
         destination: "/projects",
         permanent: true,
       },
+      {
+        // The multilingual-typography case study was consolidated into
+        // Polytype. The old slug was indexed and internally linked, so it
+        // 301s to the canonical case study rather than 404ing.
+        source: "/projects/language-typography-engine",
+        destination: "/projects/polytype",
+        permanent: true,
+      },
     ];
   },
   async headers() {

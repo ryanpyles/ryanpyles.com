@@ -24,14 +24,6 @@ export const showcaseProjects: ShowcaseProject[] = [
     year: "2025",
   },
   {
-    slug: "language-typography-engine",
-    title: "Multi-Language Typography Engine",
-    description:
-      "A site studying many languages needed to look designed for each one, not translated. Locale is a route resolved on the server — English canonical at the root, each other locale its own indexed path — so language, direction, hreflang, and typography are correct in the first byte of HTML, no flash of the wrong direction.",
-    tags: ["Next.js App Router", "RSC", "i18n / hreflang", "RTL"],
-    year: "2025",
-  },
-  {
     slug: "blob-navigation",
     title: "3D Identity Navigation",
     description:

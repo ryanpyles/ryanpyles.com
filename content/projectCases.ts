@@ -107,59 +107,6 @@ export const projectCases: CaseStudy[] = [
     ],
   },
   {
-    slug: "language-typography-engine",
-    lede:
-      "Most i18n ships the same page in another language. The harder problem is serving a different page — correct in route, direction, typography, and metadata — before any JavaScript runs.",
-    problemBeats: [
-      "Standard internationalization bolts translated strings onto one canonical layout: same page, swapped words, a language cookie read on the client. That produces a site that technically supports many languages but reads like it was designed for one and then relabeled.",
-      "A site that actually studies language needs more than strings. It needs per-locale routes search engines can index separately, honest hreflang signaling so each variant points at the others, right-to-left layout for Hebrew, locale-appropriate typography for CJK, and — the editorial problem under the engineering one — content written for each audience rather than machine-translated.",
-      "And it needed room for one deliberate anomaly: Scandimix, a constructed Scandinavian hybrid, had to be routable and selectable without corrupting the search-engine signals for the real locales.",
-    ],
-    technicalBeats: [
-      "Because the locale lives in the URL and is resolved in a Server Component, the <html lang> and dir attributes, the og:locale, and the canonical and alternate links are all emitted in the initial HTML. There is no client-side locale detection to hydrate around and no intermediate render in the wrong direction.",
-      "The registry is a set of small typed maps keyed by locale — hreflangTag, localeTags, localeDir, localizedSections — so the switcher, every page's metadata, and the sitemap derive from one source. Adding a locale is one row plus its content; the hreflang cluster, og tags, and switcher entry follow automatically.",
-      "Hebrew is the only RTL locale; localeDir returns 'rtl' for it and 'ltr' for everything else, and that value sets dir on the document so the whole layout mirrors from the server render outward rather than after a client correction.",
-    ],
-    pullQuote:
-      "The route is the source of truth, so the first byte of HTML already knows its language and its direction.",
-    figures: [
-      { value: "10", label: "routable locales — nine hreflang-valid, one experimental" },
-      { value: "1", label: "RTL locale (Hebrew), direction set in the server-rendered HTML" },
-      { value: "0", label: "client-side locale detection — the URL is the source of truth" },
-    ],
-    title: "Multi-Language Typography Engine",
-    year: "2025",
-    stack: ["Next.js App Router", "React Server Components", "TypeScript", "i18n / hreflang"],
-    tagline:
-      "A route-based localization architecture — English canonical at the root, each other locale its own indexed route, correct in language, direction, typography, and metadata before any JavaScript runs.",
-    problem:
-      "Standard internationalization bolts translated strings onto one canonical layout and ships the same page in another language, with direction and typography treated as afterthoughts and the locale read on the client. That technically supports many languages but reads like one design relabeled. A site that genuinely studies language needs per-locale routes that index separately, honest hreflang that makes each variant discoverable, right-to-left layout for Hebrew, locale-appropriate typography for CJK, and content authored for each audience rather than translated. It also had to carry one deliberate experiment — Scandimix, a constructed Scandinavian hybrid — as a routable, selectable locale without polluting the search signals for the real ones.",
-    approach: {
-      summary:
-        "The locale is a route segment, not client state. English is canonical at the root; every other locale is a prefixed route resolved in a Server Component, so the correct lang, dir, hreflang, and canonical are in the first byte of HTML. A small typed locale registry — the single source of truth — is read by every page, the switcher, and the metadata layer alike.",
-      decisions: [
-        "Locale as route, not state: English is canonical at the root (/about, /books); every other locale is a prefixed route (/es/projects). The segment is resolved server-side, so lang, dir, and hreflang are correct in the server-rendered HTML — no client detection, no localStorage, no flash of the wrong direction on first paint.",
-        "Cultural variants, not translations: each locale's landing and section pages are authored for that audience rather than run through string replacement. A typed content layer holds the per-locale copy, so a French reader and a Japanese reader get different pages, not the same page in two fonts.",
-        "Honest hreflang, including x-default: a typed registry maps each locale to its precise subtag — pt-BR and zh-Hant where the bare tag is too loose — and every localized page emits a bidirectional alternates cluster plus an x-default pointing at the English canon. The href helper rewrites only sections that have a localized variant; detail pages, notes, and external links fall back to the canon rather than 404.",
-        "One deliberate anomaly, encoded: Scandimix is routable and in the switcher but excluded from hreflang and og:locale because it is not valid BCP-47. The registry encodes that exclusion (its hreflang tag is null), so the experiment ships without corrupting the signals for the nine real locales.",
-      ],
-    },
-    demo: {
-      type: "language",
-      caption:
-        "Switch between scripts to see font stack, reading direction, and typographic adjustments applied live.",
-    },
-    technical:
-      "Because the locale lives in the URL and is resolved in a Server Component, the <html lang> and dir attributes, the og:locale, and the canonical and alternate links are all emitted in the initial HTML — there is no client-side locale detection to hydrate around and no intermediate render in the wrong direction. The registry is a set of small typed maps keyed by locale (hreflangTag, localeTags, localeDir, localizedSections), so the switcher, every page's metadata, and the sitemap derive from one source; adding a locale is one row plus its content, and the hreflang cluster, og tags, and switcher entry follow automatically. Hebrew is the only RTL locale — localeDir returns 'rtl' for it and 'ltr' for everything else, and that value sets dir on the document so the layout mirrors from the server render outward.",
-    outcome:
-      "Ten routable locales — nine search-visible with correct hreflang and og:locale, one a deliberate experiment held out of those signals — each served as a server-rendered page that is correct in language, direction, and metadata before any JavaScript runs. Adding the eleventh is a registry row and its content.",
-    metrics: [
-      "hreflang cluster with x-default on every localized page, bidirectional with each route",
-      "Precise subtags where the bare tag is loose — pt-BR, zh-Hant",
-      "Cultural variants authored per locale, not machine translations",
-    ],
-  },
-  {
     slug: "polytype",
     lede:
       "Most multilingual interfaces are not designed in multiple languages. They are designed in English and repaired afterward.",

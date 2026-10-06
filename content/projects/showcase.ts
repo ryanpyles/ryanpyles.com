@@ -8,19 +8,19 @@ import type { ShowcaseProject } from "@/components/ProjectsShowcase";
  */
 export const showcaseProjects: ShowcaseProject[] = [
   {
+    slug: "polytype",
+    title: "Polytype",
+    description:
+      "A locale-aware typography engine that sits above the browser's text shaping and makes the decisions it can't: font stack per script, script-dependent leading, RTL, line-break mode, and — the useful part — forecasting which translations overflow a component before anyone opens the app in that language. Deterministic core, live demo.",
+    tags: ["TypeScript", "Intl / Unicode", "i18n", "Design Systems"],
+    year: "2026",
+  },
+  {
     slug: "dual-domain-system",
     title: "Dual-Domain Identity System",
     description:
       "Two publishing brands needed distinct visual identities without two codebases to maintain. One Next.js repository now serves both — domain detected at the edge, CSS tokens inverted per domain, zero shared components duplicated.",
     tags: ["Next.js", "TypeScript", "CSS Modules", "Middleware"],
-    year: "2025",
-  },
-  {
-    slug: "language-typography-engine",
-    title: "Multi-Language Typography Engine",
-    description:
-      "A site studying many languages needed to look designed for each one, not translated. Locale is a route resolved on the server — English canonical at the root, each other locale its own indexed path — so language, direction, hreflang, and typography are correct in the first byte of HTML, no flash of the wrong direction.",
-    tags: ["Next.js App Router", "RSC", "i18n / hreflang", "RTL"],
     year: "2025",
   },
   {

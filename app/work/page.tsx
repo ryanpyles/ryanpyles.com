@@ -33,7 +33,7 @@ const services = [
   {
     name: "Editorial web systems",
     body: "Reading-first interfaces with real typographic control — multilingual layout, RTL and CJK, and design-token systems built for long-form content rather than generic UI.",
-    proof: { label: "Typography Engine", href: "/projects/language-typography-engine" },
+    proof: { label: "Polytype", href: "/projects/polytype" },
   },
   {
     name: "Systems & content architecture",

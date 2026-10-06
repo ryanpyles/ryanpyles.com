@@ -1,0 +1,348 @@
+/* Polytype Studio — self-contained dark surface, consistent with the other
+   project demos. Neutral tokens so it reads correctly on either domain. */
+
+.studio {
+  --pt-bg: #14120f;
+  --pt-panel: #1b1916;
+  --pt-line: rgba(245, 240, 232, 0.12);
+  --pt-ink: #f0ece4;
+  --pt-mut: #9a948c;
+  --pt-accent: #e08a4c;
+  --pt-pass: #6fae7f;
+  --pt-warn: #d7a24a;
+  --pt-fail: #d2694e;
+  background: var(--pt-bg);
+  border: 1px solid var(--pt-line);
+  border-radius: 3px;
+  color: var(--pt-ink);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  overflow: hidden;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--pt-line);
+}
+
+.tab {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--pt-line);
+  color: var(--pt-mut);
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.tab:hover {
+  color: var(--pt-ink);
+}
+
+.tabActive {
+  color: var(--pt-ink);
+  background: var(--pt-panel);
+  box-shadow: inset 0 -2px 0 var(--pt-accent);
+}
+
+.panel {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 180px;
+}
+
+.controlLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pt-mut);
+}
+
+.select,
+.input {
+  appearance: none;
+  background: var(--pt-panel);
+  border: 1px solid var(--pt-line);
+  border-radius: 2px;
+  color: var(--pt-ink);
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  padding: 9px 11px;
+  width: 100%;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--pt-accent);
+}
+
+.range {
+  width: 100%;
+  accent-color: var(--pt-accent);
+}
+
+/* ── Expansion matrix ──────────────────────────────────────────────────── */
+.buttonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 16px;
+}
+
+.buttonCell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.buttonMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: var(--pt-mut);
+}
+
+.badge {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  border: 1px solid currentColor;
+}
+
+.pass {
+  color: var(--pt-pass);
+}
+.warn {
+  color: var(--pt-warn);
+}
+.fail {
+  color: var(--pt-fail);
+}
+
+.fakeButton {
+  box-sizing: border-box;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: rgba(245, 240, 232, 0.05);
+  border: 1px solid var(--pt-line);
+  border-radius: 3px;
+  /* Fixed width + no wrap is the whole point — overflow must be visible. */
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.fakeButton[data-over="true"] {
+  border-color: var(--pt-fail);
+  box-shadow: inset 0 0 0 1px rgba(210, 105, 78, 0.5);
+}
+
+.fakeButtonText {
+  font-size: 15px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+.recommendation {
+  font-size: 13px;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--pt-ink) 80%, transparent);
+  border-top: 1px solid var(--pt-line);
+  padding-top: 14px;
+  margin: 0;
+}
+
+.recLabel {
+  display: inline-block;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pt-accent);
+  margin-right: 10px;
+}
+
+/* ── Policy resolver ───────────────────────────────────────────────────── */
+.sample {
+  background: var(--pt-panel);
+  border: 1px solid var(--pt-line);
+  border-radius: 3px;
+  padding: 24px;
+  color: var(--pt-ink);
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+}
+
+.policy {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--pt-line);
+  border: 1px solid var(--pt-line);
+  border-radius: 3px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.policyRow {
+  background: var(--pt-bg);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.policyKey {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pt-mut);
+}
+
+.policyVal {
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  color: var(--pt-ink);
+  margin: 0;
+}
+
+/* ── Script analysis ───────────────────────────────────────────────────── */
+.runs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.run {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 8px 10px;
+}
+
+.runText {
+  font-size: 17px;
+  color: var(--pt-ink);
+}
+
+.runLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pt-mut);
+}
+
+.audit {
+  border-top: 1px solid var(--pt-line);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auditLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pt-mut);
+}
+
+.fallbacks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fallback {
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  color: var(--pt-ink);
+  background: rgba(224, 138, 76, 0.12);
+  border: 1px solid rgba(224, 138, 76, 0.4);
+  border-radius: 2px;
+  padding: 5px 9px;
+}
+
+.auditClean {
+  font-size: 13px;
+  color: var(--pt-pass);
+  margin: 0;
+}
+
+/* ── Pseudo-localization ───────────────────────────────────────────────── */
+.pseudoRows {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--pt-line);
+  border: 1px solid var(--pt-line);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pseudoRow {
+  background: var(--pt-bg);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+}
+
+.pseudoTag {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pt-mut);
+  flex: 0 0 56px;
+}
+
+.pseudoText {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--pt-ink);
+}
+
+@media (max-width: 560px) {
+  .panel {
+    padding: 16px;
+  }
+  .buttonGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

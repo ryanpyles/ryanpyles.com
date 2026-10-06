@@ -5,6 +5,7 @@ export type DemoType =
   | "seo"
   | "tokens"
   | "schema"
+  | "polytype"
   | "continuity-atlas";
 
 /** A metric worth setting at display scale rather than burying in a list. */
@@ -106,56 +107,55 @@ export const projectCases: CaseStudy[] = [
     ],
   },
   {
-    slug: "language-typography-engine",
+    slug: "polytype",
     lede:
-      "Most i18n ships the same page in another language. The harder problem is serving a different page — correct in route, direction, typography, and metadata — before any JavaScript runs.",
+      "Most multilingual interfaces are not designed in multiple languages. They are designed in English and repaired afterward.",
     problemBeats: [
-      "Standard internationalization bolts translated strings onto one canonical layout: same page, swapped words, a language cookie read on the client. That produces a site that technically supports many languages but reads like it was designed for one and then relabeled.",
-      "A site that actually studies language needs more than strings. It needs per-locale routes search engines can index separately, honest hreflang signaling so each variant points at the others, right-to-left layout for Hebrew, locale-appropriate typography for CJK, and — the editorial problem under the engineering one — content written for each audience rather than machine-translated.",
-      "And it needed room for one deliberate anomaly: Scandimix, a constructed Scandinavian hybrid, had to be routable and selectable without corrupting the search-engine signals for the real locales.",
+      "A designer draws a button that reads “Save changes.” Then localization happens. French turns it into “Enregistrer les modifications” — nearly twice as wide. German stacks compound words. Hebrew and Arabic flip the whole layout right-to-left. Japanese does not break lines on spaces. The usual remedy is to ship it and hope CSS survives.",
+      "Polytype is an experiment in reversing that assumption. It treats script, locale, direction, line breaking, font coverage, and text expansion as inputs to the design system — not bugs discovered after translation.",
+      "The engine sits above the browser's text shaping. It does not reimplement HarfBuzz, Unicode bidi, or rasterization; it makes the product and design decisions below that layer the browser has no opinion about — which font a script should use, how much leading it needs, and whether a label will overflow once it is translated.",
     ],
     technicalBeats: [
-      "Because the locale lives in the URL and is resolved in a Server Component, the <html lang> and dir attributes, the og:locale, and the canonical and alternate links are all emitted in the initial HTML. There is no client-side locale detection to hydrate around and no intermediate render in the wrong direction.",
-      "The registry is a set of small typed maps keyed by locale — hreflangTag, localeTags, localeDir, localizedSections — so the switcher, every page's metadata, and the sitemap derive from one source. Adding a locale is one row plus its content; the hreflang cluster, og tags, and switcher entry follow automatically.",
-      "Hebrew is the only RTL locale; localeDir returns 'rtl' for it and 'ltr' for everything else, and that value sets dir on the document so the whole layout mirrors from the server render outward rather than after a client correction.",
+      "The core object is a TypographyContext — locale, content type, density, and the sample text — resolved to a TypographyPolicy: font stack, size, line-height, letter-spacing, text-align, hyphenation, line-break mode, and overflow strategy. A component stops hardcoding font-size: 16px; line-height: 1.5 and instead asks the engine for values correct for the script and the content type.",
+      "Script analysis inspects actual character usage by Unicode block rather than trusting the locale, so a string mixing Latin, Hebrew, and numerals resolves per run and the coverage audit reports exactly which faces each run will fall back to. Line-height is script-dependent, because equal numbers do not read as equal rhythm across scripts — the kind of value a script-aware design token should carry.",
+      "Expansion forecasting measures rendered width with canvas and compares each translation to the component's budget, so overflow is caught before anyone opens the app in that language. Everything in the core is deterministic and inspectable — there is deliberately no model in the decision path. That is the point: it shows where a model does not belong.",
     ],
-    pullQuote:
-      "The route is the source of truth, so the first byte of HTML already knows its language and its direction.",
+    pullQuote: "The broken one is the point.",
     figures: [
-      { value: "10", label: "routable locales — nine hreflang-valid, one experimental" },
-      { value: "1", label: "RTL locale (Hebrew), direction set in the server-rendered HTML" },
-      { value: "0", label: "client-side locale detection — the URL is the source of truth" },
+      { value: "10", label: "scripts classified from Unicode ranges" },
+      { value: "0", label: "AI in the core — deterministic, inspectable rules" },
+      { value: "6", label: "locales rendered side by side; watch which one breaks" },
     ],
-    title: "Multi-Language Typography Engine",
-    year: "2025",
-    stack: ["Next.js App Router", "React Server Components", "TypeScript", "i18n / hreflang"],
+    title: "Polytype",
+    year: "2026",
+    stack: ["TypeScript", "Intl / Unicode CLDR", "React", "CSS Logical Properties"],
     tagline:
-      "A route-based localization architecture — English canonical at the root, each other locale its own indexed route, correct in language, direction, typography, and metadata before any JavaScript runs.",
+      "A locale-aware typography engine for multilingual interfaces — script, direction, line breaking, font coverage, and text expansion treated as inputs to the design system, not bugs found after translation.",
     problem:
-      "Standard internationalization bolts translated strings onto one canonical layout and ships the same page in another language, with direction and typography treated as afterthoughts and the locale read on the client. That technically supports many languages but reads like one design relabeled. A site that genuinely studies language needs per-locale routes that index separately, honest hreflang that makes each variant discoverable, right-to-left layout for Hebrew, locale-appropriate typography for CJK, and content authored for each audience rather than translated. It also had to carry one deliberate experiment — Scandimix, a constructed Scandinavian hybrid — as a routable, selectable locale without polluting the search signals for the real ones.",
+      "Most multilingual interfaces are designed in English and repaired afterward. A button sized for “Save changes” clips “Enregistrer les modifications”; Hebrew and Arabic invert the layout; Japanese ignores English word boundaries; a Latin UI font has zero Hebrew or CJK coverage and silently falls back to whatever the OS supplies. The usual solution is to translate the strings and hope the layout holds. Polytype treats these as predictable system behaviors rather than post-translation surprises — a locale-aware typesetting layer that sits above the browser's shaping and makes the decisions the browser cannot.",
     approach: {
       summary:
-        "The locale is a route segment, not client state. English is canonical at the root; every other locale is a prefixed route resolved in a Server Component, so the correct lang, dir, hreflang, and canonical are in the first byte of HTML. A small typed locale registry — the single source of truth — is read by every page, the switcher, and the metadata layer alike.",
+        "A deterministic pipeline: content → locale and script analysis → typographic policy → font and fallback resolution → line-break and width behavior → direction and punctuation → responsive adaptation. Each stage is a small, inspectable, pure function; the engine exposes a resolve() that returns a concrete TypographyPolicy for a given context.",
       decisions: [
-        "Locale as route, not state: English is canonical at the root (/about, /books); every other locale is a prefixed route (/es/projects). The segment is resolved server-side, so lang, dir, and hreflang are correct in the server-rendered HTML — no client detection, no localStorage, no flash of the wrong direction on first paint.",
-        "Cultural variants, not translations: each locale's landing and section pages are authored for that audience rather than run through string replacement. A typed content layer holds the per-locale copy, so a French reader and a Japanese reader get different pages, not the same page in two fonts.",
-        "Honest hreflang, including x-default: a typed registry maps each locale to its precise subtag — pt-BR and zh-Hant where the bare tag is too loose — and every localized page emits a bidirectional alternates cluster plus an x-default pointing at the English canon. The href helper rewrites only sections that have a localized variant; detail pages, notes, and external links fall back to the canon rather than 404.",
-        "One deliberate anomaly, encoded: Scandimix is routable and in the switcher but excluded from hreflang and og:locale because it is not valid BCP-47. The registry encodes that exclusion (its hreflang tag is null), so the experiment ships without corrupting the signals for the nine real locales.",
+        "Policy over properties: components describe intent (locale, contentType: 'navigation') and the engine returns the typographic values. The decision lives in one place that can be tested, not scattered across component CSS.",
+        "Script analysis, not locale assumption: text is split into runs by Unicode block, so mixed-script strings resolve per run and the coverage audit names exactly which face renders each — turning font fallback into something testable.",
+        "Expansion forecasting: translations are measured against a component's width budget with canvas, producing a PASS / WARN / FAIL matrix and a sizing recommendation before a single string reaches a translator.",
+        "Deterministic by design: the core has no model in the decision path. AI is reserved for secondary, advisory features (suggesting a shorter label, pairing a companion face) — which is itself a positioning statement about where a model belongs and where it does not.",
       ],
     },
     demo: {
-      type: "language",
+      type: "polytype",
       caption:
-        "Switch between scripts to see font stack, reading direction, and typographic adjustments applied live.",
+        "The live engine. Pick a UI string and a button width and watch each locale resolve, then overflow — the one that breaks is breaking in your own browser. Also: policy resolution per script, mixed-script analysis with a coverage audit, and pseudo-localization.",
     },
     technical:
-      "Because the locale lives in the URL and is resolved in a Server Component, the <html lang> and dir attributes, the og:locale, and the canonical and alternate links are all emitted in the initial HTML — there is no client-side locale detection to hydrate around and no intermediate render in the wrong direction. The registry is a set of small typed maps keyed by locale (hreflangTag, localeTags, localeDir, localizedSections), so the switcher, every page's metadata, and the sitemap derive from one source; adding a locale is one row plus its content, and the hreflang cluster, og tags, and switcher entry follow automatically. Hebrew is the only RTL locale — localeDir returns 'rtl' for it and 'ltr' for everything else, and that value sets dir on the document so the layout mirrors from the server render outward.",
+      "Polytype's core (lib/polytype) is framework-agnostic TypeScript over Intl and Unicode block ranges. detectScripts() breaks a string into maximal same-script runs; resolvePolicy() maps a TypographyContext to a TypographyPolicy with script-dependent leading and content-type-aware hyphenation, overflow, and line-break modes; auditCoverage() checks a sample's scripts against declared font profiles and reports the fallbacks it forces; measureTranslationRisk() forecasts overflow, accepting a real canvas measurer in the browser and falling back to per-script advance-width estimates on the server. None of it touches a network or a model. The React layer and the Studio demo are thin skins over these pure functions, so the thing on screen is the engine, not a mock of it.",
     outcome:
-      "Ten routable locales — nine search-visible with correct hreflang and og:locale, one a deliberate experiment held out of those signals — each served as a server-rendered page that is correct in language, direction, and metadata before any JavaScript runs. Adding the eleventh is a registry row and its content.",
+      "A working engine that makes multilingual typography testable: a locale matrix that flags overflow, a coverage audit that names missing glyphs, and pseudo-localization that exposes layout assumptions before translation begins. The core is small enough to read in one sitting and deterministic enough to trust — a portfolio piece that is genuinely built, not described.",
     metrics: [
-      "hreflang cluster with x-default on every localized page, bidirectional with each route",
-      "Precise subtags where the bare tag is loose — pt-BR, zh-Hant",
-      "Cultural variants authored per locale, not machine translations",
+      "Expansion forecasting flags overflow before translators are involved",
+      "Pseudo-localization exposes clipping and hardcoded widths pre-translation",
+      "RTL handled with logical properties, not left/right",
     ],
   },
   {

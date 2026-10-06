@@ -128,7 +128,7 @@ export interface SubpagesContent {
 export const workProofLinks = [
   { label: "Continuity Atlas", href: "/projects/continuity-atlas" },
   { label: "Book SEO Architecture", href: "/projects/book-seo-system" },
-  { label: "Typography Engine", href: "/projects/language-typography-engine" },
+  { label: "Polytype", href: "/projects/polytype" },
   { label: "Content Architecture", href: "/projects/content-architecture" },
 ] as const;
 

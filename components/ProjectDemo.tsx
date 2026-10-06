@@ -4,6 +4,7 @@ import React, { Suspense, useState } from "react";
 import { Ae } from "./Ae";
 import PolytypeStudio from "./PolytypeStudio";
 import PublishArchitectureDemo from "./PublishArchitectureDemo";
+import LocaleProductDemo from "./LocaleProductDemo";
 import dynamic from "next/dynamic";
 import type { DemoType } from "@/content/projectCases";
 import styles from "./ProjectDemo.module.css";
@@ -440,6 +441,7 @@ export default function ProjectDemo({ type, caption }: { type: DemoType; caption
       {type === "schema" && <SchemaDemo />}
       {type === "polytype" && <PolytypeStudio />}
       {type === "publish-arch" && <PublishArchitectureDemo />}
+      {type === "locale-system" && <LocaleProductDemo />}
       {type === "continuity-atlas" && <ContinuityAtlasDemo />}
       {caption && <p className={styles.caption}>{caption}</p>}
     </div>

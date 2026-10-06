@@ -16,6 +16,14 @@ export const showcaseProjects: ShowcaseProject[] = [
     year: "2026",
   },
   {
+    slug: "publish-architecture",
+    title: "FORMÆTRIX Publish Architecture",
+    description:
+      "Publishing infrastructure that treats a manuscript as structured source, not a Word file. One canonical semantic source compiles to print (LuaLaTeX), EPUB, and web — a correction made once reaches every edition, and a new trim size is config, not a rebuild. Live demo of the model + build validator.",
+    tags: ["TypeScript", "Canonical Model", "LuaLaTeX", "EPUB3"],
+    year: "2026",
+  },
+  {
     slug: "dual-domain-system",
     title: "Dual-Domain Identity System",
     description:

@@ -6,6 +6,7 @@ export type DemoType =
   | "tokens"
   | "schema"
   | "polytype"
+  | "publish-arch"
   | "continuity-atlas";
 
 /** A metric worth setting at display scale rather than burying in a list. */
@@ -156,6 +157,58 @@ export const projectCases: CaseStudy[] = [
       "Expansion forecasting flags overflow before translators are involved",
       "Pseudo-localization exposes clipping and hardcoded widths pre-translation",
       "RTL handled with logical properties, not left/right",
+    ],
+  },
+  {
+    slug: "publish-architecture",
+    lede: "The manuscript was not the product.",
+    problemBeats: [
+      "A novel needed to become a paperback and an EPUB. That should have been simple. It wasn't: the manuscript carried multilingual passages, unusual section structures, transcripts, ornamented breaks, metadata dependencies, and typographic rules that did not survive ordinary document conversion.",
+      "So it forked. manuscript-final.docx became manuscript-final-KDP.docx became manuscript-FINAL-final.docx. Corrections made during print formatting never reached the EPUB. The proof became a third manuscript. Eventually the book had several technically valid versions and no obvious answer to which one was actually the book.",
+      "None of these problems was individually hard. Together they built a system that ran on memory — and memory is exactly what fails across a year of revisions.",
+    ],
+    technicalBeats: [
+      "The prose is stored as semantic nodes — a chapter is a chapter, a scene break is a scene break, a foreign-language span declares its language — with no layout instructions embedded. The renderer decides whether chapter seven reads as CHAPTER SEVEN, as VII, or as nothing at all; the content layer does not care.",
+      "Separate renderers interpret the one source: print through a LuaLaTeX pipeline for press-ready PDF, EPUB through accessible semantic HTML, web through an excerpt view. Metadata lives once and flows into every output; fonts are mapped by script (the Polytype layer underneath), so a Hebrew passage never silently drops to a fallback glyph.",
+      "Before anything builds, the publication is validated — chapters detected, IDs unique, footnote references resolved, font coverage complete. The pipeline can fail loudly instead of shipping a subtly broken book.",
+    ],
+    pullQuote:
+      "A book should not require its author to remember where all of its copies are lying.",
+    figures: [
+      { value: "1", label: "canonical source; print, EPUB, and web are outputs" },
+      { value: "0", label: "manuscripts to keep in sync — a correction made once reaches every edition" },
+      { value: "5", label: "layers kept apart: content, structure, metadata, typography, output" },
+    ],
+    title: "FORMÆTRIX Publish Architecture",
+    year: "2026",
+    stack: ["TypeScript", "Canonical Document Model", "LuaLaTeX", "EPUB3"],
+    tagline:
+      "A publishing system that treats a manuscript as structured source, not a Word file — one canonical source compiled to print, EPUB, and web, so a correction made once reaches every edition.",
+    problem:
+      "Publishing workflows begin simply — a manuscript in Word — and end in a folder of near-identical files where nobody remembers which one is canonical. A correction made during print formatting never reaches the EPUB; special typography disappears in conversion; a foreign-language passage loses its font; a new trim size means rebuilding the book. None of it is individually difficult, but together it produces a system that depends on memory and quietly lets editions diverge. Publish Architecture removes that by treating the manuscript as structured source material rather than a document to copy and repair.",
+    approach: {
+      summary:
+        "Content has one source; presentation has many outputs. The architecture separates content, structure, metadata, typography, and output instead of embedding all five in one application document. A paragraph is stored as a paragraph; its appearance belongs to the renderer.",
+      decisions: [
+        "Canonical document model: prose is a tree of semantic nodes (chapter, scene break, epigraph, transcript, footnote, language span), never layout. Each renderer decides presentation, so the text stays identical across editions.",
+        "Edition profiles: a base book is inherited by each edition — paperback, large print, web — which overrides only what changes (trim, type scale, measure, how a chapter number is displayed). A new trim size is a config change, not a manuscript reconstruction.",
+        "Centralized metadata and script-aware fonts: ISBNs, subjects, and dates live once and flow into EPUB metadata, copyright pages, and web tags; fonts are mapped by script through the shared typography layer so multilingual passages render correctly rather than falling back silently.",
+        "Validate before build, version like code: the publication is checked (chapters, unique IDs, resolved footnotes, font coverage) before generation, and because the source is text it lives in Git with history, branching, and tagged editions. A book becomes reproducible.",
+      ],
+    },
+    demo: {
+      type: "publish-arch",
+      caption:
+        "One canonical source, rendered live: the semantic node tree, a print interior whose edition profile changes trim and type, the EPUB semantic mapping, and the build validator with its receipt. Switch editions and the same nodes regenerate. (Print output targets a LuaLaTeX pipeline; the demo renders the model and validation in the browser.)",
+    },
+    technical:
+      "Authoring is Markdown, DOCX, or structured JSON; a TypeScript parser produces a canonical document AST that every renderer consumes. Print passes through an intermediate LaTeX representation into LuaLaTeX for OpenType typography, multilingual fonts, microtypography, and reliable pagination; EPUB maps nodes to accessible HTML5 with epub:type semantics and passes EPUBCheck; the web renderer emits excerpts. Metadata is centralized rather than embedded per output, fonts are resolved by script, and a validation pass runs before generation. The content layer is framework-agnostic — it could be consumed by a different toolchain without change.",
+    outcome:
+      "A publication pipeline that behaves like software compilation. A typo corrected once disappears everywhere; a new trim size is configuration, not reconstruction; a Hebrew passage keeps its font; a new edition inherits the same source and overrides only what differs. The book becomes reproducible — and the expensive, invisible divergences between editions stop happening.",
+    metrics: [
+      "Build validation fails loudly before generating a broken book",
+      "Edition profiles inherit a base and override only what changes",
+      "Text-based source → Git history, branching, tagged editions",
     ],
   },
   {

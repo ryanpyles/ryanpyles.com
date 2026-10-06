@@ -1,0 +1,191 @@
+/* Publish Architecture demo — dark chrome around a "paper" reading surface,
+   so the print interior reads as a page while the tooling stays in the studio
+   register used by the other demos. */
+
+.demo {
+  --pa-bg: #14120f;
+  --pa-panel: #1b1916;
+  --pa-line: rgba(245, 240, 232, 0.12);
+  --pa-ink: #f0ece4;
+  --pa-mut: #9a948c;
+  --pa-accent: #e08a4c;
+  --pa-paper: #f5f1ea;
+  --pa-paperink: #1a1a1a;
+  --pa-pass: #6fae7f;
+  --pa-warn: #d7a24a;
+  --pa-info: #7fa6c4;
+  --pa-fail: #d2694e;
+  background: var(--pa-bg);
+  border: 1px solid var(--pa-line);
+  border-radius: 3px;
+  color: var(--pa-ink);
+  font-family: var(--font-sans, system-ui, sans-serif);
+  overflow: hidden;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--pa-line);
+}
+
+.tab {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--pa-line);
+  color: var(--pa-mut);
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.tab:hover { color: var(--pa-ink); }
+.tabActive { color: var(--pa-ink); background: var(--pa-panel); box-shadow: inset 0 -2px 0 var(--pa-accent); }
+
+.editionBar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pa-line);
+}
+
+.editionLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pa-mut);
+  margin-right: 4px;
+}
+
+.editionBtn {
+  appearance: none;
+  background: var(--pa-panel);
+  border: 1px solid var(--pa-line);
+  border-radius: 2px;
+  color: var(--pa-mut);
+  padding: 7px 11px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  text-align: start;
+}
+
+.editionBtnActive { color: var(--pa-ink); border-color: var(--pa-accent); }
+.editionTrim { font-family: var(--font-mono, monospace); font-size: 9px; letter-spacing: 0.06em; color: var(--pa-mut); }
+
+.body { padding: 20px; }
+
+/* ── Source tree ───────────────────────────────────────────────────────── */
+.tree { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--pa-line); border: 1px solid var(--pa-line); border-radius: 3px; overflow: hidden; }
+.node { background: var(--pa-bg); padding: 10px 12px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+.nodeType { font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pa-accent); flex: 0 0 150px; }
+.nodeText { color: color-mix(in srgb, var(--pa-ink) 78%, transparent); font-size: 13px; line-height: 1.5; flex: 1 1 200px; }
+.nodeTag { font-family: var(--font-mono, monospace); font-size: 9px; letter-spacing: 0.06em; color: var(--pa-mut); border: 1px solid var(--pa-line); border-radius: 2px; padding: 2px 6px; }
+
+/* ── Reading view (print interior / web excerpt) ───────────────────────── */
+.page {
+  margin: 0 auto;
+  max-width: var(--measure);
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: var(--fs);
+  line-height: 1.5;
+}
+
+.pagePrint {
+  background: var(--pa-paper);
+  color: var(--pa-paperink);
+  padding: 40px 44px;
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5), 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.pageWeb {
+  background: transparent;
+  color: var(--pa-ink);
+  padding: 8px 0;
+}
+
+.chapterNo {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-align: center;
+  margin: 0 0 6px;
+  opacity: 0.7;
+}
+
+.chapterTitle {
+  font-family: var(--font-serif, Georgia, serif);
+  font-weight: 500;
+  font-size: 1.5em;
+  line-height: 1.15;
+  text-align: center;
+  margin: 0 0 1.6em;
+}
+
+.para { margin: 0 0 1em; text-indent: 1.4em; }
+.opening { text-indent: 0; }
+.opening::first-letter { font-size: 2.6em; line-height: 0.8; float: left; padding: 0.05em 0.08em 0 0; font-weight: 500; }
+
+.langSpan { font-family: "Noto Serif Hebrew", "David", serif; }
+
+.noteMark { color: var(--pa-accent); font-size: 0.7em; padding: 0 0.15em; }
+
+.epigraph { margin: 0 0 1.6em; padding-inline-start: 1.2em; border-inline-start: 2px solid currentColor; font-style: italic; opacity: 0.85; }
+.epigraphCite { display: block; font-style: normal; font-size: 0.8em; margin-top: 0.5em; opacity: 0.7; }
+
+.sceneBreak { text-align: center; margin: 1.6em 0; opacity: 0.6; letter-spacing: 0.3em; }
+
+.transcript { margin: 0 0 1em; }
+.transcriptLine { margin: 0 0 0.3em; text-indent: 0; }
+.speaker { font-family: var(--font-mono, monospace); font-size: 0.7em; letter-spacing: 0.12em; margin-inline-end: 0.8em; opacity: 0.7; }
+
+.footnotes { margin-top: 2em; padding-top: 1em; border-top: 1px solid currentColor; font-size: 0.8em; opacity: 0.8; }
+.footnote { margin: 0 0 0.5em; text-indent: 0; display: flex; gap: 0.5em; }
+
+/* ── EPUB mapping ──────────────────────────────────────────────────────── */
+.epub { display: flex; flex-direction: column; gap: 14px; }
+.epubNote { font-size: 13px; line-height: 1.55; color: color-mix(in srgb, var(--pa-ink) 78%, transparent); margin: 0; }
+.epubList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--pa-line); border: 1px solid var(--pa-line); border-radius: 3px; overflow: hidden; }
+.epubRow { background: var(--pa-bg); padding: 9px 12px; display: flex; align-items: center; gap: 12px; }
+.epubNode { font-family: var(--font-mono, monospace); font-size: 12px; color: var(--pa-ink); flex: 0 0 150px; }
+.epubArrow { color: var(--pa-mut); }
+.epubHtml { font-family: var(--font-mono, monospace); font-size: 12px; color: var(--pa-accent); }
+
+/* ── Build ─────────────────────────────────────────────────────────────── */
+.build { display: flex; flex-direction: column; gap: 16px; }
+.buildCmd { font-family: var(--font-mono, monospace); font-size: 13px; color: var(--pa-ink); background: var(--pa-panel); border: 1px solid var(--pa-line); border-radius: 3px; padding: 10px 12px; }
+.checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.check { display: flex; gap: 10px; align-items: baseline; }
+.checkMark { font-family: var(--font-mono, monospace); font-weight: 700; width: 1.2em; flex: 0 0 auto; }
+.st_pass .checkMark { color: var(--pa-pass); }
+.st_warn .checkMark { color: var(--pa-warn); }
+.st_info .checkMark { color: var(--pa-info); }
+.st_error .checkMark { color: var(--pa-fail); }
+.checkBody { display: flex; flex-direction: column; gap: 2px; }
+.checkLabel { font-size: 13px; color: var(--pa-ink); }
+.checkDetail { font-family: var(--font-mono, monospace); font-size: 11px; color: var(--pa-mut); }
+
+.receipt { border: 1px solid var(--pa-line); border-radius: 3px; overflow: hidden; }
+.receiptHead { display: block; font-family: var(--font-mono, monospace); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pa-mut); padding: 10px 12px; border-bottom: 1px solid var(--pa-line); background: var(--pa-panel); }
+.receiptRow { display: flex; justify-content: space-between; gap: 12px; padding: 8px 12px; border-bottom: 1px solid var(--pa-line); }
+.receiptRow:last-child { border-bottom: none; }
+.receiptKey { font-family: var(--font-mono, monospace); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pa-mut); }
+.receiptVal { font-family: var(--font-mono, monospace); font-size: 12px; color: var(--pa-ink); text-align: end; }
+
+@media (max-width: 560px) {
+  .body { padding: 14px; }
+  .pagePrint { padding: 28px 24px; }
+  .nodeType { flex-basis: 100%; }
+  .epubNode { flex-basis: 120px; }
+}

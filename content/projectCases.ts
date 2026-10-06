@@ -7,6 +7,7 @@ export type DemoType =
   | "schema"
   | "polytype"
   | "publish-arch"
+  | "locale-system"
   | "continuity-atlas";
 
 /** A metric worth setting at display scale rather than burying in a list. */
@@ -209,6 +210,58 @@ export const projectCases: CaseStudy[] = [
       "Build validation fails loudly before generating a broken book",
       "Edition profiles inherit a base and override only what changes",
       "Text-based source → Git history, branching, tagged editions",
+    ],
+  },
+  {
+    slug: "locale-aware-product-system",
+    lede: "The interface worked perfectly until it spoke another language.",
+    problemBeats: [
+      "The product looked finished. Spacing was consistent, navigation aligned, forms validated, buttons fit. Then it was translated. French broke several controls; German broke the navigation; Arabic exposed physical left/right positioning throughout the CSS; Japanese made assumptions about word boundaries visible; a name form could not represent users whose names did not fit a first-name/last-name model.",
+      "Nothing had gone wrong during localization. The original system had simply made assumptions it could no longer hide — an invisible locale of English, Latin script, left-to-right, Western name order, US address and unit conventions — baked into the architecture.",
+      "Repairing each locale separately would have fixed the screenshots and left the architecture. So locale became application state instead: available to typography, layout, forms, formatting, and validation, not just a string table.",
+    ],
+    technicalBeats: [
+      "Every interface renders inside a resolved LocaleContext — language, script, region, direction, numbering system, calendar, currency, measurement system, week start. The same React component receives a different behavioral policy without becoming a different component.",
+      "Responsiveness became content-based: a navigation bar collapses when its labels stop fitting, not at 768px because someone once decided that was a tablet. Direction is handled with logical properties (inline-start / inline-end), so components mirror from the document direction outward — with an explicit policy for what mirrors (arrows, chevrons) and what must not (play controls, logos, clocks).",
+      "Forms resolve an address schema and name model per country rather than assuming First name / Last name / State / ZIP, and numbers, dates, currency, and units format through Intl. Typography runs on Polytype underneath. A route-based form of this exact architecture is in production on this site — ten locales, hreflang with x-default, RTL Hebrew, and a deliberately non-BCP-47 experimental locale held out of the search signals.",
+    ],
+    pullQuote:
+      "Internationalization problems often arrive disguised as copy problems. Most are architecture problems.",
+    figures: [
+      { value: "9", label: "facets a locale resolves — from direction to week start" },
+      { value: "0", label: "physical left/right in layout — logical properties mirror from direction" },
+      { value: "1", label: "locale context the whole product reads from" },
+    ],
+    title: "Locale-Aware Product System",
+    year: "2026",
+    stack: ["TypeScript", "React", "ECMA Intl / CLDR", "CSS Logical Properties"],
+    tagline:
+      "An interface architecture that treats locale as product behavior, not translated copy — direction, typography, forms, formatting, and layout all resolve from one locale context.",
+    problem:
+      "Most products are built around an invisible locale — English, Latin, left-to-right, Gregorian, Western name order, US address and unit assumptions — and those assumptions stay hidden until the product enters another market, where they surface everywhere at once. A form asks everyone for State and ZIP; a date reads MM/DD/YYYY; navigation assumes labels keep English's width; search assumes spaces separate words; layout assumes left means start. The product has been translated, but it has not become local. Translation changes words; localization can change the product.",
+    approach: {
+      summary:
+        "Locale is application state. Instead of using it only for string lookup, the system resolves a structured LocaleContext that typography, layout, forms, formatting, and validation all read from. Components describe intent and respond to the resolved policy, so one component behaves correctly across markets rather than forking per locale.",
+      decisions: [
+        "Locale context, not a string table: resolveLocale(tag) returns language, script, region, direction, numbering, calendar, currency, measurement system, and week start — the structured policy the whole product reads.",
+        "Behavioral tokens beside visual ones: a navigation collapse threshold, whether the family name comes first, the default date style — product behavior gets an explicit per-locale configuration layer rather than hard-coded assumptions.",
+        "Direction as architecture: logical properties (margin-inline-start, inset-inline-end) mean RTL mirrors from the document direction; a lint flags physical left/right, and a mirroring policy says which elements flip and which never should.",
+        "Separate language from market: a French user in Switzerland, an English user in Japan, a Spanish user in the US — language preference does not silently decide currency, units, or address format. Forms and names are stored structurally and displayed per locale.",
+      ],
+    },
+    demo: {
+      type: "locale-system",
+      caption:
+        "The engine, live: resolve a locale to its full context and watch the same values reformat; see a form reorder its fields and name model by country; a component × locale matrix measure overflow (via Polytype); and a toolbar mirror between LTR and RTL from logical properties alone.",
+    },
+    technical:
+      "createLocaleSystem resolves a BCP-47 tag to a LocaleContext using Intl.Locale.maximize() plus small region tables for currency, measurement, and week start, with a CLDR-style fallback chain (fr-CA → fr → default). Dates, numbers, currency, and units format through Intl; collation uses Intl.Collator; address schemas and the name model are country-driven; the typography layer is Polytype. The whole thing is deterministic and inspectable — AI is reserved for advisory localization review (a shorter label for a constrained component, an explanation of a QA failure), never the authoritative locale behavior. A route-based instance of the architecture already runs this site across ten locales.",
+    outcome:
+      "Localization becomes testable. A locale matrix renders every component across languages so overflow appears during development, not after a market launch; pseudo-localization exposes clipping before translators are involved; font-coverage checks catch missing glyphs; RTL is a property of the component system, not a patch. The result is not a product that can be translated — it is a product built expecting that English was never going to be the only language in the room.",
+    metrics: [
+      "Locale matrix flags overflow during development, not after launch",
+      "Forms adapt field order and name model by country",
+      "RTL via logical properties + an explicit mirroring policy, not a patch stylesheet",
     ],
   },
   {

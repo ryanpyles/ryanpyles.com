@@ -24,6 +24,14 @@ export const showcaseProjects: ShowcaseProject[] = [
     year: "2026",
   },
   {
+    slug: "locale-aware-product-system",
+    title: "Locale-Aware Product System",
+    description:
+      "An architecture that treats locale as product behavior, not translated copy. One resolved locale context drives direction, typography, forms, formatting, and layout — so a component adapts across languages, scripts, and markets instead of forking per locale. Live demo: context, adaptive forms, a locale matrix, and RTL mirroring.",
+    tags: ["TypeScript", "React", "Intl / CLDR", "RTL"],
+    year: "2026",
+  },
+  {
     slug: "dual-domain-system",
     title: "Dual-Domain Identity System",
     description:

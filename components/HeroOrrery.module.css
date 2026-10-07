@@ -1,0 +1,161 @@
+/* HeroOrrery — ink line-work on bone, FORMÆTRIX orange as the signal colour.
+   Colours resolve from the ryan-domain tokens already on the page. */
+
+.wrap {
+  --px: 0px;
+  --py: 0px;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  /* The figure is the quiet machinery behind the type — never louder than it. */
+  opacity: 0;
+  transition: opacity 1200ms var(--ease-out, ease);
+}
+
+.wrap[data-entered="true"] {
+  opacity: 0.92;
+}
+
+.svg {
+  width: min(118%, 1180px);
+  height: auto;
+  overflow: visible;
+  transform: translate3d(var(--px), var(--py), 0);
+  transition: transform 400ms var(--ease-out, ease);
+}
+
+.frame {
+  transform-box: view-box;
+  transform-origin: 500px 330px;
+}
+
+/* ── Construction lines ─────────────────────────────────────────────────── */
+.axis {
+  stroke: var(--color-accent);
+  stroke-width: 0.75;
+  opacity: 0;
+  stroke-dasharray: 2 7;
+  transition: opacity 900ms var(--ease-out, ease) 0.1s;
+}
+.wrap[data-entered="true"] .axis { opacity: 0.28; }
+
+.cardinal {
+  font-family: var(--font-mono, monospace);
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  fill: var(--color-muted, #6a6a6a);
+  opacity: 0;
+  transition: opacity 900ms ease 0.3s;
+}
+.wrap[data-entered="true"] .cardinal { opacity: 0.75; }
+
+.orbit {
+  fill: none;
+  stroke: var(--color-ink, #111);
+  stroke: color-mix(in srgb, var(--color-white) 70%, transparent);
+  stroke-width: 1;
+  opacity: 0;
+  transition: opacity 1000ms var(--ease-out, ease) var(--d, 0s);
+}
+.wrap[data-entered="true"] .orbit { opacity: 1; }
+.orbitDashed { stroke-dasharray: 3 6; opacity: 0; }
+.wrap[data-entered="true"] .orbitDashed { opacity: 0.6; }
+
+.driftRing {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-white) 34%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 1 10;
+  transform-box: view-box;
+  transform-origin: 500px 330px;
+  opacity: 0;
+  transition: opacity 1200ms ease 0.2s;
+}
+.wrap[data-entered="true"] .driftRing {
+  opacity: 0.5;
+  animation: orreryDrift 140s linear infinite;
+}
+
+@keyframes orreryDrift {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Central node ───────────────────────────────────────────────────────── */
+.centerBase { fill: color-mix(in srgb, var(--color-white) 16%, transparent); }
+.centerNode { stroke: color-mix(in srgb, #3a2a12 60%, transparent); stroke-width: 0.5; }
+.centerRing {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-white) 40%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+}
+
+/* ── Discipline nodes ───────────────────────────────────────────────────── */
+.node {
+  opacity: 0;
+  transition: opacity 800ms var(--ease-out, ease) var(--d, 0s);
+  pointer-events: auto;
+}
+.wrap[data-entered="true"] .node { opacity: 1; }
+
+.leader {
+  stroke: color-mix(in srgb, var(--color-white) 45%, transparent);
+  stroke-width: 0.75;
+  stroke-dasharray: 2 5;
+  transition: stroke 240ms ease;
+}
+.dot { stroke: color-mix(in srgb, var(--color-white) 30%, transparent); stroke-width: 0.5; transition: transform 260ms var(--ease-out, ease); transform-box: fill-box; transform-origin: center; }
+.halo { fill: none; stroke: var(--color-accent); stroke-width: 1; opacity: 0; transition: opacity 240ms ease; }
+
+.nodeNum {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  fill: var(--color-accent);
+}
+.nodeLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  fill: var(--color-white, #111);
+}
+.nodeMeta {
+  font-family: var(--font-sans, sans-serif);
+  font-size: 11px;
+  fill: var(--color-muted, #6a6a6a);
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+/* Hover / focus emphasis — the node becomes the signal. */
+.node:hover .halo { opacity: 0.85; }
+.node:hover .leader { stroke: var(--color-accent); }
+.node:hover .nodeMeta { opacity: 1; }
+.node:hover .dot { transform: scale(1.18); }
+
+/* The orange node is the live signal by default. */
+.node[data-tone="orange"] .halo { opacity: 0.4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wrap { transition: none; }
+  .svg { transform: none; transition: none; }
+  .driftRing { animation: none; }
+  .wrap[data-entered="true"] .driftRing { animation: none; }
+  .dot { transition: none; }
+}
+
+/* On wide screens the figure sits right of the type column. */
+@media (min-width: 861px) {
+  .wrap { justify-content: flex-end; }
+  .svg { transform: translate3d(calc(8% + var(--px)), var(--py), 0); }
+}
+
+/* ── Responsive: on narrow screens the orrery recedes behind the type ───── */
+@media (max-width: 860px) {
+  .wrap[data-entered="true"] { opacity: 0.5; }
+  .svg { width: 150%; }
+  .nodeMeta { display: none; }
+}

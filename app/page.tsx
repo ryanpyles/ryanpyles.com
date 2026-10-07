@@ -9,6 +9,8 @@ import WhatIBuild from "@/components/WhatIBuild";
 import Disciplines from "@/components/Disciplines";
 import HeroOrrery from "@/components/HeroOrrery";
 import SystemsMap from "@/components/SystemsMap";
+import LanguageInterstitial from "@/components/LanguageInterstitial";
+import SectionTransition from "@/components/SectionTransition";
 import { Ae } from "@/components/Ae";
 import RotateHint from "@/components/RotateHint";
 import BooksScene from "@/components/BooksScene";
@@ -242,6 +244,12 @@ export default function HomePage() {
       {/* ── What I build for clients (commercial legibility) ───── */}
       <WhatIBuild />
 
+      {/* ── Reset into the technical half ──────────────────────── */}
+      <SectionTransition
+        fig="Fig. 04 — Reset"
+        lines={["A system becomes", "visible when it fails."]}
+      />
+
       {/* ── Proof first: the flagship system, then work currently in flight.
            A client or hiring manager gets the pitch, then evidence, then
            a way to act — before the literary half of the site begins. ─ */}
@@ -287,6 +295,9 @@ export default function HomePage() {
 
       {/* ── Living Archive: Field Notes — pinned card-pile scene ─ */}
       <FieldNotesScene />
+
+      {/* ── Language is load-bearing — full-width interstitial ── */}
+      <LanguageInterstitial />
 
       {/* ── Language Orrery — pinned zoom-and-annotate scene ──── */}
       <div id="orrery" aria-hidden="true" />

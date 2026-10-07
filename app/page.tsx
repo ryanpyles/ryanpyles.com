@@ -11,6 +11,7 @@ import HeroOrrery from "@/components/HeroOrrery";
 import SystemsMap from "@/components/SystemsMap";
 import LanguageInterstitial from "@/components/LanguageInterstitial";
 import SectionTransition from "@/components/SectionTransition";
+import HomeArtifacts from "@/components/HomeArtifacts";
 import { Ae } from "@/components/Ae";
 import RotateHint from "@/components/RotateHint";
 import BooksScene from "@/components/BooksScene";
@@ -255,6 +256,9 @@ export default function HomePage() {
            a way to act — before the literary half of the site begins. ─ */}
       {/* ── Featured Work: Continuity Atlas — pinned product scene ─ */}
       <ContinuityAtlasScene />
+
+      {/* ── Selected systems — compact evidence plates ─────────── */}
+      <HomeArtifacts />
 
       {/* ── In Progress — pinned research-ledger scene ──────────── */}
       <InProgressScene />

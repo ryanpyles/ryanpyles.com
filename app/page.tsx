@@ -7,6 +7,8 @@ import FieldNotesScene from "@/components/FieldNotesScene";
 import EcosystemScene from "@/components/EcosystemScene";
 import WhatIBuild from "@/components/WhatIBuild";
 import Disciplines from "@/components/Disciplines";
+import HeroOrrery from "@/components/HeroOrrery";
+import { Ae } from "@/components/Ae";
 import RotateHint from "@/components/RotateHint";
 import BooksScene from "@/components/BooksScene";
 import VoigtIdentityBand from "@/components/VoigtIdentityBand";
@@ -24,12 +26,6 @@ const SiteProgressObject = dynamic(
   () => import("@/components/SiteProgressObject"),
   { ssr: false }
 );
-
-// LivingManuscript: hero background — hero text renders immediately; canvas loads silently
-const LivingManuscript = dynamic(() => import("@/components/LivingManuscript"), {
-  ssr: false,
-  loading: () => null,
-});
 
 // LanguageOrrery: 100 vh section — show an archival placeholder while WebGL initialises
 function OrreryLoader() {
@@ -130,19 +126,17 @@ export default function HomePage() {
 
       {/* ── Hero ───────────────────────────────────────────────── */}
       <section className={styles.hero} id="hero">
-        <DeferMount strategy="idle">
-          <LivingManuscript />
-        </DeferMount>
+        <HeroOrrery />
+
+        {/* Archival corner metadata — the figure is a plate, not a banner. */}
+        <div className={`${styles.heroMeta} ${styles.heroEnter} ${styles.heroEnter1}`} aria-hidden="true">
+          <span className={styles.heroFig}>Fig. 01</span>
+          <span className={styles.heroColophon}>
+            FORM<Ae />TRIX · RYAN PYLES · MMXXV
+          </span>
+        </div>
 
         <div className={styles.heroInner}>
-          <div className={`${styles.heroAnnotations} ${styles.heroEnter} ${styles.heroEnter1}`} aria-hidden="true">
-            <span className={styles.heroAnnotation}>64°08′ N, 21°56′ W</span>
-            <span className={styles.heroAnnotation}>fn. 14 — see Voigt, 2024</span>
-            <span className={styles.heroAnnotation}>declension</span>
-            <span className={styles.heroAnnotation}>halló · halloo · salut</span>
-            <span className={styles.heroAnnotation}>§ 04 · identity</span>
-          </div>
-
           {/* Mobile-only orientation — name, role, one sharp line */}
           <div className={`${styles.heroMobileIntro} ${styles.heroEnter} ${styles.heroEnter2}`}>
             <span className={styles.heroMobileName}>Ryan J. Pyles</span>
@@ -165,11 +159,10 @@ export default function HomePage() {
             I build systems for problems that refuse to stay in one discipline.
           </h1>
 
-          {/* The literary thesis, kept as the deck — it carries the voice and
-              names the four axes the systems cross. */}
+          {/* The thesis of the whole site — four disciplines, one orbit. */}
           <p className={`${styles.heroDeck} ${styles.heroEnter} ${styles.heroEnter3}`}>
-            The distance between a manuscript, a language, and a software system
-            is smaller than it first appears.
+            Software. AI. Design. Language. The interesting work happens
+            between them.
           </p>
 
           <p className={`${styles.heroClarity} ${styles.heroEnter} ${styles.heroEnter4}`}>
@@ -205,6 +198,14 @@ export default function HomePage() {
           </div>
 
         </div>
+
+        <p className={`${styles.heroProcess} ${styles.heroEnter} ${styles.heroEnter5}`} aria-hidden="true">
+          <span>Ideas</span>
+          <span>Systems</span>
+          <span>Tools</span>
+          <span>People</span>
+          <span>A brighter tomorrow</span>
+        </p>
 
         <div className={styles.langWrap}>
           <LocaleSwitcher current="en" />

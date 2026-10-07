@@ -254,6 +254,73 @@
   z-index: 1;
 }
 
+/* ── Hero archival metadata (corner colophon + fig label) ───────────────── */
+.heroMeta {
+  position: absolute;
+  top: var(--space-8);
+  left: var(--space-8);
+  right: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.heroFig {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-style: italic;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+}
+
+.heroColophon {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ── Hero process strip (bottom rail) ───────────────────────────────────── */
+.heroProcess {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-10);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.heroProcess span {
+  position: relative;
+  padding-right: var(--space-5);
+}
+
+.heroProcess span:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: 0;
+  transform: translateX(45%);
+  color: var(--color-accent);
+  opacity: 0.6;
+}
+
+.heroProcess span:last-child {
+  padding-right: 0;
+  color: color-mix(in srgb, var(--color-white) 70%, transparent);
+}
+
 .sectionKicker {
   display: block;
   font-family: var(--font-mono);

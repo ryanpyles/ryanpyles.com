@@ -4,6 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { CaseStudy } from "@/content/projectCases";
 import Reveal from "./Reveal";
+import { FailurePlate, DecisionPlate } from "./CaseStudyBeats";
 import styles from "./CaseStudyView.module.css";
 
 interface Props {
@@ -14,14 +15,6 @@ interface Props {
 }
 
 type Sec = { id: string; label: string };
-
-const SECTIONS: Sec[] = [
-  { id: "problem", label: "Problem" },
-  { id: "approach", label: "Approach" },
-  { id: "demo", label: "Demo" },
-  { id: "technical", label: "Technical" },
-  { id: "outcome", label: "Outcome" },
-];
 
 /** Splits "Head: body text" into its two halves for the decision list. */
 function splitDecision(d: string): [string, string | null] {
@@ -34,7 +27,19 @@ export default function CaseStudyView({ cs, demo, prev, next }: Props) {
   const articleRef = useRef<HTMLElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const railFillRef = useRef<HTMLSpanElement>(null);
-  const [active, setActive] = useState(SECTIONS[0].id);
+  const [active, setActive] = useState("problem");
+
+  // Failure and Decision beats slot in before Outcome when present, so the
+  // case study reads Problem → System → Interface → Failure → Decision → Result.
+  const SECTIONS: Sec[] = [
+    { id: "problem", label: "Problem" },
+    { id: "approach", label: "Approach" },
+    { id: "demo", label: "Demo" },
+    { id: "technical", label: "Technical" },
+    ...(cs.failure ? [{ id: "failure", label: "Failure" }] : []),
+    ...(cs.decision ? [{ id: "decision", label: "Decision" }] : []),
+    { id: "outcome", label: "Outcome" },
+  ];
 
   // Fall back to the long-form fields when a case study has no staged beats.
   const problemBeats = useMemo(
@@ -254,6 +259,26 @@ export default function CaseStudyView({ cs, demo, prev, next }: Props) {
             </Reveal>
           )}
         </section>
+
+        {/* Failure — a real constraint, rendered as evidence */}
+        {cs.failure && (
+          <section id="failure" className={styles.section}>
+            <p className={styles.sectionLabel}>Failure</p>
+            <Reveal>
+              <FailurePlate failure={cs.failure} />
+            </Reveal>
+          </section>
+        )}
+
+        {/* Decision — the call made about it */}
+        {cs.decision && (
+          <section id="decision" className={styles.section}>
+            <p className={styles.sectionLabel}>Decision</p>
+            <Reveal>
+              <DecisionPlate decision={cs.decision} />
+            </Reveal>
+          </section>
+        )}
 
         {/* Outcome */}
         <section id="outcome" className={styles.section}>

@@ -55,6 +55,42 @@ export interface CaseStudy {
   pullQuote?: string;
   /** Numeric metrics, set large. Non-numeric ones stay in `metrics`. */
   figures?: Figure[];
+
+  /* ── Failure & decision beats ────────────────────────────────────────
+     Failure states are design material: the "04 / Failure" and
+     "05 / Decision" beats render a real constraint and the call made
+     about it, not decorative filler. Both optional. */
+  failure?: FailureBeat;
+  decision?: DecisionBeat;
+}
+
+/** A real constraint, rendered as evidence. */
+export type FailureBeat =
+  | {
+      kind: "overflow";
+      label: string;
+      caption: string;
+      /** Fixed component width in px that the strings must fit. */
+      budget: number;
+      cases: { locale: string; text: string; over?: boolean }[];
+    }
+  | {
+      kind: "divergence";
+      label: string;
+      caption: string;
+      /** Two fragments that drifted; the changed line is called out. */
+      left: { title: string; lines: string[] };
+      right: { title: string; lines: string[] };
+      /** Index of the line that differs, highlighted in both columns. */
+      changedLine: number;
+    };
+
+/** The call made about the failure — a before/after. */
+export interface DecisionBeat {
+  label: string;
+  rejected: string;
+  chosen: string;
+  note?: string;
 }
 
 export const projectCases: CaseStudy[] = [
@@ -159,6 +195,26 @@ export const projectCases: CaseStudy[] = [
       "Pseudo-localization exposes clipping and hardcoded widths pre-translation",
       "RTL handled with logical properties, not left/right",
     ],
+    failure: {
+      kind: "overflow",
+      label: "Localization overflow",
+      caption:
+        "A button sized for the English label clips the moment it is translated. The same component, one fixed width, four locales — two of them break.",
+      budget: 150,
+      cases: [
+        { locale: "en-US", text: "Save changes" },
+        { locale: "de-DE", text: "Änderungen speichern", over: true },
+        { locale: "fr-FR", text: "Enregistrer les modifications", over: true },
+        { locale: "ja-JP", text: "変更を保存" },
+      ],
+    },
+    decision: {
+      label: "Fixed width, or intrinsic width?",
+      rejected: "Pin the button to the English width and hope the translations fit.",
+      chosen:
+        "Forecast each locale's rendered width against the budget, then let the component take intrinsic width with a safe minimum.",
+      note: "The matrix surfaces the break during development, before a translator is involved.",
+    },
   },
   {
     slug: "publish-architecture",
@@ -211,6 +267,33 @@ export const projectCases: CaseStudy[] = [
       "Edition profiles inherit a base and override only what changes",
       "Text-based source → Git history, branching, tagged editions",
     ],
+    failure: {
+      kind: "divergence",
+      label: "Silent edition divergence",
+      caption:
+        "A correction made in the print file never reached the EPUB. Two technically valid editions, one line quietly different — and no answer to which one is the book.",
+      left: {
+        title: "Paperback (corrected)",
+        lines: [
+          "The first thing missing was the door.",
+          "By morning the hinges had returned.",
+        ],
+      },
+      right: {
+        title: "EPUB (stale copy)",
+        lines: [
+          "The first thing missing was the door.",
+          "By morning the hinges returned.",
+        ],
+      },
+      changedLine: 1,
+    },
+    decision: {
+      label: "Many manuscripts, or one source?",
+      rejected: "Keep a separate file per format and copy corrections between them by hand.",
+      chosen: "One canonical semantic source; print, EPUB, and web are rendered outputs.",
+      note: "A correction made once reaches every edition — divergence becomes structurally impossible.",
+    },
   },
   {
     slug: "locale-aware-product-system",
@@ -263,6 +346,25 @@ export const projectCases: CaseStudy[] = [
       "Forms adapt field order and name model by country",
       "RTL via logical properties + an explicit mirroring policy, not a patch stylesheet",
     ],
+    failure: {
+      kind: "overflow",
+      label: "A navigation that only fit English",
+      caption:
+        "The nav was laid out at English width and collapsed at 768px because that was 'tablet'. German never fit; the real break point was the content, not the device.",
+      budget: 128,
+      cases: [
+        { locale: "en-US", text: "Account settings" },
+        { locale: "fr-FR", text: "Paramètres du compte", over: true },
+        { locale: "de-DE", text: "Kontoeinstellungen", over: true },
+        { locale: "ja-JP", text: "アカウント設定" },
+      ],
+    },
+    decision: {
+      label: "Viewport breakpoint, or content breakpoint?",
+      rejected: "Collapse the navigation at 768px because someone decided that was a tablet.",
+      chosen: "Collapse when the rendered labels stop fitting — the break point is the real failure point.",
+      note: "Responsiveness follows content and locale, not a device assumption.",
+    },
   },
   {
     slug: "blob-navigation",

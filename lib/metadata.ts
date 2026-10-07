@@ -267,7 +267,7 @@ export function buildOrganizationJsonLd(): string {
     url: "https://www.formaetrix.com",
     founder: { "@type": "Person", name: "Ryan Pyles", url: site.url },
     description:
-      "A multidisciplinary studio for publishing, software, and narrative systems, founded by Ryan Pyles. Home of the pen name Elian Voigt.",
+      "FORMÆTRIX is Ryan Pyles's multidisciplinary studio for software, AI, design, and publishing systems. It also runs the imprint that publishes the fiction of Elian Voigt.",
     sameAs: ["https://www.formaetrix.com", "https://www.elianvoigt.com"],
   });
 }

@@ -30,12 +30,12 @@ const faq = [
   {
     question: "What is FORMÆTRIX?",
     answer:
-      "FORMÆTRIX is the studio and imprint Ryan Pyles founded for work where language and form are load-bearing: publishing and author platforms, AI narrative tooling, editorial web systems, and the fiction of Elian Voigt.",
+      "FORMÆTRIX is Ryan Pyles's studio — the multidisciplinary practice behind his software, AI, design, and publishing systems. It also operates an imprint: the publishing line through which Elian Voigt's fiction is released. The studio is the practice; the imprint is one of the things it runs.",
   },
   {
     question: "What does Ryan Pyles do?",
     answer:
-      "He designs and builds narrative systems — publishing platforms, AI narrative tooling, and editorial web architecture — and writes experimental fiction as Elian Voigt. He works with React, Next.js, and TypeScript.",
+      "He is a multidisciplinary technologist working across software engineering, AI systems, product design, and language. He builds production systems — AI narrative tooling, publishing infrastructure, a locale-aware typography engine, and locale-aware product systems — with React, Next.js, and TypeScript, and writes experimental fiction as Elian Voigt.",
   },
   {
     question: "Where is Ryan Pyles based?",
@@ -46,7 +46,7 @@ const faq = [
 export const metadata: Metadata = buildPageMetadata({
   title: "About",
   description:
-    "Ryan J. Pyles — experimental fiction author, software engineer, and linguist based in Chicago. The personal archive behind FORMÆTRIX and Elian Voigt.",
+    "Ryan J. Pyles — a Chicago multidisciplinary technologist working across software engineering, AI, design, and language. The person behind the FORMÆTRIX studio and the writer Elian Voigt.",
   path: "/about",
   languageAlternates: subpageLanguageAlternates("/about"),
 });
@@ -72,6 +72,30 @@ const workAreas = [
   },
 ] as const;
 
+/** The harder professional layer — four disciplines, stated concretely. */
+const disciplines = [
+  {
+    n: "01",
+    name: "Engineering",
+    body: "Full-stack systems in React, Next.js, and TypeScript — architecture and data modeling through deployment.",
+  },
+  {
+    n: "02",
+    name: "AI",
+    body: "Systems that reason over long-form context: narrative continuity, retrieval, and structured memory.",
+  },
+  {
+    n: "03",
+    name: "Design",
+    body: "Editorial interfaces and design-token systems where typography and form carry as much meaning as the copy.",
+  },
+  {
+    n: "04",
+    name: "Language",
+    body: "Multilingual architecture and applied linguistics — twelve languages in active study, built into the work.",
+  },
+] as const;
+
 export default function AboutPage() {
   return (
     <SiteLayout>
@@ -89,7 +113,7 @@ export default function AboutPage() {
         <PageHeader
           kicker="Ryan J. Pyles — the archive"
           title="About"
-          intro="Author, engineer, and linguist in Chicago — the person behind FORMÆTRIX and Elian Voigt."
+          intro="Multidisciplinary technologist in Chicago — software, AI, design, and language. The person behind the FORMÆTRIX studio and the writer Elian Voigt."
         />
 
         {/* A drawn portrait — one person in three passes — inks itself in. */}
@@ -177,6 +201,42 @@ export default function AboutPage() {
           </div>
         </div>
 
+        {/* ── The harder professional layer ───────────────────────── */}
+        <section className={styles.practice} aria-label="Practice">
+          <h2 className={styles.practiceHeading}>The practice</h2>
+          <p className={styles.practiceIntro}>
+            Beneath the literary surface is a working engineering practice. Ryan
+            builds production systems across four disciplines — most often where
+            they overlap.
+          </p>
+          <ol className={styles.disciplines}>
+            {disciplines.map((d) => (
+              <li key={d.n} className={styles.discipline}>
+                <span className={styles.disciplineNo}>{d.n}</span>
+                <span className={styles.disciplineName}>{d.name}</span>
+                <span className={styles.disciplineBody}>{d.body}</span>
+              </li>
+            ))}
+          </ol>
+          <p className={styles.selected}>
+            Selected systems:{" "}
+            <Link href="/projects/continuity-atlas">Continuity Atlas</Link>{" "}
+            (AI narrative memory),{" "}
+            <Link href="/projects/polytype">Polytype</Link>{" "}
+            (a locale-aware typography engine),{" "}
+            <Link href="/projects/publish-architecture">Publish Architecture</Link>{" "}
+            (structured publishing infrastructure), and a{" "}
+            <Link href="/projects/locale-aware-product-system">
+              Locale-Aware Product System
+            </Link>{" "}
+            — each a real, deterministic engine with a live demo.
+          </p>
+          <p className={styles.stack}>
+            <span className={styles.stackLabel}>Stack</span>
+            React · Next.js · TypeScript · Node · AI&nbsp;/&nbsp;RAG · Intl&nbsp;&amp;&nbsp;i18n · CSS architecture
+          </p>
+        </section>
+
         <Reveal>
           <Figure
             src="/images/about/orrery-formaetrix.jpg"
@@ -193,15 +253,18 @@ export default function AboutPage() {
         <div className={styles.closing}>
           <h2 className={styles.subheading}>FORM<Ae />TRIX</h2>
           <p>
-            FORM<Ae />TRIX is an imprint Ryan founded for work that operates at
-            the edge of what publishing categories can hold. It is the home of
-            Elian Voigt — the literary identity through which Ryan&rsquo;s fiction
-            is released — whose books refuse the distinction between literary and
-            genre fiction.
+            FORM<Ae />TRIX is Ryan&rsquo;s studio — the multidisciplinary
+            practice behind the systems above: software, AI, design, and the
+            publishing infrastructure underneath them. It also runs an imprint:
+            the publishing line through which Elian Voigt&rsquo;s fiction is
+            released.
           </p>
           <p>
-            The relationship between the person and the imprint is not fully
-            explained here. It is felt in the work.
+            So the three names are three layers, not three people.{" "}
+            <strong>Ryan Pyles</strong> is the technologist.{" "}
+            <strong>FORM<Ae />TRIX</strong> is the studio, and the imprint it
+            runs. <strong>Elian Voigt</strong> is the literary identity the
+            fiction is published under.
           </p>
 
           <p className={styles.footnote}>

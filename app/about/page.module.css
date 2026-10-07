@@ -105,6 +105,117 @@
   gap: var(--space-6);
 }
 
+/* ── The practice — harder professional layer ───────────────────────────── */
+.practice {
+  max-width: var(--content-width);
+  margin: var(--space-20) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.practiceHeading {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-white) 45%, transparent);
+  margin: 0;
+}
+
+.practiceIntro {
+  font-family: var(--font-garamond, var(--font-serif));
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--color-white);
+  margin: 0;
+  max-width: 54ch;
+}
+
+.disciplines {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--color-border);
+  border: 1px solid var(--color-border);
+}
+
+.discipline {
+  background: var(--color-black);
+  padding: var(--space-5) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.disciplineNo {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  color: var(--color-accent);
+}
+
+.disciplineName {
+  font-family: var(--font-display, var(--font-serif));
+  font-size: var(--text-xl);
+  line-height: 1.1;
+  color: var(--color-white);
+}
+
+.disciplineBody {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--color-white) 64%, transparent);
+}
+
+.selected {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--color-white) 72%, transparent);
+  margin: 0;
+}
+
+.selected a {
+  color: var(--color-white);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 50%, transparent);
+  transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.selected a:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+.stack {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  line-height: 1.8;
+  color: var(--color-muted);
+  margin: 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.stackLabel {
+  display: inline-block;
+  color: var(--color-accent);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-right: var(--space-3);
+}
+
+@media (max-width: 640px) {
+  .disciplines {
+    grid-template-columns: 1fr;
+  }
+}
+
 .subheading {
   font-family: var(--font-mono);
   font-size: var(--text-xs);

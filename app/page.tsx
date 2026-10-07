@@ -8,6 +8,7 @@ import EcosystemScene from "@/components/EcosystemScene";
 import WhatIBuild from "@/components/WhatIBuild";
 import Disciplines from "@/components/Disciplines";
 import HeroOrrery from "@/components/HeroOrrery";
+import SystemsMap from "@/components/SystemsMap";
 import { Ae } from "@/components/Ae";
 import RotateHint from "@/components/RotateHint";
 import BooksScene from "@/components/BooksScene";
@@ -234,6 +235,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Systems map — the brand architecture, navigable ────── */}
+      <SystemsMap />
 
       {/* ── What I build for clients (commercial legibility) ───── */}
       <WhatIBuild />

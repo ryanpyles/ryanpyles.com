@@ -1,0 +1,280 @@
+/* SystemsMap — ink line-work on bone, orange as the connection signal.
+   Colours resolve from the ryan-domain tokens already on the page. */
+
+.section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-24) var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.head {
+  max-width: 640px;
+  margin: 0 auto var(--space-12);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.heading {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 3.4vw, 42px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  margin: 0;
+}
+
+.sub {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--color-muted);
+  margin: 0;
+}
+
+/* ── Orbital figure ─────────────────────────────────────────────────────── */
+.figure {
+  position: relative;
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+  aspect-ratio: 1000 / 860;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.axis {
+  stroke: var(--color-accent);
+  stroke-width: 0.75;
+  stroke-dasharray: 2 8;
+  opacity: 0.22;
+}
+.ring,
+.ringDashed {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-white) 55%, transparent);
+  stroke-width: 1;
+}
+.ringDashed {
+  stroke-dasharray: 3 7;
+  stroke: color-mix(in srgb, var(--color-white) 38%, transparent);
+}
+
+.edge {
+  stroke: color-mix(in srgb, var(--color-white) 34%, transparent);
+  stroke-width: 1;
+  transition: stroke 220ms ease, stroke-width 220ms ease;
+}
+.edgeOn {
+  stroke: var(--color-accent);
+  stroke-width: 1.75;
+}
+
+.joint {
+  fill: var(--color-accent);
+  opacity: 0.55;
+  transition: opacity 220ms ease, r 220ms ease;
+}
+.jointOn { opacity: 1; }
+
+.hubSphere { stroke: color-mix(in srgb, #3a2a12 55%, transparent); stroke-width: 0.5; }
+.hubRing {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-white) 45%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+}
+
+/* ── Node label layer ───────────────────────────────────────────────────── */
+.nodes {
+  position: absolute;
+  inset: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nodeWrap {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.node {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-decoration: none;
+  white-space: normal;
+  text-align: center;
+  width: max-content;
+  max-width: 150px;
+}
+.nodeWrap[data-vside="down"] .node { top: 10px; }
+.nodeWrap[data-vside="up"] .node { bottom: 10px; }
+.nodeWrap[data-vside="center"] .node { top: 50%; transform: translate(-50%, -50%); }
+
+.nodeLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  line-height: 1.25;
+  color: var(--color-white);
+  background: var(--color-black); /* bone chip masks the line behind the text */
+  box-shadow: 0 0 0 4px var(--color-black);
+  transition: color 200ms ease;
+}
+
+.tier_hub .nodeLabel {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  color: #fbf3e2;
+  background: transparent;
+  box-shadow: none;
+  text-shadow: 0 1px 3px rgba(40, 26, 8, 0.7);
+}
+
+.tier_discipline .nodeLabel { color: var(--color-white); }
+.tier_project .nodeLabel,
+.tier_identity .nodeLabel { color: var(--color-muted); }
+
+/* States */
+.node:hover .nodeLabel,
+.node:focus-visible .nodeLabel,
+.active .nodeLabel {
+  color: var(--color-accent);
+}
+.node:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.dim { opacity: 0.4; transition: opacity 220ms ease; }
+.nodeStatic { cursor: default; }
+
+/* ── Live caption ───────────────────────────────────────────────────────── */
+.caption {
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  pointer-events: none;
+}
+.captionLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+.captionMeta {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--color-white);
+}
+.captionIdle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-md);
+  color: var(--color-muted);
+}
+
+/* ── Outline fallback (hidden on wide screens) ──────────────────────────── */
+.outline { display: none; }
+
+@media (max-width: 760px) {
+  .figure { display: none; }
+  .outline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .outlineHub {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .outlineHubLabel {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    color: var(--color-white);
+  }
+  .outlineHubMeta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .outlineGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-inline-start: var(--space-4);
+    border-inline-start: 2px solid var(--color-border);
+  }
+  .outlineDiscipline {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.12em;
+    color: var(--color-white);
+    text-decoration: none;
+    width: max-content;
+  }
+  .outlineDiscipline:hover { color: var(--color-accent); }
+  .outlineMeta {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+  .outlineProjects {
+    list-style: none;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .outlineProject {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+  .outlineProject::before {
+    content: "— ";
+    color: var(--color-accent);
+  }
+  .outlineProject:hover { color: var(--color-accent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edge, .joint, .nodeLabel, .dim { transition: none; }
+}

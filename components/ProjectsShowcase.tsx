@@ -187,6 +187,13 @@ export default function ProjectsShowcase({
               </div>
 
               <div className={styles.rowMeta}>
+                <span className={styles.rowFig} aria-hidden="true">
+                  Fig. {num}
+                </span>
+                {/* Museum wall-label: the medium, revealed on hover/focus. */}
+                <span className={styles.rowCat} aria-hidden="true">
+                  {p.live ? "Live system" : "System"} · {p.tags[0]}
+                </span>
                 <span className={styles.year}>{p.year}</span>
                 <span className={styles.arrow} aria-hidden="true">
                   →

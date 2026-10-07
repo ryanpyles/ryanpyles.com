@@ -289,6 +289,40 @@
   color: var(--color-muted);
 }
 
+/* Archival catalogue index — ties the project index into the Fig. grammar. */
+.rowFig {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-style: italic;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--color-accent) 80%, transparent);
+}
+
+/* Museum wall-label — the "medium", revealed on hover/focus. */
+.rowCat {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-align: end;
+  max-width: 18ch;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.rowLink:hover .rowCat,
+.rowLink:focus-visible .rowCat {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rowCat { transition: none; }
+}
+
 .arrow {
   font-size: var(--text-xl);
   color: color-mix(in srgb, var(--color-white) 34%, transparent);

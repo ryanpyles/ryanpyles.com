@@ -10,6 +10,7 @@ import HeroOrrery from "@/components/HeroOrrery";
 import LanguageInterstitial from "@/components/LanguageInterstitial";
 import SectionTransition from "@/components/SectionTransition";
 import HomeArtifacts from "@/components/HomeArtifacts";
+import PolytypeSpecimen from "@/components/PolytypeSpecimen";
 import { Ae } from "@/components/Ae";
 import RotateHint from "@/components/RotateHint";
 import BooksScene from "@/components/BooksScene";
@@ -199,6 +200,14 @@ export default function HomePage() {
            a way to act — before the literary half of the site begins. ─ */}
       {/* ── Featured Work: Continuity Atlas — pinned product scene ─ */}
       <ContinuityAtlasScene />
+
+      {/* ── Signature system: Polytype — the live multilingual
+           specimen. Script-switching recomposition driven by the real
+           engine; the site's most distinctive proof of the language +
+           engineering overlap. Deferred to keep it off the critical path. ─ */}
+      <DeferMount strategy="visible" minHeight="720px">
+        <PolytypeSpecimen />
+      </DeferMount>
 
       {/* ── Selected systems — compact evidence plates ─────────── */}
       <HomeArtifacts />

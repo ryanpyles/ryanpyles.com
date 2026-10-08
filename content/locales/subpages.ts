@@ -222,7 +222,7 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
       kicker: "Ryan J. Pyles — the archive",
       title: "About",
       intro:
-        "Author, engineer, and linguist in Chicago — the person behind FORMÆTRIX and Elian Voigt.",
+        "Multidisciplinary technologist in Chicago — software, AI, design, and language. The person behind the FORMÆTRIX studio and the writer Elian Voigt.",
       lede:
         "Ryan J. Pyles writes experimental fiction and builds web systems. The work — across both disciplines — starts from the same premise: what is the minimum necessary to make something hold?",
       studioParas: [
@@ -233,8 +233,8 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
         "He studies twelve languages and is interested in the way grammar constrains and enables thought — and in how those constraints travel between natural language and code.",
       pull: "He is based in Chicago.",
       imprintParas: [
-        "FORMÆTRIX is an imprint Ryan founded for work that operates at the edge of what publishing categories can hold. It is the home of Elian Voigt — the literary identity through which Ryan's fiction is released — whose books refuse the distinction between literary and genre fiction.",
-        "The relationship between the person and the imprint is not fully explained here. It is felt in the work.",
+        "FORMÆTRIX is Ryan's studio — the multidisciplinary practice behind the systems: software, AI, design, and the publishing infrastructure underneath them. It also runs an imprint: the publishing line through which Elian Voigt's fiction is released.",
+        "So the three names are three layers, not three people. Ryan Pyles is the technologist. FORMÆTRIX is the studio, and the imprint it runs. Elian Voigt is the literary identity the fiction is published under.",
       ],
       footnote:
         "Ryan Pyles is the real person. Elian Voigt is the authorial identity — a distinct literary voice, not a pseudonym in any simple sense. The distinction matters less than the work it produces.",
@@ -415,7 +415,7 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
       kicker: "Ryan J. Pyles — el archivo",
       title: "Sobre mí",
       intro:
-        "Autor, ingeniero y lingüista en Chicago: la persona detrás de FORMÆTRIX y Elian Voigt.",
+        "Tecnólogo multidisciplinar en Chicago: software, IA, diseño y lengua. La persona detrás del estudio FORMÆTRIX y del escritor Elian Voigt.",
       lede:
         "Ryan J. Pyles escribe ficción experimental y construye sistemas web. El trabajo —en ambas disciplinas— parte de la misma premisa: ¿qué es lo mínimo necesario para que algo se sostenga?",
       studioParas: [
@@ -426,8 +426,8 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
         "Estudia doce idiomas y le interesa cómo la gramática limita y a la vez habilita el pensamiento, y cómo esas restricciones viajan entre la lengua natural y el código.",
       pull: "Vive en Chicago.",
       imprintParas: [
-        "FORMÆTRIX es un sello que Ryan fundó para el trabajo que opera en el límite de lo que las categorías editoriales pueden contener. Es la casa de Elian Voigt —la identidad literaria a través de la cual se publica la ficción de Ryan—, cuyos libros rechazan la distinción entre ficción literaria y de género.",
-        "La relación entre la persona y el sello no se explica del todo aquí. Se siente en el trabajo.",
+        "FORMÆTRIX es el estudio de Ryan: la práctica multidisciplinar detrás de los sistemas, de software, IA, diseño y de la infraestructura editorial que los sostiene. También dirige un sello, la línea por la que se publica la ficción de Elian Voigt.",
+        "Los tres nombres son tres capas, no tres personas. Ryan Pyles es el tecnólogo. FORMÆTRIX es el estudio, y el sello que ese estudio dirige. Elian Voigt es la identidad literaria bajo la cual se publica la ficción.",
       ],
       footnote:
         "Ryan Pyles es la persona real. Elian Voigt es la identidad autoral: una voz literaria propia, no un seudónimo en el sentido simple. La distinción importa menos que el trabajo que produce.",
@@ -614,7 +614,7 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
       kicker: "Ryan J. Pyles — l'archive",
       title: "À propos",
       intro:
-        "Auteur, ingénieur et linguiste à Chicago — la personne derrière FORMÆTRIX et Elian Voigt.",
+        "Technologiste multidisciplinaire à Chicago — logiciel, IA, design et langue. La personne derrière le studio FORMÆTRIX et l'écrivain Elian Voigt.",
       lede:
         "Ryan J. Pyles écrit de la fiction expérimentale et construit des systèmes web. Le travail — dans les deux disciplines — part de la même prémisse : quel est le minimum nécessaire pour que quelque chose tienne ?",
       studioParas: [
@@ -625,8 +625,8 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
         "Il étudie douze langues et s'intéresse à la manière dont la grammaire contraint et rend possible la pensée — et à la façon dont ces contraintes circulent entre la langue naturelle et le code.",
       pull: "Il vit à Chicago.",
       imprintParas: [
-        "FORMÆTRIX est une maison que Ryan a fondée pour le travail qui opère à la limite de ce que les catégories éditoriales peuvent contenir. C'est la demeure d'Elian Voigt — l'identité littéraire par laquelle paraît la fiction de Ryan —, dont les livres refusent la distinction entre littérature et fiction de genre.",
-        "La relation entre la personne et la maison n'est pas entièrement expliquée ici. Elle se ressent dans le travail.",
+        "FORMÆTRIX est le studio de Ryan — la pratique multidisciplinaire derrière les systèmes : logiciel, IA, design, et l'infrastructure d'édition qui les porte. Il dirige aussi une maison : la ligne par laquelle paraît la fiction d'Elian Voigt.",
+        "Les trois noms sont trois couches, pas trois personnes. Ryan Pyles est le technologiste. FORMÆTRIX est le studio, et la maison qu'il fait tourner. Elian Voigt est l'identité littéraire sous laquelle la fiction paraît.",
       ],
       footnote:
         "Ryan Pyles est la personne réelle. Elian Voigt est l'identité auctoriale — une voix littéraire à part entière, pas un pseudonyme au sens simple. La distinction importe moins que le travail qu'elle produit.",
@@ -813,7 +813,7 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
       kicker: "Ryan J. Pyles — das Archiv",
       title: "Über mich",
       intro:
-        "Autor, Ingenieur und Linguist in Chicago — der Mensch hinter FORMÆTRIX und Elian Voigt.",
+        "Multidisziplinärer Technologe in Chicago — Software, KI, Design und Sprache. Die Person hinter dem Studio FORMÆTRIX und dem Autor Elian Voigt.",
       lede:
         "Ryan J. Pyles schreibt experimentelle Fiktion und baut Websysteme. Die Arbeit — in beiden Disziplinen — geht von derselben Prämisse aus: Was ist das Mindeste, damit etwas trägt?",
       studioParas: [
@@ -824,8 +824,8 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
         "Er studiert zwölf Sprachen und interessiert sich dafür, wie Grammatik das Denken einschränkt und ermöglicht — und wie diese Beschränkungen zwischen natürlicher Sprache und Code wandern.",
       pull: "Er lebt in Chicago.",
       imprintParas: [
-        "FORMÆTRIX ist ein Verlagslabel, das Ryan für Arbeit gegründet hat, die am Rand dessen operiert, was verlegerische Kategorien fassen können. Es ist das Zuhause von Elian Voigt — der literarischen Identität, durch die Ryans Fiktion erscheint — deren Bücher die Unterscheidung zwischen Literatur und Genrefiktion verweigern.",
-        "Das Verhältnis zwischen der Person und dem Label wird hier nicht vollständig erklärt. Es ist in der Arbeit zu spüren.",
+        "FORMÆTRIX ist Ryans Studio — die multidisziplinäre Praxis hinter den Systemen: Software, KI, Design und die Publikationsinfrastruktur darunter. Es führt auch ein Imprint: die Linie, über die die Fiktion von Elian Voigt erscheint.",
+        "Die drei Namen sind drei Schichten, nicht drei Personen. Ryan Pyles ist der Technologe. FORMÆTRIX ist das Studio und das Imprint, das es führt. Elian Voigt ist die literarische Identität, unter der die Fiktion erscheint.",
       ],
       footnote:
         "Ryan Pyles ist die reale Person. Elian Voigt ist die Autoren-Identität — eine eigenständige literarische Stimme, kein Pseudonym im einfachen Sinn. Die Unterscheidung zählt weniger als die Arbeit, die sie hervorbringt.",
@@ -1012,7 +1012,7 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
       kicker: "Ryan J. Pyles — アーカイブ",
       title: "私について",
       intro:
-        "シカゴを拠点とする作家・エンジニア・言語学者——FORMÆTRIX と Elian Voigt の背後にいる人物。",
+        "シカゴを拠点とする、領域を横断する技術者。ソフトウェア、AI、デザイン、言語。スタジオ FORMÆTRIX と、作家 Elian Voigt の背後にいる人物。",
       lede:
         "Ryan J. Pyles は実験的なフィクションを書き、ウェブシステムを築きます。どちらの領域でも、仕事は同じ前提から始まります——何かを成り立たせるために、最小限必要なものは何か？",
       studioParas: [
@@ -1023,8 +1023,8 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
         "彼は十二の言語を学び、文法がどのように思考を制約し、また可能にするか——そしてその制約が自然言語とコードのあいだをどう行き来するかに関心を寄せています。",
       pull: "拠点はシカゴ。",
       imprintParas: [
-        "FORMÆTRIX は、出版のカテゴリーが抱えきれる境界の際で動く仕事のために、Ryan が立ち上げたインプリントです。ここは Elian Voigt の家——Ryan のフィクションが世に出るための文学的アイデンティティ——であり、その本は純文学とジャンル小説の区別を拒みます。",
-        "人物とインプリントの関係は、ここで完全には説明されません。それは仕事のなかで感じ取られます。",
+        "FORMÆTRIX は Ryan のスタジオだ。ソフトウェア、AI、デザイン、そしてその下にある出版の基盤。領域を横断する実務である。あわせてインプリントを運営する。Elian Voigt のフィクションはそこから出る。",
+        "三つの名前は三人ではなく、三つの層だ。Ryan Pyles が技術者。FORMÆTRIX がスタジオであり、それが運営するインプリントでもある。Elian Voigt は、フィクションが刊行される文学の身分だ。",
       ],
       footnote:
         "Ryan Pyles は実在の人物です。Elian Voigt は作家としてのアイデンティティ——単なる筆名ではなく、独立した文学的な声です。その区別よりも、そこから生まれる仕事のほうが重要です。",
@@ -1211,7 +1211,7 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
       kicker: "Ryan J. Pyles — l'archivio",
       title: "Chi sono",
       intro:
-        "Autore, ingegnere e linguista a Chicago — la persona dietro FORMÆTRIX ed Elian Voigt.",
+        "Tecnologo multidisciplinare a Chicago — software, IA, design e lingua. La persona dietro lo studio FORMÆTRIX e lo scrittore Elian Voigt.",
       lede:
         "Ryan J. Pyles scrive narrativa sperimentale e costruisce sistemi web. Il lavoro — in entrambe le discipline — parte dalla stessa premessa: qual è il minimo necessario perché qualcosa tenga?",
       studioParas: [
@@ -1222,8 +1222,8 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
         "Studia dodici lingue ed è interessato al modo in cui la grammatica vincola e rende possibile il pensiero — e a come quei vincoli viaggiano tra lingua naturale e codice.",
       pull: "Vive a Chicago.",
       imprintParas: [
-        "FORMÆTRIX è un marchio editoriale che Ryan ha fondato per il lavoro che opera al limite di ciò che le categorie editoriali riescono a contenere. È la casa di Elian Voigt — l'identità letteraria attraverso cui esce la narrativa di Ryan — i cui libri rifiutano la distinzione tra narrativa letteraria e di genere.",
-        "Il rapporto tra la persona e il marchio non è spiegato del tutto qui. Si sente nel lavoro.",
+        "FORMÆTRIX è lo studio di Ryan — la pratica multidisciplinare dietro i sistemi: software, IA, design, e l'infrastruttura editoriale che li sostiene. Gestisce anche un marchio: la linea attraverso cui esce la narrativa di Elian Voigt.",
+        "I tre nomi sono tre strati, non tre persone. Ryan Pyles è il tecnologo. FORMÆTRIX è lo studio, e il marchio che esso gestisce. Elian Voigt è l'identità letteraria sotto cui la narrativa esce.",
       ],
       footnote:
         "Ryan Pyles è la persona reale. Elian Voigt è l'identità autoriale — una voce letteraria a sé, non uno pseudonimo in senso semplice. La distinzione conta meno del lavoro che produce.",
@@ -1410,7 +1410,7 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
       kicker: "Ryan J. Pyles — o arquivo",
       title: "Sobre mim",
       intro:
-        "Autor, engenheiro e linguista em Chicago — a pessoa por trás da FORMÆTRIX e de Elian Voigt.",
+        "Tecnólogo multidisciplinar em Chicago — software, IA, design e língua. A pessoa por trás do estúdio FORMÆTRIX e do escritor Elian Voigt.",
       lede:
         "Ryan J. Pyles escreve ficção experimental e constrói sistemas web. O trabalho — nas duas disciplinas — parte da mesma premissa: qual é o mínimo necessário para que algo se sustente?",
       studioParas: [
@@ -1421,8 +1421,8 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
         "Ele estuda doze idiomas e se interessa pela forma como a gramática limita e possibilita o pensamento — e por como essas restrições transitam entre a língua natural e o código.",
       pull: "Ele mora em Chicago.",
       imprintParas: [
-        "A FORMÆTRIX é um selo que Ryan fundou para o trabalho que opera no limite do que as categorias editoriais conseguem conter. É a casa de Elian Voigt — a identidade literária pela qual a ficção de Ryan é lançada — cujos livros recusam a distinção entre ficção literária e de gênero.",
-        "A relação entre a pessoa e o selo não é totalmente explicada aqui. Ela é sentida no trabalho.",
+        "A FORMÆTRIX é o estúdio de Ryan — a prática multidisciplinar por trás dos sistemas: software, IA, design e a infraestrutura editorial que os sustenta. Também opera um selo: a linha pela qual a ficção de Elian Voigt é lançada.",
+        "Os três nomes são três camadas, não três pessoas. Ryan Pyles é o tecnólogo. FORMÆTRIX é o estúdio, e o selo que ele opera. Elian Voigt é a identidade literária sob a qual a ficção é publicada.",
       ],
       footnote:
         "Ryan Pyles é a pessoa real. Elian Voigt é a identidade autoral — uma voz literária própria, não um pseudônimo em sentido simples. A distinção importa menos do que o trabalho que produz.",
@@ -1609,7 +1609,7 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
       kicker: "Ryan J. Pyles — 檔案",
       title: "關於我",
       intro:
-        "身在芝加哥的作家、工程師與語言學者——FORMÆTRIX 與 Elian Voigt 背後的那個人。",
+        "駐芝加哥的跨領域技術者——軟體、人工智慧、設計與語言。FORMÆTRIX 工作室與作家 Elian Voigt 背後的那個人。",
       lede:
         "Ryan J. Pyles 寫實驗小說，也打造網頁系統。無論在哪個領域，作品都始於同一個前提：要讓一件事物成立，最少需要什麼？",
       studioParas: [
@@ -1620,8 +1620,8 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
         "他研究十二種語言，關注文法如何約束並同時開啟思考——以及這些約束如何在自然語言與程式碼之間往返。",
       pull: "他住在芝加哥。",
       imprintParas: [
-        "FORMÆTRIX 是 Ryan 創立的出版標記，收容那些遊走在出版分類邊界的作品。它是 Elian Voigt 的家——Ryan 的小說透過這個文學身分問世——這些書拒絕在純文學與類型小說之間劃界。",
-        "人與這個標記之間的關係，這裡不會完全說明。它在作品中被感受到。",
+        "FORMÆTRIX 是 Ryan 的工作室——那些系統背後的跨領域實務：軟體、人工智慧、設計，以及承托它們的出版基礎設施。它也經營一個出版標記：Elian Voigt 的小說由此發行。",
+        "這三個名字是三層，不是三個人。Ryan Pyles 是技術者。FORMÆTRIX 是工作室，也是它經營的出版標記。Elian Voigt 是小說出版時所用的文學身分。",
       ],
       footnote:
         "Ryan Pyles 是真實的人。Elian Voigt 是作者身分——一個獨立的文學聲音，而非簡單意義上的筆名。這個區別，遠不如它所產出的作品來得重要。",
@@ -1806,7 +1806,7 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
       kicker: "Ryan J. Pyles — הארכיון",
       title: "אודות",
       intro:
-        "סופר, מהנדס ובלשן בשיקגו — האדם שמאחורי FORMÆTRIX ו-Elian Voigt.",
+        "טכנולוג רב־תחומי בשיקגו — תוכנה, בינה מלאכותית, עיצוב ושפה. האדם שמאחורי הסטודיו FORMÆTRIX והסופר Elian Voigt.",
       lede:
         "Ryan J. Pyles כותב סיפורת ניסיונית ובונה מערכות ווב. העבודה — בשני התחומים — יוצאת מאותה הנחה: מהו המינימום ההכרחי כדי שדבר-מה יחזיק?",
       studioParas: [
@@ -1817,8 +1817,8 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
         "הוא לומד שתים-עשרה שפות ומתעניין באופן שבו הדקדוק מגביל ומאפשר את המחשבה — ובאופן שבו האילוצים האלה נעים בין השפה הטבעית לקוד.",
       pull: "הוא חי בשיקגו.",
       imprintParas: [
-        "FORMÆTRIX היא הוצאה ש-Ryan הקים עבור עבודה שפועלת בקצה של מה שקטגוריות הוצאה לאור מסוגלות להכיל. זהו ביתו של Elian Voigt — הזהות הספרותית שדרכה יוצאת הסיפורת של Ryan — שספריה מסרבים להבחנה בין ספרות יפה לספרות ז'אנר.",
-        "הקשר בין האדם לבין ההוצאה אינו מוסבר כאן במלואו. הוא מורגש בעבודה.",
+        "FORMÆTRIX הוא הסטודיו של Ryan — הפרקטיקה הרב־תחומית שמאחורי המערכות: תוכנה, בינה מלאכותית, עיצוב, ותשתית ההוצאה שמתחתיהן. הוא גם מפעיל חותם: הקו שדרכו יוצאת הסיפורת של Elian Voigt.",
+        "שלושת השמות הם שלוש שכבות, לא שלושה אנשים. Ryan Pyles הוא הטכנולוג. FORMÆTRIX הוא הסטודיו, והחותם שהוא מפעיל. Elian Voigt הוא הזהות הספרותית שתחתיה הסיפורת יוצאת.",
       ],
       footnote:
         "Ryan Pyles הוא האדם האמיתי. Elian Voigt הוא הזהות היוצרת — קול ספרותי נבדל, לא שם עט במובן הפשוט. ההבחנה חשובה פחות מהעבודה שהיא מולידה.",
@@ -2005,7 +2005,7 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
       kicker: "Ryan J. Pyles — arkivet",
       title: "Om meg",
       intro:
-        "Forfattar, ingeniør og språkforskar i Chicago — mennesket bak FORMÆTRIX og Elian Voigt.",
+        "Tverrfagleg teknolog i Chicago — programvare, KI, design og språk. Mennesket bak studioet FORMÆTRIX og forfattaren Elian Voigt.",
       lede:
         "Ryan J. Pyles skriv eksperimentell skjønnlitteratur og byggjer vevsystem. Arbeidet — i begge fag — startar frå same premiss: kva er det minste som skal til for at noko held?",
       studioParas: [
@@ -2016,8 +2016,8 @@ export const subpagesContent: Record<Locale, SubpagesContent> = {
         "Han studerer tolv språk og er oppteken av korleis grammatikk avgrensar og opnar tanken — og av korleis desse avgrensingane reiser mellom naturleg språk og kode.",
       pull: "Han bur i Chicago.",
       imprintParas: [
-        "FORMÆTRIX er eit forlagsmerke Ryan grunnla for arbeid som verkar i kanten av det forlagskategoriane kan romme. Det er heimen til Elian Voigt — den litterære identiteten skjønnlitteraturen til Ryan kjem ut gjennom — der bøkene nektar skiljet mellom skjønnlitteratur og sjangerlitteratur.",
-        "Tilhøvet mellom mennesket og merket blir ikkje fullt ut forklart her. Det blir kjent i arbeidet.",
+        "FORMÆTRIX er studioet til Ryan — den tverrfaglege praksisen bak systema: programvare, KI, design, og utgjevarsinfrastrukturen under dei. Det driv òg eit forlagsmerke: lina fiksjonen til Elian Voigt kjem ut gjennom.",
+        "Dei tre namna er tre lag, ikkje tre personar. Ryan Pyles er teknologen. FORMÆTRIX er studioet, og forlagsmerket det driv. Elian Voigt er den litterære identiteten fiksjonen kjem ut under.",
       ],
       footnote:
         "Ryan Pyles er den verkelege personen. Elian Voigt er forfattaridentiteten — ei eiga litterær røyst, ikkje eit pseudonym i enkel forstand. Skiljet tel mindre enn arbeidet det ber fram.",

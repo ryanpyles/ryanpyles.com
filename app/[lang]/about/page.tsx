@@ -9,7 +9,11 @@ import { Ae } from "@/components/Ae";
 import Portrait from "@/components/Portrait";
 import MotionPlate from "@/components/MotionPlate";
 import ReadingSpine from "@/components/ReadingSpine";
+import FaqBlock from "@/components/FaqBlock";
+import Figure from "@/components/Figure";
+import Reveal from "@/components/Reveal";
 import { subpagesContent, aboutWorkMeta } from "@/content/locales/subpages";
+import { aboutPractice } from "@/content/locales/aboutPractice";
 import {
   isLocale,
   defaultLocale,
@@ -68,6 +72,7 @@ export default function LocalizedAbout({ params }: Params) {
   if (!isLocale(lang) || lang === defaultLocale) notFound();
   const loc = lang as Locale;
   const c = subpagesContent[loc].about;
+  const practice = aboutPractice[loc];
 
   return (
     <LocaleShell lang={loc}>
@@ -80,9 +85,9 @@ export default function LocalizedAbout({ params }: Params) {
             <MotionPlate
               src="/assets/videos/ryan-pyles-generalist.mp4"
               poster="/assets/videos/ryan-pyles-generalist-poster.jpg"
-              label="A short silent loop: Ryan Pyles stands on a lit disc in a dark studio under a single overhead beam, as scanning rings rotate slowly around him. A lockup to the left reads: Ryan Pyles, Multidisciplinary Human System, built across disciplines."
+              label={practice.figures.leadLabel}
               index="fig. 01"
-              caption="Multidisciplinary Human System — built across disciplines."
+              caption={practice.figures.leadCaption}
               aspect="16 / 9"
               silent
               className={styles.leadPlate}
@@ -93,9 +98,9 @@ export default function LocalizedAbout({ params }: Params) {
           <div className={`${styles.row} ${styles.rowStudio}`}>
             <Portrait
               src="/images/portraits/ryan-pyles-studio.jpg"
-              alt="Ryan J. Pyles seated at a drafting table spread with floor plans, in a concrete-and-timber studio lined with books."
+              alt={practice.figures.studioAlt}
               index="fig. 02"
-              caption="Chicago studio — drafting table, reference library, work in plan."
+              caption={practice.figures.studioCaption}
               aspect="4 / 3"
               sizes="(max-width: 900px) 100vw, 560px"
               className={styles.studioPlate}
@@ -113,15 +118,57 @@ export default function LocalizedAbout({ params }: Params) {
             </div>
             <Portrait
               src="/images/portraits/ryan-pyles-figure.jpg"
-              alt="A vinyl figure of Ryan Pyles on a desk, standing in front of a monitor showing the same character as an untextured 3D model, with anatomy reference sheets pinned to the wall behind."
+              alt={practice.figures.figureAlt}
               index="fig. 03"
-              caption="Figure study — reference sheets, mesh, packaged object. The same pipeline, run end to end."
+              caption={practice.figures.figureCaption}
               aspect="2 / 3"
               sizes="(max-width: 900px) 100vw, 300px"
               className={styles.figurePlate}
             />
           </div>
         </div>
+
+
+        <section className={styles.practice} aria-label={practice.practiceLabel}>
+          <h2 className={styles.practiceHeading}>{practice.practiceHeading}</h2>
+          <p className={styles.practiceIntro}>{practice.practiceIntro}</p>
+          <ol className={styles.disciplines}>
+            {practice.disciplines.map((d) => (
+              <li key={d.n} className={styles.discipline}>
+                <span className={styles.disciplineNo}>{d.n}</span>
+                <span className={styles.disciplineName}>{d.name}</span>
+                <span className={styles.disciplineBody}>{d.body}</span>
+              </li>
+            ))}
+          </ol>
+          <p className={styles.selected}>
+            {practice.selectedLead}{" "}
+            {practice.systems.map((system, i) => (
+              <span key={system.href}>
+                {i > 0 ? ", " : null}
+                <Link href={system.href}>{system.name}</Link> ({system.gloss})
+              </span>
+            ))}
+            {" — "}
+            {practice.selectedTail}
+          </p>
+          <p className={styles.stack}>
+            <span className={styles.stackLabel}>{practice.stackLabel}</span>
+            React · Next.js · TypeScript · Node · AI&nbsp;/&nbsp;RAG · Intl&nbsp;&&nbsp;i18n · CSS architecture
+          </p>
+        </section>
+
+        <Reveal>
+          <Figure
+            src="/images/about/orrery-formaetrix.jpg"
+            alt={practice.figures.orreryAlt}
+            width={1168}
+            height={784}
+            index="fig. 04"
+            caption={practice.figures.orreryCaption}
+            sizes="(max-width: 900px) 100vw, 720px"
+          />
+        </Reveal>
 
         <div className={styles.closing}>
           <h2 className={styles.subheading}>
@@ -163,6 +210,8 @@ export default function LocalizedAbout({ params }: Params) {
             {c.pressLink}
           </Link>
         </div>
+
+        <FaqBlock heading={practice.faqHeading} items={practice.faq} />
       </Section>
     </LocaleShell>
   );

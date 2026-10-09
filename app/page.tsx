@@ -9,7 +9,7 @@ import Disciplines from "@/components/Disciplines";
 import HeroOrrery from "@/components/HeroOrrery";
 import LanguageInterstitial from "@/components/LanguageInterstitial";
 import SectionTransition from "@/components/SectionTransition";
-import HomeArtifacts from "@/components/HomeArtifacts";
+import FlagshipWork from "@/components/FlagshipWork";
 import PolytypeSpecimen from "@/components/PolytypeSpecimen";
 import { Ae } from "@/components/Ae";
 import RotateHint from "@/components/RotateHint";
@@ -209,8 +209,9 @@ export default function HomePage() {
         <PolytypeSpecimen />
       </DeferMount>
 
-      {/* ── Selected systems — compact evidence plates ─────────── */}
-      <HomeArtifacts />
+      {/* ── Selected systems — large editorial exhibits, one per
+           flagship, each with a native diagram of its own logic ─── */}
+      <FlagshipWork />
 
       {/* ── Work in progress — one line, not a ledger of unpublished work ─ */}
       <section className={styles.progressNote} aria-label="Work in progress">

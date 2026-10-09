@@ -20,6 +20,9 @@ export default function Footer() {
             fn. 014 — A grammar is a map pretending to be a machine.
           </p>
           <div className={styles.footerLinks}>
+            <a href="/projects" className={styles.formaetrixLink}>
+              Systems →
+            </a>
             <a
               href="https://www.elianvoigt.com"
               className={styles.formaetrixLink}

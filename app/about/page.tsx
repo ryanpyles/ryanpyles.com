@@ -24,8 +24,7 @@ import styles from "./page.module.css";
 const faq = [
   {
     question: "Is Ryan Pyles the same person as Elian Voigt?",
-    answer:
-      "Yes. Ryan Pyles is the person; Elian Voigt is the authorial identity his fiction is published under through FORMÆTRIX. It is a distinct literary voice, not a pseudonym in any simple sense — the distinction matters less than the work it produces.",
+    answer: "Yes. The fiction is published under Elian Voigt, through FORMÆTRIX.",
   },
   {
     question: "What is FORMÆTRIX?",
@@ -69,30 +68,6 @@ const workAreas = [
     desc: "The complete catalogue of novels published under the Elian Voigt name, with notes on form, structure, and context.",
     href: "/books",
     annotation: "≡ fiction",
-  },
-] as const;
-
-/** The harder professional layer — four disciplines, stated concretely. */
-const disciplines = [
-  {
-    n: "01",
-    name: "Engineering",
-    body: "Full-stack systems in React, Next.js, and TypeScript — architecture and data modeling through deployment.",
-  },
-  {
-    n: "02",
-    name: "AI",
-    body: "Systems that reason over long-form context: narrative continuity, retrieval, and structured memory.",
-  },
-  {
-    n: "03",
-    name: "Design",
-    body: "Editorial interfaces and design-token systems where typography and form carry as much meaning as the copy.",
-  },
-  {
-    n: "04",
-    name: "Language",
-    body: "Multilingual architecture and applied linguistics — twelve languages in active study, built into the work.",
   },
 ] as const;
 
@@ -206,18 +181,9 @@ export default function AboutPage() {
           <h2 className={styles.practiceHeading}>The practice</h2>
           <p className={styles.practiceIntro}>
             Beneath the literary surface is a working engineering practice. Ryan
-            builds production systems across four disciplines — most often where
-            they overlap.
+            builds production systems across software, AI, design, and language
+            — most often where they overlap.
           </p>
-          <ol className={styles.disciplines}>
-            {disciplines.map((d) => (
-              <li key={d.n} className={styles.discipline}>
-                <span className={styles.disciplineNo}>{d.n}</span>
-                <span className={styles.disciplineName}>{d.name}</span>
-                <span className={styles.disciplineBody}>{d.body}</span>
-              </li>
-            ))}
-          </ol>
           <p className={styles.selected}>
             Selected systems:{" "}
             <Link href="/projects/continuity-atlas">Continuity Atlas</Link>{" "}
@@ -265,13 +231,6 @@ export default function AboutPage() {
             <strong>FORM<Ae />TRIX</strong> is the studio, and the imprint it
             runs. <strong>Elian Voigt</strong> is the literary identity the
             fiction is published under.
-          </p>
-
-          <p className={styles.footnote}>
-            <span className={styles.footnoteMarker}>*</span>
-            Ryan Pyles is the real person. Elian Voigt is the authorial identity
-            — a distinct literary voice, not a pseudonym in any simple sense.
-            The distinction matters less than the work it produces.
           </p>
 
           <h2 className={styles.subheading}>The Work</h2>

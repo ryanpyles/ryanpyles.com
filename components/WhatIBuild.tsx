@@ -4,25 +4,9 @@ import Reveal from "./Reveal";
 import { Ae } from "./Ae";
 import styles from "./WhatIBuild.module.css";
 
-const outcomes = [
-  "Built an AI-powered narrative-continuity platform for long-form fiction.",
-  "Designed publishing infrastructure supporting a growing catalogue of novels.",
-  "Developed internal tools that replace repetitive editorial workflows.",
-  "Shipped React / TypeScript products from concept through deployment.",
-];
-
-const process = [
-  "Discovery",
-  "Architecture",
-  "Prototype",
-  "AI Integration",
-  "Testing",
-  "Launch",
-];
-
 export default function WhatIBuild() {
   return (
-    <section className={styles.section} id="work" aria-label="What I build for clients">
+    <section className={styles.section} id="work" aria-label="For clients">
       <div className={styles.inner}>
         <Reveal>
           <p className={styles.kicker}>
@@ -30,63 +14,36 @@ export default function WhatIBuild() {
           </p>
         </Reveal>
         <Reveal delay={80} slow>
-          <h2 className={styles.heading}>What I build for clients</h2>
+          <h2 className={styles.heading}>For clients</h2>
         </Reveal>
         <Reveal delay={160}>
           <p className={styles.intro}>
-            Design and engineering for publishers, authors, and teams where
-            language and systems are inseparable from function — from AI
-            narrative tooling to editorial web architecture and the publishing
-            infrastructure underneath it.
+            Work for clients runs through FORM<Ae />TRIX: sites, brand systems,
+            publishing infrastructure, and AI tools scoped to a manuscript or a
+            product.
+          </p>
+        </Reveal>
+        <Reveal delay={220}>
+          <p className={styles.intro}>
+            Continuity Atlas, Polytype, and Publish Architecture are studio
+            tools, built for the imprint. Demos are linked from each case study.
+            They are not client engagements.
           </p>
         </Reveal>
 
-        {/* Selected outcomes */}
-        <div className={styles.outcomes}>
-          <Reveal delay={120}>
-            <span className={styles.subLabel}>Selected outcomes</span>
-          </Reveal>
-          <ul className={styles.outcomeList}>
-            {outcomes.map((o, i) => (
-              <Reveal key={o} delay={160 + i * 80}>
-                <li className={styles.outcome}>
-                  <span className={styles.outcomeMark} aria-hidden="true" />
-                  {o}
-                </li>
-              </Reveal>
-            ))}
-          </ul>
-        </div>
-
-        {/* Process */}
-        <Reveal delay={140}>
-          <div className={styles.processBlock}>
-            <span className={styles.subLabel}>How the work moves</span>
-            <ol className={styles.process}>
-              {process.map((step, i) => (
-                <li key={step} className={styles.step}>
-                  <span className={styles.stepNum}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className={styles.stepName}>{step}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </Reveal>
-
-        {/* CTA */}
-        <Reveal delay={200}>
+        <Reveal delay={280}>
           <div className={styles.cta}>
             <Link href="/contact" className={styles.ctaPrimary}>
-              Discuss your project →
+              Discuss a project →
             </Link>
-            <Link href="/work" className={styles.ctaSecondary}>
-              How I work →
-            </Link>
-            <Link href="/projects" className={styles.ctaSecondary}>
-              View engineering work →
-            </Link>
+            <a
+              href="https://www.formaetrix.com"
+              className={styles.ctaSecondary}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              FORM<Ae />TRIX studio →
+            </a>
           </div>
         </Reveal>
       </div>

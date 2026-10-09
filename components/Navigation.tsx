@@ -5,15 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Navigation.module.css";
 
-const navLinks = [
-  /* Systems leads: it is the section a client or hiring manager came for,
-     and it now carries the long-form engineering essays too. Writing,
-     Notes and Research were three separate destinations for overlapping
-     material; the essays moved under Systems and the other two merged
-     into /notes, which is linked from About rather than the top nav. */
+const navLinks: { href: string; label: string; external?: boolean }[] = [
+  /* Systems leads: it is the section a client or hiring manager came for.
+     Fiction points at elianvoigt.com — the catalogue lives there, not in a
+     second on-site catalogue. Notes stays because the page carries real
+     substance (field notes plus the scholar's notebook). */
   { href: "/projects", label: "Systems" },
   { href: "/work", label: "Work" },
-  { href: "/books", label: "Fiction" },
+  { href: "https://www.elianvoigt.com", label: "Fiction", external: true },
   { href: "/notes", label: "Notes" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -49,7 +48,21 @@ export default function Navigation() {
         </Link>
 
         <ul className={[styles.links, menuOpen ? styles.open : ""].join(" ")} role="list">
-          {navLinks.map(({ href, label }) => {
+          {navLinks.map(({ href, label, external }) => {
+            if (external) {
+              return (
+                <li key={href}>
+                  <a
+                    href={href}
+                    className={styles.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {label}
+                  </a>
+                </li>
+              );
+            }
             const active = pathname === href || pathname.startsWith(href + "/");
             return (
               <li key={href}>

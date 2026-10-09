@@ -4,22 +4,18 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import FieldNotesScene from "@/components/FieldNotesScene";
-import EcosystemScene from "@/components/EcosystemScene";
 import WhatIBuild from "@/components/WhatIBuild";
 import Disciplines from "@/components/Disciplines";
 import HeroOrrery from "@/components/HeroOrrery";
-import SystemsMap from "@/components/SystemsMap";
 import LanguageInterstitial from "@/components/LanguageInterstitial";
 import SectionTransition from "@/components/SectionTransition";
 import HomeArtifacts from "@/components/HomeArtifacts";
+import PolytypeSpecimen from "@/components/PolytypeSpecimen";
 import { Ae } from "@/components/Ae";
 import RotateHint from "@/components/RotateHint";
 import BooksScene from "@/components/BooksScene";
-import VoigtIdentityBand from "@/components/VoigtIdentityBand";
 import ContinuityAtlasScene from "@/components/ContinuityAtlasScene";
-import InProgressScene from "@/components/InProgressScene";
 import Reveal from "@/components/Reveal";
-import LocaleSwitcher from "@/components/LocaleSwitcher";
 import DeferMount from "@/components/DeferMount";
 import { buildPageMetadata, buildPersonJsonLd, buildOrganizationJsonLd } from "@/lib/metadata";
 import { siteUrl, landingLanguageAlternates } from "@/lib/i18n";
@@ -82,9 +78,9 @@ const LanguageOrreryScene = dynamic(
 );
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Ryan Pyles — Software Engineer, AI Architect & Multidisciplinary Technologist",
+  title: "Ryan J. Pyles — software, AI, design, language.",
   description:
-    "Ryan Pyles is a Chicago technologist working across software engineering, AI systems, design, and language — building AI, publishing, and multilingual web systems with React, Next.js, and TypeScript. He runs the FORMÆTRIX studio and writes fiction as Elian Voigt.",
+    "Chicago. Software, AI systems, design, and language. Studio: FORMÆTRIX. Fiction: Elian Voigt.",
   path: "",
   keywords: [
     "Ryan Pyles",
@@ -163,18 +159,7 @@ export default function HomePage() {
             I build systems for problems that refuse to stay in one discipline.
           </h1>
 
-          {/* The thesis of the whole site — four disciplines, one orbit. */}
-          <p className={`${styles.heroDeck} ${styles.heroEnter} ${styles.heroEnter3}`}>
-            Software. AI. Design. Language. The interesting work happens
-            between them.
-          </p>
-
-          <p className={`${styles.heroClarity} ${styles.heroEnter} ${styles.heroEnter4}`}>
-            Software engineering, AI systems, product design, and language —
-            brought to problems that cross all four, through FORMÆTRIX.
-          </p>
-
-          {/* Two visually equal paths — hire, or read — then a quiet third. */}
+          {/* One button — the single action. Cross-links live in the footer. */}
           <div className={`${styles.heroCtas} ${styles.heroEnter} ${styles.heroEnter5}`}>
             <Link
               href="/contact"
@@ -182,22 +167,6 @@ export default function HomePage() {
               aria-label="Discuss a project — get in touch"
             >
               Discuss a project →
-            </Link>
-            <a
-              href="https://www.elianvoigt.com"
-              className={styles.heroCtaOutline}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Read the fiction — ElianVoigt.com"
-            >
-              Read the fiction →
-            </a>
-            <Link
-              href="/projects"
-              className={styles.heroCtaSecondary}
-              aria-label="View engineering work — projects and case studies"
-            >
-              View engineering work →
             </Link>
           </div>
 
@@ -210,37 +179,12 @@ export default function HomePage() {
           <span>People</span>
           <span>A brighter tomorrow</span>
         </p>
-
-        <div className={styles.langWrap}>
-          <LocaleSwitcher current="en" />
-        </div>
       </section>
 
       {/* ── The four disciplines — the multidisciplinary proposition,
            visible immediately. Software, AI, design, language as one
            practice before any single flagship. ─────────────────── */}
       <Disciplines />
-
-      {/* ── Highlights: credibility at a glance ──────────────── */}
-      <section className={styles.highlights} aria-label="At a glance">
-        <div className={styles.highlightsInner}>
-          <div className={styles.highlight}>
-            <span className={styles.highlightValue}>AI &amp; web systems</span>
-            <span className={styles.highlightLabel}>shipped end to end</span>
-          </div>
-          <div className={styles.highlight}>
-            <span className={styles.highlightValue}>Six published novels</span>
-            <span className={styles.highlightLabel}>as Elian Voigt</span>
-          </div>
-          <div className={styles.highlight}>
-            <span className={styles.highlightValue}>Twelve languages</span>
-            <span className={styles.highlightLabel}>in active study</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Systems map — the brand architecture, navigable ────── */}
-      <SystemsMap />
 
       {/* ── What I build for clients (commercial legibility) ───── */}
       <WhatIBuild />
@@ -257,11 +201,27 @@ export default function HomePage() {
       {/* ── Featured Work: Continuity Atlas — pinned product scene ─ */}
       <ContinuityAtlasScene />
 
+      {/* ── Signature system: Polytype — the live multilingual
+           specimen. Script-switching recomposition driven by the real
+           engine; the site's most distinctive proof of the language +
+           engineering overlap. Deferred to keep it off the critical path. ─ */}
+      <DeferMount strategy="visible" minHeight="720px">
+        <PolytypeSpecimen />
+      </DeferMount>
+
       {/* ── Selected systems — compact evidence plates ─────────── */}
       <HomeArtifacts />
 
-      {/* ── In Progress — pinned research-ledger scene ──────────── */}
-      <InProgressScene />
+      {/* ── Work in progress — one line, not a ledger of unpublished work ─ */}
+      <section className={styles.progressNote} aria-label="Work in progress">
+        <p>
+          Notes and manuscripts in progress live under{" "}
+          <a href="https://www.elianvoigt.com" target="_blank" rel="noopener noreferrer">
+            Fiction
+          </a>
+          .
+        </p>
+      </section>
 
       {/* ── Mid-page CTA — the conversion moment, after the pitch and the
            proof. Previously mobile-only, which left desktop with no way
@@ -286,12 +246,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── The pivot: from what he builds to why there are three names. ─── */}
-      {/* ── Ecosystem — pinned scroll scene: three doors reveal in turn ──── */}
-      <EcosystemScene />
-
-      {/* ── The Voigt Project — short identity module (full case study at /voigt-project) ─ */}
-      <VoigtIdentityBand />
+      {/* ── Three ways in — a plain cross-link footer ──────────────────── */}
+      <section className={styles.waysIn} aria-label="Elsewhere">
+        <ul className={styles.waysInList}>
+          <li>
+            <a href="https://www.formaetrix.com" target="_blank" rel="noopener noreferrer">
+              <span className={styles.waysInName}>FORM<Ae />TRIX</span>
+              <span className={styles.waysInDesc}>studio and imprint</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.elianvoigt.com" target="_blank" rel="noopener noreferrer">
+              <span className={styles.waysInName}>Elian Voigt</span>
+              <span className={styles.waysInDesc}>six novels</span>
+            </a>
+          </li>
+          <li>
+            <Link href="/notes">
+              <span className={styles.waysInName}>Notes</span>
+              <span className={styles.waysInDesc}>field writing</span>
+            </Link>
+          </li>
+        </ul>
+      </section>
 
       {/* ── The literary arc, for readers who keep going. ─────────────── */}
       {/* ── Fiction / Books — pinned shelf scene ───────────────── */}

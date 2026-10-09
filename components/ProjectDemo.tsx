@@ -4,7 +4,9 @@ import React, { Suspense, useState } from "react";
 import { Ae } from "./Ae";
 import PolytypeStudio from "./PolytypeStudio";
 import PublishArchitectureDemo from "./PublishArchitectureDemo";
+import PublishPipeline from "./PublishPipeline";
 import LocaleProductDemo from "./LocaleProductDemo";
+import LocaleCompare from "./LocaleCompare";
 import dynamic from "next/dynamic";
 import type { DemoType } from "@/content/projectCases";
 import styles from "./ProjectDemo.module.css";
@@ -440,8 +442,18 @@ export default function ProjectDemo({ type, caption }: { type: DemoType; caption
       {type === "tokens" && <TokensDemo />}
       {type === "schema" && <SchemaDemo />}
       {type === "polytype" && <PolytypeStudio />}
-      {type === "publish-arch" && <PublishArchitectureDemo />}
-      {type === "locale-system" && <LocaleProductDemo />}
+      {type === "publish-arch" && (
+        <>
+          <PublishPipeline />
+          <PublishArchitectureDemo />
+        </>
+      )}
+      {type === "locale-system" && (
+        <>
+          <LocaleCompare />
+          <LocaleProductDemo />
+        </>
+      )}
       {type === "continuity-atlas" && <ContinuityAtlasDemo />}
       {caption && <p className={styles.caption}>{caption}</p>}
     </div>

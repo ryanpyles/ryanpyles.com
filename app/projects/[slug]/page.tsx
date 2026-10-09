@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import SiteLayout from "@/components/SiteLayout";
 import CaseStudyView from "@/components/CaseStudyView";
 import ContinuityAtlasCaseStudy from "@/components/ContinuityAtlasCaseStudy";
+import ContinuitySplitView from "@/components/ContinuitySplitView";
 import EmbeddedApp from "@/components/EmbeddedApp";
 import {
   projectCases,
@@ -126,6 +127,7 @@ export default function CaseStudyPage({ params }: Props) {
           cs={cs}
           demo={<ProjectDemo type={cs.demo.type} />}
         />
+        <ContinuitySplitView />
       </SiteLayout>
     );
   }

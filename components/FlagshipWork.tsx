@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import Reveal from "./Reveal";
+import Annotation from "./Annotation";
+import Diagram, { g } from "./diagram/Diagram";
 import { getCaseStudy } from "@/content/projectCases";
 import styles from "./FlagshipWork.module.css";
 
@@ -13,9 +15,9 @@ import styles from "./FlagshipWork.module.css";
  * one-source/many-outputs pipeline, a locale audit matrix. No raster, no
  * stock: every figure is drawn from the project's own logic.
  *
- * The motifs share one drawing grammar (hairline strokes, mono labels, a
- * single accent reserved for the active signal) so the four read as exhibits
- * in one museum, not four unrelated graphics.
+ * The motifs are drawn with the shared diagram grammar (components/diagram),
+ * so the four read as exhibits in one museum; each carries one restrained
+ * Annotation naming a real implementation decision.
  */
 
 type MotifKind = "atlas" | "polytype" | "publish" | "locale";
@@ -24,13 +26,46 @@ interface Flagship {
   slug: string;
   index: string;
   motif: MotifKind;
+  annotation: { label: string; note: string };
 }
 
 const FLAGSHIPS: Flagship[] = [
-  { slug: "continuity-atlas", index: "01", motif: "atlas" },
-  { slug: "polytype", index: "02", motif: "polytype" },
-  { slug: "publish-architecture", index: "03", motif: "publish" },
-  { slug: "locale-aware-product-system", index: "04", motif: "locale" },
+  {
+    slug: "continuity-atlas",
+    index: "01",
+    motif: "atlas",
+    annotation: {
+      label: "what's mocked",
+      note: "AI generation is mocked in the prototype — the design thinking is the subject. The data is real, extracted from the Liminal 6:17 manuscript.",
+    },
+  },
+  {
+    slug: "polytype",
+    index: "02",
+    motif: "polytype",
+    annotation: {
+      label: "deterministic",
+      note: "No model sits in the decision path. Script, direction, leading, and overflow are resolved by inspectable rules — the point is showing where a model does not belong.",
+    },
+  },
+  {
+    slug: "publish-architecture",
+    index: "03",
+    motif: "publish",
+    annotation: {
+      label: "the print path",
+      note: "Print targets a LuaLaTeX pipeline; the live demo renders the canonical model and the build validator in the browser.",
+    },
+  },
+  {
+    slug: "locale-aware-product-system",
+    index: "04",
+    motif: "locale",
+    annotation: {
+      label: "where AI sits",
+      note: "AI is advisory only — a shorter label, an explanation of a QA failure. The authoritative locale behavior is deterministic, over ECMA Intl.",
+    },
+  },
 ];
 
 export default function FlagshipWork() {
@@ -82,9 +117,14 @@ export default function FlagshipWork() {
                     ))}
                   </ul>
 
-                  <Link href={`/projects/${c.slug}`} className={styles.link}>
-                    Open the case study →
-                  </Link>
+                  <div className={styles.footRow}>
+                    <Link href={`/projects/${c.slug}`} className={styles.link}>
+                      Open the case study →
+                    </Link>
+                    <Annotation label={f.annotation.label}>
+                      {f.annotation.note}
+                    </Annotation>
+                  </div>
                 </div>
               </article>
             </Reveal>
@@ -96,8 +136,9 @@ export default function FlagshipWork() {
 }
 
 /* ── Motifs ──────────────────────────────────────────────────────────────
-   One shared grammar: 1.25px hairlines in currentColor, mono labels, the
-   accent class reserved for the single "live signal" in each figure. */
+   Drawn with the shared grammar (`g`), framed by the shared <Diagram>. The
+   accent class (`g.signal`) is reserved for the single "live signal" in each
+   figure — the fracture, the RTL run, an overflow. */
 
 function Motif({ kind }: { kind: MotifKind }) {
   switch (kind) {
@@ -113,44 +154,44 @@ function Motif({ kind }: { kind: MotifKind }) {
 }
 
 /* Continuity Atlas — a character resolved into chapter states along a
-   timeline; one state fractures (red diamond), one fact is author-only
+   timeline; one state fractures (accent diamond), one fact is author-only
    (violet). "The unit of memory is the state, not the character." */
 function AtlasMotif() {
   return (
-    <svg className={styles.svg} viewBox="0 0 440 240" role="presentation">
+    <Diagram viewBox="0 0 440 240">
       {/* timeline */}
-      <line className={styles.wire} x1="60" y1="190" x2="400" y2="190" />
+      <line className={g.wire} x1="60" y1="190" x2="400" y2="190" />
       {[60, 145, 230, 315, 400].map((x) => (
-        <line key={x} className={styles.tick} x1={x} y1="185" x2={x} y2="195" />
+        <line key={x} className={g.tick} x1={x} y1="185" x2={x} y2="195" />
       ))}
-      <text className={styles.lab} x="60" y="214">CH.I</text>
-      <text className={styles.lab} x="214" y="214">CH.IV</text>
-      <text className={styles.lab} x="372" y="214">CH.VII</text>
+      <text className={g.lab} x="60" y="214">CH.I</text>
+      <text className={g.lab} x="214" y="214">CH.IV</text>
+      <text className={g.lab} x="372" y="214">CH.VII</text>
 
       {/* character node */}
-      <circle className={styles.node} cx="60" cy="70" r="16" />
-      <text className={styles.nodeLab} x="60" y="74" textAnchor="middle">JACK</text>
+      <circle className={g.node} cx="60" cy="70" r="16" />
+      <text className={g.nodeLab} x="60" y="74" textAnchor="middle">JACK</text>
 
       {/* state wires to the timeline */}
-      <path className={styles.wire} d="M60 86 C 60 150, 145 150, 145 182" fill="none" />
-      <path className={styles.wire} d="M76 70 C 180 70, 215 150, 230 182" fill="none" />
-      <path className={styles.wire} d="M76 70 C 300 70, 315 150, 315 182" fill="none" />
+      <path className={g.wire} d="M60 86 C 60 150, 145 150, 145 182" fill="none" />
+      <path className={g.wire} d="M76 70 C 180 70, 215 150, 230 182" fill="none" />
+      <path className={g.wire} d="M76 70 C 300 70, 315 150, 315 182" fill="none" />
 
       {/* states on the line */}
-      <circle className={styles.state} cx="145" cy="190" r="5" />
-      {/* fracture state — rotated diamond, the one signal in accent-red */}
+      <circle className={g.state} cx="145" cy="190" r="5" />
+      {/* fracture state — rotated diamond, the one signal in accent */}
       <rect
-        className={styles.fracture}
+        className={g.signal}
         x="224" y="184" width="12" height="12"
         transform="rotate(45 230 190)"
       />
       {/* author-only state */}
-      <circle className={styles.authorOnly} cx="315" cy="190" r="5" />
+      <circle className={g.signalAlt} cx="315" cy="190" r="5" />
 
-      <text className={styles.capt} x="230" y="38" textAnchor="middle">
+      <text className={g.capt} x="230" y="38" textAnchor="middle">
         fracture · lucid → fractured
       </text>
-    </svg>
+    </Diagram>
   );
 }
 
@@ -165,20 +206,20 @@ function PolytypeMotif() {
   ];
   let x = 40;
   return (
-    <svg className={styles.svg} viewBox="0 0 440 240" role="presentation">
-      <text className={styles.capt} x="40" y="48">detectScripts( )</text>
+    <Diagram viewBox="0 0 440 240">
+      <text className={g.capt} x="40" y="48">detectScripts( )</text>
       {runs.map((r) => {
         const el = (
           <g key={r.label}>
             <rect
-              className={r.rtl ? styles.runRtl : styles.run}
+              className={r.rtl ? g.runRtl : g.run}
               x={x}
               y="96"
               width={r.w}
               height="48"
               rx="3"
             />
-            <text className={styles.runLab} x={x + r.w / 2} y="124" textAnchor="middle">
+            <text className={g.runLab} x={x + r.w / 2} y="124" textAnchor="middle">
               {r.label} {r.dir}
             </text>
           </g>
@@ -187,35 +228,35 @@ function PolytypeMotif() {
         return el;
       })}
       {/* baseline */}
-      <line className={styles.wire} x1="40" y1="168" x2="400" y2="168" />
-      <text className={styles.lab} x="40" y="192">ONE STRING · FOUR RUNS · TWO DIRECTIONS</text>
-    </svg>
+      <line className={g.wire} x1="40" y1="168" x2="400" y2="168" />
+      <text className={g.lab} x="40" y="192">ONE STRING · FOUR RUNS · TWO DIRECTIONS</text>
+    </Diagram>
   );
 }
 
 /* Publish Architecture — one semantic source compiled to many outputs. */
 function PublishMotif() {
   return (
-    <svg className={styles.svg} viewBox="0 0 440 240" role="presentation">
+    <Diagram viewBox="0 0 440 240">
       {/* source → model */}
-      <line className={styles.wire} x1="70" y1="120" x2="190" y2="120" />
+      <line className={g.wire} x1="70" y1="120" x2="190" y2="120" />
       {/* model → outputs */}
-      <path className={styles.wire} d="M230 120 C 300 120, 320 60, 380 60" fill="none" />
-      <line className={styles.wire} x1="230" y1="120" x2="380" y2="120" />
-      <path className={styles.wire} d="M230 120 C 300 120, 320 180, 380 180" fill="none" />
+      <path className={g.wire} d="M230 120 C 300 120, 320 60, 380 60" fill="none" />
+      <line className={g.wire} x1="230" y1="120" x2="380" y2="120" />
+      <path className={g.wire} d="M230 120 C 300 120, 320 180, 380 180" fill="none" />
 
-      <text className={styles.nodeLab} x="40" y="124">SOURCE</text>
-      <circle className={styles.hub} cx="210" cy="120" r="22" />
-      <text className={styles.hubLab} x="210" y="124" textAnchor="middle">MODEL</text>
+      <text className={g.nodeLab} x="40" y="124">SOURCE</text>
+      <circle className={g.hub} cx="210" cy="120" r="22" />
+      <text className={g.hubLab} x="210" y="124" textAnchor="middle">MODEL</text>
 
       {[60, 120, 180].map((y) => (
-        <circle key={y} className={styles.state} cx="380" cy={y} r="5" />
+        <circle key={y} className={g.state} cx="380" cy={y} r="5" />
       ))}
-      <text className={styles.lab} x="392" y="64">PRINT</text>
-      <text className={styles.lab} x="392" y="124">EPUB</text>
-      <text className={styles.lab} x="392" y="184">WEB</text>
-      <text className={styles.capt} x="40" y="214">one source · corrected once · reaches every edition</text>
-    </svg>
+      <text className={g.lab} x="392" y="64">PRINT</text>
+      <text className={g.lab} x="392" y="124">EPUB</text>
+      <text className={g.lab} x="392" y="184">WEB</text>
+      <text className={g.capt} x="40" y="214">one source · corrected once · reaches every edition</text>
+    </Diagram>
   );
 }
 
@@ -232,9 +273,9 @@ function LocaleMotif() {
   const cw = 58;
   const originX = 96;
   return (
-    <svg className={styles.svg} viewBox="0 0 440 240" role="presentation">
+    <Diagram viewBox="0 0 440 240">
       {cols.map((c, i) => (
-        <text key={c} className={styles.lab} x={originX + i * cw + cw / 2} y="56" textAnchor="middle">
+        <text key={c} className={g.lab} x={originX + i * cw + cw / 2} y="56" textAnchor="middle">
           {c}
         </text>
       ))}
@@ -242,11 +283,11 @@ function LocaleMotif() {
         const y = 92 + ri * 46;
         return (
           <g key={r.label}>
-            <text className={styles.nodeLab} x="40" y={y + 4}>{r.label}</text>
+            <text className={g.nodeLab} x="40" y={y + 4}>{r.label}</text>
             {r.cells.map((cell, ci) => (
               <g key={ci}>
                 <rect
-                  className={styles.cell}
+                  className={g.cell}
                   x={originX + ci * cw - cw / 2 + 6}
                   y={y - 18}
                   width={cw - 12}
@@ -254,7 +295,7 @@ function LocaleMotif() {
                   rx="3"
                 />
                 <text
-                  className={cell === "ok" ? styles.cellOk : styles.cellBad}
+                  className={cell === "ok" ? g.cellOk : g.cellBad}
                   x={originX + ci * cw}
                   y={y + 5}
                   textAnchor="middle"
@@ -266,7 +307,7 @@ function LocaleMotif() {
           </g>
         );
       })}
-      <text className={styles.capt} x="40" y="224">✓ fits · ! tight · ✕ overflows — caught in development</text>
-    </svg>
+      <text className={g.capt} x="40" y="224">✓ fits · ! tight · ✕ overflows — caught in development</text>
+    </Diagram>
   );
 }

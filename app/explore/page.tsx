@@ -1,5 +1,5 @@
 import React from "react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import ExploreScene from "@/components/ExploreScene";
 import { buildPageMetadata } from "@/lib/metadata";
 
@@ -9,6 +9,10 @@ export const metadata: Metadata = buildPageMetadata({
     "A navigable spatial index of Ryan J. Pyles's work — travel laterally between sections, vertically within each. Software, AI, design, language, and fiction.",
   path: "/explore",
 });
+
+// Extend under the notch / home indicator so the scene's safe-area padding
+// has real insets to honor on phones.
+export const viewport: Viewport = { viewportFit: "cover" };
 
 /**
  * /explore — the immersive mode. Rendered bare (no SiteLayout chrome) so the

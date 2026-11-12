@@ -35,15 +35,39 @@ export default function ExploreScene() {
 
   const [s, setS] = useState(0);
   const [i, setI] = useState(0);
+  const [compact, setCompact] = useState(false);
+  const [canvasOn, setCanvasOn] = useState(false);
   const moved = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const activeLinkRef = useRef<HTMLAnchorElement | null>(null);
+  const railRef = useRef<HTMLOListElement | null>(null);
   const wheelLock = useRef(false);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
 
   const section = exploreMap[s];
   const item = section.items[i];
-  const showCanvas = webgl === true && !reduced;
+  // The 3D backdrop is opt-in on compact / low-power devices: default to the
+  // clean 2D index there, and let anyone toggle it. Never shown when WebGL is
+  // unavailable or motion is reduced.
+  const canToggle = webgl === true && !reduced;
+  const showCanvas = canvasOn && canToggle;
+
+  // Decide the default once, on mount: desktop pointer → 3D on; phones → off.
+  useEffect(() => {
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const small = window.innerWidth < 768;
+    const lowMem = typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4;
+    const isCompact = coarse || small || lowMem;
+    setCompact(isCompact);
+    setCanvasOn(!isCompact);
+  }, []);
+
+  // Keep the active section's rail chip in view as the path advances.
+  useEffect(() => {
+    const el = railRef.current?.querySelector<HTMLElement>('[aria-current="true"]');
+    el?.scrollIntoView({ inline: "center", block: "nearest", behavior: reduced ? "auto" : "smooth" });
+  }, [s, reduced]);
 
   const goSection = useCallback((dir: number) => {
     moved.current = true;
@@ -222,7 +246,7 @@ export default function ExploreScene() {
       {showCanvas && (
         <div className={styles.canvas} aria-hidden="true">
           <WebGLBoundary>
-            <ExploreBackdrop map={exploreMap} s={s} i={i} />
+            <ExploreBackdrop map={exploreMap} s={s} i={i} lowPower={compact} />
           </WebGLBoundary>
         </div>
       )}
@@ -230,14 +254,25 @@ export default function ExploreScene() {
       <div className={styles.ui}>
         <header className={styles.topbar}>
           <span className={styles.eyebrow}>Explore · spatial index</span>
-          <Link href="/" className={styles.exit}>
-            Exit to site ✕
-          </Link>
+          <div className={styles.topActions}>
+            {canToggle && (
+              <button
+                className={styles.toggle}
+                aria-pressed={canvasOn}
+                onClick={() => setCanvasOn((v) => !v)}
+              >
+                {canvasOn ? "Exit 3D" : "Enter 3D"}
+              </button>
+            )}
+            <Link href="/" className={styles.exit}>
+              Exit to site ✕
+            </Link>
+          </div>
         </header>
 
         {/* Lateral wayfinding — the fixed path of sections. */}
         <nav className={styles.rail} aria-label="Sections">
-          <ol className={styles.railList}>
+          <ol className={styles.railList} ref={railRef}>
             {exploreMap.map((sec, idx) => (
               <li key={sec.label}>
                 <button

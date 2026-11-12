@@ -10,8 +10,8 @@
  * allowed; it degrades to nothing behind the 2D index.
  */
 
-import React, { useMemo, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { useEffect, useMemo, useRef } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Line } from "@react-three/drei";
 import * as THREE from "three";
 import type { ExploreSection } from "@/content/exploreMap";
@@ -89,16 +89,28 @@ function Panel({ cell, active, section }: { cell: Cell; active: boolean; section
 }
 
 function Rig({ focusX, focusY }: { focusX: number; focusY: number }) {
-  const target = useRef(new THREE.Vector3(focusX, focusY, 0));
+  const target = useRef(new THREE.Vector3(focusX, focusY, CAM_Z));
   const look = useRef(new THREE.Vector3(focusX, focusY, 0));
+  const invalidate = useThree((s) => s.invalidate);
+
+  // Render-on-demand: a focus change kicks one frame; the frame loop below
+  // sustains itself only while the camera is still settling, then stops. The
+  // GPU idles when nothing is moving — the point on a phone's battery.
+  useEffect(() => {
+    invalidate();
+  }, [focusX, focusY, invalidate]);
 
   useFrame(({ camera }, delta) => {
-    // Critically-damped follow toward the focused cell.
     const k = 1 - Math.pow(0.0015, delta);
     target.current.set(focusX, focusY, CAM_Z);
     look.current.lerp(new THREE.Vector3(focusX, focusY, 0), k);
     camera.position.lerp(target.current, k);
     camera.lookAt(look.current);
+    const dist =
+      Math.abs(focusX - camera.position.x) +
+      Math.abs(focusY - camera.position.y) +
+      Math.abs(CAM_Z - camera.position.z);
+    if (dist > 0.002) invalidate();
   });
   return null;
 }
@@ -107,10 +119,12 @@ export default function ExploreBackdrop({
   map,
   s,
   i,
+  lowPower = false,
 }: {
   map: ExploreSection[];
   s: number;
   i: number;
+  lowPower?: boolean;
 }) {
   const cells = useMemo(() => buildCells(map), [map]);
   const n = map[s]?.items.length ?? 1;
@@ -119,9 +133,10 @@ export default function ExploreBackdrop({
 
   return (
     <Canvas
+      frameloop="demand"
       camera={{ position: [focusX, focusY, CAM_Z], fov: 42 }}
-      dpr={[1, 1.5]}
-      gl={{ antialias: true }}
+      dpr={lowPower ? [1, 1] : [1, 1.5]}
+      gl={{ antialias: !lowPower, powerPreference: "low-power" }}
       style={{ position: "absolute", inset: 0 }}
     >
       <color attach="background" args={[PAPER]} />

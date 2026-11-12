@@ -1,0 +1,329 @@
+.root {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  background: var(--color-black);
+  color: var(--color-white);
+  overflow: hidden;
+  outline: none;
+  font-family: var(--font-body);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.ui {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: clamp(var(--space-4), 3vh, var(--space-10));
+  padding: clamp(var(--space-5), 4vh, var(--space-10)) clamp(var(--space-5), 5vw, var(--space-16));
+  pointer-events: none;
+}
+
+.ui > * {
+  pointer-events: auto;
+}
+
+/* ── Top bar ─────────────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.exit {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 2px;
+}
+
+.exit:hover {
+  color: var(--color-accent);
+}
+
+/* ── Rail (lateral) ──────────────────────────────────────────────── */
+.rail {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.railList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-4);
+}
+
+.railDot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  border: 0;
+  border-top: 2px solid transparent;
+  margin-top: -1px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.railNum {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+}
+
+.railLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.railDot:hover .railLabel,
+.railDot:hover .railNum {
+  color: var(--color-white);
+}
+
+.railDotOn {
+  border-top-color: var(--color-accent);
+}
+
+.railDotOn .railLabel {
+  color: var(--color-white);
+}
+.railDotOn .railNum {
+  color: var(--color-accent);
+}
+
+.railDot:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Station (the focused section) ───────────────────────────────── */
+.station {
+  align-self: center;
+  max-width: 640px;
+}
+
+.position {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 var(--space-4);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.04;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-4);
+}
+
+.tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--color-muted);
+  margin: 0 0 var(--space-8);
+  max-width: 48ch;
+}
+
+.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.item {
+  display: block;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-left: 2px solid transparent;
+  border-radius: var(--radius-base);
+  text-decoration: none;
+  background: transparent;
+  transition: border-color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.item:hover {
+  border-color: var(--color-muted);
+}
+
+.itemActive {
+  border-color: var(--color-accent);
+  border-left-color: var(--color-accent);
+  background: var(--color-surface);
+  transform: translateX(4px);
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.itemTitle {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: var(--color-white);
+  margin-bottom: 2px;
+}
+
+.itemBlurb {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+}
+
+/* ── Controls ────────────────────────────────────────────────────── */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.pad {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.padCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.padBtn {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  color: var(--color-white);
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.padBtn:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.padBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.padBtn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.hint {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ── Screen-reader only ──────────────────────────────────────────── */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .ui {
+    grid-template-rows: auto auto 1fr auto;
+    gap: var(--space-5);
+  }
+  .station {
+    align-self: start;
+  }
+  .hint {
+    display: none;
+  }
+  .controls {
+    justify-content: center;
+  }
+  .padBtn {
+    width: 48px;
+    height: 48px;
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .railDot,
+  .item,
+  .padBtn {
+    transition: none;
+  }
+  .itemActive {
+    transform: none;
+  }
+}

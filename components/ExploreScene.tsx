@@ -69,28 +69,81 @@ export default function ExploreScene() {
     el?.scrollIntoView({ inline: "center", block: "nearest", behavior: reduced ? "auto" : "smooth" });
   }, [s, reduced]);
 
-  const goSection = useCallback((dir: number) => {
-    moved.current = true;
-    setS((cur) => {
-      const next = clamp(cur + dir, 0, exploreMap.length - 1);
-      if (next !== cur) setI(0);
-      return next;
-    });
+  // First-visit gesture coaching, shown once per browser.
+  const [coach, setCoach] = useState(false);
+  const coachSeen = useRef(true);
+  useEffect(() => {
+    try {
+      coachSeen.current = !!localStorage.getItem("explore-coached");
+    } catch {
+      coachSeen.current = false;
+    }
+    if (!coachSeen.current) setCoach(true);
   }, []);
+  const dismissCoach = useCallback(() => {
+    setCoach(false);
+    coachSeen.current = true;
+    try {
+      localStorage.setItem("explore-coached", "1");
+    } catch {
+      /* private mode — fine, it just shows again next time */
+    }
+  }, []);
+
+  // A light haptic tick on a real move (mobile only; no-op elsewhere). Gated
+  // by reduced-motion, which also covers vestibular sensitivity.
+  const haptic = useCallback(
+    (ms: number) => {
+      if (reduced) return;
+      try {
+        navigator.vibrate?.(ms);
+      } catch {
+        /* unsupported — ignore */
+      }
+    },
+    [reduced]
+  );
+
+  const onInteract = useCallback(() => {
+    if (!coachSeen.current) dismissCoach();
+  }, [dismissCoach]);
+
+  const goSection = useCallback(
+    (dir: number) => {
+      onInteract();
+      const next = clamp(s + dir, 0, exploreMap.length - 1);
+      if (next === s) return;
+      moved.current = true;
+      haptic(8);
+      setS(next);
+      setI(0);
+    },
+    [s, haptic, onInteract]
+  );
 
   const goItem = useCallback(
     (dir: number) => {
+      onInteract();
+      const next = clamp(i + dir, 0, exploreMap[s].items.length - 1);
+      if (next === i) return;
       moved.current = true;
-      setI((cur) => clamp(cur + dir, 0, exploreMap[s].items.length - 1));
+      haptic(8);
+      setI(next);
     },
-    [s]
+    [s, i, haptic, onInteract]
   );
 
-  const jumpSection = useCallback((target: number) => {
-    moved.current = true;
-    setS(clamp(target, 0, exploreMap.length - 1));
-    setI(0);
-  }, []);
+  const jumpSection = useCallback(
+    (target: number) => {
+      onInteract();
+      const next = clamp(target, 0, exploreMap.length - 1);
+      moved.current = true;
+      haptic(12);
+      setS(next);
+      if (next !== s) setI(0);
+    },
+    [s, haptic, onInteract]
+  );
 
   // Move DOM focus to the active item after a navigation, so Enter activates
   // natively and screen readers follow. Never on first mount (no focus theft).
@@ -339,6 +392,44 @@ export default function ExploreScene() {
           </p>
         </div>
       </div>
+
+      {/* Edge peeks — a quiet affordance that more sections sit left/right.
+          Decorative duplicates of the rail/pad, so hidden from the a11y tree. */}
+      {s > 0 && (
+        <button
+          className={styles.peekLeft}
+          onClick={() => goSection(-1)}
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          ‹ {exploreMap[s - 1].label}
+        </button>
+      )}
+      {s < exploreMap.length - 1 && (
+        <button
+          className={styles.peekRight}
+          onClick={() => goSection(1)}
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          {exploreMap[s + 1].label} ›
+        </button>
+      )}
+
+      {/* First-visit gesture coach. */}
+      {coach && (
+        <div className={styles.coach} role="dialog" aria-label="How to navigate">
+          <p className={styles.coachTitle}>Travel the path</p>
+          <ul className={styles.coachList}>
+            <li><span className={styles.coachGesture}>Swipe ↔ / ← →</span> move between sections</li>
+            <li><span className={styles.coachGesture}>Swipe ↕ / ↑ ↓</span> move within a section</li>
+            <li><span className={styles.coachGesture}>Tap / Enter</span> open · <span className={styles.coachGesture}>Esc</span> exit</li>
+          </ul>
+          <button className={styles.coachDismiss} onClick={dismissCoach}>
+            Got it
+          </button>
+        </div>
+      )}
 
       {/* Position announcer for assistive tech. */}
       <p className={styles.srOnly} aria-live="polite">

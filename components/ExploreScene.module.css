@@ -357,6 +357,39 @@
   border: 0;
 }
 
+/* ── World mode: the 3D scene carries the big title + panels, so the DOM
+      recedes to a slim, still-operable HUD (kept focusable for a11y). ─── */
+.root[data-world="on"] .title,
+.root[data-world="on"] .tagline,
+.root[data-world="on"] .itemBlurb {
+  display: none;
+}
+
+.root[data-world="on"] .station {
+  align-self: end;
+  max-width: 320px;
+  opacity: 0.92;
+}
+
+.root[data-world="on"] .items {
+  gap: var(--space-2);
+}
+
+.root[data-world="on"] .item {
+  padding: var(--space-3) var(--space-4);
+  background: color-mix(in srgb, var(--color-black) 72%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.root[data-world="on"] .itemTitle {
+  font-size: var(--text-base);
+  margin-bottom: 0;
+}
+
+.root[data-world="on"] .position {
+  margin-bottom: var(--space-3);
+}
+
 /* ── Edge peeks (lateral affordance) ─────────────────────────────── */
 .peekLeft,
 .peekRight {

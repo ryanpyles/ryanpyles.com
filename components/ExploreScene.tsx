@@ -24,7 +24,7 @@ import { useWebGLAvailable } from "@/lib/useWebGLAvailable";
 import WebGLBoundary from "./WebGLBoundary";
 import styles from "./ExploreScene.module.css";
 
-const ExploreBackdrop = dynamic(() => import("./ExploreBackdrop"), { ssr: false });
+const ExploreWorld = dynamic(() => import("./ExploreWorld"), { ssr: false });
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
@@ -143,6 +143,36 @@ export default function ExploreScene() {
       if (next !== s) setI(0);
     },
     [s, haptic, onInteract]
+  );
+
+  const openCell = useCallback(
+    (sec: number, it: number) => {
+      const target = exploreMap[sec].items[it];
+      if (target.external) {
+        if (target.href.startsWith("mailto:")) window.location.href = target.href;
+        else window.open(target.href, "_blank", "noopener,noreferrer");
+      } else {
+        router.push(target.href);
+      }
+    },
+    [router]
+  );
+
+  // A click on a 3D panel: open it if it's already the focused cell, else fly
+  // there first (so the camera travels before you commit).
+  const onPanelClick = useCallback(
+    (sec: number, it: number) => {
+      onInteract();
+      if (sec === s && it === i) {
+        openCell(sec, it);
+        return;
+      }
+      moved.current = true;
+      haptic(10);
+      setS(sec);
+      setI(it);
+    },
+    [s, i, openCell, haptic, onInteract]
   );
 
   // Move DOM focus to the active item after a navigation, so Enter activates
@@ -288,6 +318,7 @@ export default function ExploreScene() {
       ref={containerRef}
       className={styles.root}
       data-domain="ryan"
+      data-world={showCanvas ? "on" : undefined}
       tabIndex={-1}
       role="application"
       aria-label="Explore — a spatial index of the portfolio"
@@ -299,7 +330,13 @@ export default function ExploreScene() {
       {showCanvas && (
         <div className={styles.canvas} aria-hidden="true">
           <WebGLBoundary>
-            <ExploreBackdrop map={exploreMap} s={s} i={i} lowPower={compact} />
+            <ExploreWorld
+              map={exploreMap}
+              s={s}
+              i={i}
+              lowPower={compact}
+              onPanelClick={onPanelClick}
+            />
           </WebGLBoundary>
         </div>
       )}

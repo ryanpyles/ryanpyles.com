@@ -243,6 +243,21 @@
   border-left-color: var(--color-accent);
   background: var(--color-surface);
   transform: translateX(4px);
+  animation: itemIn 220ms var(--ease-out);
+}
+
+/* Each time focus lands on a new item, it travels in — a little kinetic
+   confirmation of the vertical move. The end state matches the resting
+   transform, so nothing jumps when the animation finishes. */
+@keyframes itemIn {
+  from {
+    opacity: 0.35;
+    transform: translate(4px, 9px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(4px, 0);
+  }
 }
 
 .item:focus-visible {
@@ -342,8 +357,158 @@
   border: 0;
 }
 
+/* ── World mode: the 3D scene carries the big title + panels, so the DOM
+      recedes to a slim, still-operable HUD (kept focusable for a11y). ─── */
+.root[data-world="on"] .title,
+.root[data-world="on"] .tagline,
+.root[data-world="on"] .itemBlurb {
+  display: none;
+}
+
+.root[data-world="on"] .station {
+  align-self: end;
+  max-width: 320px;
+  opacity: 0.92;
+}
+
+.root[data-world="on"] .items {
+  gap: var(--space-2);
+}
+
+.root[data-world="on"] .item {
+  padding: var(--space-3) var(--space-4);
+  background: color-mix(in srgb, var(--color-black) 72%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.root[data-world="on"] .itemTitle {
+  font-size: var(--text-base);
+  margin-bottom: 0;
+}
+
+.root[data-world="on"] .position {
+  margin-bottom: var(--space-3);
+}
+
+/* ── Edge peeks (lateral affordance) ─────────────────────────────── */
+.peekLeft,
+.peekRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: transparent;
+  border: 0;
+  padding: var(--space-5) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.peekLeft {
+  left: max(var(--space-2), env(safe-area-inset-left));
+}
+.peekRight {
+  right: max(var(--space-2), env(safe-area-inset-right));
+}
+
+.peekLeft:hover,
+.peekRight:hover {
+  opacity: 1;
+  color: var(--color-white);
+}
+
+/* ── Gesture coach (first visit) ─────────────────────────────────── */
+.coach {
+  position: absolute;
+  left: 50%;
+  bottom: max(calc(var(--space-16) + env(safe-area-inset-bottom)), var(--space-16));
+  transform: translateX(-50%);
+  z-index: 5;
+  width: min(92vw, 420px);
+  background: var(--color-black);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: 0 16px 48px rgba(26, 26, 26, 0.16);
+  animation: coachIn var(--duration-base) var(--ease-out);
+}
+
+@keyframes coachIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.coachTitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 var(--space-4);
+}
+
+.coachList {
+  list-style: none;
+  margin: 0 0 var(--space-5);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+
+.coachGesture {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+}
+
+.coachDismiss {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-black);
+  background: var(--color-white);
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.coachDismiss:hover {
+  background: var(--color-accent);
+}
+
+.coachDismiss:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 /* ── Responsive ──────────────────────────────────────────────────── */
 @media (max-width: 680px) {
+  .peekLeft,
+  .peekRight {
+    display: none;
+  }
   .ui {
     grid-template-rows: auto auto 1fr auto;
     gap: var(--space-5);
@@ -367,10 +532,16 @@
 @media (prefers-reduced-motion: reduce) {
   .railDot,
   .item,
-  .padBtn {
+  .padBtn,
+  .peekLeft,
+  .peekRight {
     transition: none;
   }
   .itemActive {
     transform: none;
+    animation: none;
+  }
+  .coach {
+    animation: none;
   }
 }
